@@ -23,8 +23,73 @@ importing data
 code chunk below uses read_csv() of readr to import REALIS2019.csv into r environment as a tibble data frame
 
 ```{r}
-realis2019 <- read.csv("Hands-on_Ex/data/REALIS2019.csv")
+realis2019 <- read_csv("data/REALIS2019.csv")
 ```
+
+```{r}
+#| eval: FALSE
+popdata_fat <- read.csv("data/PopData2019_fat.csv")
+
+```
+
+Pivoting data
+
+```{R}
+#| eval: FALSE
+popdata_long <- popdata_fat %>%
+  pivot_longer(c(3:21),
+               names_to = "Age Group",
+               values_to = "Population")
+```
+
+```{r}
+# display code and not run the code
+#| eval: FALSE
+write_rds(popdata_long,"rds/popdata_long.rds")
+```
+
+```{r}
+# run the code and do not display the code
+#| echo: FALSE
+popdata_long <- read_rds("rds/popdata_long.rds")
+```
+
+Working with dplyr
+```{r}
+realis2019_selected <- realis2019 %>% 
+  select(`Project Name`, 
+         `Transacted Price ($)`, 
+         `Property Type`,
+         `Type of Sale`,
+         `Unit Price ($ psm)`) 
+realis2019_selected
+```
+
+## working with filter() of dplyr
+
+```{r}
+realis2019_filtered <- realis2019_selected %>% 
+  filter(`Property Type` =="Condominium" | 
+           `Property Type`== "Apartment") %>% 
+  filter(`Type of Sale` == "New Sale") %>% 
+  filter(`Unit Price ($ psm)` <= 13000)
+```
+### Putting all together
+
+```{r}
+realis2019_selected <- realis2019 %>% 
+  select(`Project Name`, 
+         `Transacted Price ($)`, 
+         `Type of Sale`,
+         `Unit Price ($ psm)`,
+         `Property Type`) %>% 
+  filter(`Property Type` =="Condominium" | 
+           `Property Type`== "Apartment") %>% 
+  filter(`Type of Sale` == "New Sale") %>% 
+  filter(`Unit Price ($ psm)` <= 13000)
+```
+
+
 
 <!-- # Try not to use the below which is read_csv -->
 

@@ -1,0 +1,6 @@
+---
+title: "New"
+format: html
+---
+
+Data science hoepfully is easy
