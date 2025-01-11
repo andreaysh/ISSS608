@@ -1,0 +1,31 @@
+---
+title: "Hands-on-Exercise 00: working with tidyverse"
+author: "Andrea"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+Getting started
+
+Load tidyverse onto r environment by using the code chunk below.
+
+```{r}
+pacman::p_load(tidyverse)
+
+```
+
+importing data
+
+code chunk below uses read_csv() of readr to import REALIS2019.csv into r environment as a tibble data frame
+
+```{r}
+realis2019 <- read.csv("Hands-on_Ex/data/REALIS2019.csv")
+```
+
+<!-- # Try not to use the below which is read_csv -->
+
+<!-- # realis2019 \<- read_csv("Hands-on_Ex/data/REALIS2019.csv") -->
