@@ -1,7 +1,23 @@
 ---
-title: "ISSS608"
+title: "ISSS608 - Visual Analytics and Applications"
+output:
+  html_document:
+    css: styles.css
 ---
 
-Welcome to **ISSS608 Visual Analytics and Applications** \`\`\`
+![The future of analytics](images/Pic01.webp)
 
-![](Python-logo-notext.svg.png)
+::: {style="text-align: left;"}
+Welcome to ISS608 - Visual Analytics and Applications, AY2024/2025 Jan class!
+
+This page documents my learning journey of creating data visualization beyond default, using R and Tableau.This is part of the ISSS608 course by SMU MITB program, by ***Prof Kam Tin Seong***
+
+If you have any feedback or need any clarification, you may contact me at andrea.yeo.2023\@mitb.smu.edu.sg
+
+I hope you enjoy it!
+:::
+
+|  |  |  |
+|:----------------------:|:----------------------:|:----------------------:|
+| ![](images/Pic02.jpg){width="188"} | ![](images/Pic03.jpg) | ![](images/Pic04.jpeg) |
+| **In-Class Exercise** | **Hands-on Exercise** | **Take-home Exercise** |
