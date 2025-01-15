@@ -8,16 +8,31 @@ output:
 ![The future of analytics](images/Pic01.webp)
 
 ::: {style="text-align: left;"}
-Welcome to ISS608 - Visual Analytics and Applications, AY2024/2025 Jan class!
+## Welcome to ISS608 - Visual Analytics and Applications, AY2024/2025 Jan class!
+
+### Overview
 
 This page documents my learning journey of creating data visualization beyond default, using R and Tableau.This is part of the ISSS608 course by SMU MITB program, by ***Prof Kam Tin Seong***
 
-If you have any feedback or need any clarification, you may contact me at andrea.yeo.2023\@mitb.smu.edu.sg
+If you have any feedback or need any clarification, you may contact me at 
+[andrea.yeo.2023@mitb.smu.edu.sg](mailto:andrea.yeo.2023@mitb.smu.edu.sg)
 
 I hope you enjoy it!
+
+### Learning journey
+
+My journey into programming felt like starring in a drama-comedy series\
+- nervously stared at the code like it was ancient hieroglyphs\
+- hours of debugging only to realize I missed a semicolon/indentation\
+- the code worked (or so I thought).\
+- proudly watching my quarto run smoothly… until the next bug sneaked in
+
+![](images/Pic05.png){fig-align="center" width="396"}
+
 :::
+## Find out what I have learnt
 
 |  |  |  |
 |:----------------------:|:----------------------:|:----------------------:|
 | ![](images/Pic02.jpg){width="188"} | ![](images/Pic03.jpg) | ![](images/Pic04.jpeg) |
-| **In-Class Exercise** | **Hands-on Exercise** | **Take-home Exercise** |
+| **In-class Exercise** | **Hands-on Exercise** | **Take-home Exercise** |

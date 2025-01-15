@@ -1,4 +1,17 @@
 /* css styles */
 h1.title {
   text-align: center;
+  color: #4169e1;
+}
+
+h2 {
+    color: #4169e1; /* Replace with your desired color */
+}
+
+h3 {
+    color: #4169e1; /* Replace with your desired color */
+}
+
+h4 {
+    color: #4169e1; /* Replace with your desired color */
 }
