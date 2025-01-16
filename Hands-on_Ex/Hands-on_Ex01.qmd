@@ -176,7 +176,7 @@ Below are some examples of `geom_`:
 
 ![](/images/Pic07.jpg){width="488"}
 
-#### 1.7.1 Geometric objects: geom_bar
+#### 1.7.1 Geometric objects: [geom_bar]{style="color:#6A5ACD;font-weight:bold;"}
 
 The code below plots a bar chart by using `geom_bar()`.
 
@@ -186,7 +186,8 @@ ggplot(data=exam_data,
   geom_bar()
 ```
 
-#### 1.7.2 Geometric objects: geom_dotplot
+#### 1.7.2 Geometric objects: [geom_dotplot]{style="color:#6A5ACD;font-weight:bold;"}
+
 In a dot plot, the dot width represents the bin width (or maximum width, depending on the binning method), and dots are stacked, with each dot signifying one observation.
 
 The code below plots a dot plot chart by using `geom_dotplot()`.
@@ -197,23 +198,595 @@ ggplot(data=exam_data,
   geom_dotplot(dotsize = 0.5)
 ```
 
+::: callout-warning
+To note that the y scale is not very useful, and can be misleading in this case.
+:::
+
+To enhance the dotplot visualization, the below *(non exhaustive)* are some arguments that has been added:
+
+-   `scale_y_continuous()`- to turn off the y-axis by setting it to NULL
+-   *binwidth* - specifies the width of the bins or interval used to group the data to - 3.0
+-   *dotsize* - adjusts the size of the dots in the plot to - 0.8
+-   *fill* - specifies the fill color of the dots to - red
+-   *color* - specifies the outline color of the dots to - yellow
+-   *alpha* - specifies the transparency level of the dots to - 0.5
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot(binwidth=3.0,         
+               dotsize = 0.8,
+               fill="#E15841",
+               color="#E1B941",
+               alpha=0.5 ) +      
+  scale_y_continuous(NULL,           
+                     breaks = NULL)  
+```
+
+#### 1.7.3 Geometric objects: [geom_histogram]{style="color:#6A5ACD;font-weight:bold;"}
+
+`geom_histogram()`in ggplot creates a bar plot that displays the distribution of a continuous variable by dividing the data into bins and counting the number of observations in each bin.
+
+The code below plots a simple histogram by using values in *MATHS* field of exam_data.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_histogram()  
+```
+
+::: callout-note
+The default number of bins is 30, however one can always adjust the number of bins manually by using the `bins()` argument.
+:::
+
+#### 1.7.4 Modifying a geometric object by changing [geom()]{style="color:#6A5ACD;font-weight:bold;"}
+
+To enhance the histogram visualization, the below *(non exhaustive)* are some arguments that has been added:
+
+-   *bins* - to change the number of bins to - 20
+-   *fill* - specifies the fill color of the histogram to - red
+-   *color* - specifies the outline color of the histogram to - green
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS)) +
+  geom_histogram(bins=20,            
+                 color="#A8E141",      
+                 fill="#E15841")
+```
+
+#### 1.7.5 Modifying a geometric object by changing [aes()]{style="color:#6A5ACD;font-weight:bold;"}
+
+The code below changes the interior colour of the histogram (i.e. fill) by using a sub-group of aes().
+
+In this case, the fill is based on GENDER.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           fill = GENDER)) +
+  geom_histogram(bins=20, 
+                 color="grey30")
+```
+
+We can also specify the color of the fill based on GENDER.
+
+In this case, we used the `scale_fill_manual()` function to assign specific colors to each gender. E.g.:
+
+-   <p><strong>[Pink</strong>]{style="color: pink;"} for Female</p>
+
+-   <p><strong>[Blue</strong>]{style="color: blue;"} for Male</p>
+
+-   while keeping the outline [<strong>grey</strong>]{style="color: grey;"}
+
+```{r}
+ggplot(data = exam_data, 
+       aes(x = MATHS, 
+           fill = GENDER)) +
+  geom_histogram(bins = 20, 
+                 color = "grey30") +
+  scale_fill_manual(values = c("Female" = "pink", "Male" = "blue"))
+
+```
+
+::: callout-note
+This approach can be used to color, fill and alpha of the geometric.
+:::
+
+#### 1.7.6 Geometric objects: [geom_density]{style="color:#6A5ACD;font-weight:bold;"}
+
+The geom_density() function computes and visualizes a kernel density estimate, which provides a smooth approximation of the data's distribution.
+
+It serves as a useful alternative to histograms for continuous data, particularly when the data originates from an underlying smooth distribution.
+
+The code below plots the distribution of Maths scores in a kernel density plot.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_density()
+```
+
+The code below plots two kernel density lines by using *color* or *fill* arguments of `aes()`
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x = MATHS, 
+           colour = GENDER)) +
+  geom_density()
+```
+
+Likewise, by using `scale_color_manual()` function, we can map the colors of each gender explicitly, where
+
+-   <p><strong>[Pink</strong>]{style="color: pink;"} for Female</p>
+
+-   <p><strong>[Blue</strong>]{style="color: blue;"} for Male</p>
+
+```{r}
+ggplot(data = exam_data, 
+       aes(x = MATHS, 
+           colour = GENDER)) +
+  geom_density() +
+  scale_color_manual(values = c("Female" = "pink", "Male" = "blue"))
+
+```
+
+#### 1.7.7 Geometric objects: [geom_boxplot]{style="color:#6A5ACD;font-weight:bold;"}
+
+`geom_boxplot()` function visualizes continuous data by displaying five key summary statistics: the median, the upper and lower hinges (quartiles), the whiskers, and individual outliers.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = MATHS,       
+           x= GENDER)) +    
+  geom_boxplot()    
+```
+
+To enhance the boxplot visualization, the below *(non exhaustive)* are some arguments that has been added:
+
+-   *fill* - fills the boxplot with different colors based on a grouping variable - purple
+-   *color* - specifies the color of the boxplot borders to - green
+-   *outlier.color* - specifies the outlier color of the boxplot to - red
+-   *outlier.shape* - specifies the shape of the outlier points to - 16
+-   *alpha* - adjust the transparency of the boxplot fill - 0.7
+-   *width* - adjusts the width of the boxplots to - 0.7
+
+```{r}
+ggplot(data = exam_data, 
+       aes(y = MATHS,       
+           x = GENDER)) +    
+  geom_boxplot(fill = "#6A5ACD",      # Fills the boxes with a color
+               color = "#ABE141",     # Sets the border color of the boxes
+               outlier.color = "red",  # Colors the outliers
+               outlier.shape = 16,     # Sets the shape of the outliers
+               alpha = 0.7,            # Adjusts the transparency of the boxes
+               width = 0.7)            # Sets the width of the boxes
+
+```
+
+Likewise, to specify different fill colors for female and male, we need to map the fill aesthetic to the Gender variable inside `aes()` and then define the specifc colors using `scale_fill_manual()`.
+
+-   <p><strong>[Pink</strong>]{style="color: pink;"} for Female</p>
+
+-   <p><strong>[Blue</strong>]{style="color: blue;"} for Male</p>
+
+```{r}
+ggplot(data = exam_data, 
+       aes(y = MATHS,       
+           x = GENDER, 
+           fill = GENDER)) +   # Map fill aesthetic to GENDER
+  geom_boxplot(color = "#ABE141",      # Sets the border color of the boxes
+               outlier.color = "red",  # Colors the outliers
+               outlier.shape = 16,     # Sets the shape of the outliers
+               alpha = 0.7,            # Adjusts the transparency of the boxes
+               width = 0.7) +          # Sets the width of the boxes
+  scale_fill_manual(values = c("Female" = "pink", "Male" = "blue"))  # Custom colors
+```
+
+[Notches](https://sites.google.com/site/davidsstatistics/davids-statistics) in box plots help visually determine if the medians of distributions differ. Non-overlapping notches indicate distinct medians.
+
+The code below plots the distribution of Maths scores by gender in notched plot instead of boxplot.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = MATHS, 
+           x= GENDER)) +
+  geom_boxplot(notch=TRUE)
+```
+
+Likewise, additional arguments can be added to improve the overall visualization of the notched plot
+
+-   *fill* - fills the notched plot with different colors based on a grouping variable
+-   *color* - specifies the color of the notched plot borders to - black
+-   *outlier.color* - specifies the outlier color of the boxplot to - red
+-   *outlier.shape* - specifies the shape of the outlier points to - 8
+-   *alpha* - adjust the transparency of the boxplot fill - 0.9
+-   *notchwidth* - adjusts the width of the notches for improved clarity - 0.5
+
+```{r}
+ggplot(data = exam_data, 
+       aes(y = MATHS, 
+           x = GENDER, 
+           fill = GENDER)) +  # Add fill to differentiate genders
+  geom_boxplot(notch = TRUE, 
+               outlier.colour = "red",   # Highlight outliers in red
+               outlier.shape = 8,       # Use a different shape for outliers
+               notchwidth = 0.5,        # Adjust the notch width for emphasis
+               color = "black",
+               alpha = 0.9) +      
+  scale_fill_manual(values = c("Female" = "pink", "Male" = "blue"))
+```
+
+#### 1.7.8 Geometric objects: [geom_violin]{style="color:#6A5ACD;font-weight:bold;"}
+
+[geom_violin](https://ggplot2.tidyverse.org/reference/geom_violin.html) creates violin plots, which are useful for comparing multiple data distributions. Unlike density curves, which can overlap and become hard to interpret, violin plots place distributions side by side, making comparisons clearer and more visually accessible.
+
+The code below plots the distribution of Maths score by gender using violin plots.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = MATHS, 
+           x= GENDER)) +
+  geom_violin()
+```
+
+Likewise, additional arguments can be added to improve the overall visualization of the violin plot
+
+-   *fill* - maps the violin fill color to gender
+-   `scale_fill_manual()` - assigns custom colors for Female and Male
+-   *trim* - ensures the plot displayes the full range of data, even for smaller distributions
+-   *color* - adds an outline to make the violins visually distinct
+
+```{r}
+ggplot(data = exam_data, 
+       aes(y = MATHS, 
+           x = GENDER, 
+           fill = GENDER)) +  # Map fill to GENDER
+  geom_violin(trim = FALSE,   # Show the full range of the data
+              scale = "width", # Adjust width for comparability
+              color = "black") +  # Add a black outline to the violins
+  scale_fill_manual(values = c("Female" = "pink", 
+                               "Male" = "blue"))
+```
+
+#### 1.7.9 Geometric objects: [geom_point]{style="color:#6A5ACD;font-weight:bold;"}
+
+`geom_point()` is useful for creating scatterplot.
+
+The code below plots a scatterplot showing the Maths and English grades of pupils by using `geom_point()`
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() 
+```
+
+Likewise, additional arguments can be added to improve the overall visualization of the scatter plot
+
+-   *color* - set all points to a fixed blue color
+-   *size* - set the size of the points to a fixed value (adjustable) to - 3
+-   *alpha* - adds transparency to reduce overlap if points are cluttered
+-   *shape* - set the apperance of the points in the scatter plot (e.g.: square, circle, triangle)
+
+```{r}
+ggplot(data = exam_data, 
+       aes(x = MATHS, 
+           y = ENGLISH)) +
+  geom_point(color = "blue", size = 3, alpha = 0.5, shape = 20)
+```
+
+::: callout-note
+To refer to [here](https://www.datanovia.com/en/blog/ggplot-point-shapes-best-tips/) for `ggplot()` `geom_point()` shapes best tips and tricks
+:::
+
+#### 1.7.10 Combining geometric objects
+
+The code below plots the data points on the boxplots by using both `geom_boxplot()` and `geom_point()`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = MATHS, 
+           x= GENDER)) +
+  geom_boxplot() +                    
+  geom_point(position="jitter", 
+             size = 0.5)
+```
+
+::: callout-tip
+## Reflection
+-   Learnt about the different geometric objects such as `geom_bar`,`geom_dotplot`,`geom_histogram`,`geom_density`, `geom_boxplot`,`geom_violin`,`geom_point` etc. 
+
+-   Learnt about how to combine different geometric objects together in one chart - e.g.: `geom_boxplot` and `geom_point`
+:::
+
+### 1.8 Essential grammatical elements in ggplot2: stat
+
+The [Statistics functions](https://ggplot2.tidyverse.org/reference/#stats) statistically transforms data, as a form of summary.
+
+Example include: - calculating the frequency of variable values - calculating the mean - determing confidence limits
+
+There are two ways to use these functions: - add a `stat_()` function and override the default geom, or - add a `geom_()` function and override the default stat.
+
+#### 1.8.1 Working with [stat()]{style="color:#6A5ACD;font-weight:bold;"}
+
+The boxplots below are incomplete because the means are not shown.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = MATHS, x= GENDER)) +
+  geom_boxplot()
+```
+
+#### 1.8.2 Working with [stat_summary()]{style="color:#6A5ACD;font-weight:bold;"}
+
+The code below uses the `stat_summary()` function to add mean values by replacing the default geometric layer (geom).
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = MATHS, x= GENDER)) +
+  geom_boxplot() +
+  stat_summary(geom = "point",       
+               fun = "mean",         
+               colour ="blue",        
+               size=4) 
+```
+
+#### 1.8.3 Working with [geom()]{style="color:#6A5ACD;font-weight:bold;"} method
+
+The code below uses the `geom()` function to add mean values by replacing the default geometric layer (geom).
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = MATHS, x= GENDER)) +
+  geom_boxplot() +
+  geom_point(stat="summary",        
+             fun="mean",           
+             colour="blue",          
+             size=4)          
+
+```
 
 ::: callout-tip
 ## Reflection
 
--   Learnt how to load ggplot package and to create a bar chart using `geom_bar()`
+-   Both codes achieve the same result - boxplot with mean values as blue points overlaid on the plot
+-   The first code uses `stat_summary` explicitly where summary is calculated `fun = "mean"`, and then visualized using the geometry `geom="point"`. It provides more flexibility if one want to switch the geometry.
+-   The second code uses `geom_point` with `stat="summary"`, where it computes the mean and plots it directly.
+-   Overall, I would prefer the second code as it feel more intuitive and focuses on using a geometry `geom_point` and overridding its default statistical transformation.
 :::
 
+#### 1.8.4 Adding a best fit curve on a scatterplot?
+
+The scatterplot below illustrates the relationship between Maths and English grades.
+
+Adding a best-fit curve can enhance its interpretability.
+
+```{r}
+echo=FALSE
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() 
+```
+
+`geom_smooth()` is used to plot a best fit curve on the scatterplot.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(size=0.5)
+```
+
+::: callout-note
+The default method used is *LOESS - Locally Estimted Scatterplot Smoothing* which refers to a regression method used for smoothing data points in a scatterplot, useful for capturing non-linear trends in the data.
+:::
+
+The default method can be overriden as shown below:
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              linewidth=0.5)
+```
+
+::: callout-note
+In this case, `method = "lm"` specifies that a linear regression line should be fitted to the data.
+
+Refer [here](https://ggplot2.tidyverse.org/reference/geom_smooth.html) for more information on the different methods available in `geom_smooth()`.
+:::
+
+Likewise, additional arguments can be added to improve the overall visualization of the scatter plot
+
+-   *color* - sets the color of the regression line
+-   *size* - adjusts the thickness of the line
+
+```{r}
+ggplot(data = exam_data, 
+       aes(x = MATHS, y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "red", size = 1)
+```
+
+### 1.9 Essential grammatical elements in ggplot2: Facets
+
+Facetting in `ggplot2` creates small multiples, or trellis plots, to display different subsets of data. This approach is an alternative to using aesthetics (such as color or shape) for displaying additional variables. There are two main types of faceting in `ggplot2`:
+
+-   `facet_wrap()` : wraps multiple plots into a single panel, typically based on a single categorical variable. It will automatically arranges the plots into a grid.
+
+-   `facet_grid()` : organizes plots into a grid based on the values of two categorical variables, one for rows and the other for columns.
+
+#### 1.9.1 Working with [facet_wrap()]{style="color:#6A5ACD;font-weight:bold;"}
+
+[facet_wrap](https://ggplot2.tidyverse.org/reference/facet_wrap.html) arranges a 1D sequence of panels into a 2D layout, making better use of screen space, especially on rectangular displays. It is often more efficient than facet_grid() for displaying a variable across multiple categories
+
+The code below produces a 2D matrix of '*MATHS*' histograms grouped by variable '*CLASS*' using `facet_wrap(~CLASS)`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS)) +
+  geom_histogram(bins=20) +
+    facet_wrap(~ CLASS)
+```
+
+#### 1.9.2 Working with [facet_grid()]{style="color:#6A5ACD;font-weight:bold;"}
+
+[facet_grid](https://ggplot2.tidyverse.org/reference/facet_grid.html) creates a matrix of panels based on two discrete variables, one for rows and the other for columns. It is most useful when both variables have all possible combinations in the data.
+
+The code below plots a trellis plot using `facet_grid()`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS)) +
+  geom_histogram(bins=20) +
+    facet_grid(~ CLASS)
+```
+
+### 1.10 Essential grammatical elements in ggplot2: Coordinates
+
+The Coordinates functions map the position of objects onto the plane of the plot.
+
+There are a number of different possible coordinate systems to use:
+
+-   [`coord_cartesian()`](https://ggplot2.tidyverse.org/reference/coord_cartesian.html): the default cartesian coordinate systems, where you specify x and y values (e.g. allows you to zoom in or out).
+-   [`coord_flip()`](https://ggplot2.tidyverse.org/reference/coord_flip.html): a cartesian system with the x and y flipped.
+-   [`coord_fixed()`](https://ggplot2.tidyverse.org/reference/coord_fixed.html): a cartesian system with a "fixed" aspect ratio (e.g. 1.78 for a "widescreen" plot).
+-   [`coord_quickmap()`](https://ggplot2.tidyverse.org/reference/coord_map.html): a coordinate system that approximates a good aspect ratio for maps.
+
+#### 1.10.1 Working with Coordinate
+
+By defaultm the bar charts in ggplot2 are vertical, as shown:
+
+```{r}
+echo= FALSE
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar()
+```
+
+Using `coord_flip()`, we can flip the vertical bar chart to a horizontal one.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip()
+```
+
+#### 1.10.2 Changing the x and y axis range
+
+The scatterplot below is misleading as the x and y axes are not equal. This can create confusion to the readers.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, size=0.5)
+```
+
+The code below will set both the x and y axis range to 0-100.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+```
+
+### 1.11 Essential grammatical elements in ggplot2: Themes
+
+Themes in graphing control non-data elements such as - background color - fonts size - gridlines - labels color
+
+Built-in themes include: - `theme_gray()`: default theme, with a light gray background and white gridlines.
+
+-   `theme_bw()`: theme with a black-and-white color scheme - white background, black gridlines and axis lines
+
+-   `theme_classic()`: theme with a minimalist look - white background and no gridlines
+
+The list of all other themes available can be found at this [link](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+
+#### 1.11.1 Working with Themes
+
+The code below plot a horizontal bar chart using `theme_gray()`
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_gray()
+```
+
+The code below plot a horizontal bar chart using `theme_bw()`
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_bw()
+```
+
+The code below plot a horizontal bar chart using `theme_classic()`
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_classic()
+```
+
+We can further customize the chart by additional arguments using `theme()`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar(fill="skyblue", color="black", size=0.7) +  
+  coord_flip() +
+  theme_minimal() +
+   theme(panel.background = element_rect(fill = "lightgrey",
+                                         color = "white"))
+```
+
+### 1.12 References
+
+-   Kam, T.S. (2023).[A Layered Grammar of Graphics: ggplot2 methods.](https://r4va.netlify.app/chap01)
+-   Hadley Wickham (2023) [ggplot2: Elegant Graphics for Data Analysis.](https://ggplot2-book.org/)Online 3rd edition.
+-   Winston Chang (2013) [R Graphics Cookbook 2nd edition.](https://r-graphics.org/) Online version.
+-   Healy, Kieran (2019) [Data Visualization: A practical introduction.](https://socviz.co/) Online version
+-   [Learning ggplot2 on Paper – Components](https://henrywang.nl/learning-ggplot2-on-paper-components/)
+-   [Learning ggplot2 on Paper – Layer](https://henrywang.nl/learning-ggplot2-on-paper-layer/)
+-   [Learning ggplot2 on Paper – Scale](https://henrywang.nl/tag/learning-ggplot2-on-paper/)
 
 
 
 
+### 1.13 End of Hands-on-Exercise 01: Learning points
 
+::: callout-tip
+## Reflection
 
-library(ggplot2)
-<!-- ::: {.callout-tip title="Reflection"} -->
+-   Learnt how to load ggplot package and to create a bar chart using `geom_bar()`, `geom_dotplot()`, \`geom_histogram
+
+-   Learnt that we can add additional arguments to `ggplot()` and `geom_` such as `geom_bar()`, `geom_dotplot()` etc.
+
+-   `echo=FALSE`: Hides the code while executing it to display the plot in the final output
+:::
+
+library(ggplot2) <!-- ::: {.callout-tip title="Reflection"} -->
 
 <!-- Some of the useful links from quarto, -->
+
 <!-- install.packages("ggplot2") -->
+
 <!-- library(ggplot2) -->
+
 <!-- ::: -->
