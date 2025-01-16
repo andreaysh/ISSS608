@@ -462,7 +462,7 @@ Note
 </div>
 </section>
 <section id="essential-grammatical-elements-in-ggplot2-aesthetic-mappings" class="level3">
-<h3 class="anchored" data-anchor-id="essential-grammatical-elements-in-ggplot2-aesthetic-mappings">1.6 Essential Grammatical Elements in ggplot2: aesthetic mappings</h3>
+<h3 class="anchored" data-anchor-id="essential-grammatical-elements-in-ggplot2-aesthetic-mappings">1.6 Essential Grammatical Elements in ggplot2: <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html">aesthetic mappings</a></h3>
 <p>Aesthetic mappings link data attributes to visual characteristics like position, color, size, shape, or transparency, allowing each characteristic to represent information. These mappings are defined using the <code>aes()</code> function, and each geom layer can have its own <code>aes()</code> specification.</p>
 <p>The code below adds the aesthetic element into the plot.</p>
 <div class="cell">
@@ -555,11 +555,11 @@ Warning
 <p>To enhance the dotplot visualization, the below <em>(non exhaustive)</em> are some arguments that has been added:</p>
 <ul>
 <li><code>scale_y_continuous()</code>- to turn off the y-axis by setting it to NULL</li>
-<li><em>binwidth</em> - specifies the width of the bins or interval used to group the data to - 3.0</li>
-<li><em>dotsize</em> - adjusts the size of the dots in the plot to - 0.8</li>
-<li><em>fill</em> - specifies the fill color of the dots to - red</li>
-<li><em>color</em> - specifies the outline color of the dots to - yellow</li>
-<li><em>alpha</em> - specifies the transparency level of the dots to - 0.5</li>
+<li><strong>binwidth</strong> - specifies the width of the bins or interval used to group the data to - 3.0</li>
+<li><strong>dotsize</strong> - adjusts the size of the dots in the plot to - 0.8</li>
+<li><strong>fill</strong> - specifies the fill color of the dots to - red</li>
+<li><strong>color</strong> - specifies the outline color of the dots to - yellow</li>
+<li><strong>alpha</strong> - specifies the transparency level of the dots to - 0.5</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
@@ -614,9 +614,9 @@ Note
 <h4 class="anchored" data-anchor-id="modifying-a-geometric-object-by-changing-geom">1.7.4 Modifying a geometric object by changing <span style="color:#6A5ACD;font-weight:bold;">geom()</span></h4>
 <p>To enhance the histogram visualization, the below <em>(non exhaustive)</em> are some arguments that has been added:</p>
 <ul>
-<li><em>bins</em> - to change the number of bins to - 20</li>
-<li><em>fill</em> - specifies the fill color of the histogram to - red</li>
-<li><em>color</em> - specifies the outline color of the histogram to - green</li>
+<li><strong>bins</strong> - to change the number of bins to - 20</li>
+<li><strong>fill</strong> - specifies the fill color of the histogram to - red</li>
+<li><strong>color</strong> - specifies the outline color of the histogram to - green</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
@@ -693,7 +693,7 @@ Note
 </section>
 <section id="geometric-objects-geom_density" class="level4">
 <h4 class="anchored" data-anchor-id="geometric-objects-geom_density">1.7.6 Geometric objects: <span style="color:#6A5ACD;font-weight:bold;">geom_density</span></h4>
-<p>The geom_density() function computes and visualizes a kernel density estimate, which provides a smooth approximation of the data’s distribution.</p>
+<p>The <a href="https://ggplot2.tidyverse.org/reference/geom_density.html"><code>geom_density()</code></a> function computes and visualizes a <a href="https://en.wikipedia.org/wiki/Kernel_density_estimation">kernel density estimate</a>, which provides a smooth approximation of the data’s distribution.</p>
 <p>It serves as a useful alternative to histograms for continuous data, particularly when the data originates from an underlying smooth distribution.</p>
 <p>The code below plots the distribution of Maths scores in a kernel density plot.</p>
 <div class="cell">
@@ -764,12 +764,12 @@ Note
 </div>
 <p>To enhance the boxplot visualization, the below <em>(non exhaustive)</em> are some arguments that has been added:</p>
 <ul>
-<li><em>fill</em> - fills the boxplot with different colors based on a grouping variable - purple</li>
-<li><em>color</em> - specifies the color of the boxplot borders to - green</li>
-<li><em>outlier.color</em> - specifies the outlier color of the boxplot to - red</li>
-<li><em>outlier.shape</em> - specifies the shape of the outlier points to - 16</li>
-<li><em>alpha</em> - adjust the transparency of the boxplot fill - 0.7</li>
-<li><em>width</em> - adjusts the width of the boxplots to - 0.7</li>
+<li><strong>fill</strong> - fills the boxplot with different colors based on a grouping variable - purple</li>
+<li><strong>color</strong> - specifies the color of the boxplot borders to - green</li>
+<li><strong>outlier.color</strong> - specifies the outlier color of the boxplot to - red</li>
+<li><strong>outlier.shape</strong> - specifies the shape of the outlier points to - 16</li>
+<li><strong>alpha</strong> - adjust the transparency of the boxplot fill - 0.7</li>
+<li><strong>width</strong> - adjusts the width of the boxplots to - 0.7</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, </span>
@@ -834,12 +834,12 @@ Note
 </div>
 <p>Likewise, additional arguments can be added to improve the overall visualization of the notched plot</p>
 <ul>
-<li><em>fill</em> - fills the notched plot with different colors based on a grouping variable</li>
-<li><em>color</em> - specifies the color of the notched plot borders to - black</li>
-<li><em>outlier.color</em> - specifies the outlier color of the boxplot to - red</li>
-<li><em>outlier.shape</em> - specifies the shape of the outlier points to - 8</li>
-<li><em>alpha</em> - adjust the transparency of the boxplot fill - 0.9</li>
-<li><em>notchwidth</em> - adjusts the width of the notches for improved clarity - 0.5</li>
+<li><strong>fill</strong> - fills the notched plot with different colors based on a grouping variable</li>
+<li><strong>color</strong> - specifies the color of the notched plot borders to - black</li>
+<li><strong>outlier.color</strong> - specifies the outlier color of the boxplot to - red</li>
+<li><strong>outlier.shape</strong> - specifies the shape of the outlier points to - 8</li>
+<li><strong>alpha</strong> - adjust the transparency of the boxplot fill - 0.9</li>
+<li><strong>notchwidth</strong> - adjusts the width of the notches for improved clarity - 0.5</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, </span>
@@ -859,6 +859,19 @@ Note
 <p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To refer to <a href="https://www.datanovia.com/en/blog/ggplot-point-shapes-best-tips/">here</a> for ggplot point shapes best tips and tricks</p>
 </div>
 </div>
 </section>
@@ -881,10 +894,10 @@ Note
 </div>
 <p>Likewise, additional arguments can be added to improve the overall visualization of the violin plot</p>
 <ul>
-<li><em>fill</em> - maps the violin fill color to gender</li>
+<li><strong>fill</strong> - maps the violin fill color to gender</li>
 <li><code>scale_fill_manual()</code> - assigns custom colors for Female and Male</li>
-<li><em>trim</em> - ensures the plot displayes the full range of data, even for smaller distributions</li>
-<li><em>color</em> - adds an outline to make the violins visually distinct</li>
+<li><strong>trim</strong> - ensures the plot displayes the full range of data, even for smaller distributions</li>
+<li><strong>color</strong> - adds an outline to make the violins visually distinct</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, </span>
@@ -924,10 +937,10 @@ Note
 </div>
 <p>Likewise, additional arguments can be added to improve the overall visualization of the scatter plot</p>
 <ul>
-<li><em>color</em> - set all points to a fixed blue color</li>
-<li><em>size</em> - set the size of the points to a fixed value (adjustable) to - 3</li>
-<li><em>alpha</em> - adds transparency to reduce overlap if points are cluttered</li>
-<li><em>shape</em> - set the apperance of the points in the scatter plot (e.g.: square, circle, triangle)</li>
+<li><strong>color</strong> - set all points to a fixed blue color</li>
+<li><strong>size</strong> - set the size of the points to a fixed value (adjustable) to - 3</li>
+<li><strong>alpha</strong> - adds transparency to reduce overlap if points are cluttered</li>
+<li><strong>shape</strong> - set the apperance of the points in the scatter plot (e.g.: square, circle, triangle)</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, </span>
@@ -952,7 +965,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>To refer to <a href="https://www.datanovia.com/en/blog/ggplot-point-shapes-best-tips/">here</a> for <code>ggplot()</code> <code>geom_point()</code> shapes best tips and tricks</p>
+<p>To refer to <a href="https://www.datanovia.com/en/blog/ggplot-point-shapes-best-tips/">here</a> for ggplot point shapes best tips and tricks</p>
 </div>
 </div>
 </section>
@@ -1148,8 +1161,8 @@ Note
 </div>
 <p>Likewise, additional arguments can be added to improve the overall visualization of the scatter plot</p>
 <ul>
-<li><em>color</em> - sets the color of the regression line</li>
-<li><em>size</em> - adjusts the thickness of the line</li>
+<li><strong>color</strong> - sets the color of the regression line</li>
+<li><strong>size</strong> - adjusts the thickness of the line</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, </span>
@@ -1162,6 +1175,23 @@ Note
 <p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reflection
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Learnt the two ways to add statistical functions to ggplot2 - <code>stat_()</code> and <code>geom_()</code></li>
+<li>Learnt how to incorporate a best fit curve on to the scatterplot <code>geom_smooth()</code></li>
+<li>Learnt the different regression methods available in<code>geom_smooth()</code></li>
+</ul>
 </div>
 </div>
 </section>
@@ -1222,12 +1252,8 @@ Note
 </ul>
 <section id="working-with-coordinate" class="level4">
 <h4 class="anchored" data-anchor-id="working-with-coordinate">1.10.1 Working with Coordinate</h4>
-<p>By defaultm the bar charts in ggplot2 are vertical, as shown:</p>
+<p>By default the bar charts in ggplot2 are vertical, as shown:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>echo<span class="ot">=</span> <span class="cn">FALSE</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1238,10 +1264,10 @@ Note
 </div>
 <p>Using <code>coord_flip()</code>, we can flip the vertical bar chart to a horizontal one.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1255,10 +1281,10 @@ Note
 <h4 class="anchored" data-anchor-id="changing-the-x-and-y-axis-range">1.10.2 Changing the x and y axis range</h4>
 <p>The scatterplot below is misleading as the x and y axes are not equal. This can create confusion to the readers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS, <span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS, <span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1269,13 +1295,13 @@ Note
 </div>
 <p>The code below will set both the x and y axis range to 0-100.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS, <span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, </span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">size=</span><span class="fl">0.5</span>) <span class="sc">+</span>  </span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS, <span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">size=</span><span class="fl">0.5</span>) <span class="sc">+</span>  </span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1288,9 +1314,16 @@ Note
 </section>
 <section id="essential-grammatical-elements-in-ggplot2-themes" class="level3">
 <h3 class="anchored" data-anchor-id="essential-grammatical-elements-in-ggplot2-themes">1.11 Essential grammatical elements in ggplot2: Themes</h3>
-<p>Themes in graphing control non-data elements such as - background color - fonts size - gridlines - labels color</p>
-<p>Built-in themes include: - <code>theme_gray()</code>: default theme, with a light gray background and white gridlines.</p>
+<p>Themes control elements of the graph which are not related to the data such as</p>
 <ul>
+<li><p>background color</p></li>
+<li><p>fonts size</p></li>
+<li><p>gridlines</p></li>
+<li><p>labels color</p></li>
+</ul>
+<p>Some of the Built-in themes include:</p>
+<ul>
+<li><p><code>theme_gray()</code>: default theme, with a light gray background and white gridlines.</p></li>
 <li><p><code>theme_bw()</code>: theme with a black-and-white color scheme - white background, black gridlines and axis lines</p></li>
 <li><p><code>theme_classic()</code>: theme with a minimalist look - white background and no gridlines</p></li>
 </ul>
@@ -1299,11 +1332,11 @@ Note
 <h4 class="anchored" data-anchor-id="working-with-themes">1.11.1 Working with Themes</h4>
 <p>The code below plot a horizontal bar chart using <code>theme_gray()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1314,11 +1347,11 @@ Note
 </div>
 <p>The code below plot a horizontal bar chart using <code>theme_bw()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1329,11 +1362,11 @@ Note
 </div>
 <p>The code below plot a horizontal bar chart using <code>theme_classic()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1344,13 +1377,13 @@ Note
 </div>
 <p>We can further customize the chart by additional arguments using <code>theme()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill=</span><span class="st">"skyblue"</span>, <span class="at">color=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="fl">0.7</span>) <span class="sc">+</span>  </span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"lightgrey"</span>,</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">color =</span> <span class="st">"white"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill=</span><span class="st">"skyblue"</span>, <span class="at">color=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="fl">0.7</span>) <span class="sc">+</span>  </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"lightgrey"</span>,</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">color =</span> <span class="st">"white"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

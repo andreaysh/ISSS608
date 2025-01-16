@@ -143,7 +143,7 @@ ggplot(data=exam_data)
 -   If the dataset is not already a data.frame, it will be converted to one by fortify().
 :::
 
-### 1.6 Essential Grammatical Elements in ggplot2: aesthetic mappings
+### 1.6 Essential Grammatical Elements in ggplot2: [aesthetic mappings](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)
 
 Aesthetic mappings link data attributes to visual characteristics like position, color, size, shape, or transparency, allowing each characteristic to represent information. These mappings are defined using the `aes()` function, and each geom layer can have its own `aes()` specification.
 
@@ -205,11 +205,11 @@ To note that the y scale is not very useful, and can be misleading in this case.
 To enhance the dotplot visualization, the below *(non exhaustive)* are some arguments that has been added:
 
 -   `scale_y_continuous()`- to turn off the y-axis by setting it to NULL
--   *binwidth* - specifies the width of the bins or interval used to group the data to - 3.0
--   *dotsize* - adjusts the size of the dots in the plot to - 0.8
--   *fill* - specifies the fill color of the dots to - red
--   *color* - specifies the outline color of the dots to - yellow
--   *alpha* - specifies the transparency level of the dots to - 0.5
+-   **binwidth** - specifies the width of the bins or interval used to group the data to - 3.0
+-   **dotsize** - adjusts the size of the dots in the plot to - 0.8
+-   **fill** - specifies the fill color of the dots to - red
+-   **color** - specifies the outline color of the dots to - yellow
+-   **alpha** - specifies the transparency level of the dots to - 0.5
 
 ```{r}
 ggplot(data=exam_data, 
@@ -243,9 +243,9 @@ The default number of bins is 30, however one can always adjust the number of bi
 
 To enhance the histogram visualization, the below *(non exhaustive)* are some arguments that has been added:
 
--   *bins* - to change the number of bins to - 20
--   *fill* - specifies the fill color of the histogram to - red
--   *color* - specifies the outline color of the histogram to - green
+-   **bins** - to change the number of bins to - 20
+-   **fill** - specifies the fill color of the histogram to - red
+-   **color** - specifies the outline color of the histogram to - green
 
 ```{r}
 ggplot(data=exam_data, 
@@ -295,7 +295,7 @@ This approach can be used to color, fill and alpha of the geometric.
 
 #### 1.7.6 Geometric objects: [geom_density]{style="color:#6A5ACD;font-weight:bold;"}
 
-The geom_density() function computes and visualizes a kernel density estimate, which provides a smooth approximation of the data's distribution.
+The [`geom_density()`](https://ggplot2.tidyverse.org/reference/geom_density.html) function computes and visualizes a [kernel density estimate](https://en.wikipedia.org/wiki/Kernel_density_estimation), which provides a smooth approximation of the data's distribution.
 
 It serves as a useful alternative to histograms for continuous data, particularly when the data originates from an underlying smooth distribution.
 
@@ -344,12 +344,12 @@ ggplot(data=exam_data,
 
 To enhance the boxplot visualization, the below *(non exhaustive)* are some arguments that has been added:
 
--   *fill* - fills the boxplot with different colors based on a grouping variable - purple
--   *color* - specifies the color of the boxplot borders to - green
--   *outlier.color* - specifies the outlier color of the boxplot to - red
--   *outlier.shape* - specifies the shape of the outlier points to - 16
--   *alpha* - adjust the transparency of the boxplot fill - 0.7
--   *width* - adjusts the width of the boxplots to - 0.7
+-   **fill** - fills the boxplot with different colors based on a grouping variable - purple
+-   **color** - specifies the color of the boxplot borders to - green
+-   **outlier.color** - specifies the outlier color of the boxplot to - red
+-   **outlier.shape** - specifies the shape of the outlier points to - 16
+-   **alpha** - adjust the transparency of the boxplot fill - 0.7
+-   **width** - adjusts the width of the boxplots to - 0.7
 
 ```{r}
 ggplot(data = exam_data, 
@@ -396,12 +396,12 @@ ggplot(data=exam_data,
 
 Likewise, additional arguments can be added to improve the overall visualization of the notched plot
 
--   *fill* - fills the notched plot with different colors based on a grouping variable
--   *color* - specifies the color of the notched plot borders to - black
--   *outlier.color* - specifies the outlier color of the boxplot to - red
--   *outlier.shape* - specifies the shape of the outlier points to - 8
--   *alpha* - adjust the transparency of the boxplot fill - 0.9
--   *notchwidth* - adjusts the width of the notches for improved clarity - 0.5
+-   **fill** - fills the notched plot with different colors based on a grouping variable
+-   **color** - specifies the color of the notched plot borders to - black
+-   **outlier.color** - specifies the outlier color of the boxplot to - red
+-   **outlier.shape** - specifies the shape of the outlier points to - 8
+-   **alpha** - adjust the transparency of the boxplot fill - 0.9
+-   **notchwidth** - adjusts the width of the notches for improved clarity - 0.5
 
 ```{r}
 ggplot(data = exam_data, 
@@ -416,6 +416,10 @@ ggplot(data = exam_data,
                alpha = 0.9) +      
   scale_fill_manual(values = c("Female" = "pink", "Male" = "blue"))
 ```
+
+::: callout-note
+To refer to [here](https://www.datanovia.com/en/blog/ggplot-point-shapes-best-tips/) for ggplot point shapes best tips and tricks
+:::
 
 #### 1.7.8 Geometric objects: [geom_violin]{style="color:#6A5ACD;font-weight:bold;"}
 
@@ -432,10 +436,10 @@ ggplot(data=exam_data,
 
 Likewise, additional arguments can be added to improve the overall visualization of the violin plot
 
--   *fill* - maps the violin fill color to gender
+-   **fill** - maps the violin fill color to gender
 -   `scale_fill_manual()` - assigns custom colors for Female and Male
--   *trim* - ensures the plot displayes the full range of data, even for smaller distributions
--   *color* - adds an outline to make the violins visually distinct
+-   **trim** - ensures the plot displayes the full range of data, even for smaller distributions
+-   **color** - adds an outline to make the violins visually distinct
 
 ```{r}
 ggplot(data = exam_data, 
@@ -464,10 +468,10 @@ ggplot(data=exam_data,
 
 Likewise, additional arguments can be added to improve the overall visualization of the scatter plot
 
--   *color* - set all points to a fixed blue color
--   *size* - set the size of the points to a fixed value (adjustable) to - 3
--   *alpha* - adds transparency to reduce overlap if points are cluttered
--   *shape* - set the apperance of the points in the scatter plot (e.g.: square, circle, triangle)
+-   **color** - set all points to a fixed blue color
+-   **size** - set the size of the points to a fixed value (adjustable) to - 3
+-   **alpha** - adds transparency to reduce overlap if points are cluttered
+-   **shape** - set the apperance of the points in the scatter plot (e.g.: square, circle, triangle)
 
 ```{r}
 ggplot(data = exam_data, 
@@ -477,7 +481,7 @@ ggplot(data = exam_data,
 ```
 
 ::: callout-note
-To refer to [here](https://www.datanovia.com/en/blog/ggplot-point-shapes-best-tips/) for `ggplot()` `geom_point()` shapes best tips and tricks
+To refer to [here](https://www.datanovia.com/en/blog/ggplot-point-shapes-best-tips/) for ggplot point shapes best tips and tricks
 :::
 
 #### 1.7.10 Combining geometric objects
@@ -495,7 +499,8 @@ ggplot(data=exam_data,
 
 ::: callout-tip
 ## Reflection
--   Learnt about the different geometric objects such as `geom_bar`,`geom_dotplot`,`geom_histogram`,`geom_density`, `geom_boxplot`,`geom_violin`,`geom_point` etc. 
+
+-   Learnt about the different geometric objects such as `geom_bar`,`geom_dotplot`,`geom_histogram`,`geom_density`, `geom_boxplot`,`geom_violin`,`geom_point` etc.
 
 -   Learnt about how to combine different geometric objects together in one chart - e.g.: `geom_boxplot` and `geom_point`
 :::
@@ -602,8 +607,8 @@ Refer [here](https://ggplot2.tidyverse.org/reference/geom_smooth.html) for more 
 
 Likewise, additional arguments can be added to improve the overall visualization of the scatter plot
 
--   *color* - sets the color of the regression line
--   *size* - adjusts the thickness of the line
+-   **color** - sets the color of the regression line
+-   **size** - adjusts the thickness of the line
 
 ```{r}
 ggplot(data = exam_data, 
@@ -611,6 +616,14 @@ ggplot(data = exam_data,
   geom_point() +
   geom_smooth(method = "lm", color = "red", size = 1)
 ```
+
+::: callout-tip
+## Reflection
+
+-   Learnt the two ways to add statistical functions to ggplot2 - `stat_()` and `geom_()`
+-   Learnt how to incorporate a best fit curve on to the scatterplot `geom_smooth()`
+-   Learnt the different regression methods available in`geom_smooth()`
+:::
 
 ### 1.9 Essential grammatical elements in ggplot2: Facets
 
@@ -659,10 +672,10 @@ There are a number of different possible coordinate systems to use:
 
 #### 1.10.1 Working with Coordinate
 
-By defaultm the bar charts in ggplot2 are vertical, as shown:
+By default the bar charts in ggplot2 are vertical, as shown:
 
 ```{r}
-echo= FALSE
+#| echo= FALSE
 ggplot(data=exam_data, 
        aes(x=RACE)) +
   geom_bar()
@@ -702,9 +715,19 @@ ggplot(data=exam_data,
 
 ### 1.11 Essential grammatical elements in ggplot2: Themes
 
-Themes in graphing control non-data elements such as - background color - fonts size - gridlines - labels color
+Themes control elements of the graph which are not related to the data such as
 
-Built-in themes include: - `theme_gray()`: default theme, with a light gray background and white gridlines.
+-   background color
+
+-   fonts size
+
+-   gridlines
+
+-   labels color
+
+Some of the Built-in themes include:
+
+-   `theme_gray()`: default theme, with a light gray background and white gridlines.
 
 -   `theme_bw()`: theme with a black-and-white color scheme - white background, black gridlines and axis lines
 
@@ -765,9 +788,6 @@ ggplot(data=exam_data,
 -   [Learning ggplot2 on Paper – Components](https://henrywang.nl/learning-ggplot2-on-paper-components/)
 -   [Learning ggplot2 on Paper – Layer](https://henrywang.nl/learning-ggplot2-on-paper-layer/)
 -   [Learning ggplot2 on Paper – Scale](https://henrywang.nl/tag/learning-ggplot2-on-paper/)
-
-
-
 
 ### 1.13 End of Hands-on-Exercise 01: Learning points
 
