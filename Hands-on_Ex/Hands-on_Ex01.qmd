@@ -792,16 +792,17 @@ ggplot(data=exam_data,
 ### 1.13 End of Hands-on-Exercise 01: Learning points
 
 ::: callout-tip
-## Reflection
-
--   Learnt how to load ggplot package and to create a bar chart using `geom_bar()`, `geom_dotplot()`, \`geom_histogram
-
--   Learnt that we can add additional arguments to `ggplot()` and `geom_` such as `geom_bar()`, `geom_dotplot()` etc.
-
+## Takeaway
+-   Understand the foundational principles of ggplot2 for creating graphics.
+-   Learn to set up the environment by installing necessary R packages. E.g.: `library(ggplot2)`
+-   Understand the concept of aesthetic mappings and geometric objects.
+-   Explore how to layer different elements like stats, facets, and coordinates.
+-   Learnt the importance of various themes in customizing the appearance of plots.
+-   Apply practical examples to reinforce the concepts and improve visual analytics skills.
 -   `echo=FALSE`: Hides the code while executing it to display the plot in the final output
 :::
 
-library(ggplot2) <!-- ::: {.callout-tip title="Reflection"} -->
+ <!-- ::: {.callout-tip title="Reflection"} -->
 
 <!-- Some of the useful links from quarto, -->
 

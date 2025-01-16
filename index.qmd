@@ -14,8 +14,7 @@ output:
 
 This page documents my learning journey of creating data visualization beyond default, using R and Tableau.This is part of the ISSS608 course by SMU MITB program, by ***Prof Kam Tin Seong***
 
-If you have any feedback or need any clarification, you may contact me at 
-[andrea.yeo.2023@mitb.smu.edu.sg](mailto:andrea.yeo.2023@mitb.smu.edu.sg)
+If you have any feedback or need any clarification, you may contact me at [andrea.yeo.2023\@mitb.smu.edu.sg](mailto:andrea.yeo.2023@mitb.smu.edu.sg)
 
 I hope you enjoy it!
 
@@ -28,11 +27,11 @@ My journey into programming felt like starring in a drama-comedy series\
 - proudly watching my quarto run smoothly… until the next bug sneaked in
 
 ![](images/Pic05.png){fig-align="center" width="396"}
-
 :::
+
 ## Find out what I have learnt
 
 |  |  |  |
 |:----------------------:|:----------------------:|:----------------------:|
-| ![](images/Pic02.jpg){width="188"} | ![](images/Pic03.jpg) | ![](images/Pic04.jpeg) |
+| [![](images/Pic02.jpg){width="153"}](In-class_Ex/In-class_Ex01.html) | [![](images/Pic03.jpg){width="188"}](Hands-on_Ex/Hands-on_Ex01.html) | [![](images/Pic04.jpeg){width="188"}](Take-home_Ex/Take-home_Ex01.html) |
 | **In-class Exercise** | **Hands-on Exercise** | **Take-home Exercise** |
