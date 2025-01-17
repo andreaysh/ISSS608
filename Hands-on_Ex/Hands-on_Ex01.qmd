@@ -67,6 +67,7 @@ exam_data[duplicated(exam_data),]
 ```
 
 ## colSum(is.na(*dataset*))
+
 ```{r}
 colSums(is.na(exam_data))
 ```
@@ -808,10 +809,11 @@ ggplot(data=exam_data,
 -   [Quarto_markdown_basic](https://quarto.org/docs/authoring/markdown-basics.html)
 -   [Quarto_interactive_layout](https://quarto.org/docs/interactive/layout.html)
 
-### 1.13 End of Hands-on-Exercise 01: Learning points
+### 1.13 Learning points
 
 ::: callout-tip
 ## Takeaway
+
 -   Understand the foundational principles of ggplot2 for creating graphics.
 -   Learn to set up the environment by installing necessary R packages. E.g.: `library(ggplot2)`
 -   Understand the concept of aesthetic mappings and geometric objects.
@@ -822,9 +824,11 @@ ggplot(data=exam_data,
 :::
 
 #### 1.13.1 Further exploration
-1. Is it possible to add mean, median and a title on histogram?
+
+**1. Is it possible to add mean, median and a title on histogram?**
 
 Before:
+
 ```{r}
 ggplot(data=exam_data, aes(x = MATHS)) +
   geom_histogram(bins=10, 
@@ -835,8 +839,11 @@ ggplot(data=exam_data, aes(x = MATHS)) +
 ```
 
 After:
+
 -   `geom_vline()`: adds vertical lines for mean and median
--   `labs()`: used to set the title and add a label for the legend 
+
+-   `labs()`: used to set the title and add a label for the legend
+
 -   `scale_color_manual()`: set the colors for mean and median
 
 ```{r}
@@ -866,12 +873,13 @@ ggplot(data = exam_data, aes(x = MATHS)) +
        color = "Statistics") +
   theme_minimal()
 ```
- <!-- ::: {.callout-tip title="Reflection"} -->
+
+<!-- ::: {.callout-tip title="Reflection"} -->
 
 <!-- Some of the useful links from quarto, -->
 
 <!-- install.packages("ggplot2") -->
 
 <!-- library(ggplot2) -->
-library(ggplot2)
-<!-- ::: -->
+
+library(ggplot2) <!-- ::: -->
