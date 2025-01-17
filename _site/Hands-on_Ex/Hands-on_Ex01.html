@@ -200,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#essential-grammatical-elements-in-ggplot2-coordinates" id="toc-essential-grammatical-elements-in-ggplot2-coordinates" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-coordinates">1.10 Essential grammatical elements in ggplot2: Coordinates</a></li>
   <li><a href="#essential-grammatical-elements-in-ggplot2-themes" id="toc-essential-grammatical-elements-in-ggplot2-themes" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-themes">1.11 Essential grammatical elements in ggplot2: Themes</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">1.12 References</a></li>
-  <li><a href="#learning-points" id="toc-learning-points" class="nav-link" data-scroll-target="#learning-points">1.13 Learning points</a></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">1.13 Takeaway</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1435,8 +1435,8 @@ Reflection
 </ul>
 </section>
 </section>
-<section id="learning-points" class="level3">
-<h3 class="anchored" data-anchor-id="learning-points">1.13 Learning points</h3>
+<section id="takeaway" class="level3">
+<h3 class="anchored" data-anchor-id="takeaway">1.13 Takeaway</h3>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1519,7 +1519,8 @@ Takeaway
 </div>
 <p><strong>2. Exploring other useful combinations of geometric objects in ggplot2?</strong></p>
 <ul>
-<li>Box plot with jittered points (<code>geom_boxplot()</code>+ <code>geom_jitter()</code>)</li>
+<li><p>Box plot with jittered points (<code>geom_boxplot()</code>+ <code>geom_jitter()</code>)</p></li>
+<li><p><strong>Use case:</strong> To see the spread of ENGLISH scores across Gender, and identify any outliers.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, <span class="fu">aes</span>(<span class="at">x=</span>GENDER, <span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
@@ -1533,8 +1534,10 @@ Takeaway
 </div>
 </div>
 </div>
+<p><strong>Conclusion:</strong></p>
 <ul>
-<li><code>labs()</code>:</li>
+<li><p>Female students tend to have a slightly higher median English score compared to male students.</p></li>
+<li><p>Male students exhibit greater variability in their English scores, with a wider range of scores observed compared to female students.</p></li>
 </ul>
 <!-- ::: {.callout-tip title="Reflection"} -->
 <!-- Some of the useful links from quarto, -->
