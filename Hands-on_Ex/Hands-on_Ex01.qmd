@@ -35,9 +35,11 @@ exam_data <- read_csv("data/Exam_data.csv", show_col_types = FALSE)
 
 We will check the dataset using below
 
--   glimpse(): provides a transposed overview of a dataset, showing variables and their types in a concise format.
--   head(): displays the first few rows of a dataset (default is 6 rows) to give a quick preview of the data.
--   summary(): generates a statistical summary of each variable, including measures like mean, median, and range for numeric data.
+-   `glimpse()`: provides a transposed overview of a dataset, showing variables and their types in a concise format.
+-   `head()`: displays the first few rows of a dataset (default is 6 rows) to give a quick preview of the data.
+-   `summary()`: generates a statistical summary of each variable, including measures like mean, median, and range for numeric data.
+-   `duplicated()`:Returns a logical vector indicating which elements or rows in a vector or data frame are duplicates.
+-   `colSums(is.na())`: Counts the number of missing values (NA) in each column of the data frame.
 
 ::: panel-tabset
 ## glimpse()
@@ -56,6 +58,17 @@ head(exam_data)
 
 ```{r}
 summary(exam_data)
+```
+
+## duplicated()
+
+```{r}
+exam_data[duplicated(exam_data),]
+```
+
+## colSum(is.na(*dataset*))
+```{r}
+colSums(is.na(exam_data))
 ```
 :::
 
@@ -789,6 +802,12 @@ ggplot(data=exam_data,
 -   [Learning ggplot2 on Paper – Layer](https://henrywang.nl/learning-ggplot2-on-paper-layer/)
 -   [Learning ggplot2 on Paper – Scale](https://henrywang.nl/tag/learning-ggplot2-on-paper/)
 
+#### 1.12.1 Useful links
+
+-   [Quarto_overall_guide](https://quarto.org/docs/guide/)
+-   [Quarto_markdown_basic](https://quarto.org/docs/authoring/markdown-basics.html)
+-   [Quarto_interactive_layout](https://quarto.org/docs/interactive/layout.html)
+
 ### 1.13 End of Hands-on-Exercise 01: Learning points
 
 ::: callout-tip
@@ -802,6 +821,51 @@ ggplot(data=exam_data,
 -   `echo=FALSE`: Hides the code while executing it to display the plot in the final output
 :::
 
+#### 1.13.1 Further exploration
+1. Is it possible to add mean, median and a title on histogram?
+
+Before:
+```{r}
+ggplot(data=exam_data, aes(x = MATHS)) +
+  geom_histogram(bins=10, 
+                 boundary = 100,
+                 color="black", 
+                 fill="#4169e1") +
+  ggtitle("Distribution of Maths scores")
+```
+
+After:
+-   `geom_vline()`: adds vertical lines for mean and median
+-   `labs()`: used to set the title and add a label for the legend 
+-   `scale_color_manual()`: set the colors for mean and median
+
+```{r}
+# Calculate mean and median
+mean_value <- mean(exam_data$MATHS, na.rm = TRUE)
+median_value <- median(exam_data$MATHS, na.rm = TRUE)
+
+# Create a data frame for the mean and median lines
+line_data <- data.frame(
+  value = c(mean_value, median_value),
+  type = factor(c("Mean", "Median"))
+)
+
+# Create the histogram with mean and median lines and a legend
+ggplot(data = exam_data, aes(x = MATHS)) +
+  geom_histogram(bins = 10, 
+                 boundary = 100, 
+                 color = "black", 
+                 fill = "#4169e1") +
+  geom_vline(data = line_data, aes(xintercept = value, color = type), 
+             linetype = "dashed", 
+             size = 1) +
+  scale_color_manual(values = c("Mean" = "red", "Median" = "green")) +
+  labs(title = "Distribution of Maths Scores",
+       x = "Maths Scores",
+       y = "Frequency",
+       color = "Statistics") +
+  theme_minimal()
+```
  <!-- ::: {.callout-tip title="Reflection"} -->
 
 <!-- Some of the useful links from quarto, -->
@@ -809,5 +873,5 @@ ggplot(data=exam_data,
 <!-- install.packages("ggplot2") -->
 
 <!-- library(ggplot2) -->
-
+library(ggplot2)
 <!-- ::: -->
