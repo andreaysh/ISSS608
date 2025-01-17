@@ -809,7 +809,7 @@ ggplot(data=exam_data,
 -   [Quarto_markdown_basic](https://quarto.org/docs/authoring/markdown-basics.html)
 -   [Quarto_interactive_layout](https://quarto.org/docs/interactive/layout.html)
 
-### 1.13 Learning points
+### 1.13 Takeaway
 
 ::: callout-tip
 ## Takeaway
@@ -873,6 +873,30 @@ ggplot(data = exam_data, aes(x = MATHS)) +
        color = "Statistics") +
   theme_minimal()
 ```
+
+**2. Exploring other useful combinations of geometric objects in ggplot2?**
+
+-   Box plot with jittered points (`geom_boxplot()`+ `geom_jitter()`)
+
+-   **Use case:** To see the spread of ENGLISH scores across Gender, and identify any outliers.
+
+```{r}
+ggplot(data=exam_data, aes(x=GENDER, y=ENGLISH)) +
+  geom_boxplot(fill="lightblue") +   # Box plot for distribution
+  geom_jitter(width=0.1, size=1, alpha=0.7)  # Jittered points for individual data
+
+```
+**Conclusion:**
+-   Female students tend to have a slightly higher median English score compared to male students.
+-   Male students exhibit greater variability in their English scores, with a wider range of scores observed compared to female students.
+
+
+
+
+
+
+
+
 
 <!-- ::: {.callout-tip title="Reflection"} -->
 

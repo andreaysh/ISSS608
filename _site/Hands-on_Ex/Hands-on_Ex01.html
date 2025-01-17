@@ -1517,6 +1517,25 @@ Takeaway
 </div>
 </div>
 </div>
+<p><strong>2. Exploring other useful combinations of geometric objects in ggplot2?</strong></p>
+<ul>
+<li>Box plot with jittered points (<code>geom_boxplot()</code>+ <code>geom_jitter()</code>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, <span class="fu">aes</span>(<span class="at">x=</span>GENDER, <span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">"lightblue"</span>) <span class="sc">+</span>   <span class="co"># Box plot for distribution</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="at">alpha=</span><span class="fl">0.7</span>)  <span class="co"># Jittered points for individual data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><code>labs()</code>:</li>
+</ul>
 <!-- ::: {.callout-tip title="Reflection"} -->
 <!-- Some of the useful links from quarto, -->
 <!-- install.packages("ggplot2") -->

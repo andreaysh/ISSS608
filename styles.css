@@ -15,3 +15,9 @@ h3 {
 h4 {
     color: #4169e1; /* Replace with your desired color */
 }
+
+/* Dropdown list styling */
+.dropdown-menu > li > a:hover {
+    background-color: #E3E9FA; /* Change this to your desired highlight color */
+}
+
