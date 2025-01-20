@@ -803,7 +803,7 @@ ggplot(data=exam_data,
 -   [Learning ggplot2 on Paper – Layer](https://henrywang.nl/learning-ggplot2-on-paper-layer/)
 -   [Learning ggplot2 on Paper – Scale](https://henrywang.nl/tag/learning-ggplot2-on-paper/)
 
-#### 1.12.1 Useful links
+#### 1.12.1 Additional references
 
 -   [Quarto_overall_guide](https://quarto.org/docs/guide/)
 -   [Quarto_markdown_basic](https://quarto.org/docs/authoring/markdown-basics.html)
