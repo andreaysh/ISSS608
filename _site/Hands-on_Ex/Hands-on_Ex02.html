@@ -226,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 20, 2025</p>
+      <p class="date-modified">January 21, 2025</p>
     </div>
   </div>
     
@@ -1226,7 +1226,7 @@ Note
 </section>
 <section id="creating-figure-with-insert" class="level4">
 <h4 class="anchored" data-anchor-id="creating-figure-with-insert">2.5.5 Creating figure with insert</h4>
-<p>In addition to arranging plots side-by-side based on a specified layout, the <strong>Patchwork</strong> package provides the <code>inset_element()</code> function.</p>
+<p>In addition to arranging plots side-by-side based on a specified layout, the <strong>Patchwork</strong> package provides the <code>insert_element()</code> function.</p>
 <p>This allows user to freely place one or more plots or graphic elements over or below another plot, offering greater flexibility in design.</p>
 <p>Refer <a href="https://patchwork.data-imaginist.com/reference/inset_element.html">here</a> for the <code>insert_element</code> documentation.</p>
 <div class="cell">
@@ -1249,7 +1249,7 @@ Note
 </section>
 <section id="creating-a-composite-figure-by-using-patchwork-and-ggtheme" class="level4">
 <h4 class="anchored" data-anchor-id="creating-a-composite-figure-by-using-patchwork-and-ggtheme">2.5.6 Creating a composite figure by using patchwork and ggtheme</h4>
-<p>The figure below is created by combining patchwork and <code>theme_economist()</code> of the ggthemes package.</p>
+<p>The figure below is created by combining <strong>patchwork</strong> and the other ggthemes packages.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">theme_econmist()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">theme_wsj()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false">theme_fivethirtyeight()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-4" role="tab" aria-controls="tabset-8-4" aria-selected="false">theme_tufte()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-5" role="tab" aria-controls="tabset-8-5" aria-selected="false">theme_excel()</a></li></ul>
 <div class="tab-content">
@@ -1258,7 +1258,12 @@ Note
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_economist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_economist</span>() <span class="sc">+</span> </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">8</span>),</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">0</span>,</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vjust=</span><span class="fl">0.9</span>),</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1274,7 +1279,12 @@ Note
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_wsj</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_wsj</span>() <span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">8</span>),</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">0</span>,</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vjust=</span><span class="fl">0.9</span>),</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1290,7 +1300,12 @@ Note
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_fivethirtyeight</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_fivethirtyeight</span>() <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">8</span>),</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">0</span>,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vjust=</span><span class="fl">0.9</span>),</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1306,7 +1321,12 @@ Note
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_tufte</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_tufte</span>() <span class="sc">+</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">8</span>),</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">0</span>,</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vjust=</span><span class="fl">0.9</span>),</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1322,7 +1342,12 @@ Note
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_excel</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_excel</span>() <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">8</span>),</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">0</span>,</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vjust=</span><span class="fl">0.9</span>),</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1333,6 +1358,23 @@ Note
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Reduced the font size of the <code>plot. title</code> to 8 to improve plot’s readability</li>
+<li>Reduced the font size of the <code>axis.title.y</code> to 9 and rotated the y-axis title to vertical (90 degrees) to improve plot’s readability</li>
+<li>Likewise, reduced the font size of the <code>axis.title.x</code> to 9 to improve plot’s readability</li>
+</ul>
 </div>
 </div>
 </section>
@@ -1409,6 +1451,15 @@ Key takeaways
 <!-- -   install.packages("readr") \# If not installed library(readr) -->
 <!-- -   getwd() -->
 <!-- exam_data \<- read_csv("Hands-on_Ex/data/Exam_data.csv") -->
+<!-- install.packages("readr")  -->
+<!-- library(readr) -->
+<!-- install.packages("ggplot2")  -->
+<!-- library(ggplot2) -->
+<!-- install.packages("ggrepel") -->
+<!-- library(ggrepel) -->
+<!-- install.packages("ggthemes") -->
+<!-- library(ggthemes) -->
+<!-- library(stringr) -->
 
 
 <!-- -->
@@ -2524,7 +2575,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb52-715"><a href="#cb52-715" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-716"><a href="#cb52-716" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.5 Creating figure with insert</span></span>
 <span id="cb52-717"><a href="#cb52-717" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-718"><a href="#cb52-718" aria-hidden="true" tabindex="-1"></a>In addition to arranging plots side-by-side based on a specified layout, the **Patchwork** package provides the <span class="in">`inset_element()`</span> function.</span>
+<span id="cb52-718"><a href="#cb52-718" aria-hidden="true" tabindex="-1"></a>In addition to arranging plots side-by-side based on a specified layout, the **Patchwork** package provides the <span class="in">`insert_element()`</span> function.</span>
 <span id="cb52-719"><a href="#cb52-719" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-720"><a href="#cb52-720" aria-hidden="true" tabindex="-1"></a>This allows user to freely place one or more plots or graphic elements over or below another plot, offering greater flexibility in design.</span>
 <span id="cb52-721"><a href="#cb52-721" aria-hidden="true" tabindex="-1"></a></span>
@@ -2540,98 +2591,148 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb52-733"><a href="#cb52-733" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-734"><a href="#cb52-734" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.6 Creating a composite figure by using patchwork and ggtheme</span></span>
 <span id="cb52-735"><a href="#cb52-735" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-736"><a href="#cb52-736" aria-hidden="true" tabindex="-1"></a>The figure below is created by combining patchwork and <span class="in">`theme_economist()`</span> of the ggthemes package.</span>
+<span id="cb52-736"><a href="#cb52-736" aria-hidden="true" tabindex="-1"></a>The figure below is created by combining **patchwork** and the other ggthemes packages.</span>
 <span id="cb52-737"><a href="#cb52-737" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-738"><a href="#cb52-738" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
 <span id="cb52-739"><a href="#cb52-739" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_econmist()</span></span>
 <span id="cb52-740"><a href="#cb52-740" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-743"><a href="#cb52-743" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb52-744"><a href="#cb52-744" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb52-745"><a href="#cb52-745" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_economist</span>()</span>
-<span id="cb52-746"><a href="#cb52-746" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-747"><a href="#cb52-747" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-748"><a href="#cb52-748" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_wsj()</span></span>
-<span id="cb52-749"><a href="#cb52-749" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-752"><a href="#cb52-752" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-753"><a href="#cb52-753" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb52-754"><a href="#cb52-754" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_wsj</span>()</span>
-<span id="cb52-755"><a href="#cb52-755" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-756"><a href="#cb52-756" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-757"><a href="#cb52-757" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_fivethirtyeight()</span></span>
-<span id="cb52-758"><a href="#cb52-758" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-761"><a href="#cb52-761" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-762"><a href="#cb52-762" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb52-763"><a href="#cb52-763" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_fivethirtyeight</span>()</span>
-<span id="cb52-764"><a href="#cb52-764" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-745"><a href="#cb52-745" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_economist</span>() <span class="sc">+</span> </span>
+<span id="cb52-746"><a href="#cb52-746" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">8</span>),</span>
+<span id="cb52-747"><a href="#cb52-747" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb52-748"><a href="#cb52-748" aria-hidden="true" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">0</span>,</span>
+<span id="cb52-749"><a href="#cb52-749" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vjust=</span><span class="fl">0.9</span>),</span>
+<span id="cb52-750"><a href="#cb52-750" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span>
+<span id="cb52-751"><a href="#cb52-751" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-752"><a href="#cb52-752" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-753"><a href="#cb52-753" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_wsj()</span></span>
+<span id="cb52-754"><a href="#cb52-754" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-757"><a href="#cb52-757" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-758"><a href="#cb52-758" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
+<span id="cb52-759"><a href="#cb52-759" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_wsj</span>() <span class="sc">+</span></span>
+<span id="cb52-760"><a href="#cb52-760" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">8</span>),</span>
+<span id="cb52-761"><a href="#cb52-761" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb52-762"><a href="#cb52-762" aria-hidden="true" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">0</span>,</span>
+<span id="cb52-763"><a href="#cb52-763" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vjust=</span><span class="fl">0.9</span>),</span>
+<span id="cb52-764"><a href="#cb52-764" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span>
 <span id="cb52-765"><a href="#cb52-765" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-766"><a href="#cb52-766" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_tufte()</span></span>
+<span id="cb52-766"><a href="#cb52-766" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-767"><a href="#cb52-767" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-770"><a href="#cb52-770" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-771"><a href="#cb52-771" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb52-772"><a href="#cb52-772" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_tufte</span>()</span>
-<span id="cb52-773"><a href="#cb52-773" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-774"><a href="#cb52-774" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-775"><a href="#cb52-775" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_excel()</span></span>
-<span id="cb52-776"><a href="#cb52-776" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-779"><a href="#cb52-779" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-780"><a href="#cb52-780" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb52-781"><a href="#cb52-781" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_excel</span>()</span>
-<span id="cb52-782"><a href="#cb52-782" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-783"><a href="#cb52-783" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb52-784"><a href="#cb52-784" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-785"><a href="#cb52-785" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.6 References</span></span>
-<span id="cb52-786"><a href="#cb52-786" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-787"><a href="#cb52-787" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Kam, T.S(2023). <span class="co">[</span><span class="ot">2 Beyond ggplot2 Fundamentals</span><span class="co">](https://r4va.netlify.app/chap02)</span></span>
-<span id="cb52-788"><a href="#cb52-788" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggrepel</span><span class="co">](https://www.littlemissdata.com/blog/patchwork)</span></span>
-<span id="cb52-789"><a href="#cb52-789" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggthemes</span><span class="co">](https://ggplot2.tidyverse.org/reference/ggtheme.html)</span></span>
-<span id="cb52-790"><a href="#cb52-790" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">hrbrthemes</span><span class="co">](https://cran.r-project.org/web/packages/hrbrthemes/hrbrthemes.pdf)</span></span>
-<span id="cb52-791"><a href="#cb52-791" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot tips: Arranging plots</span><span class="co">](https://www.r-bloggers.com/2021/10/ggplot-tips-arranging-plots/)</span></span>
-<span id="cb52-792"><a href="#cb52-792" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot2 Theme Elements Demostration</span><span class="co">](https://henrywang.nl/ggplot2-theme-elements-demonstration/)</span></span>
-<span id="cb52-793"><a href="#cb52-793" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot2 Theme Elements Reference Sheet</span><span class="co">](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)</span></span>
-<span id="cb52-794"><a href="#cb52-794" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-795"><a href="#cb52-795" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.6.1 Additional references</span></span>
-<span id="cb52-796"><a href="#cb52-796" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-797"><a href="#cb52-797" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Quarto_HTML_Code_Blocks</span><span class="co">](https://quarto.org/docs/output-formats/html-code.html)</span></span>
-<span id="cb52-798"><a href="#cb52-798" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-799"><a href="#cb52-799" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.7 Takeaway</span></span>
-<span id="cb52-800"><a href="#cb52-800" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-801"><a href="#cb52-801" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
-<span id="cb52-802"><a href="#cb52-802" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key takeaways</span></span>
-<span id="cb52-803"><a href="#cb52-803" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-804"><a href="#cb52-804" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Learnt about the <span class="in">`code-fold`</span> and <span class="in">`code-summary`</span> chunk attributes to hide executable source code. where:</span>
-<span id="cb52-805"><a href="#cb52-805" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-806"><a href="#cb52-806" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Valid values for <span class="in">`code-fold`</span> include:</span>
-<span id="cb52-807"><a href="#cb52-807" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-808"><a href="#cb52-808" aria-hidden="true" tabindex="-1"></a>    | Value   | Behavior                     |</span>
-<span id="cb52-809"><a href="#cb52-809" aria-hidden="true" tabindex="-1"></a>    |---------|------------------------------|</span>
-<span id="cb52-810"><a href="#cb52-810" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`false`</span> | No folding (default)         |</span>
-<span id="cb52-811"><a href="#cb52-811" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`true`</span>  | Fold code (initially hidden) |</span>
-<span id="cb52-812"><a href="#cb52-812" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`show`</span>  | Fold code (initially shown)  |</span>
-<span id="cb52-813"><a href="#cb52-813" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-814"><a href="#cb52-814" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Learnt about the different R packages</span>
-<span id="cb52-815"><a href="#cb52-815" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-816"><a href="#cb52-816" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("readr") library(readr)</span>
+<span id="cb52-768"><a href="#cb52-768" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_fivethirtyeight()</span></span>
+<span id="cb52-769"><a href="#cb52-769" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-772"><a href="#cb52-772" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-773"><a href="#cb52-773" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
+<span id="cb52-774"><a href="#cb52-774" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_fivethirtyeight</span>() <span class="sc">+</span></span>
+<span id="cb52-775"><a href="#cb52-775" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">8</span>),</span>
+<span id="cb52-776"><a href="#cb52-776" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb52-777"><a href="#cb52-777" aria-hidden="true" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">0</span>,</span>
+<span id="cb52-778"><a href="#cb52-778" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vjust=</span><span class="fl">0.9</span>),</span>
+<span id="cb52-779"><a href="#cb52-779" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span>
+<span id="cb52-780"><a href="#cb52-780" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-781"><a href="#cb52-781" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-782"><a href="#cb52-782" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_tufte()</span></span>
+<span id="cb52-783"><a href="#cb52-783" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-786"><a href="#cb52-786" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-787"><a href="#cb52-787" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
+<span id="cb52-788"><a href="#cb52-788" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_tufte</span>() <span class="sc">+</span></span>
+<span id="cb52-789"><a href="#cb52-789" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">8</span>),</span>
+<span id="cb52-790"><a href="#cb52-790" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb52-791"><a href="#cb52-791" aria-hidden="true" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">0</span>,</span>
+<span id="cb52-792"><a href="#cb52-792" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vjust=</span><span class="fl">0.9</span>),</span>
+<span id="cb52-793"><a href="#cb52-793" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span>
+<span id="cb52-794"><a href="#cb52-794" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-795"><a href="#cb52-795" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-796"><a href="#cb52-796" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_excel()</span></span>
+<span id="cb52-797"><a href="#cb52-797" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-800"><a href="#cb52-800" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-801"><a href="#cb52-801" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
+<span id="cb52-802"><a href="#cb52-802" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_excel</span>() <span class="sc">+</span></span>
+<span id="cb52-803"><a href="#cb52-803" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">8</span>),</span>
+<span id="cb52-804"><a href="#cb52-804" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb52-805"><a href="#cb52-805" aria-hidden="true" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">0</span>,</span>
+<span id="cb52-806"><a href="#cb52-806" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vjust=</span><span class="fl">0.9</span>),</span>
+<span id="cb52-807"><a href="#cb52-807" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span>
+<span id="cb52-808"><a href="#cb52-808" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-809"><a href="#cb52-809" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-810"><a href="#cb52-810" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-811"><a href="#cb52-811" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb52-812"><a href="#cb52-812" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Reduced the font size of the <span class="in">`plot. title`</span> to 8 to improve plot's readability</span>
+<span id="cb52-813"><a href="#cb52-813" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Reduced the font size of the <span class="in">`axis.title.y`</span> to 9 and rotated the y-axis title to vertical (90 degrees) to improve plot's readability</span>
+<span id="cb52-814"><a href="#cb52-814" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Likewise, reduced the font size of the <span class="in">`axis.title.x`</span> to 9 to improve plot's readability</span>
+<span id="cb52-815"><a href="#cb52-815" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-816"><a href="#cb52-816" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-817"><a href="#cb52-817" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-818"><a href="#cb52-818" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("ggplot2") library(ggplot2)</span>
+<span id="cb52-818"><a href="#cb52-818" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.6 References</span></span>
 <span id="cb52-819"><a href="#cb52-819" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-820"><a href="#cb52-820" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("ggrepel") library(ggrepel)</span>
-<span id="cb52-821"><a href="#cb52-821" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-822"><a href="#cb52-822" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("ggthemes") library(ggthemes)</span>
-<span id="cb52-823"><a href="#cb52-823" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-824"><a href="#cb52-824" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Enhanced annotations with the use of <span class="in">`ggrepeal`</span> - help to repel overlapping text labels, ensuring clear and readbable annotations</span>
-<span id="cb52-825"><a href="#cb52-825" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-826"><a href="#cb52-826" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Introducing of professional themes with <span class="in">`ggthemes`</span> and <span class="in">`hrbrthemes`</span> - offer additional themes , geoms, and improved asthetics and typography.</span>
+<span id="cb52-820"><a href="#cb52-820" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Kam, T.S(2023). <span class="co">[</span><span class="ot">2 Beyond ggplot2 Fundamentals</span><span class="co">](https://r4va.netlify.app/chap02)</span></span>
+<span id="cb52-821"><a href="#cb52-821" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggrepel</span><span class="co">](https://www.littlemissdata.com/blog/patchwork)</span></span>
+<span id="cb52-822"><a href="#cb52-822" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggthemes</span><span class="co">](https://ggplot2.tidyverse.org/reference/ggtheme.html)</span></span>
+<span id="cb52-823"><a href="#cb52-823" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">hrbrthemes</span><span class="co">](https://cran.r-project.org/web/packages/hrbrthemes/hrbrthemes.pdf)</span></span>
+<span id="cb52-824"><a href="#cb52-824" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot tips: Arranging plots</span><span class="co">](https://www.r-bloggers.com/2021/10/ggplot-tips-arranging-plots/)</span></span>
+<span id="cb52-825"><a href="#cb52-825" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot2 Theme Elements Demostration</span><span class="co">](https://henrywang.nl/ggplot2-theme-elements-demonstration/)</span></span>
+<span id="cb52-826"><a href="#cb52-826" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot2 Theme Elements Reference Sheet</span><span class="co">](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)</span></span>
 <span id="cb52-827"><a href="#cb52-827" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-828"><a href="#cb52-828" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Combining plots with <span class="in">`patchwork`</span> - allows for the creation of composite figures by combining multiple ggplot2 graphs together.</span>
-<span id="cb52-829"><a href="#cb52-829" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb52-830"><a href="#cb52-830" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-831"><a href="#cb52-831" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Additional points: --&gt;</span></span>
-<span id="cb52-832"><a href="#cb52-832" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-833"><a href="#cb52-833" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- -   install.packages("readr") \# If not installed library(readr) --&gt;</span></span>
-<span id="cb52-834"><a href="#cb52-834" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-835"><a href="#cb52-835" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- -   getwd() --&gt;</span></span>
+<span id="cb52-828"><a href="#cb52-828" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.6.1 Additional references</span></span>
+<span id="cb52-829"><a href="#cb52-829" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-830"><a href="#cb52-830" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Quarto_HTML_Code_Blocks</span><span class="co">](https://quarto.org/docs/output-formats/html-code.html)</span></span>
+<span id="cb52-831"><a href="#cb52-831" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-832"><a href="#cb52-832" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.7 Takeaway</span></span>
+<span id="cb52-833"><a href="#cb52-833" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-834"><a href="#cb52-834" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb52-835"><a href="#cb52-835" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key takeaways</span></span>
 <span id="cb52-836"><a href="#cb52-836" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-837"><a href="#cb52-837" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- exam_data \&lt;- read_csv("Hands-on_Ex/data/Exam_data.csv") --&gt;</span></span>
+<span id="cb52-837"><a href="#cb52-837" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Learnt about the <span class="in">`code-fold`</span> and <span class="in">`code-summary`</span> chunk attributes to hide executable source code. where:</span>
+<span id="cb52-838"><a href="#cb52-838" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-839"><a href="#cb52-839" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Valid values for <span class="in">`code-fold`</span> include:</span>
+<span id="cb52-840"><a href="#cb52-840" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-841"><a href="#cb52-841" aria-hidden="true" tabindex="-1"></a>    | Value   | Behavior                     |</span>
+<span id="cb52-842"><a href="#cb52-842" aria-hidden="true" tabindex="-1"></a>    |---------|------------------------------|</span>
+<span id="cb52-843"><a href="#cb52-843" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`false`</span> | No folding (default)         |</span>
+<span id="cb52-844"><a href="#cb52-844" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`true`</span>  | Fold code (initially hidden) |</span>
+<span id="cb52-845"><a href="#cb52-845" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`show`</span>  | Fold code (initially shown)  |</span>
+<span id="cb52-846"><a href="#cb52-846" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-847"><a href="#cb52-847" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Learnt about the different R packages</span>
+<span id="cb52-848"><a href="#cb52-848" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-849"><a href="#cb52-849" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("readr") library(readr)</span>
+<span id="cb52-850"><a href="#cb52-850" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-851"><a href="#cb52-851" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("ggplot2") library(ggplot2)</span>
+<span id="cb52-852"><a href="#cb52-852" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-853"><a href="#cb52-853" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("ggrepel") library(ggrepel)</span>
+<span id="cb52-854"><a href="#cb52-854" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-855"><a href="#cb52-855" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("ggthemes") library(ggthemes)</span>
+<span id="cb52-856"><a href="#cb52-856" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-857"><a href="#cb52-857" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Enhanced annotations with the use of <span class="in">`ggrepeal`</span> - help to repel overlapping text labels, ensuring clear and readbable annotations</span>
+<span id="cb52-858"><a href="#cb52-858" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-859"><a href="#cb52-859" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Introducing of professional themes with <span class="in">`ggthemes`</span> and <span class="in">`hrbrthemes`</span> - offer additional themes , geoms, and improved asthetics and typography.</span>
+<span id="cb52-860"><a href="#cb52-860" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-861"><a href="#cb52-861" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Combining plots with <span class="in">`patchwork`</span> - allows for the creation of composite figures by combining multiple ggplot2 graphs together.</span>
+<span id="cb52-862"><a href="#cb52-862" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-863"><a href="#cb52-863" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-864"><a href="#cb52-864" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Additional points: --&gt;</span></span>
+<span id="cb52-865"><a href="#cb52-865" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-866"><a href="#cb52-866" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- -   install.packages("readr") \# If not installed library(readr) --&gt;</span></span>
+<span id="cb52-867"><a href="#cb52-867" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-868"><a href="#cb52-868" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- -   getwd() --&gt;</span></span>
+<span id="cb52-869"><a href="#cb52-869" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-870"><a href="#cb52-870" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- exam_data \&lt;- read_csv("Hands-on_Ex/data/Exam_data.csv") --&gt;</span></span>
+<span id="cb52-871"><a href="#cb52-871" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-872"><a href="#cb52-872" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("readr")  --&gt;</span></span>
+<span id="cb52-873"><a href="#cb52-873" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(readr) --&gt;</span></span>
+<span id="cb52-874"><a href="#cb52-874" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-875"><a href="#cb52-875" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggplot2")  --&gt;</span></span>
+<span id="cb52-876"><a href="#cb52-876" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-877"><a href="#cb52-877" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggplot2) --&gt;</span></span>
+<span id="cb52-878"><a href="#cb52-878" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-879"><a href="#cb52-879" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggrepel") --&gt;</span></span>
+<span id="cb52-880"><a href="#cb52-880" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-881"><a href="#cb52-881" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggrepel) --&gt;</span></span>
+<span id="cb52-882"><a href="#cb52-882" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-883"><a href="#cb52-883" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggthemes") --&gt;</span></span>
+<span id="cb52-884"><a href="#cb52-884" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-885"><a href="#cb52-885" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggthemes) --&gt;</span></span>
+<span id="cb52-886"><a href="#cb52-886" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-887"><a href="#cb52-887" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(stringr) --&gt;</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -637,7 +637,7 @@ To learn more about **Patchwork**, refer [here](https://patchwork.data-imaginist
 
 #### 2.5.5 Creating figure with insert
 
-In addition to arranging plots side-by-side based on a specified layout, the **Patchwork** package provides the `inset_element()` function.
+In addition to arranging plots side-by-side based on a specified layout, the **Patchwork** package provides the `insert_element()` function.
 
 This allows user to freely place one or more plots or graphic elements over or below another plot, offering greater flexibility in design.
 
@@ -653,44 +653,77 @@ p3 + inset_element(p2,
 
 #### 2.5.6 Creating a composite figure by using patchwork and ggtheme
 
-The figure below is created by combining patchwork and `theme_economist()` of the ggthemes package.
+The figure below is created by combining **patchwork** and the other ggthemes packages.
 
 ::: panel-tabset
 ## theme_econmist()
 
 ```{r}
 patchwork <- (p1 / p2) | p3
-patchwork & theme_economist()
+patchwork & theme_economist() + 
+  theme(plot.title=element_text(size =8),
+        axis.title.y=element_text(size = 9,
+                              angle = 0,
+                              vjust=0.9),
+        axis.title.x=element_text(size = 9))
 ```
 
 ## theme_wsj()
 
 ```{r}
 patchwork <- (p1 / p2) | p3
-patchwork & theme_wsj()
+patchwork & theme_wsj() +
+  theme(plot.title=element_text(size =8),
+        axis.title.y=element_text(size = 9,
+                              angle = 0,
+                              vjust=0.9),
+        axis.title.x=element_text(size = 9))
+
 ```
 
 ## theme_fivethirtyeight()
 
 ```{r}
 patchwork <- (p1 / p2) | p3
-patchwork & theme_fivethirtyeight()
+patchwork & theme_fivethirtyeight() +
+  theme(plot.title=element_text(size =8),
+        axis.title.y=element_text(size = 9,
+                              angle = 0,
+                              vjust=0.9),
+        axis.title.x=element_text(size = 9))
 ```
 
 ## theme_tufte()
 
 ```{r}
 patchwork <- (p1 / p2) | p3
-patchwork & theme_tufte()
+patchwork & theme_tufte() +
+  theme(plot.title=element_text(size =8),
+        axis.title.y=element_text(size = 9,
+                              angle = 0,
+                              vjust=0.9),
+        axis.title.x=element_text(size = 9))
 ```
 
 ## theme_excel()
 
 ```{r}
 patchwork <- (p1 / p2) | p3
-patchwork & theme_excel()
+patchwork & theme_excel() +
+  theme(plot.title=element_text(size =8),
+        axis.title.y=element_text(size = 9,
+                              angle = 0,
+                              vjust=0.9),
+        axis.title.x=element_text(size = 9))
 ```
 :::
+
+::: callout-note
+-   Reduced the font size of the `plot. title` to 8 to improve plot's readability
+-   Reduced the font size of the `axis.title.y` to 9 and rotated the y-axis title to vertical (90 degrees) to improve plot's readability
+-   Likewise, reduced the font size of the `axis.title.x` to 9 to improve plot's readability
+:::
+
 
 ### 2.6 References
 
@@ -745,3 +778,21 @@ patchwork & theme_excel()
 <!-- -   getwd() -->
 
 <!-- exam_data \<- read_csv("Hands-on_Ex/data/Exam_data.csv") -->
+
+<!-- install.packages("readr")  -->
+<!-- library(readr) -->
+
+<!-- install.packages("ggplot2")  -->
+
+<!-- library(ggplot2) -->
+
+<!-- install.packages("ggrepel") -->
+
+<!-- library(ggrepel) -->
+
+<!-- install.packages("ggthemes") -->
+
+<!-- library(ggthemes) -->
+
+<!-- library(stringr) -->
+
