@@ -241,6 +241,7 @@ ggplot(data=exam_data,
 ```
 
 ## theme_bw()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -253,6 +254,7 @@ ggplot(data=exam_data,
 ```
 
 ## theme_classic()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -266,6 +268,7 @@ ggplot(data=exam_data,
 ```
 
 ## theme_dark()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -278,6 +281,7 @@ ggplot(data=exam_data,
 ```
 
 ## theme_light()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -290,6 +294,7 @@ ggplot(data=exam_data,
 ```
 
 ## theme_linedraw()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -302,6 +307,7 @@ ggplot(data=exam_data,
 ```
 
 ## theme_minimal()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -314,6 +320,7 @@ ggplot(data=exam_data,
 ```
 
 ## theme_void()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -334,9 +341,10 @@ Refer to this [link](https://ggplot2.tidyverse.org/reference/#themes) to learn m
 
 Below are some of the examples of the different themes available.
 
-Refer [here](https://www.rdocumentation.org/packages/ggthemes/versions/5.1.0) for the comprehensive list and descrptions of all available themes. 
+Refer [here](https://www.rdocumentation.org/packages/ggthemes/versions/5.1.0) for the comprehensive list and descrptions of all available themes.
 
 Install and load `ggthemes`packages
+
 ```{r}
 install.packages("ggthemes")
 library(ggthemes)
@@ -344,6 +352,7 @@ library(ggthemes)
 
 ::: panel-tabset
 ## theme_economist()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -356,6 +365,7 @@ ggplot(data=exam_data,
 ```
 
 ## theme_wsj()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -368,6 +378,7 @@ ggplot(data=exam_data,
 ```
 
 ## theme_fivethirtyeight()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -378,7 +389,9 @@ ggplot(data=exam_data,
   ggtitle("Distribution of Maths scores") +
   theme_fivethirtyeight()
 ```
+
 ## theme_tufte()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -389,7 +402,9 @@ ggplot(data=exam_data,
   ggtitle("Distribution of Maths scores") +
   theme_tufte()
 ```
+
 ## theme_excel()
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -444,6 +459,7 @@ ggplot(data=exam_data,
               base_size = 15,
               grid = "Y")
 ```
+
 ::: callout-tip
 ## What can we learn from the cde chunk above?
 
@@ -454,11 +470,11 @@ ggplot(data=exam_data,
 
 ### 2.5 Beyond single graph
 
-Creating multiple graphs is often necessary to convey a compelling visual story. Several ggplot2 extensions offer functions for combining multiple graphs into a single figure. 
+Creating multiple graphs is often necessary to convey a compelling visual story. Several ggplot2 extensions offer functions for combining multiple graphs into a single figure.
 
-In this section, we will learn how to create a composite/ combined plot by merging multiple graphs. First, let create three statistical graphics bu using the codes below. 
+In this section, we will learn how to create a composite/ combined plot by merging multiple graphs. First, let create three statistical graphics by using the codes below.
 
-::: panel-tabset
+:::: panel-tabset
 ## Histogram 1 - distribution of Maths scores
 
 ```{r}
@@ -495,7 +511,7 @@ p2 <- ggplot(data=exam_data,
 p2
 ```
 
-##  Scatterplot - English VS Maths scores
+## Scatterplot - English VS Maths scores
 
 ```{r}
 #| code-fold: true
@@ -517,20 +533,19 @@ p3
 ::: callout-note
 -   Replaced size=0.5 with linewidth-0.5 in the `geom_smooth()` function to align the code with the latest ggplot2 standards.
 :::
-
-:::
+::::
 
 #### 2.5.1 Creating composits graphics: pathwork methods
 
 There are several ggplot2 extension’s functions that support the preparation of composite figures such as [`grid.arrange()`](https://cran.r-project.org/web/packages/gridExtra/vignettes/arrangeGrob.html) of **gridExtra** package and [`plot_grid()`](https://wilkelab.org/cowplot/reference/plot_grid.html) of [***cowplot***](https://wilkelab.org/cowplot/) package.
 
-In this section, we will be using **Patchwork**, a ggplot2 extension specifically designed to combine multiple ggplot2 graphs into a single figure. 
+In this section, we will be using **Patchwork**, a ggplot2 extension specifically designed to combine multiple ggplot2 graphs into a single figure.
 
 The **Patchwork** package offers a straightforward synatx, making it easy to create custom layouts. Key features include
 
--   Two column layouts using `+` operator 
+-   Two column layouts using `+` operator
 -   Subplot grouping using `()` operator
--   Two-row layouts using `/` operator 
+-   Two-row layouts using `/` operator
 -   One-row layout using `|` operator
 
 ```{r}
@@ -564,9 +579,7 @@ p1 + p2 + plot_layout(ncol=2,widths=c(1,2))
 ```{r}
 p1/p2
 ```
-
-
-::: 
+:::
 
 #### 2.5.3 Combining 2 or more ggplot2 graphs
 
@@ -574,12 +587,13 @@ We can also combine 2 or more ggplots graph in one composite figure.
 
 ::: panel-tabset
 ## Using `+`&`|`&`()` operator
+
 ```{r}
 (p1/p2) | p3
 ```
 
 To learn more about **Patchwork**, refer [here](https://patchwork.data-imaginist.com/articles/guides/assembly.html)
-::: 
+:::
 
 #### 2.5.4 Creating a composite figure with tag
 
@@ -611,19 +625,19 @@ To learn more about **Patchwork**, refer [here](https://patchwork.data-imaginist
 ```
 
 ## Customizing tags
--   Using either `tag_prefix` and/ or `tag_suffix` to format tags  
-   Added the word "Figure" before each Roman numeral
+
+-   Using either `tag_prefix` and/ or `tag_suffix` to format tags
+-   Added the word "Figure" before each Roman numeral
 
 ```{r}
 ((p1 / p2) | p3) + 
   plot_annotation(tag_levels = "I", tag_prefix = "Figure ", tag_suffix = "")
 ```
-
-::: 
+:::
 
 #### 2.5.5 Creating figure with insert
 
-In addition to arranging plots side-by-side based on a specified layout, the **Patchwork** package provides the `inset_element()` function. 
+In addition to arranging plots side-by-side based on a specified layout, the **Patchwork** package provides the `inset_element()` function.
 
 This allows user to freely place one or more plots or graphic elements over or below another plot, offering greater flexibility in design.
 
@@ -639,22 +653,25 @@ p3 + inset_element(p2,
 
 #### 2.5.6 Creating a composite figure by using patchwork and ggtheme
 
-The figure below is created by combining patchwork and `theme_economist()` of the ggthemes package. 
+The figure below is created by combining patchwork and `theme_economist()` of the ggthemes package.
 
 ::: panel-tabset
 ## theme_econmist()
+
 ```{r}
 patchwork <- (p1 / p2) | p3
 patchwork & theme_economist()
 ```
 
 ## theme_wsj()
+
 ```{r}
 patchwork <- (p1 / p2) | p3
 patchwork & theme_wsj()
 ```
 
 ## theme_fivethirtyeight()
+
 ```{r}
 patchwork <- (p1 / p2) | p3
 patchwork & theme_fivethirtyeight()
@@ -674,33 +691,25 @@ patchwork <- (p1 / p2) | p3
 patchwork & theme_excel()
 ```
 :::
-  
+
 ### 2.6 References
+
 -   Kam, T.S(2023). [2 Beyond ggplot2 Fundamentals](https://r4va.netlify.app/chap02)
 -   [ggrepel](https://www.littlemissdata.com/blog/patchwork)
 -   [ggthemes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
 -   [hrbrthemes](https://cran.r-project.org/web/packages/hrbrthemes/hrbrthemes.pdf)
 -   [ggplot tips: Arranging plots](https://www.r-bloggers.com/2021/10/ggplot-tips-arranging-plots/)
-
-
-
-
-
-
-
-
-
-
-
+-   [ggplot2 Theme Elements Demostration](https://henrywang.nl/ggplot2-theme-elements-demonstration/)
+-   [ggplot2 Theme Elements Reference Sheet](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)
 
 #### 2.6.1 Additional references
 
 -   [Quarto_HTML_Code_Blocks](https://quarto.org/docs/output-formats/html-code.html)
 
-### 1.13 Takeaway
+### 2.7 Takeaway
 
 ::: callout-tip
-## Takeaway
+## Key takeaways
 
 -   Learnt about the `code-fold` and `code-summary` chunk attributes to hide executable source code. where:
 
@@ -711,19 +720,28 @@ patchwork & theme_excel()
     | `false` | No folding (default)         |
     | `true`  | Fold code (initially hidden) |
     | `show`  | Fold code (initially shown)  |
-    |         |                              |
+
+-   Learnt about the different R packages
+
+    -   install.packages("readr") library(readr)
+
+    -   install.packages("ggplot2") library(ggplot2)
+
+    -   install.packages("ggrepel") library(ggrepel)
+
+    -   install.packages("ggthemes") library(ggthemes)
+
+-   Enhanced annotations with the use of `ggrepeal` - help to repel overlapping text labels, ensuring clear and readbable annotations
+
+-   Introducing of professional themes with `ggthemes` and `hrbrthemes` - offer additional themes , geoms, and improved asthetics and typography.
+
+-   Combining plots with `patchwork` - allows for the creation of composite figures by combining multiple ggplot2 graphs together.
 :::
 
-Additional points:
+<!-- Additional points: -->
 
--   install.packages("readr") \# If not installed library(readr)
--   getwd()
+<!-- -   install.packages("readr") \# If not installed library(readr) -->
 
-exam_data \<- read_csv("Hands-on_Ex/data/Exam_data.csv")
+<!-- -   getwd() -->
 
-install.packages("ggplot2")
-library(ggplot2) 
-install.packages("ggrepel") 
-library(ggrepel) 
-install.packages("ggthemes") 
-library(ggthemes)
+<!-- exam_data \<- read_csv("Hands-on_Ex/data/Exam_data.csv") -->

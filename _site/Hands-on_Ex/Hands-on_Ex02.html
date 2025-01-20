@@ -197,7 +197,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#beyond-ggplot2-annotation-ggrel" id="toc-beyond-ggplot2-annotation-ggrel" class="nav-link" data-scroll-target="#beyond-ggplot2-annotation-ggrel">2.3 Beyond ggplot2 Annotation: ggrel</a></li>
   <li><a href="#beyond-ggplot2-themes" id="toc-beyond-ggplot2-themes" class="nav-link" data-scroll-target="#beyond-ggplot2-themes">2.4 Beyond ggplot2 themes</a></li>
   <li><a href="#beyond-single-graph" id="toc-beyond-single-graph" class="nav-link" data-scroll-target="#beyond-single-graph">2.5 Beyond single graph</a></li>
-  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">1.13 Takeaway</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">2.6 References</a></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">2.7 Takeaway</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -952,7 +953,7 @@ What can we learn from the cde chunk above?
 <section id="beyond-single-graph" class="level3">
 <h3 class="anchored" data-anchor-id="beyond-single-graph">2.5 Beyond single graph</h3>
 <p>Creating multiple graphs is often necessary to convey a compelling visual story. Several ggplot2 extensions offer functions for combining multiple graphs into a single figure.</p>
-<p>In this section, we will learn how to create a composite/ combined plot by merging multiple graphs. First, let create three statistical graphics bu using the codes below.</p>
+<p>In this section, we will learn how to create a composite/ combined plot by merging multiple graphs. First, let create three statistical graphics by using the codes below.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Histogram 1 - distribution of Maths scores</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Histogram 2 - distribution of English scores</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Scatterplot - English VS Maths scores</a></li></ul>
 <div class="tab-content">
@@ -1202,8 +1203,8 @@ Note
 </div>
 <div id="tabset-7-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-4-tab">
 <ul>
-<li>Using either <code>tag_prefix</code> and/ or <code>tag_suffix</code> to format tags<br>
-Added the word “Figure” before each Roman numeral</li>
+<li>Using either <code>tag_prefix</code> and/ or <code>tag_suffix</code> to format tags</li>
+<li>Added the word “Figure” before each Roman numeral</li>
 </ul>
 <div class="cell">
 <details class="code-fold">
@@ -1335,22 +1336,34 @@ Added the word “Figure” before each Roman numeral</li>
 </div>
 </div>
 </section>
-<section id="useful-links" class="level4">
-<h4 class="anchored" data-anchor-id="useful-links">1.12.1 Useful links</h4>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">2.6 References</h3>
+<ul>
+<li>Kam, T.S(2023). <a href="https://r4va.netlify.app/chap02">2 Beyond ggplot2 Fundamentals</a></li>
+<li><a href="https://www.littlemissdata.com/blog/patchwork">ggrepel</a></li>
+<li><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">ggthemes</a></li>
+<li><a href="https://cran.r-project.org/web/packages/hrbrthemes/hrbrthemes.pdf">hrbrthemes</a></li>
+<li><a href="https://www.r-bloggers.com/2021/10/ggplot-tips-arranging-plots/">ggplot tips: Arranging plots</a></li>
+<li><a href="https://henrywang.nl/ggplot2-theme-elements-demonstration/">ggplot2 Theme Elements Demostration</a></li>
+<li><a href="https://isabella-b.com/blog/ggplot2-theme-elements-reference/">ggplot2 Theme Elements Reference Sheet</a></li>
+</ul>
+<section id="additional-references" class="level4">
+<h4 class="anchored" data-anchor-id="additional-references">2.6.1 Additional references</h4>
 <ul>
 <li><a href="https://quarto.org/docs/output-formats/html-code.html">Quarto_HTML_Code_Blocks</a></li>
 </ul>
 </section>
 </section>
 <section id="takeaway" class="level3">
-<h3 class="anchored" data-anchor-id="takeaway">1.13 Takeaway</h3>
+<h3 class="anchored" data-anchor-id="takeaway">2.7 Takeaway</h3>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Takeaway
+Key takeaways
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1377,22 +1390,25 @@ Takeaway
 <td><code>show</code></td>
 <td>Fold code (initially shown)</td>
 </tr>
-<tr class="even">
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table></li>
-</ul>
-</div>
-</div>
-<p>Additional points:</p>
+<li><p>Learnt about the different R packages</p>
 <ul>
-<li>install.packages(“readr”) # If not installed library(readr)</li>
-<li>getwd()</li>
+<li><p>install.packages(“readr”) library(readr)</p></li>
+<li><p>install.packages(“ggplot2”) library(ggplot2)</p></li>
+<li><p>install.packages(“ggrepel”) library(ggrepel)</p></li>
+<li><p>install.packages(“ggthemes”) library(ggthemes)</p></li>
+</ul></li>
+<li><p>Enhanced annotations with the use of <code>ggrepeal</code> - help to repel overlapping text labels, ensuring clear and readbable annotations</p></li>
+<li><p>Introducing of professional themes with <code>ggthemes</code> and <code>hrbrthemes</code> - offer additional themes , geoms, and improved asthetics and typography.</p></li>
+<li><p>Combining plots with <code>patchwork</code> - allows for the creation of composite figures by combining multiple ggplot2 graphs together.</p></li>
 </ul>
-<p>exam_data &lt;- read_csv(“Hands-on_Ex/data/Exam_data.csv”)</p>
-<p>install.packages(“ggplot2”) library(ggplot2) install.packages(“ggrepel”) library(ggrepel) install.packages(“ggthemes”) library(ggthemes)</p>
+</div>
+</div>
+<!-- Additional points: -->
+<!-- -   install.packages("readr") \# If not installed library(readr) -->
+<!-- -   getwd() -->
+<!-- exam_data \<- read_csv("Hands-on_Ex/data/Exam_data.csv") -->
 
 
 <!-- -->
@@ -2112,155 +2128,157 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb52-265"><a href="#cb52-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-266"><a href="#cb52-266" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-267"><a href="#cb52-267" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_bw()</span></span>
-<span id="cb52-270"><a href="#cb52-270" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-271"><a href="#cb52-271" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-272"><a href="#cb52-272" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-273"><a href="#cb52-273" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-274"><a href="#cb52-274" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-275"><a href="#cb52-275" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-276"><a href="#cb52-276" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-277"><a href="#cb52-277" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb52-278"><a href="#cb52-278" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>)</span>
-<span id="cb52-279"><a href="#cb52-279" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-280"><a href="#cb52-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-281"><a href="#cb52-281" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_classic()</span></span>
-<span id="cb52-284"><a href="#cb52-284" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-285"><a href="#cb52-285" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-286"><a href="#cb52-286" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-287"><a href="#cb52-287" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-288"><a href="#cb52-288" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-289"><a href="#cb52-289" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-290"><a href="#cb52-290" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-291"><a href="#cb52-291" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb52-292"><a href="#cb52-292" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
-<span id="cb52-293"><a href="#cb52-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-294"><a href="#cb52-294" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-268"><a href="#cb52-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-271"><a href="#cb52-271" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-272"><a href="#cb52-272" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-273"><a href="#cb52-273" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-274"><a href="#cb52-274" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-275"><a href="#cb52-275" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-276"><a href="#cb52-276" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-277"><a href="#cb52-277" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-278"><a href="#cb52-278" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb52-279"><a href="#cb52-279" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>)</span>
+<span id="cb52-280"><a href="#cb52-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-281"><a href="#cb52-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-282"><a href="#cb52-282" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_classic()</span></span>
+<span id="cb52-283"><a href="#cb52-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-286"><a href="#cb52-286" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-287"><a href="#cb52-287" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-288"><a href="#cb52-288" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-289"><a href="#cb52-289" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-290"><a href="#cb52-290" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-291"><a href="#cb52-291" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-292"><a href="#cb52-292" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-293"><a href="#cb52-293" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb52-294"><a href="#cb52-294" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
 <span id="cb52-295"><a href="#cb52-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-296"><a href="#cb52-296" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_dark()</span></span>
-<span id="cb52-299"><a href="#cb52-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-300"><a href="#cb52-300" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-301"><a href="#cb52-301" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-302"><a href="#cb52-302" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-303"><a href="#cb52-303" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-304"><a href="#cb52-304" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-305"><a href="#cb52-305" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-306"><a href="#cb52-306" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>() <span class="sc">+</span></span>
-<span id="cb52-307"><a href="#cb52-307" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
-<span id="cb52-308"><a href="#cb52-308" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-309"><a href="#cb52-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-310"><a href="#cb52-310" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_light()</span></span>
-<span id="cb52-313"><a href="#cb52-313" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-314"><a href="#cb52-314" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-315"><a href="#cb52-315" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-316"><a href="#cb52-316" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-317"><a href="#cb52-317" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-318"><a href="#cb52-318" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-319"><a href="#cb52-319" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-320"><a href="#cb52-320" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb52-321"><a href="#cb52-321" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
-<span id="cb52-322"><a href="#cb52-322" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-323"><a href="#cb52-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-324"><a href="#cb52-324" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_linedraw()</span></span>
-<span id="cb52-327"><a href="#cb52-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-328"><a href="#cb52-328" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-329"><a href="#cb52-329" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-330"><a href="#cb52-330" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-331"><a href="#cb52-331" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-332"><a href="#cb52-332" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-333"><a href="#cb52-333" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-334"><a href="#cb52-334" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
-<span id="cb52-335"><a href="#cb52-335" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
-<span id="cb52-336"><a href="#cb52-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-337"><a href="#cb52-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-338"><a href="#cb52-338" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_minimal()</span></span>
-<span id="cb52-341"><a href="#cb52-341" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-342"><a href="#cb52-342" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-343"><a href="#cb52-343" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-344"><a href="#cb52-344" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-345"><a href="#cb52-345" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-346"><a href="#cb52-346" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-347"><a href="#cb52-347" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-348"><a href="#cb52-348" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb52-349"><a href="#cb52-349" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
-<span id="cb52-350"><a href="#cb52-350" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-351"><a href="#cb52-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-352"><a href="#cb52-352" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_void()</span></span>
-<span id="cb52-355"><a href="#cb52-355" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-356"><a href="#cb52-356" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-357"><a href="#cb52-357" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-358"><a href="#cb52-358" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-359"><a href="#cb52-359" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-360"><a href="#cb52-360" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-361"><a href="#cb52-361" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-362"><a href="#cb52-362" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb52-363"><a href="#cb52-363" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
-<span id="cb52-364"><a href="#cb52-364" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-365"><a href="#cb52-365" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb52-366"><a href="#cb52-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-367"><a href="#cb52-367" aria-hidden="true" tabindex="-1"></a>Refer to this <span class="co">[</span><span class="ot">link</span><span class="co">](https://ggplot2.tidyverse.org/reference/#themes)</span> to learn more about ggplot2 <span class="in">`Themes`</span></span>
-<span id="cb52-368"><a href="#cb52-368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-369"><a href="#cb52-369" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.4.1 Working with ggtheme package</span></span>
-<span id="cb52-370"><a href="#cb52-370" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-371"><a href="#cb52-371" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ggthemes</span><span class="co">](https://cran.r-project.org/web/packages/ggthemes/)</span> offers a collection of <span class="co">[</span><span class="ot">ggplot2 themes</span><span class="co">](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)</span> that replicate the style of plots from the likes of Edward Tufte, Stephen Few, <span class="co">[</span><span class="ot">FiveThirtyEight</span><span class="co">](https://abcnews.go.com/538)</span>, <span class="co">[</span><span class="ot">The Economist</span><span class="co">](https://www.economist.com/graphic-detail)</span>, Stata, Excel, and <span class="co">[</span><span class="ot">The Wall Street Journal</span><span class="co">](https://www.pinterest.com/wsjgraphics/wsj-graphics/)</span>, among others.</span>
-<span id="cb52-372"><a href="#cb52-372" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-373"><a href="#cb52-373" aria-hidden="true" tabindex="-1"></a>Below are some of the examples of the different themes available.</span>
-<span id="cb52-374"><a href="#cb52-374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-375"><a href="#cb52-375" aria-hidden="true" tabindex="-1"></a>Refer <span class="co">[</span><span class="ot">here</span><span class="co">](https://www.rdocumentation.org/packages/ggthemes/versions/5.1.0)</span> for the comprehensive list and descrptions of all available themes. </span>
-<span id="cb52-376"><a href="#cb52-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-377"><a href="#cb52-377" aria-hidden="true" tabindex="-1"></a>Install and load <span class="in">`ggthemes`</span>packages</span>
-<span id="cb52-380"><a href="#cb52-380" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-381"><a href="#cb52-381" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggthemes"</span>)</span>
-<span id="cb52-382"><a href="#cb52-382" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb52-383"><a href="#cb52-383" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-384"><a href="#cb52-384" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-385"><a href="#cb52-385" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb52-386"><a href="#cb52-386" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_economist()</span></span>
-<span id="cb52-389"><a href="#cb52-389" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-390"><a href="#cb52-390" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-391"><a href="#cb52-391" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-392"><a href="#cb52-392" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-393"><a href="#cb52-393" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-394"><a href="#cb52-394" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-395"><a href="#cb52-395" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-396"><a href="#cb52-396" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
-<span id="cb52-397"><a href="#cb52-397" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist</span>()</span>
-<span id="cb52-398"><a href="#cb52-398" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-399"><a href="#cb52-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-400"><a href="#cb52-400" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_wsj()</span></span>
-<span id="cb52-403"><a href="#cb52-403" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-404"><a href="#cb52-404" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-405"><a href="#cb52-405" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-406"><a href="#cb52-406" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-407"><a href="#cb52-407" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-408"><a href="#cb52-408" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-409"><a href="#cb52-409" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-410"><a href="#cb52-410" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
-<span id="cb52-411"><a href="#cb52-411" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_wsj</span>()</span>
-<span id="cb52-412"><a href="#cb52-412" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-413"><a href="#cb52-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-414"><a href="#cb52-414" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_fivethirtyeight()</span></span>
-<span id="cb52-417"><a href="#cb52-417" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-418"><a href="#cb52-418" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-419"><a href="#cb52-419" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-420"><a href="#cb52-420" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-421"><a href="#cb52-421" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-422"><a href="#cb52-422" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-423"><a href="#cb52-423" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-424"><a href="#cb52-424" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
-<span id="cb52-425"><a href="#cb52-425" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_fivethirtyeight</span>()</span>
-<span id="cb52-426"><a href="#cb52-426" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-427"><a href="#cb52-427" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_tufte()</span></span>
-<span id="cb52-430"><a href="#cb52-430" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-431"><a href="#cb52-431" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-432"><a href="#cb52-432" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-433"><a href="#cb52-433" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-434"><a href="#cb52-434" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-435"><a href="#cb52-435" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-436"><a href="#cb52-436" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-437"><a href="#cb52-437" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
-<span id="cb52-438"><a href="#cb52-438" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_tufte</span>()</span>
-<span id="cb52-439"><a href="#cb52-439" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-440"><a href="#cb52-440" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_excel()</span></span>
+<span id="cb52-296"><a href="#cb52-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-297"><a href="#cb52-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-298"><a href="#cb52-298" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_dark()</span></span>
+<span id="cb52-299"><a href="#cb52-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-302"><a href="#cb52-302" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-303"><a href="#cb52-303" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-304"><a href="#cb52-304" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-305"><a href="#cb52-305" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-306"><a href="#cb52-306" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-307"><a href="#cb52-307" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-308"><a href="#cb52-308" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-309"><a href="#cb52-309" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>() <span class="sc">+</span></span>
+<span id="cb52-310"><a href="#cb52-310" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
+<span id="cb52-311"><a href="#cb52-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-312"><a href="#cb52-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-313"><a href="#cb52-313" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_light()</span></span>
+<span id="cb52-314"><a href="#cb52-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-317"><a href="#cb52-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-318"><a href="#cb52-318" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-319"><a href="#cb52-319" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-320"><a href="#cb52-320" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-321"><a href="#cb52-321" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-322"><a href="#cb52-322" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-323"><a href="#cb52-323" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-324"><a href="#cb52-324" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb52-325"><a href="#cb52-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
+<span id="cb52-326"><a href="#cb52-326" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-327"><a href="#cb52-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-328"><a href="#cb52-328" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_linedraw()</span></span>
+<span id="cb52-329"><a href="#cb52-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-332"><a href="#cb52-332" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-333"><a href="#cb52-333" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-334"><a href="#cb52-334" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-335"><a href="#cb52-335" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-336"><a href="#cb52-336" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-337"><a href="#cb52-337" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-338"><a href="#cb52-338" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-339"><a href="#cb52-339" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb52-340"><a href="#cb52-340" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
+<span id="cb52-341"><a href="#cb52-341" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-342"><a href="#cb52-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-343"><a href="#cb52-343" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_minimal()</span></span>
+<span id="cb52-344"><a href="#cb52-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-347"><a href="#cb52-347" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-348"><a href="#cb52-348" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-349"><a href="#cb52-349" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-350"><a href="#cb52-350" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-351"><a href="#cb52-351" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-352"><a href="#cb52-352" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-353"><a href="#cb52-353" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-354"><a href="#cb52-354" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb52-355"><a href="#cb52-355" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
+<span id="cb52-356"><a href="#cb52-356" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-357"><a href="#cb52-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-358"><a href="#cb52-358" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_void()</span></span>
+<span id="cb52-359"><a href="#cb52-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-362"><a href="#cb52-362" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-363"><a href="#cb52-363" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-364"><a href="#cb52-364" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-365"><a href="#cb52-365" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-366"><a href="#cb52-366" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-367"><a href="#cb52-367" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-368"><a href="#cb52-368" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-369"><a href="#cb52-369" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb52-370"><a href="#cb52-370" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) </span>
+<span id="cb52-371"><a href="#cb52-371" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-372"><a href="#cb52-372" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-373"><a href="#cb52-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-374"><a href="#cb52-374" aria-hidden="true" tabindex="-1"></a>Refer to this <span class="co">[</span><span class="ot">link</span><span class="co">](https://ggplot2.tidyverse.org/reference/#themes)</span> to learn more about ggplot2 <span class="in">`Themes`</span></span>
+<span id="cb52-375"><a href="#cb52-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-376"><a href="#cb52-376" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.4.1 Working with ggtheme package</span></span>
+<span id="cb52-377"><a href="#cb52-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-378"><a href="#cb52-378" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ggthemes</span><span class="co">](https://cran.r-project.org/web/packages/ggthemes/)</span> offers a collection of <span class="co">[</span><span class="ot">ggplot2 themes</span><span class="co">](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)</span> that replicate the style of plots from the likes of Edward Tufte, Stephen Few, <span class="co">[</span><span class="ot">FiveThirtyEight</span><span class="co">](https://abcnews.go.com/538)</span>, <span class="co">[</span><span class="ot">The Economist</span><span class="co">](https://www.economist.com/graphic-detail)</span>, Stata, Excel, and <span class="co">[</span><span class="ot">The Wall Street Journal</span><span class="co">](https://www.pinterest.com/wsjgraphics/wsj-graphics/)</span>, among others.</span>
+<span id="cb52-379"><a href="#cb52-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-380"><a href="#cb52-380" aria-hidden="true" tabindex="-1"></a>Below are some of the examples of the different themes available.</span>
+<span id="cb52-381"><a href="#cb52-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-382"><a href="#cb52-382" aria-hidden="true" tabindex="-1"></a>Refer <span class="co">[</span><span class="ot">here</span><span class="co">](https://www.rdocumentation.org/packages/ggthemes/versions/5.1.0)</span> for the comprehensive list and descrptions of all available themes.</span>
+<span id="cb52-383"><a href="#cb52-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-384"><a href="#cb52-384" aria-hidden="true" tabindex="-1"></a>Install and load <span class="in">`ggthemes`</span>packages</span>
+<span id="cb52-385"><a href="#cb52-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-388"><a href="#cb52-388" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-389"><a href="#cb52-389" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggthemes"</span>)</span>
+<span id="cb52-390"><a href="#cb52-390" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb52-391"><a href="#cb52-391" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-392"><a href="#cb52-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-393"><a href="#cb52-393" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb52-394"><a href="#cb52-394" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_economist()</span></span>
+<span id="cb52-395"><a href="#cb52-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-398"><a href="#cb52-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-399"><a href="#cb52-399" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-400"><a href="#cb52-400" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-401"><a href="#cb52-401" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-402"><a href="#cb52-402" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-403"><a href="#cb52-403" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-404"><a href="#cb52-404" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-405"><a href="#cb52-405" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
+<span id="cb52-406"><a href="#cb52-406" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist</span>()</span>
+<span id="cb52-407"><a href="#cb52-407" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-408"><a href="#cb52-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-409"><a href="#cb52-409" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_wsj()</span></span>
+<span id="cb52-410"><a href="#cb52-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-413"><a href="#cb52-413" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-414"><a href="#cb52-414" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-415"><a href="#cb52-415" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-416"><a href="#cb52-416" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-417"><a href="#cb52-417" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-418"><a href="#cb52-418" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-419"><a href="#cb52-419" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-420"><a href="#cb52-420" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
+<span id="cb52-421"><a href="#cb52-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_wsj</span>()</span>
+<span id="cb52-422"><a href="#cb52-422" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-423"><a href="#cb52-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-424"><a href="#cb52-424" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_fivethirtyeight()</span></span>
+<span id="cb52-425"><a href="#cb52-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-428"><a href="#cb52-428" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-429"><a href="#cb52-429" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-430"><a href="#cb52-430" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-431"><a href="#cb52-431" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-432"><a href="#cb52-432" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-433"><a href="#cb52-433" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-434"><a href="#cb52-434" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-435"><a href="#cb52-435" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
+<span id="cb52-436"><a href="#cb52-436" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_fivethirtyeight</span>()</span>
+<span id="cb52-437"><a href="#cb52-437" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-438"><a href="#cb52-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-439"><a href="#cb52-439" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_tufte()</span></span>
+<span id="cb52-440"><a href="#cb52-440" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-443"><a href="#cb52-443" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb52-444"><a href="#cb52-444" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb52-445"><a href="#cb52-445" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
@@ -2269,339 +2287,351 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb52-448"><a href="#cb52-448" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
 <span id="cb52-449"><a href="#cb52-449" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
 <span id="cb52-450"><a href="#cb52-450" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
-<span id="cb52-451"><a href="#cb52-451" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_excel</span>()</span>
+<span id="cb52-451"><a href="#cb52-451" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_tufte</span>()</span>
 <span id="cb52-452"><a href="#cb52-452" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-453"><a href="#cb52-453" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb52-454"><a href="#cb52-454" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-455"><a href="#cb52-455" aria-hidden="true" tabindex="-1"></a>Refer to this <span class="co">[</span><span class="ot">link</span><span class="co">](https://ggplot2.tidyverse.org/reference/#themes)</span> to learn more about the ggplot2 <span class="in">`themes`</span></span>
-<span id="cb52-456"><a href="#cb52-456" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-457"><a href="#cb52-457" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.4.2 Working with hrbthemes package</span></span>
-<span id="cb52-458"><a href="#cb52-458" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-459"><a href="#cb52-459" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">hrbrthemes</span><span class="co">](https://cran.r-project.org/web/packages/hrbrthemes/hrbrthemes.pdf)</span> package provides typography centric themes and theme components for ggplot2. This includes where labels are placed and the fonts used.</span>
-<span id="cb52-460"><a href="#cb52-460" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-463"><a href="#cb52-463" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-464"><a href="#cb52-464" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb52-465"><a href="#cb52-465" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
-<span id="cb52-466"><a href="#cb52-466" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-467"><a href="#cb52-467" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-468"><a href="#cb52-468" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-469"><a href="#cb52-469" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-470"><a href="#cb52-470" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-471"><a href="#cb52-471" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-472"><a href="#cb52-472" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-473"><a href="#cb52-473" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
-<span id="cb52-474"><a href="#cb52-474" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()</span>
-<span id="cb52-475"><a href="#cb52-475" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-476"><a href="#cb52-476" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-477"><a href="#cb52-477" aria-hidden="true" tabindex="-1"></a>The second goal is to boost productivity in a production workflow, which is the intended setting for using the elements of hrbrthemes.</span>
-<span id="cb52-478"><a href="#cb52-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-479"><a href="#cb52-479" aria-hidden="true" tabindex="-1"></a>Refer <span class="co">[</span><span class="ot">here</span><span class="co">](https://cran.r-project.org/web/packages/hrbrthemes/index.html)</span> to learn more.</span>
-<span id="cb52-480"><a href="#cb52-480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-483"><a href="#cb52-483" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-484"><a href="#cb52-484" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb52-485"><a href="#cb52-485" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
-<span id="cb52-486"><a href="#cb52-486" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-487"><a href="#cb52-487" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"hrbrthemes"</span>)</span>
-<span id="cb52-488"><a href="#cb52-488" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
-<span id="cb52-489"><a href="#cb52-489" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-490"><a href="#cb52-490" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-491"><a href="#cb52-491" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-492"><a href="#cb52-492" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-493"><a href="#cb52-493" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-494"><a href="#cb52-494" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-495"><a href="#cb52-495" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-496"><a href="#cb52-496" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
-<span id="cb52-497"><a href="#cb52-497" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>(<span class="at">axis_title_size =</span> <span class="dv">18</span>,</span>
-<span id="cb52-498"><a href="#cb52-498" aria-hidden="true" tabindex="-1"></a>              <span class="at">base_size =</span> <span class="dv">15</span>,</span>
-<span id="cb52-499"><a href="#cb52-499" aria-hidden="true" tabindex="-1"></a>              <span class="at">grid =</span> <span class="st">"Y"</span>)</span>
-<span id="cb52-500"><a href="#cb52-500" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-501"><a href="#cb52-501" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
-<span id="cb52-502"><a href="#cb52-502" aria-hidden="true" tabindex="-1"></a><span class="fu">## What can we learn from the cde chunk above?</span></span>
-<span id="cb52-503"><a href="#cb52-503" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-504"><a href="#cb52-504" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`axis_title_size`</span>: sets the font size of the axis title to 18</span>
-<span id="cb52-505"><a href="#cb52-505" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`base_size`</span>: adjusts the default axis label size to 15</span>
-<span id="cb52-506"><a href="#cb52-506" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`grid`</span>: remove the x-axis grid lines</span>
-<span id="cb52-507"><a href="#cb52-507" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb52-508"><a href="#cb52-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-509"><a href="#cb52-509" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.5 Beyond single graph</span></span>
-<span id="cb52-510"><a href="#cb52-510" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-511"><a href="#cb52-511" aria-hidden="true" tabindex="-1"></a>Creating multiple graphs is often necessary to convey a compelling visual story. Several ggplot2 extensions offer functions for combining multiple graphs into a single figure. </span>
-<span id="cb52-512"><a href="#cb52-512" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-513"><a href="#cb52-513" aria-hidden="true" tabindex="-1"></a>In this section, we will learn how to create a composite/ combined plot by merging multiple graphs. First, let create three statistical graphics bu using the codes below. </span>
-<span id="cb52-514"><a href="#cb52-514" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-515"><a href="#cb52-515" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb52-516"><a href="#cb52-516" aria-hidden="true" tabindex="-1"></a><span class="fu">## Histogram 1 - distribution of Maths scores</span></span>
-<span id="cb52-517"><a href="#cb52-517" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-520"><a href="#cb52-520" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-521"><a href="#cb52-521" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb52-522"><a href="#cb52-522" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
-<span id="cb52-523"><a href="#cb52-523" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-524"><a href="#cb52-524" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-525"><a href="#cb52-525" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb52-526"><a href="#cb52-526" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-527"><a href="#cb52-527" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-528"><a href="#cb52-528" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-529"><a href="#cb52-529" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span> </span>
-<span id="cb52-530"><a href="#cb52-530" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="sc">+</span></span>
-<span id="cb52-531"><a href="#cb52-531" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>)</span>
-<span id="cb52-532"><a href="#cb52-532" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-533"><a href="#cb52-533" aria-hidden="true" tabindex="-1"></a>p1</span>
-<span id="cb52-534"><a href="#cb52-534" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-535"><a href="#cb52-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-536"><a href="#cb52-536" aria-hidden="true" tabindex="-1"></a><span class="fu">## Histogram 2 - distribution of English scores</span></span>
-<span id="cb52-537"><a href="#cb52-537" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-540"><a href="#cb52-540" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-541"><a href="#cb52-541" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb52-542"><a href="#cb52-542" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
-<span id="cb52-543"><a href="#cb52-543" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-544"><a href="#cb52-544" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-545"><a href="#cb52-545" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
-<span id="cb52-546"><a href="#cb52-546" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb52-547"><a href="#cb52-547" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb52-548"><a href="#cb52-548" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
-<span id="cb52-549"><a href="#cb52-549" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb52-550"><a href="#cb52-550" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="sc">+</span></span>
-<span id="cb52-551"><a href="#cb52-551" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of English scores"</span>)</span>
-<span id="cb52-552"><a href="#cb52-552" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-553"><a href="#cb52-553" aria-hidden="true" tabindex="-1"></a>p2</span>
-<span id="cb52-554"><a href="#cb52-554" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-555"><a href="#cb52-555" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-556"><a href="#cb52-556" aria-hidden="true" tabindex="-1"></a><span class="fu">##  Scatterplot - English VS Maths scores</span></span>
-<span id="cb52-557"><a href="#cb52-557" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-560"><a href="#cb52-560" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-561"><a href="#cb52-561" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb52-562"><a href="#cb52-562" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
-<span id="cb52-563"><a href="#cb52-563" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-564"><a href="#cb52-564" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb52-565"><a href="#cb52-565" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x=</span> MATHS, </span>
-<span id="cb52-566"><a href="#cb52-566" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
-<span id="cb52-567"><a href="#cb52-567" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb52-568"><a href="#cb52-568" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, </span>
-<span id="cb52-569"><a href="#cb52-569" aria-hidden="true" tabindex="-1"></a>              <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span>  </span>
-<span id="cb52-570"><a href="#cb52-570" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
-<span id="cb52-571"><a href="#cb52-571" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="sc">+</span></span>
-<span id="cb52-572"><a href="#cb52-572" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"English scores versus Maths scores for Primary 3"</span>)</span>
+<span id="cb52-453"><a href="#cb52-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-454"><a href="#cb52-454" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_excel()</span></span>
+<span id="cb52-455"><a href="#cb52-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-458"><a href="#cb52-458" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-459"><a href="#cb52-459" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-460"><a href="#cb52-460" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-461"><a href="#cb52-461" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-462"><a href="#cb52-462" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-463"><a href="#cb52-463" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-464"><a href="#cb52-464" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-465"><a href="#cb52-465" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
+<span id="cb52-466"><a href="#cb52-466" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_excel</span>()</span>
+<span id="cb52-467"><a href="#cb52-467" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-468"><a href="#cb52-468" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-469"><a href="#cb52-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-470"><a href="#cb52-470" aria-hidden="true" tabindex="-1"></a>Refer to this <span class="co">[</span><span class="ot">link</span><span class="co">](https://ggplot2.tidyverse.org/reference/#themes)</span> to learn more about the ggplot2 <span class="in">`themes`</span></span>
+<span id="cb52-471"><a href="#cb52-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-472"><a href="#cb52-472" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.4.2 Working with hrbthemes package</span></span>
+<span id="cb52-473"><a href="#cb52-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-474"><a href="#cb52-474" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">hrbrthemes</span><span class="co">](https://cran.r-project.org/web/packages/hrbrthemes/hrbrthemes.pdf)</span> package provides typography centric themes and theme components for ggplot2. This includes where labels are placed and the fonts used.</span>
+<span id="cb52-475"><a href="#cb52-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-478"><a href="#cb52-478" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-479"><a href="#cb52-479" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb52-480"><a href="#cb52-480" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
+<span id="cb52-481"><a href="#cb52-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-482"><a href="#cb52-482" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-483"><a href="#cb52-483" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-484"><a href="#cb52-484" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-485"><a href="#cb52-485" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-486"><a href="#cb52-486" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-487"><a href="#cb52-487" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-488"><a href="#cb52-488" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
+<span id="cb52-489"><a href="#cb52-489" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()</span>
+<span id="cb52-490"><a href="#cb52-490" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-491"><a href="#cb52-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-492"><a href="#cb52-492" aria-hidden="true" tabindex="-1"></a>The second goal is to boost productivity in a production workflow, which is the intended setting for using the elements of hrbrthemes.</span>
+<span id="cb52-493"><a href="#cb52-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-494"><a href="#cb52-494" aria-hidden="true" tabindex="-1"></a>Refer <span class="co">[</span><span class="ot">here</span><span class="co">](https://cran.r-project.org/web/packages/hrbrthemes/index.html)</span> to learn more.</span>
+<span id="cb52-495"><a href="#cb52-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-498"><a href="#cb52-498" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-499"><a href="#cb52-499" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb52-500"><a href="#cb52-500" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
+<span id="cb52-501"><a href="#cb52-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-502"><a href="#cb52-502" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"hrbrthemes"</span>)</span>
+<span id="cb52-503"><a href="#cb52-503" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb52-504"><a href="#cb52-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-505"><a href="#cb52-505" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-506"><a href="#cb52-506" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-507"><a href="#cb52-507" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-508"><a href="#cb52-508" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-509"><a href="#cb52-509" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-510"><a href="#cb52-510" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-511"><a href="#cb52-511" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>) <span class="sc">+</span></span>
+<span id="cb52-512"><a href="#cb52-512" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>(<span class="at">axis_title_size =</span> <span class="dv">18</span>,</span>
+<span id="cb52-513"><a href="#cb52-513" aria-hidden="true" tabindex="-1"></a>              <span class="at">base_size =</span> <span class="dv">15</span>,</span>
+<span id="cb52-514"><a href="#cb52-514" aria-hidden="true" tabindex="-1"></a>              <span class="at">grid =</span> <span class="st">"Y"</span>)</span>
+<span id="cb52-515"><a href="#cb52-515" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-516"><a href="#cb52-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-517"><a href="#cb52-517" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb52-518"><a href="#cb52-518" aria-hidden="true" tabindex="-1"></a><span class="fu">## What can we learn from the cde chunk above?</span></span>
+<span id="cb52-519"><a href="#cb52-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-520"><a href="#cb52-520" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`axis_title_size`</span>: sets the font size of the axis title to 18</span>
+<span id="cb52-521"><a href="#cb52-521" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`base_size`</span>: adjusts the default axis label size to 15</span>
+<span id="cb52-522"><a href="#cb52-522" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`grid`</span>: remove the x-axis grid lines</span>
+<span id="cb52-523"><a href="#cb52-523" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-524"><a href="#cb52-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-525"><a href="#cb52-525" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.5 Beyond single graph</span></span>
+<span id="cb52-526"><a href="#cb52-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-527"><a href="#cb52-527" aria-hidden="true" tabindex="-1"></a>Creating multiple graphs is often necessary to convey a compelling visual story. Several ggplot2 extensions offer functions for combining multiple graphs into a single figure.</span>
+<span id="cb52-528"><a href="#cb52-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-529"><a href="#cb52-529" aria-hidden="true" tabindex="-1"></a>In this section, we will learn how to create a composite/ combined plot by merging multiple graphs. First, let create three statistical graphics by using the codes below.</span>
+<span id="cb52-530"><a href="#cb52-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-531"><a href="#cb52-531" aria-hidden="true" tabindex="-1"></a>:::: panel-tabset</span>
+<span id="cb52-532"><a href="#cb52-532" aria-hidden="true" tabindex="-1"></a><span class="fu">## Histogram 1 - distribution of Maths scores</span></span>
+<span id="cb52-533"><a href="#cb52-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-536"><a href="#cb52-536" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-537"><a href="#cb52-537" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb52-538"><a href="#cb52-538" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
+<span id="cb52-539"><a href="#cb52-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-540"><a href="#cb52-540" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-541"><a href="#cb52-541" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb52-542"><a href="#cb52-542" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-543"><a href="#cb52-543" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-544"><a href="#cb52-544" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-545"><a href="#cb52-545" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span> </span>
+<span id="cb52-546"><a href="#cb52-546" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb52-547"><a href="#cb52-547" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>)</span>
+<span id="cb52-548"><a href="#cb52-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-549"><a href="#cb52-549" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb52-550"><a href="#cb52-550" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-551"><a href="#cb52-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-552"><a href="#cb52-552" aria-hidden="true" tabindex="-1"></a><span class="fu">## Histogram 2 - distribution of English scores</span></span>
+<span id="cb52-553"><a href="#cb52-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-556"><a href="#cb52-556" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-557"><a href="#cb52-557" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb52-558"><a href="#cb52-558" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
+<span id="cb52-559"><a href="#cb52-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-560"><a href="#cb52-560" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-561"><a href="#cb52-561" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
+<span id="cb52-562"><a href="#cb52-562" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb52-563"><a href="#cb52-563" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb52-564"><a href="#cb52-564" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey25"</span>, </span>
+<span id="cb52-565"><a href="#cb52-565" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb52-566"><a href="#cb52-566" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb52-567"><a href="#cb52-567" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of English scores"</span>)</span>
+<span id="cb52-568"><a href="#cb52-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-569"><a href="#cb52-569" aria-hidden="true" tabindex="-1"></a>p2</span>
+<span id="cb52-570"><a href="#cb52-570" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-571"><a href="#cb52-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-572"><a href="#cb52-572" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scatterplot - English VS Maths scores</span></span>
 <span id="cb52-573"><a href="#cb52-573" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-574"><a href="#cb52-574" aria-hidden="true" tabindex="-1"></a>p3</span>
-<span id="cb52-575"><a href="#cb52-575" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-576"><a href="#cb52-576" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-577"><a href="#cb52-577" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb52-578"><a href="#cb52-578" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Replaced size=0.5 with linewidth-0.5 in the <span class="in">`geom_smooth()`</span> function to align the code with the latest ggplot2 standards.</span>
-<span id="cb52-579"><a href="#cb52-579" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb52-580"><a href="#cb52-580" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-581"><a href="#cb52-581" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb52-582"><a href="#cb52-582" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-583"><a href="#cb52-583" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.1 Creating composits graphics: pathwork methods</span></span>
-<span id="cb52-584"><a href="#cb52-584" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-585"><a href="#cb52-585" aria-hidden="true" tabindex="-1"></a>There are several ggplot2 extension’s functions that support the preparation of composite figures such as <span class="co">[</span><span class="ot">`grid.arrange()`</span><span class="co">](https://cran.r-project.org/web/packages/gridExtra/vignettes/arrangeGrob.html)</span> of **gridExtra** package and [`plot_grid()`](https://wilkelab.org/cowplot/reference/plot_grid.html) of [***cowplot***](https://wilkelab.org/cowplot/) package.</span>
-<span id="cb52-586"><a href="#cb52-586" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-587"><a href="#cb52-587" aria-hidden="true" tabindex="-1"></a>In this section, we will be using **Patchwork**, a ggplot2 extension specifically designed to combine multiple ggplot2 graphs into a single figure. </span>
-<span id="cb52-588"><a href="#cb52-588" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-589"><a href="#cb52-589" aria-hidden="true" tabindex="-1"></a>The **Patchwork** package offers a straightforward synatx, making it easy to create custom layouts. Key features include</span>
-<span id="cb52-590"><a href="#cb52-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-591"><a href="#cb52-591" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Two column layouts using <span class="in">`+`</span> operator </span>
-<span id="cb52-592"><a href="#cb52-592" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Subplot grouping using <span class="in">`()`</span> operator</span>
-<span id="cb52-593"><a href="#cb52-593" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Two-row layouts using <span class="in">`/`</span> operator </span>
-<span id="cb52-594"><a href="#cb52-594" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>One-row layout using <span class="in">`|`</span> operator</span>
-<span id="cb52-595"><a href="#cb52-595" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-598"><a href="#cb52-598" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-599"><a href="#cb52-599" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"patchwork"</span>)</span>
-<span id="cb52-600"><a href="#cb52-600" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb52-601"><a href="#cb52-601" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-602"><a href="#cb52-602" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-603"><a href="#cb52-603" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.2 Combining two ggplot2 graphs</span></span>
-<span id="cb52-604"><a href="#cb52-604" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-605"><a href="#cb52-605" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb52-606"><a href="#cb52-606" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using `+` operator</span></span>
-<span id="cb52-607"><a href="#cb52-607" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-608"><a href="#cb52-608" aria-hidden="true" tabindex="-1"></a><span class="in">`+`</span> combines plots into a single row</span>
-<span id="cb52-609"><a href="#cb52-609" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-612"><a href="#cb52-612" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-613"><a href="#cb52-613" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">+</span>p2</span>
-<span id="cb52-614"><a href="#cb52-614" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-615"><a href="#cb52-615" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-616"><a href="#cb52-616" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using `()` operator</span></span>
+<span id="cb52-576"><a href="#cb52-576" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-577"><a href="#cb52-577" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb52-578"><a href="#cb52-578" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
+<span id="cb52-579"><a href="#cb52-579" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-580"><a href="#cb52-580" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb52-581"><a href="#cb52-581" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x=</span> MATHS, </span>
+<span id="cb52-582"><a href="#cb52-582" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
+<span id="cb52-583"><a href="#cb52-583" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb52-584"><a href="#cb52-584" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, </span>
+<span id="cb52-585"><a href="#cb52-585" aria-hidden="true" tabindex="-1"></a>              <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span>  </span>
+<span id="cb52-586"><a href="#cb52-586" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
+<span id="cb52-587"><a href="#cb52-587" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb52-588"><a href="#cb52-588" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"English scores versus Maths scores for Primary 3"</span>)</span>
+<span id="cb52-589"><a href="#cb52-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-590"><a href="#cb52-590" aria-hidden="true" tabindex="-1"></a>p3</span>
+<span id="cb52-591"><a href="#cb52-591" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-592"><a href="#cb52-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-593"><a href="#cb52-593" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb52-594"><a href="#cb52-594" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Replaced size=0.5 with linewidth-0.5 in the <span class="in">`geom_smooth()`</span> function to align the code with the latest ggplot2 standards.</span>
+<span id="cb52-595"><a href="#cb52-595" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-596"><a href="#cb52-596" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb52-597"><a href="#cb52-597" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-598"><a href="#cb52-598" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.1 Creating composits graphics: pathwork methods</span></span>
+<span id="cb52-599"><a href="#cb52-599" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-600"><a href="#cb52-600" aria-hidden="true" tabindex="-1"></a>There are several ggplot2 extension’s functions that support the preparation of composite figures such as <span class="co">[</span><span class="ot">`grid.arrange()`</span><span class="co">](https://cran.r-project.org/web/packages/gridExtra/vignettes/arrangeGrob.html)</span> of **gridExtra** package and [`plot_grid()`](https://wilkelab.org/cowplot/reference/plot_grid.html) of [***cowplot***](https://wilkelab.org/cowplot/) package.</span>
+<span id="cb52-601"><a href="#cb52-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-602"><a href="#cb52-602" aria-hidden="true" tabindex="-1"></a>In this section, we will be using **Patchwork**, a ggplot2 extension specifically designed to combine multiple ggplot2 graphs into a single figure.</span>
+<span id="cb52-603"><a href="#cb52-603" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-604"><a href="#cb52-604" aria-hidden="true" tabindex="-1"></a>The **Patchwork** package offers a straightforward synatx, making it easy to create custom layouts. Key features include</span>
+<span id="cb52-605"><a href="#cb52-605" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-606"><a href="#cb52-606" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Two column layouts using <span class="in">`+`</span> operator</span>
+<span id="cb52-607"><a href="#cb52-607" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Subplot grouping using <span class="in">`()`</span> operator</span>
+<span id="cb52-608"><a href="#cb52-608" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Two-row layouts using <span class="in">`/`</span> operator</span>
+<span id="cb52-609"><a href="#cb52-609" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>One-row layout using <span class="in">`|`</span> operator</span>
+<span id="cb52-610"><a href="#cb52-610" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-613"><a href="#cb52-613" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-614"><a href="#cb52-614" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"patchwork"</span>)</span>
+<span id="cb52-615"><a href="#cb52-615" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb52-616"><a href="#cb52-616" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-617"><a href="#cb52-617" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-618"><a href="#cb52-618" aria-hidden="true" tabindex="-1"></a><span class="in">`()`</span> use for grouping and layout adjustments</span>
+<span id="cb52-618"><a href="#cb52-618" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.2 Combining two ggplot2 graphs</span></span>
 <span id="cb52-619"><a href="#cb52-619" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-622"><a href="#cb52-622" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-623"><a href="#cb52-623" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">widths=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb52-624"><a href="#cb52-624" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-625"><a href="#cb52-625" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-626"><a href="#cb52-626" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using `/` operator</span></span>
-<span id="cb52-627"><a href="#cb52-627" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-628"><a href="#cb52-628" aria-hidden="true" tabindex="-1"></a><span class="in">`/`</span> use to stack plots into a single column</span>
-<span id="cb52-629"><a href="#cb52-629" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-632"><a href="#cb52-632" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-633"><a href="#cb52-633" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">/</span>p2</span>
-<span id="cb52-634"><a href="#cb52-634" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-635"><a href="#cb52-635" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-636"><a href="#cb52-636" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-637"><a href="#cb52-637" aria-hidden="true" tabindex="-1"></a>::: </span>
-<span id="cb52-638"><a href="#cb52-638" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-639"><a href="#cb52-639" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.3 Combining 2 or more ggplot2 graphs</span></span>
+<span id="cb52-620"><a href="#cb52-620" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb52-621"><a href="#cb52-621" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using `+` operator</span></span>
+<span id="cb52-622"><a href="#cb52-622" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-623"><a href="#cb52-623" aria-hidden="true" tabindex="-1"></a><span class="in">`+`</span> combines plots into a single row</span>
+<span id="cb52-624"><a href="#cb52-624" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-627"><a href="#cb52-627" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-628"><a href="#cb52-628" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">+</span>p2</span>
+<span id="cb52-629"><a href="#cb52-629" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-630"><a href="#cb52-630" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-631"><a href="#cb52-631" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using `()` operator</span></span>
+<span id="cb52-632"><a href="#cb52-632" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-633"><a href="#cb52-633" aria-hidden="true" tabindex="-1"></a><span class="in">`()`</span> use for grouping and layout adjustments</span>
+<span id="cb52-634"><a href="#cb52-634" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-637"><a href="#cb52-637" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-638"><a href="#cb52-638" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">widths=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb52-639"><a href="#cb52-639" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-640"><a href="#cb52-640" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-641"><a href="#cb52-641" aria-hidden="true" tabindex="-1"></a>We can also combine 2 or more ggplots graph in one composite figure.</span>
+<span id="cb52-641"><a href="#cb52-641" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using `/` operator</span></span>
 <span id="cb52-642"><a href="#cb52-642" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-643"><a href="#cb52-643" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb52-644"><a href="#cb52-644" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using `+`&amp;`|`&amp;`()` operator</span></span>
+<span id="cb52-643"><a href="#cb52-643" aria-hidden="true" tabindex="-1"></a><span class="in">`/`</span> use to stack plots into a single column</span>
+<span id="cb52-644"><a href="#cb52-644" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-647"><a href="#cb52-647" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-648"><a href="#cb52-648" aria-hidden="true" tabindex="-1"></a>(p1<span class="sc">/</span>p2) <span class="sc">|</span> p3</span>
+<span id="cb52-648"><a href="#cb52-648" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">/</span>p2</span>
 <span id="cb52-649"><a href="#cb52-649" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-650"><a href="#cb52-650" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-651"><a href="#cb52-651" aria-hidden="true" tabindex="-1"></a>To learn more about **Patchwork**, refer <span class="co">[</span><span class="ot">here</span><span class="co">](https://patchwork.data-imaginist.com/articles/guides/assembly.html)</span></span>
-<span id="cb52-652"><a href="#cb52-652" aria-hidden="true" tabindex="-1"></a>::: </span>
+<span id="cb52-650"><a href="#cb52-650" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-651"><a href="#cb52-651" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-652"><a href="#cb52-652" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.3 Combining 2 or more ggplot2 graphs</span></span>
 <span id="cb52-653"><a href="#cb52-653" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-654"><a href="#cb52-654" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.4 Creating a composite figure with tag</span></span>
+<span id="cb52-654"><a href="#cb52-654" aria-hidden="true" tabindex="-1"></a>We can also combine 2 or more ggplots graph in one composite figure.</span>
 <span id="cb52-655"><a href="#cb52-655" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-656"><a href="#cb52-656" aria-hidden="true" tabindex="-1"></a>**Patchwork** also includes auto-tagging capabilities to label subplots within a figure, making it easier to identify them in text.</span>
-<span id="cb52-657"><a href="#cb52-657" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-658"><a href="#cb52-658" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb52-659"><a href="#cb52-659" aria-hidden="true" tabindex="-1"></a><span class="fu">## Numerals</span></span>
-<span id="cb52-660"><a href="#cb52-660" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-663"><a href="#cb52-663" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-664"><a href="#cb52-664" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb52-665"><a href="#cb52-665" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
-<span id="cb52-666"><a href="#cb52-666" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-667"><a href="#cb52-667" aria-hidden="true" tabindex="-1"></a>((p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3) <span class="sc">+</span> </span>
-<span id="cb52-668"><a href="#cb52-668" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'I'</span>)</span>
-<span id="cb52-669"><a href="#cb52-669" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-670"><a href="#cb52-670" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-671"><a href="#cb52-671" aria-hidden="true" tabindex="-1"></a><span class="fu">## Digits</span></span>
-<span id="cb52-672"><a href="#cb52-672" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-675"><a href="#cb52-675" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-676"><a href="#cb52-676" aria-hidden="true" tabindex="-1"></a>((p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3) <span class="sc">+</span> </span>
-<span id="cb52-677"><a href="#cb52-677" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'1'</span>)</span>
-<span id="cb52-678"><a href="#cb52-678" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-679"><a href="#cb52-679" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-680"><a href="#cb52-680" aria-hidden="true" tabindex="-1"></a><span class="fu">## Letters</span></span>
-<span id="cb52-681"><a href="#cb52-681" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-684"><a href="#cb52-684" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-685"><a href="#cb52-685" aria-hidden="true" tabindex="-1"></a>((p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3) <span class="sc">+</span> </span>
-<span id="cb52-686"><a href="#cb52-686" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>)</span>
-<span id="cb52-687"><a href="#cb52-687" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-688"><a href="#cb52-688" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-689"><a href="#cb52-689" aria-hidden="true" tabindex="-1"></a><span class="fu">## Customizing tags</span></span>
-<span id="cb52-690"><a href="#cb52-690" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Using either <span class="in">`tag_prefix`</span> and/ or <span class="in">`tag_suffix`</span> to format tags  </span>
-<span id="cb52-691"><a href="#cb52-691" aria-hidden="true" tabindex="-1"></a>   Added the word "Figure" before each Roman numeral</span>
-<span id="cb52-692"><a href="#cb52-692" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-695"><a href="#cb52-695" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-696"><a href="#cb52-696" aria-hidden="true" tabindex="-1"></a>((p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3) <span class="sc">+</span> </span>
-<span id="cb52-697"><a href="#cb52-697" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"I"</span>, <span class="at">tag_prefix =</span> <span class="st">"Figure "</span>, <span class="at">tag_suffix =</span> <span class="st">""</span>)</span>
-<span id="cb52-698"><a href="#cb52-698" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-699"><a href="#cb52-699" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-700"><a href="#cb52-700" aria-hidden="true" tabindex="-1"></a>::: </span>
-<span id="cb52-701"><a href="#cb52-701" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-702"><a href="#cb52-702" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.5 Creating figure with insert</span></span>
-<span id="cb52-703"><a href="#cb52-703" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-704"><a href="#cb52-704" aria-hidden="true" tabindex="-1"></a>In addition to arranging plots side-by-side based on a specified layout, the **Patchwork** package provides the <span class="in">`inset_element()`</span> function. </span>
-<span id="cb52-705"><a href="#cb52-705" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-706"><a href="#cb52-706" aria-hidden="true" tabindex="-1"></a>This allows user to freely place one or more plots or graphic elements over or below another plot, offering greater flexibility in design.</span>
+<span id="cb52-656"><a href="#cb52-656" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb52-657"><a href="#cb52-657" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using `+`&amp;`|`&amp;`()` operator</span></span>
+<span id="cb52-658"><a href="#cb52-658" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-661"><a href="#cb52-661" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-662"><a href="#cb52-662" aria-hidden="true" tabindex="-1"></a>(p1<span class="sc">/</span>p2) <span class="sc">|</span> p3</span>
+<span id="cb52-663"><a href="#cb52-663" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-664"><a href="#cb52-664" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-665"><a href="#cb52-665" aria-hidden="true" tabindex="-1"></a>To learn more about **Patchwork**, refer <span class="co">[</span><span class="ot">here</span><span class="co">](https://patchwork.data-imaginist.com/articles/guides/assembly.html)</span></span>
+<span id="cb52-666"><a href="#cb52-666" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-667"><a href="#cb52-667" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-668"><a href="#cb52-668" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.4 Creating a composite figure with tag</span></span>
+<span id="cb52-669"><a href="#cb52-669" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-670"><a href="#cb52-670" aria-hidden="true" tabindex="-1"></a>**Patchwork** also includes auto-tagging capabilities to label subplots within a figure, making it easier to identify them in text.</span>
+<span id="cb52-671"><a href="#cb52-671" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-672"><a href="#cb52-672" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb52-673"><a href="#cb52-673" aria-hidden="true" tabindex="-1"></a><span class="fu">## Numerals</span></span>
+<span id="cb52-674"><a href="#cb52-674" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-677"><a href="#cb52-677" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-678"><a href="#cb52-678" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb52-679"><a href="#cb52-679" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Show the code</span></span>
+<span id="cb52-680"><a href="#cb52-680" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-681"><a href="#cb52-681" aria-hidden="true" tabindex="-1"></a>((p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3) <span class="sc">+</span> </span>
+<span id="cb52-682"><a href="#cb52-682" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'I'</span>)</span>
+<span id="cb52-683"><a href="#cb52-683" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-684"><a href="#cb52-684" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-685"><a href="#cb52-685" aria-hidden="true" tabindex="-1"></a><span class="fu">## Digits</span></span>
+<span id="cb52-686"><a href="#cb52-686" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-689"><a href="#cb52-689" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-690"><a href="#cb52-690" aria-hidden="true" tabindex="-1"></a>((p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3) <span class="sc">+</span> </span>
+<span id="cb52-691"><a href="#cb52-691" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'1'</span>)</span>
+<span id="cb52-692"><a href="#cb52-692" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-693"><a href="#cb52-693" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-694"><a href="#cb52-694" aria-hidden="true" tabindex="-1"></a><span class="fu">## Letters</span></span>
+<span id="cb52-695"><a href="#cb52-695" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-698"><a href="#cb52-698" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-699"><a href="#cb52-699" aria-hidden="true" tabindex="-1"></a>((p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3) <span class="sc">+</span> </span>
+<span id="cb52-700"><a href="#cb52-700" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>)</span>
+<span id="cb52-701"><a href="#cb52-701" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-702"><a href="#cb52-702" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-703"><a href="#cb52-703" aria-hidden="true" tabindex="-1"></a><span class="fu">## Customizing tags</span></span>
+<span id="cb52-704"><a href="#cb52-704" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-705"><a href="#cb52-705" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Using either <span class="in">`tag_prefix`</span> and/ or <span class="in">`tag_suffix`</span> to format tags</span>
+<span id="cb52-706"><a href="#cb52-706" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Added the word "Figure" before each Roman numeral</span>
 <span id="cb52-707"><a href="#cb52-707" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-708"><a href="#cb52-708" aria-hidden="true" tabindex="-1"></a>Refer <span class="co">[</span><span class="ot">here</span><span class="co">](https://patchwork.data-imaginist.com/reference/inset_element.html)</span> for the <span class="in">`insert_element`</span> documentation.</span>
-<span id="cb52-709"><a href="#cb52-709" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-712"><a href="#cb52-712" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-713"><a href="#cb52-713" aria-hidden="true" tabindex="-1"></a>p3 <span class="sc">+</span> <span class="fu">inset_element</span>(p2, </span>
-<span id="cb52-714"><a href="#cb52-714" aria-hidden="true" tabindex="-1"></a>                   <span class="at">left =</span> <span class="fl">0.02</span>, </span>
-<span id="cb52-715"><a href="#cb52-715" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bottom =</span> <span class="fl">0.7</span>, </span>
-<span id="cb52-716"><a href="#cb52-716" aria-hidden="true" tabindex="-1"></a>                   <span class="at">right =</span> <span class="fl">0.5</span>, </span>
-<span id="cb52-717"><a href="#cb52-717" aria-hidden="true" tabindex="-1"></a>                   <span class="at">top =</span> <span class="dv">1</span>)</span>
-<span id="cb52-718"><a href="#cb52-718" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-710"><a href="#cb52-710" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-711"><a href="#cb52-711" aria-hidden="true" tabindex="-1"></a>((p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3) <span class="sc">+</span> </span>
+<span id="cb52-712"><a href="#cb52-712" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"I"</span>, <span class="at">tag_prefix =</span> <span class="st">"Figure "</span>, <span class="at">tag_suffix =</span> <span class="st">""</span>)</span>
+<span id="cb52-713"><a href="#cb52-713" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-714"><a href="#cb52-714" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-715"><a href="#cb52-715" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-716"><a href="#cb52-716" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.5 Creating figure with insert</span></span>
+<span id="cb52-717"><a href="#cb52-717" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-718"><a href="#cb52-718" aria-hidden="true" tabindex="-1"></a>In addition to arranging plots side-by-side based on a specified layout, the **Patchwork** package provides the <span class="in">`inset_element()`</span> function.</span>
 <span id="cb52-719"><a href="#cb52-719" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-720"><a href="#cb52-720" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.6 Creating a composite figure by using patchwork and ggtheme</span></span>
+<span id="cb52-720"><a href="#cb52-720" aria-hidden="true" tabindex="-1"></a>This allows user to freely place one or more plots or graphic elements over or below another plot, offering greater flexibility in design.</span>
 <span id="cb52-721"><a href="#cb52-721" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-722"><a href="#cb52-722" aria-hidden="true" tabindex="-1"></a>The figure below is created by combining patchwork and <span class="in">`theme_economist()`</span> of the ggthemes package. </span>
+<span id="cb52-722"><a href="#cb52-722" aria-hidden="true" tabindex="-1"></a>Refer <span class="co">[</span><span class="ot">here</span><span class="co">](https://patchwork.data-imaginist.com/reference/inset_element.html)</span> for the <span class="in">`insert_element`</span> documentation.</span>
 <span id="cb52-723"><a href="#cb52-723" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-724"><a href="#cb52-724" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb52-725"><a href="#cb52-725" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_econmist()</span></span>
-<span id="cb52-728"><a href="#cb52-728" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-729"><a href="#cb52-729" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb52-730"><a href="#cb52-730" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_economist</span>()</span>
-<span id="cb52-731"><a href="#cb52-731" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-732"><a href="#cb52-732" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-733"><a href="#cb52-733" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_wsj()</span></span>
-<span id="cb52-736"><a href="#cb52-736" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-737"><a href="#cb52-737" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb52-738"><a href="#cb52-738" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_wsj</span>()</span>
-<span id="cb52-739"><a href="#cb52-739" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-726"><a href="#cb52-726" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-727"><a href="#cb52-727" aria-hidden="true" tabindex="-1"></a>p3 <span class="sc">+</span> <span class="fu">inset_element</span>(p2, </span>
+<span id="cb52-728"><a href="#cb52-728" aria-hidden="true" tabindex="-1"></a>                   <span class="at">left =</span> <span class="fl">0.02</span>, </span>
+<span id="cb52-729"><a href="#cb52-729" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bottom =</span> <span class="fl">0.7</span>, </span>
+<span id="cb52-730"><a href="#cb52-730" aria-hidden="true" tabindex="-1"></a>                   <span class="at">right =</span> <span class="fl">0.5</span>, </span>
+<span id="cb52-731"><a href="#cb52-731" aria-hidden="true" tabindex="-1"></a>                   <span class="at">top =</span> <span class="dv">1</span>)</span>
+<span id="cb52-732"><a href="#cb52-732" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-733"><a href="#cb52-733" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-734"><a href="#cb52-734" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.5.6 Creating a composite figure by using patchwork and ggtheme</span></span>
+<span id="cb52-735"><a href="#cb52-735" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-736"><a href="#cb52-736" aria-hidden="true" tabindex="-1"></a>The figure below is created by combining patchwork and <span class="in">`theme_economist()`</span> of the ggthemes package.</span>
+<span id="cb52-737"><a href="#cb52-737" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-738"><a href="#cb52-738" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb52-739"><a href="#cb52-739" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_econmist()</span></span>
 <span id="cb52-740"><a href="#cb52-740" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-741"><a href="#cb52-741" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_fivethirtyeight()</span></span>
-<span id="cb52-744"><a href="#cb52-744" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-745"><a href="#cb52-745" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb52-746"><a href="#cb52-746" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_fivethirtyeight</span>()</span>
-<span id="cb52-747"><a href="#cb52-747" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-748"><a href="#cb52-748" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-749"><a href="#cb52-749" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_tufte()</span></span>
-<span id="cb52-750"><a href="#cb52-750" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-753"><a href="#cb52-753" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-754"><a href="#cb52-754" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb52-755"><a href="#cb52-755" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_tufte</span>()</span>
-<span id="cb52-756"><a href="#cb52-756" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-757"><a href="#cb52-757" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-758"><a href="#cb52-758" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_excel()</span></span>
-<span id="cb52-759"><a href="#cb52-759" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-762"><a href="#cb52-762" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb52-763"><a href="#cb52-763" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
-<span id="cb52-764"><a href="#cb52-764" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_excel</span>()</span>
-<span id="cb52-765"><a href="#cb52-765" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb52-766"><a href="#cb52-766" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-767"><a href="#cb52-767" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb52-768"><a href="#cb52-768" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-769"><a href="#cb52-769" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-770"><a href="#cb52-770" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-771"><a href="#cb52-771" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-772"><a href="#cb52-772" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-773"><a href="#cb52-773" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-743"><a href="#cb52-743" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-744"><a href="#cb52-744" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
+<span id="cb52-745"><a href="#cb52-745" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_economist</span>()</span>
+<span id="cb52-746"><a href="#cb52-746" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-747"><a href="#cb52-747" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-748"><a href="#cb52-748" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_wsj()</span></span>
+<span id="cb52-749"><a href="#cb52-749" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-752"><a href="#cb52-752" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-753"><a href="#cb52-753" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
+<span id="cb52-754"><a href="#cb52-754" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_wsj</span>()</span>
+<span id="cb52-755"><a href="#cb52-755" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-756"><a href="#cb52-756" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-757"><a href="#cb52-757" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_fivethirtyeight()</span></span>
+<span id="cb52-758"><a href="#cb52-758" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-761"><a href="#cb52-761" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-762"><a href="#cb52-762" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
+<span id="cb52-763"><a href="#cb52-763" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_fivethirtyeight</span>()</span>
+<span id="cb52-764"><a href="#cb52-764" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-765"><a href="#cb52-765" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-766"><a href="#cb52-766" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_tufte()</span></span>
+<span id="cb52-767"><a href="#cb52-767" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-770"><a href="#cb52-770" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-771"><a href="#cb52-771" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
+<span id="cb52-772"><a href="#cb52-772" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_tufte</span>()</span>
+<span id="cb52-773"><a href="#cb52-773" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-774"><a href="#cb52-774" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-775"><a href="#cb52-775" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-775"><a href="#cb52-775" aria-hidden="true" tabindex="-1"></a><span class="fu">## theme_excel()</span></span>
 <span id="cb52-776"><a href="#cb52-776" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-777"><a href="#cb52-777" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-778"><a href="#cb52-778" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-779"><a href="#cb52-779" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-780"><a href="#cb52-780" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-781"><a href="#cb52-781" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-782"><a href="#cb52-782" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-783"><a href="#cb52-783" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-779"><a href="#cb52-779" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-780"><a href="#cb52-780" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p1 <span class="sc">/</span> p2) <span class="sc">|</span> p3</span>
+<span id="cb52-781"><a href="#cb52-781" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_excel</span>()</span>
+<span id="cb52-782"><a href="#cb52-782" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-783"><a href="#cb52-783" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb52-784"><a href="#cb52-784" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-785"><a href="#cb52-785" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-785"><a href="#cb52-785" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.6 References</span></span>
 <span id="cb52-786"><a href="#cb52-786" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-787"><a href="#cb52-787" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-788"><a href="#cb52-788" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-789"><a href="#cb52-789" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-790"><a href="#cb52-790" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 1.12.1 Useful links</span></span>
-<span id="cb52-791"><a href="#cb52-791" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-792"><a href="#cb52-792" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Quarto_HTML_Code_Blocks</span><span class="co">](https://quarto.org/docs/output-formats/html-code.html)</span></span>
-<span id="cb52-793"><a href="#cb52-793" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-794"><a href="#cb52-794" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1.13 Takeaway</span></span>
-<span id="cb52-795"><a href="#cb52-795" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-796"><a href="#cb52-796" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
-<span id="cb52-797"><a href="#cb52-797" aria-hidden="true" tabindex="-1"></a><span class="fu">## Takeaway</span></span>
+<span id="cb52-787"><a href="#cb52-787" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Kam, T.S(2023). <span class="co">[</span><span class="ot">2 Beyond ggplot2 Fundamentals</span><span class="co">](https://r4va.netlify.app/chap02)</span></span>
+<span id="cb52-788"><a href="#cb52-788" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggrepel</span><span class="co">](https://www.littlemissdata.com/blog/patchwork)</span></span>
+<span id="cb52-789"><a href="#cb52-789" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggthemes</span><span class="co">](https://ggplot2.tidyverse.org/reference/ggtheme.html)</span></span>
+<span id="cb52-790"><a href="#cb52-790" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">hrbrthemes</span><span class="co">](https://cran.r-project.org/web/packages/hrbrthemes/hrbrthemes.pdf)</span></span>
+<span id="cb52-791"><a href="#cb52-791" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot tips: Arranging plots</span><span class="co">](https://www.r-bloggers.com/2021/10/ggplot-tips-arranging-plots/)</span></span>
+<span id="cb52-792"><a href="#cb52-792" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot2 Theme Elements Demostration</span><span class="co">](https://henrywang.nl/ggplot2-theme-elements-demonstration/)</span></span>
+<span id="cb52-793"><a href="#cb52-793" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ggplot2 Theme Elements Reference Sheet</span><span class="co">](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)</span></span>
+<span id="cb52-794"><a href="#cb52-794" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-795"><a href="#cb52-795" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.6.1 Additional references</span></span>
+<span id="cb52-796"><a href="#cb52-796" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-797"><a href="#cb52-797" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Quarto_HTML_Code_Blocks</span><span class="co">](https://quarto.org/docs/output-formats/html-code.html)</span></span>
 <span id="cb52-798"><a href="#cb52-798" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-799"><a href="#cb52-799" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Learnt about the <span class="in">`code-fold`</span> and <span class="in">`code-summary`</span> chunk attributes to hide executable source code. where:</span>
+<span id="cb52-799"><a href="#cb52-799" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.7 Takeaway</span></span>
 <span id="cb52-800"><a href="#cb52-800" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-801"><a href="#cb52-801" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Valid values for <span class="in">`code-fold`</span> include:</span>
-<span id="cb52-802"><a href="#cb52-802" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-803"><a href="#cb52-803" aria-hidden="true" tabindex="-1"></a>    | Value   | Behavior                     |</span>
-<span id="cb52-804"><a href="#cb52-804" aria-hidden="true" tabindex="-1"></a>    |---------|------------------------------|</span>
-<span id="cb52-805"><a href="#cb52-805" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`false`</span> | No folding (default)         |</span>
-<span id="cb52-806"><a href="#cb52-806" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`true`</span>  | Fold code (initially hidden) |</span>
-<span id="cb52-807"><a href="#cb52-807" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`show`</span>  | Fold code (initially shown)  |</span>
-<span id="cb52-808"><a href="#cb52-808" aria-hidden="true" tabindex="-1"></a>    |         |                              |</span>
-<span id="cb52-809"><a href="#cb52-809" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb52-810"><a href="#cb52-810" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-811"><a href="#cb52-811" aria-hidden="true" tabindex="-1"></a>Additional points:</span>
-<span id="cb52-812"><a href="#cb52-812" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-813"><a href="#cb52-813" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>install.packages("readr") <span class="sc">\#</span> If not installed library(readr)</span>
-<span id="cb52-814"><a href="#cb52-814" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>getwd()</span>
+<span id="cb52-801"><a href="#cb52-801" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb52-802"><a href="#cb52-802" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key takeaways</span></span>
+<span id="cb52-803"><a href="#cb52-803" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-804"><a href="#cb52-804" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Learnt about the <span class="in">`code-fold`</span> and <span class="in">`code-summary`</span> chunk attributes to hide executable source code. where:</span>
+<span id="cb52-805"><a href="#cb52-805" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-806"><a href="#cb52-806" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Valid values for <span class="in">`code-fold`</span> include:</span>
+<span id="cb52-807"><a href="#cb52-807" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-808"><a href="#cb52-808" aria-hidden="true" tabindex="-1"></a>    | Value   | Behavior                     |</span>
+<span id="cb52-809"><a href="#cb52-809" aria-hidden="true" tabindex="-1"></a>    |---------|------------------------------|</span>
+<span id="cb52-810"><a href="#cb52-810" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`false`</span> | No folding (default)         |</span>
+<span id="cb52-811"><a href="#cb52-811" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`true`</span>  | Fold code (initially hidden) |</span>
+<span id="cb52-812"><a href="#cb52-812" aria-hidden="true" tabindex="-1"></a>    | <span class="in">`show`</span>  | Fold code (initially shown)  |</span>
+<span id="cb52-813"><a href="#cb52-813" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-814"><a href="#cb52-814" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Learnt about the different R packages</span>
 <span id="cb52-815"><a href="#cb52-815" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-816"><a href="#cb52-816" aria-hidden="true" tabindex="-1"></a>exam_data <span class="sc">\&lt;</span>- read_csv("Hands-on_Ex/data/Exam_data.csv")</span>
+<span id="cb52-816"><a href="#cb52-816" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("readr") library(readr)</span>
 <span id="cb52-817"><a href="#cb52-817" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-818"><a href="#cb52-818" aria-hidden="true" tabindex="-1"></a>install.packages("ggplot2")</span>
-<span id="cb52-819"><a href="#cb52-819" aria-hidden="true" tabindex="-1"></a>library(ggplot2) </span>
-<span id="cb52-820"><a href="#cb52-820" aria-hidden="true" tabindex="-1"></a>install.packages("ggrepel") </span>
-<span id="cb52-821"><a href="#cb52-821" aria-hidden="true" tabindex="-1"></a>library(ggrepel) </span>
-<span id="cb52-822"><a href="#cb52-822" aria-hidden="true" tabindex="-1"></a>install.packages("ggthemes") </span>
-<span id="cb52-823"><a href="#cb52-823" aria-hidden="true" tabindex="-1"></a>library(ggthemes)</span>
+<span id="cb52-818"><a href="#cb52-818" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("ggplot2") library(ggplot2)</span>
+<span id="cb52-819"><a href="#cb52-819" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-820"><a href="#cb52-820" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("ggrepel") library(ggrepel)</span>
+<span id="cb52-821"><a href="#cb52-821" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-822"><a href="#cb52-822" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>install.packages("ggthemes") library(ggthemes)</span>
+<span id="cb52-823"><a href="#cb52-823" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-824"><a href="#cb52-824" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Enhanced annotations with the use of <span class="in">`ggrepeal`</span> - help to repel overlapping text labels, ensuring clear and readbable annotations</span>
+<span id="cb52-825"><a href="#cb52-825" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-826"><a href="#cb52-826" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Introducing of professional themes with <span class="in">`ggthemes`</span> and <span class="in">`hrbrthemes`</span> - offer additional themes , geoms, and improved asthetics and typography.</span>
+<span id="cb52-827"><a href="#cb52-827" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-828"><a href="#cb52-828" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Combining plots with <span class="in">`patchwork`</span> - allows for the creation of composite figures by combining multiple ggplot2 graphs together.</span>
+<span id="cb52-829"><a href="#cb52-829" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb52-830"><a href="#cb52-830" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-831"><a href="#cb52-831" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Additional points: --&gt;</span></span>
+<span id="cb52-832"><a href="#cb52-832" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-833"><a href="#cb52-833" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- -   install.packages("readr") \# If not installed library(readr) --&gt;</span></span>
+<span id="cb52-834"><a href="#cb52-834" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-835"><a href="#cb52-835" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- -   getwd() --&gt;</span></span>
+<span id="cb52-836"><a href="#cb52-836" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-837"><a href="#cb52-837" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- exam_data \&lt;- read_csv("Hands-on_Ex/data/Exam_data.csv") --&gt;</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
