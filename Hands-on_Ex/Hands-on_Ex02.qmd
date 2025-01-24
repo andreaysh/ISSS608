@@ -779,10 +779,10 @@ patchwork & theme_excel() +
 
 <!-- exam_data \<- read_csv("Hands-on_Ex/data/Exam_data.csv") -->
 
-<!-- install.packages("readr")  -->
+<!-- install.packages("readr") -->
 <!-- library(readr) -->
 
-<!-- install.packages("ggplot2")  -->
+<!-- install.packages("ggplot2") -->
 
 <!-- library(ggplot2) -->
 

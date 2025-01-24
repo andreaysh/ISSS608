@@ -1,4 +1,20 @@
 ---
-title: "In-class_Ex01"
-format: html
+title: "In-class Exercise 01"
+author: "Andrea Yeo"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
 ---
+
+## 1. Welcome to my [Tableau Page](https://public.tableau.com/app/profile/andrea.yeo7614/vizzes)
+
+Welcome to my [Tableau-tastic](https://public.tableau.com/app/profile/andrea.yeo7614/vizzes) adventure!🚀, where raw data meets creativity and transforms into stunning dashboards! From bar charts to pie charts, we will be exploring the colorful world of Tableau, turning numbers into insights and dashboards into works of art.
+
+Leveraging on [VizQL](https://www.tableau.com/drive/what-is-vizql), the proprietary query language behind the Tableau product, with a few clicks, and simple drag-and-drop features, we can translates raw data into powerful visuals in just a few clicks!
+
+Join me in the journey of turning data into art and numbers into stories worth sharing!
+
+![](/images/Pic08.jpg)
