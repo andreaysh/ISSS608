@@ -292,8 +292,9 @@ Refer to "[Customizing girafe objects](https://davidgohel.github.io/ggiraph/)" f
 
 The code chunk below shows an advanced method for customizing tooltips. It uses a function to calculate the 90% confidence interval of the mean, and the computed statistics are displayed in the tooltip.
 
-:::: panel-tabset
+:::::::: panel-tabset
 ## Maths score across races
+
 ```{r}
 tooltip <- function(y, ymax, accuracy = .01) {
   mean <- scales::number(y, accuracy = accuracy)
@@ -320,18 +321,21 @@ girafe(ggobj = gg_point,
        width_svg = 8,
        height_svg = 8*0.618)
 ```
+
 ::: callout-note
 -   Replaced size=0.5 with linewidth-0.5 in the `geom_smooth()` function to align the code with the latest ggplot2 standards.
 :::
 
 ::: callout-tip
 ## Conclusion
+
 -   The Chinese group has the highest average Maths score compared to other groups.
 -   The Malay group has the lowest average Maths score among the groups.
 -   Noticeable performance gap between the Chinese group (highest) and the Malay group (lowest), suggesting potential differences in educational performance across these groups.
 :::
 
 ## Maths score across CLASS
+
 ```{r}
 library(ggplot2)
 library(ggiraph)
@@ -362,8 +366,10 @@ girafe(ggobj = gg_point,
        height_svg = 8 * 0.618)
 
 ```
+
 ::: callout-tip
 ## Conclusion
+
 -   Highest Performance: Class 3A has the highest average Maths score among all classes.
 -   Noticeable decline in average Maths scores as you move from Class 3A to Class 3I.
 -   Class 3I has the lowest average Maths score, with a significant gap compared to Class 3A.
@@ -401,8 +407,10 @@ girafe(ggobj = gg_point,
        height_svg = 8 * 0.618)
 
 ```
+
 ::: callout-tip
 ## Conclusion
+
 -   Similar Performance: Both Female and Male groups have very similar average Maths scores, with minimal difference.
 -   No Significant Gap: There is no significant performance gap between females and males in Maths scores.
 :::
@@ -410,8 +418,7 @@ girafe(ggobj = gg_point,
 ::: callout-note
 -   The same analysis can be applied to the "ENGLISH" and "SCIENCE" scores as well.
 :::
-
-::::
+::::::::
 
 #### 3.6.3 Hover effect with *data_id* aesthetic
 
@@ -435,11 +442,11 @@ girafe(
 ```
 
 ::: callout-note
--   The default value of the hover css is *hover_css = "fill:orange;".
+-   The default value of the hover css is \*hover_css = "fill:orange;".
 :::
 
 -   Added tooltip with more information: CLASS; SCIENCE score
--   Changed *histodots* to  <span style="color:lightgrey;">lightgrey</span>
+-   Changed *histodots* to [lightgrey]{style="color:lightgrey;"}
 -   Using `opts_hover(css="fill:green;")`, changed the fill color of the dots to green when hovered over
 
 ```{r}
@@ -472,9 +479,7 @@ Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighte
 
 #### 3.6.4 Styling hover effect
 
-Another highlighting effect:
--   Using `opts_hover(css = "fill: #202020;")`, changed the fill color of the dots to black when hovered over
--   Using `opts_hover_inv(css = "opacity:0.2;")` create the opacity of the dots
+Another highlighting effect: - Using `opts_hover(css = "fill: #202020;")`, changed the fill color of the dots to black when hovered over - Using `opts_hover_inv(css = "opacity:0.2;")` create the opacity of the dots
 
 ```{r}
 p <- ggplot(data=exam_data, 
@@ -537,7 +542,8 @@ girafe(
 Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over. At the same time, the tooltip will show the CLASS.
 
 #### 3.6.6 Click effect with onclick
-`onclick` argument of ggiraph provides hotlink interactivity on the web. 
+
+`onclick` argument of ggiraph provides hotlink interactivity on the web.
 
 The code below shows an example of `onclick`.
 
@@ -579,7 +585,7 @@ girafe(
 
 Interactivity: Web document link with a data object will be displayed on the web browser upon mouse click.
 
-In this case, upon clicking on the chart, it will bring user to the *MOE SchoolFinder* webpage. 
+In this case, upon clicking on the chart, it will bring user to the *MOE SchoolFinder* webpage.
 
 ::: callout-warning
 -   Note that click actions must be a string column in the data set containing valid javascript instructions
@@ -591,9 +597,7 @@ The data visualization below shows coordinated multiple views techniques.
 
 The example demonstrates coordinated multiple views, where selecting a data point in one dotplot highlights the corresponding data point ID in the second visualization.
 
-To implement this, the following strategy will be used:
--   Interactive functions from the **ggiraph** package will enable the creation of interative multiple views. 
--   The [patchwork](https://patchwork.data-imaginist.com/) function will be integrated within the girafe function to build the interactive coordinated multiple views.
+To implement this, the following strategy will be used: - Interactive functions from the **ggiraph** package will enable the creation of interative multiple views. - The [patchwork](https://patchwork.data-imaginist.com/) function will be integrated within the girafe function to build the interactive coordinated multiple views.
 
 ```{r}
 p_1 <- ggplot(data=exam_data, 
@@ -670,13 +674,616 @@ girafe(code = print(p_1 + p_2),
 
 ### 3.7 Interactive data visualization - plotly method
 
+Plotly's R graphing library enables the creation of interactive web graphics using **ggplot2** or a custom interface inspired by the grammar of graphics. Unlike other Plotly platforms, plotly for R is free and open-source, built on the MIT-licensed [**plotly.js**](https://plotly.com/javascript/) JavaScript library.
 
+There are two ways to create interactive graph by using plotly:
 
+-   *`plot_ly()`:*A function in Plotly's R library for building interactive visualizations from scratch.
+-   *`ggplotly()`:*A function that converts static ggplot2 visualizations into interactive Plotly graphics.
 
+#### 3.7.1 Creating an interactive scatter plot: `plot_ly()` method
 
+::: panel-tabset
+## Plot()
 
+```{r}
+#| echo=FALSE, warning=FALSE, message=FALSE
+plot_ly(data = exam_data, 
+             x = ~MATHS, 
+             y = ~ENGLISH)
+```
 
+## Code()
 
+```{r}
+#| eval = FALSE
 
+plot_ly(data = exam_data, 
+             x = ~MATHS, 
+             y = ~ENGLISH)
+```
+:::
 
-### 3.5 Further exploration
+#### 3.7.2 Working with visual variable: `plot_ly()` method
+
+The color argument is added to a qualitative visual variable (e.g.: RACE)
+
+::: panel-tabset
+## Plot()
+
+```{r}
+#| echo = FALSE
+
+plot_ly(data = exam_data, 
+        x = ~ENGLISH, 
+        y = ~MATHS, 
+        color = ~RACE)
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+plot_ly(data = exam_data, 
+        x = ~ENGLISH, 
+        y = ~MATHS, 
+        color = ~RACE)
+```
+:::
+
+#### 3.7.3 Creating an interactive scatter plot: `ggplotly()` method
+
+The code plots an interactive scatter plot by using `ggplotly()`.
+
+::: panel-tabset
+## Plot()
+
+```{r}
+#| echo = FALSE
+
+p <- ggplot(data=exam_data, 
+            aes(x = MATHS,
+                y = ENGLISH)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+ggplotly(p)
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+p <- ggplot(data=exam_data, 
+            aes(x = MATHS,
+                y = ENGLISH)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+ggplotly(p)
+```
+
+The only additional line required in the code chunk is `ggplotly()`.
+:::
+
+#### 3.7.4 Coordinated multiple views with plotly
+
+Creating a coordinated linked plot with plotly involves three key steps:
+
+1.  **Share Data:** Use [[highlight_key]{.underline}](https://www.rdocumentation.org/packages/plotly/versions/4.9.2/topics/highlight_key)\]() from the Plotly package to create shared data.
+
+2.  **Create Scatterplots:** Generate two scatterplots using the `ggplot2` functions.
+
+3.  **Combine Plots:** Use [[subplot()]{.underline}](https://plotly.com/r/subplots/) from the Plotly package to arrange the plots side by side.
+
+::::: panel-tabset
+## Plot()
+
+```{r}
+#| echo = FALSE
+
+d <- highlight_key(exam_data)
+p1 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = ENGLISH)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+p2 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = SCIENCE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+subplot(ggplotly(p1),
+        ggplotly(p2))
+
+```
+
+::: callout-note
+-   Click on a data point of one of the scatterplot and see how the corresponding point on the other scatterplot is selected.
+:::
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+d <- highlight_key(exam_data)
+p1 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = ENGLISH)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+p2 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = SCIENCE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+subplot(ggplotly(p1),
+        ggplotly(p2))
+```
+
+::: callout-note
+-   `highlight_key()` creates an object of class [[crosstalk::SharedData]{.underline}](https://rdrr.io/cran/crosstalk/man/SharedData.html)
+-   Visit this [link](https://rstudio.github.io/crosstalk/) to learn more about crosstalk.
+-   `crosstalk::SharedData` is a function provided by the Crosstalk package in R, which enables shared interactivity between multiple visualizations or widgets.
+:::
+:::::
+
+### 3.8 Interactive data visualization - crosstalk methods!
+
+[[Crosstalk]{.underline}](https://rstudio.github.io/crosstalk/index.html) is an extension for the htmlwidgets package that provides classes, functions, and conventions to enable cross-widget interactions, such as linked brushing and filtering.
+
+#### 3.8.1 Interactive data table: DT package
+
+-   DataTables is a wrapper for the JavaScript library DataTables, allowing R data objects to be displayed as interactive HTML tables.
+-   It is commonly used in R Markdown or Shiny applications.
+
+```{r}
+DT::datatable(exam_data, class= "compact")
+```
+
+#### 3.8.2 Linked brushing: crosstalk method
+
+:::: panel-tabset
+## Plot()
+
+```{r}
+#| echo = FALSE
+
+d <- highlight_key(exam_data) 
+p <- ggplot(d, 
+            aes(ENGLISH, 
+                MATHS)) + 
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+gg <- highlight(ggplotly(p),        
+                "plotly_selected")  
+
+crosstalk::bscols(gg,               
+                  DT::datatable(d), 
+                  widths = 5)        
+```
+
+## Code()
+
+Code below is used to implement the coordinated brushing shown:
+
+```{r}
+#| eval = FALSE
+
+d <- highlight_key(exam_data) 
+p <- ggplot(d, 
+            aes(ENGLISH, 
+                MATHS)) + 
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+gg <- highlight(ggplotly(p),        
+                "plotly_selected")  
+
+crosstalk::bscols(gg,               
+                  DT::datatable(d), 
+                  widths = 5)        
+```
+
+::: callout-note
+Things to learn: - \[\*highlight()\]\*(https://www.rdocumentation.org/packages/plotly/versions/4.10.4/topics/highlight) is a function of **plotly package**. It sets a variety of options for brushing (i.e., highlighting) multiple plots. These options are primarily designed for linking multiple plotly graphs, and may not behave as expected when linking plotly to another htmlwidget package via crosstalk. In some cases, other htmlwidgets will respect these options, such as persistent selection in leaflet.
+
+-   [*bscols()*](https://www.rdocumentation.org/packages/crosstalk/versions/1.2.1/topics/bscols) is a helper function of **crosstalk package**. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. **Warning: This will bring in all of Bootstrap!**
+:::
+::::
+
+### 3.9 Reference
+
+#### 3.9.1 ggiraph
+
+Refer [here](https://davidgohel.github.io/ggiraph/) for the online version and useful articles of ggiraph. This [link](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://cran.r-project.org/web/packages/ggiraph/ggiraph.pdf) to download the pdf version of the reference guide.
+
+-   [How to Plot With Ggiraph](https://www.r-bloggers.com/2018/04/how-to-plot-with-ggiraph/)
+-   [Interactive map of France with ggiraph](https://rstudio-pubs-static.s3.amazonaws.com/152833_56a4917734204de7b37881d164cf8051.html)
+-   [Custom interactive sunbursts with ggplot in R](https://www.pipinghotdata.com/posts/2021-06-01-custom-interactive-sunbursts-with-ggplot-in-r/)
+-   [Link](https://github.com/d-qn/2016_08_02_rioOlympicsAthletes) provides code example on how ggiraph is used to interactive graphs for [Swiss Olympians - the solo specialists](https://www.swissinfo.ch/eng/life-aging/rio-2016-_swiss-olympians-the-solo-specialists/42349156).
+
+#### 3.9.2 plotly for R
+
+-   [Getting Started with Plotly in R](https://plotly.com/r/getting-started/)
+-   Collection of plotly R graphs are available via this [link](https://plotly-r.com/)
+-   Carson Sievert (2020) **Interactive web-based data visualization with R, plotly, and shiny**, Chapman and Hall/CRC is the best resource to learn plotly for R. The online version is available via this [link](https://plotly-r.com/)
+-   [Plotly R Figure Reference](https://plotly.com/r/reference/index/) provides a comprehensive discussion of each visual representations.
+-   [Plotly R Library Fundamentals](https://plotly.com/r/plotly-fundamentals/) is a good place to learn the fundamental features of Plotly’s R API.
+-   [Getting Started](https://gganimate.com/articles/gganimate.html)
+-   Visit this [link](https://rpubs.com/raymondteo/dataviz8) for a very interesting implementation of gganimate by your senior.
+-   [Building an animation step-by-step with gganimate](https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/).
+-   [Creating a composite gif with multiple gganimate panels](https://solarchemist.se/2021/08/02/composite-gif-gganimate/)
+
+#### 3.9.3 Overall reference
+
+-   Kam, T.S. (2023).[3 Programming Interactive Data Visualisation with R](https://r4va.netlify.app/chap03)
+
+### 4.0 Takeaway
+
+::: callout-tip
+## Key takeaways
+
+-   Key packages used - `ggiraph`, `plotly`, `DT`,`tidyverse`,`patchwork`
+-   Learnt about interactive visualizations with ggiraph such as - `Tooltip`,`Hover effects`,`Onclick actions`, and `coordinated views`
+-   Learnt about interactive visualizations with plotly such as - using `highlight_key()`for shared data and `subplot()` to display coordinated views
+-   Learnt about crosstalk for cross-widget interaction such as - linked brushing and filtering
+:::
+
+### 5.0 Further exploration
+
+1.  Exploration of different types of interactive plots, apart from `geom_dotplot_interative()`:
+
+::: panel-tabset
+## geom_bar_interactive
+
+Observations:
+
+-   **Score distribution:**shows a right-skewed distribution, with a higher concentration of students scoring between 60 and 90 in MATHS.
+
+-   **Class variability:** With the tooltip tied to the CLASS variable, while hovering over the bars in the interactive chart, we can see that **CLASS 3A** dominate a high score ranges (i.e.: they excel in MATHS). Whereas, **CLASS 3I** students struggle in MATHS.
+
+```{r}
+p <- ggplot(data = exam_data, 
+            aes(x = MATHS)) +
+  geom_bar_interactive(
+    aes(tooltip = CLASS, 
+        data_id = CLASS), 
+    width = 0.8
+  ) +
+  scale_y_continuous(NULL, breaks = NULL)
+
+girafe(
+  ggobj = p,
+  width_svg = 6,
+  height_svg = 6 * 0.618,
+  options = list(
+    opts_hover(css = "fill: #202020;"),
+    opts_hover_inv(css = "opacity:0.2;")
+  )
+)
+```
+
+## geom_density_interactive
+
+Observations:
+
+-   **Class performance:** Some classes, such as 3A and 3B, seem to have consistently higher scores compared to others like 3I and 3H.
+
+-   **Spread of scores:** Classes such as 3F and 3G show a broader spread of scores indicating a wider variation in student performance, as compared to 3B with a tighter range.
+
+```{r}
+p <- ggplot(data = exam_data, 
+            aes(x = MATHS)) +
+  geom_density_interactive(
+    aes(tooltip = CLASS, 
+        data_id = CLASS),
+    fill = "#69b3a2", 
+    alpha = 0.5
+  ) +
+  scale_y_continuous(NULL, breaks = NULL)
+
+girafe(
+  ggobj = p,
+  width_svg = 6,
+  height_svg = 6 * 0.618,
+  options = list(
+    opts_hover(css = "fill: #202020;"),
+    opts_hover_inv(css = "opacity:0.2;")
+  )
+)
+
+```
+:::
+
+2.  Using `plot_ly` method to explore setting of colors for interactive plot
+
+::: panel-tabset
+## Graph
+
+Observations:
+
+-   **Positive correlation:** Positive relationship between MATHS and ENGLISH scores, as higher MATHS scores generally correspond to higher ENGLISH scores.
+
+-   **Class grouping:** Class 3A generally score higher in both subjects, Class 3I tend to have lower scores in both subjects.
+
+-   **Outliers:** A few students score relatively low in one subject while doing better in other.
+
+```{r}
+#| echo = FALSE 
+
+plot_ly(
+  data = exam_data,
+  x = ~MATHS,
+  y = ~ENGLISH,
+  type = 'scatter',
+  mode = 'markers',
+  color = ~CLASS,  # Dynamically color points based on CLASS
+  colors = RColorBrewer::brewer.pal(length(unique(exam_data$CLASS)), "Set1"), 
+  marker = list(
+    size = 10,
+    opacity = 0.8
+  ) 
+)%>%
+  layout(
+    title = "Interactive Plot: MATHS vs ENGLISH Scores",
+    xaxis = list(title = "MATHS Scores"),
+    yaxis = list(title = "ENGLISH Scores")
+  )
+```
+
+## Code
+
+```{r}
+#| eval = FALSE
+
+plot_ly(
+  data = exam_data,
+  x = ~MATHS,
+  y = ~ENGLISH,
+  type = 'scatter',
+  mode = 'markers',
+  color = ~CLASS,  # Dynamically color points based on CLASS
+  colors = colorRampPalette(c("blue", "green", "yellow"))(length(unique(exam_data$CLASS))), 
+  marker = list(
+    size = 10,  # Set marker size
+    opacity = 0.8  # Adjust transparency for better visual clarity
+  )
+) %>%
+  layout(
+    title = "Interactive Plot: MATHS vs ENGLISH Scores",
+    xaxis = list(title = "MATHS Scores"),
+    yaxis = list(title = "ENGLISH Scores")
+  )
+```
+:::
+
+3.  Using `plot_ly` method to explore setting of shapes for interactive plot
+
+:::: panel-tabset
+## Graph
+
+Observations:
+
+-   **Positive Correlation:** noticeable positive correlation between English and Math scores
+-   **Racial Groups:**
+    -   Chinese (green circles): Appears to be clustered among the top right corner, which suggests that most of the Chinese students performed well in both ENGLISH and MATHS scores
+    -   Malay (blue squares): Appears to be concentrated around mid to lower ranges of ENGLISH and MATHS scores
+    -   Indian (orange triangles): Appears less frequent, but appear in the middle range of scores
+    -   Others (pink crosses): Sparse, and distributed across the score ranges without clear clustering
+
+::: callout-note
+-   To assign different shapes for the points based on `RACE` variable in `plot_ly`, we used the **symbol** argument in addition to color.
+:::
+
+```{r}
+#| echo = FALSE 
+
+plot_ly(data = exam_data, 
+        x = ~ENGLISH, 
+        y = ~MATHS, 
+        color = ~RACE,       # Different colors for RACE
+        symbol = ~RACE)      # Different shapes for RACE
+
+```
+
+## Code
+
+```{r}
+#| eval = FALSE
+
+plot_ly(data = exam_data, 
+        x = ~ENGLISH, 
+        y = ~MATHS, 
+        color = ~RACE,       # Different colors for RACE
+        symbol = ~RACE)      # Different shapes for RACE
+```
+::::
+
+4.  Using `plot_ly` method to explore coordinated multiple views with plotly - Maths score and Race
+
+::: panel-tabset
+## Graph
+
+Observations:
+
+**Histogram**
+
+-   **Overall distribution:** Most students score between 60 to 80, indicating average performance
+
+-   **Race-specific observations:**
+
+    -   Chinese students dominate the higher score range
+
+    -   Malay students fared broadly in score
+
+    -   Indian students are concentrated in the middle range
+
+    -   Others contribute mostly in the mid-to-high ranges, and less frequent overall
+
+**Box plot**
+
+-   **Median score:** Chinese students have the highest median, followed by Others, Malay, while Indian fared slightly lower.
+
+-   **Variability in score:** Malay students show the widest spread, while others have the most consistent performance.
+
+```{r}
+#| echo = FALSE
+
+# Load required libraries
+library(crosstalk)
+library(plotly)
+
+# Ensure exam_data is a data frame
+exam_data <- as.data.frame(exam_data)
+
+# Create a shared data object for interactivity
+shared_data <- SharedData$new(exam_data)
+
+# Histogram for Overall Maths Scores (Colored by Race)
+p1 <- plot_ly(
+  data = shared_data,
+  x = ~MATHS,
+  color = ~RACE,
+  type = "histogram",
+  text = ~paste("Score:", MATHS, "<br>Race:", RACE),  # Tooltip showing Maths Score and Race
+  hoverinfo = "text",  # Use the custom text for the tooltip
+  opacity = 0.7
+) %>%
+  layout(
+    title = "Overall Maths Scores Distribution",
+    xaxis = list(
+      title = "Maths Scores",  # X-axis title
+      titlefont = list(size = 16),  # Larger font for better visibility
+      tickfont = list(size = 12)  # Tick label size
+    ),
+    yaxis = list(
+      title = "Frequency",  # Y-axis title
+      titlefont = list(size = 16),  # Larger font for better visibility
+      tickfont = list(size = 12)  # Tick label size
+    ),
+    barmode = "stack",  # Ensure legend is visible
+    showlegend = TRUE  # Enable legend
+  )
+
+# Box Plot for Maths Scores by Race
+p2 <- plot_ly(
+  data = shared_data,
+  x = ~RACE,
+  y = ~MATHS,
+  color = ~RACE,
+  type = "box",
+  text = ~paste("Race:", RACE, "<br>Score:", MATHS),  # Tooltip showing Race and Score
+  hoverinfo = "text",  # Use the custom text for the tooltip
+  boxpoints = FALSE  # Removes points beside the boxplot
+) %>%
+  layout(
+    title = "Maths Scores Distribution by Race",
+    xaxis = list(
+      title = "Race",  # X-axis title
+      titlefont = list(size = 16),  # Larger font for better visibility
+      tickfont = list(size = 12)  # Tick label size
+    ),
+    yaxis = list(
+      title = "Maths Scores",  # Y-axis title
+      titlefont = list(size = 16),  # Larger font for better visibility
+      tickfont = list(size = 12)  # Tick label size
+    ),
+    showlegend = FALSE  # Disable legend for the box plot
+  )
+
+# Combine the plots into a subplot with interactivity
+subplot(p1, p2, nrows = 1, margin = 0.05) %>%
+  highlight(on = "plotly_click", dynamic = TRUE)
+
+```
+
+## Code
+
+```{r}
+#| eval = FALSE
+
+# Load required libraries
+library(crosstalk)
+library(plotly)
+
+# Ensure exam_data is a data frame
+exam_data <- as.data.frame(exam_data)
+
+# Create a shared data object for interactivity
+shared_data <- SharedData$new(exam_data)
+
+# Histogram for Overall Maths Scores (Colored by Race)
+p1 <- plot_ly(
+  data = shared_data,
+  x = ~MATHS,
+  color = ~RACE,
+  type = "histogram",
+  text = ~paste("Score:", MATHS, "<br>Race:", RACE),  # Tooltip showing Maths Score and Race
+  hoverinfo = "text",  # Use the custom text for the tooltip
+  opacity = 0.7
+) %>%
+  layout(
+    title = "Overall Maths Scores Distribution",
+    xaxis = list(
+      title = "Maths Scores",  # X-axis title
+      titlefont = list(size = 16),  # Larger font for better visibility
+      tickfont = list(size = 12)  # Tick label size
+    ),
+    yaxis = list(
+      title = "Frequency",  # Y-axis title
+      titlefont = list(size = 16),  # Larger font for better visibility
+      tickfont = list(size = 12)  # Tick label size
+    ),
+    barmode = "stack",  # Ensure legend is visible
+    showlegend = TRUE  # Enable legend
+  )
+
+# Box Plot for Maths Scores by Race
+p2 <- plot_ly(
+  data = shared_data,
+  x = ~RACE,
+  y = ~MATHS,
+  color = ~RACE,
+  type = "box",
+  text = ~paste("Race:", RACE, "<br>Score:", MATHS),  # Tooltip showing Race and Score
+  hoverinfo = "text",  # Use the custom text for the tooltip
+  boxpoints = FALSE  # Removes points beside the boxplot
+) %>%
+  layout(
+    title = "Maths Scores Distribution by Race",
+    xaxis = list(
+      title = "Race",  # X-axis title
+      titlefont = list(size = 16),  # Larger font for better visibility
+      tickfont = list(size = 12)  # Tick label size
+    ),
+    yaxis = list(
+      title = "Maths Scores",  # Y-axis title
+      titlefont = list(size = 16),  # Larger font for better visibility
+      tickfont = list(size = 12)  # Tick label size
+    ),
+    showlegend = FALSE  # Disable legend for the box plot
+  )
+
+# Combine the plots into a subplot with interactivity
+subplot(p1, p2, nrows = 1, margin = 0.05) %>%
+  highlight(on = "plotly_click", dynamic = TRUE)
+
+```
+:::
+
+install.packages("crosstalk") library(crosstalk)
+
+library(magrittr)

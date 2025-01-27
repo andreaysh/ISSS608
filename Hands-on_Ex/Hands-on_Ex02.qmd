@@ -796,3 +796,15 @@ patchwork & theme_excel() +
 
 <!-- library(stringr) -->
 
+<!-- install.packages("ggiraph") -->
+
+<!-- library(ggiraph) -->
+
+<!-- pacman::p_load(ggiraph, plotly, -->
+<!--                patchwork, DT, tidyverse) -->
+
+<!-- install.packages("crosstalk") -->
+<!-- library(crosstalk) -->
+
+<!-- install.packages("dplyr") -->
+<!-- library(dplyr) -->
