@@ -724,7 +724,6 @@ patchwork & theme_excel() +
 -   Likewise, reduced the font size of the `axis.title.x` to 9 to improve plot's readability
 :::
 
-
 ### 2.6 References
 
 -   Kam, T.S(2023). [2 Beyond ggplot2 Fundamentals](https://r4va.netlify.app/chap02)
@@ -780,6 +779,7 @@ patchwork & theme_excel() +
 <!-- exam_data \<- read_csv("Hands-on_Ex/data/Exam_data.csv") -->
 
 <!-- install.packages("readr") -->
+
 <!-- library(readr) -->
 
 <!-- install.packages("ggplot2") -->
@@ -801,10 +801,21 @@ patchwork & theme_excel() +
 <!-- library(ggiraph) -->
 
 <!-- pacman::p_load(ggiraph, plotly, -->
+
 <!--                patchwork, DT, tidyverse) -->
 
 <!-- install.packages("crosstalk") -->
+
 <!-- library(crosstalk) -->
 
 <!-- install.packages("dplyr") -->
+
 <!-- library(dplyr) -->
+
+<!-- install.packages("ggplot2") -->
+
+<!-- install.packages("dplyr") -->
+
+<!-- install.packages("gganimate") -->
+
+<!-- install.packages("magick") -->

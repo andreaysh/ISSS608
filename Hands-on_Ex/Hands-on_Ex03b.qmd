@@ -1,0 +1,538 @@
+---
+title: "Hands-on Exercise 03b"
+author: "Andrea Yeo"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+[With the assistance of ChatGPT]{style="font-size: 14px;"}
+
+## 3b. Programming animated statistical graphics with R
+
+### 3.1 Overview
+
+In this Hands-on exercise 03b, we will learn how to create engaging animated data visualizations using the [`gganimate`](https://www.rdocumentation.org/packages/gganimate/versions/0.1.0.9000) and [`plotly`](https://cran.r-project.org/web/packages/plotly/index.html) R packages. We will also learn how to reshape data with the [`tidyr`](https://www.rdocumentation.org/packages/tidyr/versions/1.3.1) package and process, wrangle, and transform data with the [`dplyr`](https://www.rdocumentation.org/packages/dplyr/versions/1.0.10) package.
+
+Overall, animated graphics not only captivate the audience but also leave a lasting impression, making them an effective tool for visually-driven data storytelling.
+
+#### 3.1.1 Basic concepts of animation
+
+Animations in data visualization are created by generating a series of individual plots, each representing a subset of the data. These plots are then stitched together into sequential frames to create the illusion of motion, similar to a flipbook or traditional cartoons. The animated effect is driven by the transitions between data subsets over time.
+
+![](/images/Pic09.jpg)
+
+#### 3.1.2 Terminology
+
+Before creating an animated statistical graph, it's important to understand key concepts:
+
+-   **Frame:** each frame represents a specific point in time or category, updating the graph's data points as it changes.
+-   **Animation attributes:** control the animation's behavior, such as frame duration, easing functions for transitions, and whether the animation starts from the current frame or resets to the beginning.
+
+::: callout-tip
+## To read
+
+Consider whether the effort is justified before creating animated graphs. For exploratory data analysis, animations may not be worth the time. However, in presentations, well-placed animations can significantly enhance audience engagement compared to static visuals.
+:::
+
+### 3.2 Getting started
+
+#### 3.2.1 Loading the R packages
+
+First, we install and load the folliwing R packages:
+
+-   [**plotly:**](https://plotly.com/r/) An R library for creating interactive statistical graphs.
+-   [**gganimate:**](https://gganimate.com/) A `ggplot2` extension for making animated graphs
+-   [**gifski:**](https://cran.r-project.org/web/packages/gifski/index.html) A tool for converting video frames into high-quality animated GIFs using advanced palette and dithering techniques.
+-   [**gapminder:**](https://cran.r-project.org/web/packages/gapminder/index.html) A dataset excerpt from [Gapminder.org](https://cran.r-project.org/web/packages/gapminder/readme/README.html), often used for its `country_colors` schemes.
+-   [**tidyverse:**](https://www.tidyverse.org/) A collection of modern R packages designed for data science tasks, including analysis, communication, and creating static graphs.
+
+```{r}
+pacman::p_load(readxl, gifski, gapminder,
+               plotly, gganimate, tidyverse)
+```
+#### 3.2.2 Importing the data
+
+In this hands-on exercise, the *Data* worksheet from *GlobalPopulation* Excel workbook will be used.
+
+Importing Data worksheet from GlobalPopulation Excel workbook by using appropriate R package from tidyverse family.
+
+::: callout-note
+-   [`read_xls():`](https://www.rdocumentation.org/packages/xlsx/versions/0.6.5/topics/read.xlsx) Imports Excel worksheets, readxl package
+-   [`mutate_each_():`](https://www.rdocumentation.org/packages/radiant.data/versions/0.6.0/topics/mutate_each)Converts all character data types to factors, dplyr package
+-   [`mutate():`](https://www.rdocumentation.org/packages/dplyr/versions/0.5.0/topics/mutate) Converts the Year field values to integers, dplyr package
+:::
+
+```{r}
+col <- c("Country", "Continent")
+globalPop <- read_xls("data/GlobalPopulation.xls",
+                      sheet="Data") %>%
+  mutate_each_(funs(factor(.)), col) %>%
+  mutate(Year = as.integer(Year))
+```
+
+:::{.callout-warning}
+-   Warning: `mutate_each_()` was deprecated in dplyr 0.7.0.
+-   Warning: `funs()` was deprecated in dplyr 0.8.0.
+:::
+
+We will re-write the code by using [`mutate_at()`](https://www.rdocumentation.org/packages/tidylog/versions/1.0.2/topics/mutate_at) as shown below.
+
+['mutate(across())`](https://dplyr.tidyverse.org/reference/across.html) can be used to derive the same outputs. 
+
+::: panel-tabset
+## mutate_at()
+```{r}
+col <- c("Country", "Continent")
+globalPop <- read_xls("data/GlobalPopulation.xls",
+                      sheet="Data") %>%
+  mutate_at(col, as.factor) %>%
+  mutate(Year = as.integer(Year))
+```
+
+## mutate(across())
+```{r}
+col <- c("Country", "Continent")
+globalPop <- read_xls("data/GlobalPopulation.xls",
+                      sheet="Data") %>%
+  mutate(across(col, as.factor)) %>%
+  mutate(Year = as.integer(Year))
+```
+:::
+
+#### 3.2.3 Inspecting the data
+
+```{r}
+globalPop <- read_xls("data/GlobalPopulation.xls", sheet = "Data")
+```
+
+We will check the dataset using below
+
+-   `glimpse()`: provides a transposed overview of a dataset, showing variables and their types in a concise format.
+-   `head()`: displays the first few rows of a dataset (default is 6 rows) to give a quick preview of the data.
+-   `summary()`: generates a statistical summary of each variable, including measures like mean, median, and range for numeric data.
+-   `duplicated()`:Returns a logical vector indicating which elements or rows in a vector or data frame are duplicates.
+-   `colSums(is.na())`: Counts the number of missing values (NA) in each column of the data frame.
+
+::: panel-tabset
+## glimpse()
+
+```{r}
+glimpse(globalPop)
+```
+
+## head()
+
+```{r}
+head(globalPop)
+```
+
+## summary()
+
+```{r}
+summary(globalPop)
+```
+
+## duplicated()
+
+```{r}
+globalPop[duplicated(globalPop),]
+```
+
+## colSum(is.na(*dataset*))
+
+```{r}
+colSums(is.na(globalPop))
+```
+:::
+
+### 3.3 Animated data visualisation: gganimate methods
+[**gganimate**](https://gganimate.com/) extends ggplot2 by adding animation-specific grammar, allowing plots to dynamically change over time with customizable transitions.
+
+-   `transition_*()`: Defines how data is distributed and related over time.
+-   `view_*()`: Controls how positional scales change during the animation.
+-   `shadow_*()`: Determines how data from other time points is displayed at a given moment.
+-   `enter_*()` / `exit_*()`: Specifies how new data enters and old data exits during the animation.
+-   `ease_aes()`: Adjusts how aesthetics transition smoothly over time.
+
+#### 3.3.1 Building a static population bubble plot
+
+The code below uses the basic ggplot2 function to create a static bubble plot. 
+
+```{r}
+ggplot(globalPop, aes(x = Old, y = Young, 
+                      size = Population, 
+                      colour = Country)) +
+  geom_point(alpha = 0.7, 
+             show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  labs(title = 'Year: {frame_time}', 
+       x = '% Aged', 
+       y = '% Young') 
+```
+
+#### 3.3.2 Building the animated bubble plot
+
+The code below uses the two functions to create an animated bubble plot. 
+-   [`transition_time()`](https://gganimate.com/reference/transition_time.html) of **gganimate** is usedto create transition through distinct states in time (i.e.: Year)
+-   `ease_aes()` is used to control easing of aesthetics. The default is `linear`. Other methods are: quadratic, cubic, quartic, quintic, sine, circular, exponential, elastic, back, and bounce.
+
+```{r}
+ggplot(globalPop, aes(x = Old, y = Young, 
+                      size = Population, 
+                      colour = Country)) +
+  geom_point(alpha = 0.7, 
+             show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  labs(title = 'Year: {frame_time}', 
+       x = '% Aged', 
+       y = '% Young') +
+  transition_time(Year) +       
+  ease_aes('linear')          
+```
+
+### 3.4 Animated data visualisation: plotly
+
+In the **Plotly R** package, both `ggplotly()` and `plot_ly()` enable keyframe animations using the frame argument or aesthetic. Additionally, they support the `ids` argument or aesthetic to ensure smooth transitions for objects with the same ID, promoting object constancy during animations.
+
+#### 3.4.1 Building an animated bubble plot: `ggplotly()` method
+
+::: panel-tabset
+## Plot()
+```{r}
+#| echo = FALSE
+
+gg <- ggplot(globalPop, 
+       aes(x = Old, 
+           y = Young, 
+           size = Population, 
+           colour = Country)) +
+  geom_point(aes(size = Population,
+                 frame = Year),
+             alpha = 0.7, 
+             show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  labs(x = '% Aged', 
+       y = '% Young')
+
+ggplotly(gg)
+```
+
+::: callout-note
+-   The animated bubble plot will includes a play/pause button and a slider component for controlling the animation
+:::
+
+## Code()
+```{r}
+#| eval = FALSE
+
+gg <- ggplot(globalPop, 
+       aes(x = Old, 
+           y = Young, 
+           size = Population, 
+           colour = Country)) +
+  geom_point(aes(size = Population,
+                 frame = Year),
+             alpha = 0.7, 
+             show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  labs(x = '% Aged', 
+       y = '% Young')
+
+ggplotly(gg)
+```
+
+::: callout-note
+-   A static bubble plot is created using **ggplot2** functions and saved as an R object named `gg`.
+-   The `ggplotly()` function is then used to convert this static plot into an animated SVG object.
+:::
+:::
+
+:::{.callout-warning}
+-   You will notice that the `show.legend = FALSE` argument was used, but the legend still appears on the plot. To overcome this problem, `theme(legend.position=`none`)` should be used as shown in the plot and code below. 
+:::
+
+#### 3.4.2 Building an animated bubble plot: `ggplotly()` method - without legend
+
+::: panel-tabset
+## Plot()
+```{r}
+#| echo = FALSE
+
+gg <- ggplot(globalPop, 
+       aes(x = Old, 
+           y = Young, 
+           size = Population, 
+           colour = Country)) +
+  geom_point(aes(size = Population,
+                 frame = Year),
+             alpha = 0.7) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  labs(x = '% Aged', 
+       y = '% Young') + 
+  theme(legend.position='none')
+
+ggplotly(gg)
+```
+
+## Code()
+```{r}
+#| eval = FALSE
+gg <- ggplot(globalPop, 
+       aes(x = Old, 
+           y = Young, 
+           size = Population, 
+           colour = Country)) +
+  geom_point(aes(size = Population,
+                 frame = Year),
+             alpha = 0.7) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  labs(x = '% Aged', 
+       y = '% Young') + 
+  theme(legend.position='none')
+
+ggplotly(gg)
+
+```
+:::
+
+### 3.5 Reference
+
+-   [Getting Started](https://gganimate.com/articles/gganimate.html)
+-   Visit this [link]for a very interesting implementation of gganimate by your senior
+-   [Building an animation step-by-step with gganimate.](https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/)
+-   [Creating a composite gif with multiple gganimate panels](https://solarchemist.se/2021/08/02/composite-gif-gganimate/)
+
+### 3.6 Overall reference
+
+-   Kam, T.S. (2023).[3 Programming Interactive Data Visualisation with R](https://r4va.netlify.app/chap04)
+
+::: callout-tip
+## Key takeaways
+-   Learnt the Importance of Animated Graphics
+-   Packages and Tools used: `gganimate`, `plotly`, `tidyr`, and `dplyr`
+-   Learnt how to create animated visualizations - Static Bubble Plot, Animating with gganimate, and Animating with plotly
+:::
+
+### 5.0 Further exploration
+1. To explore animated plot that shows how Singapore's population has changed over the years.
+
+:::: panel-tabset
+## Graph
+
+Observations:
+
+-   Reflect a society transitioning to an aging population
+-   Steady Population Growth Until 2030, but population decline after 2030. 
+-   By 2050, the population drops to 4,635.1, marking a decrease of approximately 9.6% from the peak.
+
+```{r}
+#| echo = FALSE 
+
+# Prepare the dataset and filter for 'Singapore'
+singapore_data <- globalPop %>%
+  filter(Country == "Singapore") %>%
+  mutate(Year = as.integer(Year), Population = as.numeric(Population))
+
+p <- ggplot(singapore_data, aes(x = Year, y = Population, group = 1)) +
+  # Line showing the trajectory of population over time
+  geom_line(color = "blue", linewidth = 1) +
+  # Moving dot to emphasize animation
+  geom_point(color = "red", size = 4) +
+  labs(title = "Population Change in Singapore", 
+       subtitle = "Year: {frame_time}",
+       x = "Year", 
+       y = "Population") +
+  theme_minimal() +
+  transition_reveal(Year) +  # Reveals the line over time
+  ease_aes('linear')
+
+p
+```
+## Code
+```{r}
+#| eval = FALSE
+
+# Prepare the dataset and filter for 'Singapore'
+singapore_data <- globalPop %>%
+  filter(Country == "Singapore") %>%
+  mutate(Year = as.integer(Year), Population = as.numeric(Population))
+
+p <- ggplot(singapore_data, aes(x = Year, y = Population, group = 1)) +
+  # Line showing the trajectory of population over time
+  geom_line(color = "blue", linewidth = 1) +
+  # Moving dot to emphasize animation
+  geom_point(color = "red", size = 4) +
+  labs(title = "Population Change in Singapore", 
+       subtitle = "Year: {frame_time}",
+       x = "Year", 
+       y = "Population") +
+  theme_minimal() +
+  transition_reveal(Year) +  # Reveals the line over time
+  ease_aes('linear')
+
+p
+```
+
+:::
+
+2. To explore static bubble plot for the sum of population across continent
+
+:::: panel-tabset
+## Graph
+
+Observations:
+
+-   Asia has the highest population - largest bubble
+-   Africa has a significantly large population - second largest bubble
+-   Oceania has the smallest population - smallest bubble
+
+```{r}
+#| echo = FALSE
+
+library(dplyr)
+
+globalPop <- read_xls("data/GlobalPopulation.xls",
+                      sheet="Data")
+```
+
+```{r}
+#| echo = FALSE
+
+# Process data for all continents
+data_continent <- globalPop %>%
+  group_by(Year, Continent) %>%
+  summarise(TotalPopulation = sum(Population, na.rm = TRUE), .groups = 'drop')
+```
+
+```{r}
+#| echo = FALSE
+
+# Create a static bubble plot
+ggplot(data_continent, aes(x = Continent, y = TotalPopulation, size = TotalPopulation, color = Continent)) +
+  geom_point(alpha = 0.7) +
+  scale_size_area(max_size = 15) +
+  labs(
+    title = "Total Population by Continent",
+    x = "Continent",
+    y = "Total Population (Thousands)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none") +  # Remove legend
+  coord_flip()  # Flip coordinates for better readability
+```
+## Code
+
+```{r}
+#| eval = FALSE
+
+library(dplyr)
+
+globalPop <- read_xls("data/GlobalPopulation.xls",
+                      sheet="Data")
+```
+
+```{r}
+#| eval = FALSE
+
+# Process data for all continents
+data_continent <- globalPop %>%
+  group_by(Year, Continent) %>%
+  summarise(TotalPopulation = sum(Population, na.rm = TRUE), .groups = 'drop')
+```
+
+```{r}
+#| eval = FALSE
+
+# Create a static bubble plot
+ggplot(data_continent, aes(x = Continent, y = TotalPopulation, size = TotalPopulation, color = Continent)) +
+  geom_point(alpha = 0.7) +
+  scale_size_area(max_size = 15) +
+  labs(
+    title = "Total Population by Continent",
+    x = "Continent",
+    y = "Total Population (Thousands)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none") +  # Remove legend
+  coord_flip()  # Flip coordinates for better readability
+```
+
+:::
+
+3. To explore animated plot that visualizes the sum of population growth by continent over the years. 
+
+:::: panel-tabset
+## Graph
+
+Observations:
+
+-   Asia has the highest population growth - trajectory is steep and significantly outpaces other continents
+-   Africa's population is also increasing rapidly, showing a strong upward trend.
+-   Europe, North America, South America show slow growth, with relatively flat trends
+-   Oceania has the lowest population, maintaining a nearly constant trend.
+
+```{r}
+#| echo = FALSE
+
+# Process data for all continents
+data_continent <- globalPop %>%
+  group_by(Year, Continent) %>%
+  summarise(TotalPopulation = sum(Population, na.rm = TRUE), .groups = 'drop')
+```
+
+
+```{r}
+#| echo = FALSE
+
+# Create an animated plot for population growth by continent
+ggplot(data_continent, aes(x = Year, y = TotalPopulation, color = Continent, group = Continent)) +
+  geom_line(size = 1) +
+  geom_point(size = 3) +
+  labs(
+    title = "Population Growth by Continent Over the Years",
+    x = "Year",
+    y = "Total Population (Thousands)",
+    color = "Continent"
+  ) +
+  theme_minimal() +
+  transition_reveal(Year)
+```
+## Code
+
+```{r}
+#| eval = FALSE
+
+# Process data for all continents
+data_continent <- globalPop %>%
+  group_by(Year, Continent) %>%
+  summarise(TotalPopulation = sum(Population, na.rm = TRUE), .groups = 'drop')
+```
+
+
+```{r}
+#| eval = FALSE
+
+# Create an animated plot for population growth by continent
+ggplot(data_continent, aes(x = Year, y = TotalPopulation, color = Continent, group = Continent)) +
+  geom_line(size = 1) +
+  geom_point(size = 3) +
+  labs(
+    title = "Population Growth by Continent Over the Years",
+    x = "Year",
+    y = "Total Population (Thousands)",
+    color = "Continent"
+  ) +
+  theme_minimal() +
+  transition_reveal(Year)
+```
+:::
