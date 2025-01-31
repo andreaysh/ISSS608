@@ -1,0 +1,251 @@
+---
+title: "Hands-on Exercise 04b"
+author: "Andrea Yeo"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+[With the assistance of ChatGPT]{style="font-size: 14px;"}
+
+## 4. Visualising Statistical Analysis
+
+### 4.1 Learning outcome
+
+In this hands-on exercise, we will be exploring:
+
+-   [ggstatsplot](https://www.rdocumentation.org/packages/ggstatsplot/versions/0.6.1) for creating statistical visualizations,
+-   [performance](https://www.rdocumentation.org/packages/performance/versions/0.12.4) for visualizing model diagnostics, and
+-   [parameters](https://www.rdocumentation.org/packages/parameters/versions/0.22.0) for visualizing model parameters.
+
+### 4.2 Visual Statistical Analysis with [`ggstatsplot`](https://indrajeetpatil.github.io/ggstatsplot/index.html)
+
+[`ggstatsplot`](https://indrajeetpatil.github.io/ggstatsplot/index.html) extends ggplot2, integrating statistical test results directly into visualizations.
+
+-   Offers alternative statistical inference methods by default.
+-   Ensures best practices for statistical reporting, following APA standards for consistency.
+-   Example: Displays results from a robust t-test within the plot.
+
+### 4.3 Getting Started
+
+#### 4.3.1 Installing and loading the packages
+
+We will be using [ggstatsplot](https://www.rdocumentation.org/packages/ggstatsplot/versions/0.6.1) and [tidyverse](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0) packags.
+
+```{r}
+pacman::p_load(ggstatsplot, tidyverse)
+```
+
+#### 4.3.2 Importing data
+
+In this exercise, **Exam_data.csv** will be used. The \`read_csv() function from the readr package is used to import the dataset into R and store it as a tibble data frame.
+
+```{r}
+exam <- read_csv("data/Exam_data.csv", show_col_types = FALSE)
+```
+
+```{r}
+stat(exam)
+```
+
+::: callout-note
+-   This section data is the same dataset used in [Hands-on_Ex01](Hands-on_Ex01.html), [Hands-on_Ex02](Hands-on_Ex02.html), [Hands-on_Ex03a](Hands-on_Ex03a.html), and [Hands-on_Ex04a](Hands-on_Ex04a.html)
+:::
+
+#### 4.3.3 One-sample test: [gghistostats()](https://www.rdocumentation.org/packages/ggstatsplot/versions/0.1.4/topics/gghistostats) method
+
+[`gghistostats()`](https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html) will be used to build a visual of one-sample test on English scores.
+
+```{r}
+set.seed(1234)
+
+gghistostats(
+  data = exam,
+  x = ENGLISH,
+  type = "bayes",
+  test.value = 60,
+  xlab = "English scores"
+)
+```
+
+Default information: - statistical details - Bayes Factor - sample sizes - distribution summary
+
+#### 4.3.4 Unpacking the Bayes Factor
+
+-   The Bayes Factor quantifies the strength of evidence in favor of one hypothesis over another, comparing the alternative hypothesis (H₁) to the null hypothesis (H₀).
+
+-   It helps evaluate data in support of the null hypothesis while incorporating external information.
+
+-   A common method for approximating the Bayes Factor is the [Schwarz criterion](https://www.statisticshowto.com/bayesian-information-criterion/).
+
+#### 4.3.5 How to interpret Bayes Factor
+
+The Bayes Factor (BF) is a positive number used to assess the strength of evidence for one hypothesis over another.
+
+Refer [here](https://www.jstor.org/stable/2685729) for one of the most common interpretations of Bayes Factor, first proposed by Harold Jeffereys (1961) and slightly modified by Lee and Wagenmakers in 2013.
+
+![](/images/Pic10.jpg){width="409"}
+
+#### 4.3.6 Two-sample mean test: [`ggbetweenstats()`](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html)
+
+The code below, [`ggbetweenstats()`](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for two-sample mean test of Maths scores by gender.
+
+```{r}
+ggbetweenstats(
+  data = exam,
+  x = GENDER, 
+  y = MATHS,
+  type = "np",
+  messages = FALSE
+)
+```
+
+Default information: - statistical details - Bayes Factor - sample sizes - distribution summary
+
+#### 4.3.7 Oneway ANOVA Test: [`ggbetweenstats()`](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html)
+
+The code below used [`ggbetweenstats()`](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) to build a visual for One-way ANOVA test on English score by race.
+
+```{r}
+ggbetweenstats(
+  data = exam,
+  x = RACE, 
+  y = ENGLISH,
+  type = "p",
+  mean.ci = TRUE, 
+  pairwise.comparisons = TRUE, 
+  pairwise.display = "s",
+  p.adjust.method = "fdr",
+  messages = FALSE
+)
+```
+
+Meaning of the symbol function of `ggbetweenstats()`:
+
+```{r}
+#| echo = FALSE 
+
+library(knitr)
+
+# Sample Data
+df <- data.frame(
+  Symbol = c("ns", "s", "all","p","np","r","bayes"),
+  Meaning = c("**pairwise.display** - only non-significant", "**pairwise.display**- only significant" , "**pairwise.display** - everything","**type** - Parametric tests (default)","**type** - Non-parametric tests (e.g., Kruskal-Wallis, Wilcoxon)","**type** - Robust statistical tests (e.g., trimmed means ANOVA)","**type** - Bayesian analysis for comparisons")
+)
+
+# Create a table
+kable(df, caption = "**`ggbetweenstats()` symbol arguments meaning**")
+```
+
+#### 4.3.8 Significant test of correlation: [`ggscatterstats()`](https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html)
+
+The code below, [`ggscatterstats()`](https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html) is used to build a visual for significant test of correlation between MATHS and ENGLISH scores
+
+```{r}
+ggscatterstats(
+  data = exam,
+  x = MATHS,
+  y = ENGLISH,
+  marginal = FALSE,
+  )
+```
+
+#### 4.3.9 Significant test of association (dependence): [`ggbarstats()`](https://www.rdocumentation.org/packages/ggstatsplot/versions/0.1.4/topics/ggbarstats)
+
+The Maths scores is binned into 4-class variables using [`cut()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cut)
+
+```{r}
+exam1 <- exam %>% 
+  mutate(MATHS_bins = 
+           cut(MATHS, 
+               breaks = c(0,60,75,85,100))
+)
+```
+
+Next, `ggbarstats()` is used to build a visual for significant test of association
+
+```{r}
+ggbarstats(exam1, 
+           x = MATHS_bins, 
+           y = GENDER)
+```
+
+### 4.7 Further exploration
+
+1.  To explore the distribution of MATHS Grades across different class
+
+Color gradient progresses smoothly from red to green, aligning with grade performance levels -
+
+-   Grade F --\> Red
+-   Grade D --\> Orange
+-   Grade C --\> Yellow
+-   Grade B --\> Light Green
+-   Grade A --\> Green
+
+Observations:
+
+-   Class 3A has the highest proportion of top scorers (Grade A).
+-   Class 3I has the most failing students (91% Grade F).
+-   Class 3F has the most balanced grade distribution.
+
+::: panel-tabset
+## Graph
+
+```{r}
+#| echo = FALSE 
+
+exam1 <- exam %>% 
+  mutate(MATHS_bins = 
+           cut(MATHS, 
+               breaks = c(0, 49, 59, 69, 79, 100),  # 5 bins
+               labels = c("Grade F", "Grade D", "Grade C", "Grade B", "Grade A"),  # Labels
+               right = TRUE)  # Include upper bound in interval
+)
+```
+
+```{r}
+#| echo = FALSE
+
+ggbarstats(exam1, 
+           x = MATHS_bins, 
+           y = CLASS) +
+  scale_fill_manual(values = c("Grade F" = "red", 
+                               "Grade D" = "orange", 
+                               "Grade C" = "yellow", 
+                               "Grade B" = "lightgreen", 
+                               "Grade A" = "green")) +
+  theme_minimal()
+```
+
+## Code
+
+```{r}
+#| eval = FALSE
+
+exam1 <- exam %>% 
+  mutate(MATHS_bins = 
+           cut(MATHS, 
+               breaks = c(0, 49, 59, 69, 79, 100),  # 5 bins
+               labels = c("Grade F", "Grade D", "Grade C", "Grade B", "Grade A"),  # Labels
+               right = TRUE)  # Include upper bound in interval
+)
+
+```
+
+```{r}
+#| echo = FALSE
+
+ggbarstats(exam1, 
+           x = MATHS_bins, 
+           y = CLASS) +
+  scale_fill_manual(values = c("Grade F" = "red", 
+                               "Grade D" = "orange", 
+                               "Grade C" = "yellow", 
+                               "Grade B" = "lightgreen", 
+                               "Grade A" = "green")) +
+  theme_minimal()
+```
+:::
