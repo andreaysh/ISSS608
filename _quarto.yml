@@ -17,6 +17,14 @@ website:
         href: Hands-on_Ex/Hands-on_Ex03a.html
       - text: "Hands-on Exercise 03b"
         href: Hands-on_Ex/Hands-on_Ex03b.html
+      - text: "Hands-on Exercise 04a"
+        href: Hands-on_Ex/Hands-on_Ex04a.html
+      - text: "Hands-on Exercise 04b"
+        href: Hands-on_Ex/Hands-on_Ex04b.html
+      - text: "Hands-on Exercise 04c"
+        href: Hands-on_Ex/Hands-on_Ex04c.html
+      - text: "Hands-on Exercise 04d"
+        href: Hands-on_Ex/Hands-on_Ex04d.html
     - text: "In-class Exercise"
       menu:
       - text: "In-class Exercise Outline"
@@ -42,6 +50,7 @@ format:
       - brand
     css: styles.css
     toc: true
+    toc-location: left
     code-fold: true
     code-tools: true
 

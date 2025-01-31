@@ -323,7 +323,7 @@ ggplotly(gg)
 -   Learnt how to create animated visualizations - Static Bubble Plot, Animating with gganimate, and Animating with plotly
 :::
 
-### 5.0 Further exploration
+### 3.7 Further exploration
 1. To explore animated plot that shows how Singapore's population has changed over the years.
 
 :::: panel-tabset
