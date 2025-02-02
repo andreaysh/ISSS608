@@ -36,7 +36,7 @@ website:
     - text: "Take-home Exercise"
       menu:
       - text: "Take Home Exercise 1"
-        href: Take-home_Ex01.html
+        href: Take-home_Ex/Take-home_Ex01.html
     
     right:
       - href: index.qmd
@@ -50,6 +50,7 @@ format:
       - brand
     css: styles.css
     toc: true
+    toc-depth: 4
     toc-location: left
     code-fold: true
     code-tools: true

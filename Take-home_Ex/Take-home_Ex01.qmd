@@ -1,4 +1,26 @@
 ---
-title: "Take-home_Ex01"
-format: html
+title: "Take-home Exercise 01"
+author: "Andrea Yeo"
+date-modified: "last-modified"
+date: "February 1, 2025"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
 ---
+
+# Heart Attack in Japan Youth Vs Adult 
+
+## 1. Overview
+
+### 1.1 Background
+This analysis explores heart attack incidents in Japan, focusing on youth versus adult age groups, and aims to uncover the key differences in risk factors and triggers for cardiovascular diseases in these populations. With the growing global prevalence of heart disease, understanding how age and related health factors influence heart attack risks in Japan is crucial for shaping preventive strategies and targeted health interventions.
+
+The dataset from [Kaggle](https://www.kaggle.com/datasets/ashaychoudhary/heart-attack-in-japan-youth-vs-adult) provides an opportunity to dive into the heart health of distinct demographic groups—youth and adults—enabling policymakers, healthcare providers, and researchers to design more effective and age-appropriate health policies and prevention programs. By comparing these groups, we can identify unique risk patterns and potential triggers for heart attacks, which may contribute to developing specialized awareness campaigns, healthcare protocols, and resource allocation strategies tailored to each age group.
+
+The goal of this analysis is to inform health interventions that can reduce the burden of cardiovascular diseases and improve the overall well-being of these populations. By understanding the key factors contributing to heart attack incidents in different age groups, we can help foster healthier lifestyles and more efficient healthcare systems.
+
+
+
+

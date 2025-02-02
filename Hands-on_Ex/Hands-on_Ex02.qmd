@@ -782,6 +782,10 @@ patchwork & theme_excel() +
 
 <!-- library(readr) -->
 
+<!-- install.packages("readxl") -->
+<!-- library(readxl) -->
+
+
 <!-- install.packages("ggplot2") -->
 
 <!-- library(ggplot2) -->

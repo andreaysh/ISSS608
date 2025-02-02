@@ -106,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -148,6 +148,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex03b.html">
  <span class="dropdown-text">Hands-on Exercise 03b</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04a.html">
+ <span class="dropdown-text">Hands-on Exercise 04a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04b.html">
+ <span class="dropdown-text">Hands-on Exercise 04b</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04c.html">
+ <span class="dropdown-text">Hands-on Exercise 04c</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04d.html">
+ <span class="dropdown-text">Hands-on Exercise 04d</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -175,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
         <li>
-    <a class="dropdown-item" href="../Take-home_Ex01.html">
+    <a class="dropdown-item" href="../Take-home_Ex/Take-home_Ex01.html">
  <span class="dropdown-text">Take Home Exercise 1</span></a>
   </li>  
     </ul>
@@ -200,24 +216,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
   <li><a href="#beyond-ggplot2-fundamentals" id="toc-beyond-ggplot2-fundamentals" class="nav-link active" data-scroll-target="#beyond-ggplot2-fundamentals">2. Beyond ggplot2 Fundamentals</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#learning-outcome" id="toc-learning-outcome" class="nav-link" data-scroll-target="#learning-outcome">2.1 Learning Outcome</a></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2.2 Getting started</a></li>
-  <li><a href="#beyond-ggplot2-annotation-ggrel" id="toc-beyond-ggplot2-annotation-ggrel" class="nav-link" data-scroll-target="#beyond-ggplot2-annotation-ggrel">2.3 Beyond ggplot2 Annotation: ggrel</a></li>
-  <li><a href="#beyond-ggplot2-themes" id="toc-beyond-ggplot2-themes" class="nav-link" data-scroll-target="#beyond-ggplot2-themes">2.4 Beyond ggplot2 themes</a></li>
-  <li><a href="#beyond-single-graph" id="toc-beyond-single-graph" class="nav-link" data-scroll-target="#beyond-single-graph">2.5 Beyond single graph</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">2.6 References</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2.2 Getting started</a>
+  <ul class="collapse">
+  <li><a href="#installing-and-loading-the-required-libraries" id="toc-installing-and-loading-the-required-libraries" class="nav-link" data-scroll-target="#installing-and-loading-the-required-libraries">2.2.1 Installing and loading the required libraries</a></li>
+  <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data">2.2.2 Importing data</a></li>
+  </ul></li>
+  <li><a href="#beyond-ggplot2-annotation-ggrel" id="toc-beyond-ggplot2-annotation-ggrel" class="nav-link" data-scroll-target="#beyond-ggplot2-annotation-ggrel">2.3 Beyond ggplot2 Annotation: ggrel</a>
+  <ul class="collapse">
+  <li><a href="#working-with-ggrepel" id="toc-working-with-ggrepel" class="nav-link" data-scroll-target="#working-with-ggrepel">2.3.1 Working with ggrepel</a></li>
+  <li><a href="#further-exploration-with-ggrepel" id="toc-further-exploration-with-ggrepel" class="nav-link" data-scroll-target="#further-exploration-with-ggrepel">2.3.2 Further exploration with ggrepel</a></li>
+  </ul></li>
+  <li><a href="#beyond-ggplot2-themes" id="toc-beyond-ggplot2-themes" class="nav-link" data-scroll-target="#beyond-ggplot2-themes">2.4 Beyond ggplot2 themes</a>
+  <ul class="collapse">
+  <li><a href="#working-with-ggtheme-package" id="toc-working-with-ggtheme-package" class="nav-link" data-scroll-target="#working-with-ggtheme-package">2.4.1 Working with ggtheme package</a></li>
+  <li><a href="#working-with-hrbthemes-package" id="toc-working-with-hrbthemes-package" class="nav-link" data-scroll-target="#working-with-hrbthemes-package">2.4.2 Working with hrbthemes package</a></li>
+  </ul></li>
+  <li><a href="#beyond-single-graph" id="toc-beyond-single-graph" class="nav-link" data-scroll-target="#beyond-single-graph">2.5 Beyond single graph</a>
+  <ul class="collapse">
+  <li><a href="#creating-composits-graphics-pathwork-methods" id="toc-creating-composits-graphics-pathwork-methods" class="nav-link" data-scroll-target="#creating-composits-graphics-pathwork-methods">2.5.1 Creating composits graphics: pathwork methods</a></li>
+  <li><a href="#combining-two-ggplot2-graphs" id="toc-combining-two-ggplot2-graphs" class="nav-link" data-scroll-target="#combining-two-ggplot2-graphs">2.5.2 Combining two ggplot2 graphs</a></li>
+  <li><a href="#combining-2-or-more-ggplot2-graphs" id="toc-combining-2-or-more-ggplot2-graphs" class="nav-link" data-scroll-target="#combining-2-or-more-ggplot2-graphs">2.5.3 Combining 2 or more ggplot2 graphs</a></li>
+  <li><a href="#creating-a-composite-figure-with-tag" id="toc-creating-a-composite-figure-with-tag" class="nav-link" data-scroll-target="#creating-a-composite-figure-with-tag">2.5.4 Creating a composite figure with tag</a></li>
+  <li><a href="#creating-figure-with-insert" id="toc-creating-figure-with-insert" class="nav-link" data-scroll-target="#creating-figure-with-insert">2.5.5 Creating figure with insert</a></li>
+  <li><a href="#creating-a-composite-figure-by-using-patchwork-and-ggtheme" id="toc-creating-a-composite-figure-by-using-patchwork-and-ggtheme" class="nav-link" data-scroll-target="#creating-a-composite-figure-by-using-patchwork-and-ggtheme">2.5.6 Creating a composite figure by using patchwork and ggtheme</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">2.6 References</a>
+  <ul class="collapse">
+  <li><a href="#additional-references" id="toc-additional-references" class="nav-link" data-scroll-target="#additional-references">2.6.1 Additional references</a></li>
+  </ul></li>
   <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">2.7 Takeaway</a></li>
   </ul></li>
   </ul>
 </nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -242,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 29, 2025</p>
+      <p class="date-modified">February 2, 2025</p>
     </div>
   </div>
     
@@ -2736,43 +2778,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb52-872"><a href="#cb52-872" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-873"><a href="#cb52-873" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(readr) --&gt;</span></span>
 <span id="cb52-874"><a href="#cb52-874" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-875"><a href="#cb52-875" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggplot2") --&gt;</span></span>
-<span id="cb52-876"><a href="#cb52-876" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-877"><a href="#cb52-877" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggplot2) --&gt;</span></span>
+<span id="cb52-875"><a href="#cb52-875" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("readxl") --&gt;</span></span>
+<span id="cb52-876"><a href="#cb52-876" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(readxl) --&gt;</span></span>
+<span id="cb52-877"><a href="#cb52-877" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-878"><a href="#cb52-878" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-879"><a href="#cb52-879" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggrepel") --&gt;</span></span>
+<span id="cb52-879"><a href="#cb52-879" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggplot2") --&gt;</span></span>
 <span id="cb52-880"><a href="#cb52-880" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-881"><a href="#cb52-881" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggrepel) --&gt;</span></span>
+<span id="cb52-881"><a href="#cb52-881" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggplot2) --&gt;</span></span>
 <span id="cb52-882"><a href="#cb52-882" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-883"><a href="#cb52-883" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggthemes") --&gt;</span></span>
+<span id="cb52-883"><a href="#cb52-883" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggrepel") --&gt;</span></span>
 <span id="cb52-884"><a href="#cb52-884" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-885"><a href="#cb52-885" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggthemes) --&gt;</span></span>
+<span id="cb52-885"><a href="#cb52-885" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggrepel) --&gt;</span></span>
 <span id="cb52-886"><a href="#cb52-886" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-887"><a href="#cb52-887" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(stringr) --&gt;</span></span>
+<span id="cb52-887"><a href="#cb52-887" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggthemes") --&gt;</span></span>
 <span id="cb52-888"><a href="#cb52-888" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-889"><a href="#cb52-889" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggiraph") --&gt;</span></span>
+<span id="cb52-889"><a href="#cb52-889" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggthemes) --&gt;</span></span>
 <span id="cb52-890"><a href="#cb52-890" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-891"><a href="#cb52-891" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggiraph) --&gt;</span></span>
+<span id="cb52-891"><a href="#cb52-891" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(stringr) --&gt;</span></span>
 <span id="cb52-892"><a href="#cb52-892" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-893"><a href="#cb52-893" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- pacman::p_load(ggiraph, plotly, --&gt;</span></span>
+<span id="cb52-893"><a href="#cb52-893" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggiraph") --&gt;</span></span>
 <span id="cb52-894"><a href="#cb52-894" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-895"><a href="#cb52-895" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--                patchwork, DT, tidyverse) --&gt;</span></span>
+<span id="cb52-895"><a href="#cb52-895" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(ggiraph) --&gt;</span></span>
 <span id="cb52-896"><a href="#cb52-896" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-897"><a href="#cb52-897" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("crosstalk") --&gt;</span></span>
+<span id="cb52-897"><a href="#cb52-897" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- pacman::p_load(ggiraph, plotly, --&gt;</span></span>
 <span id="cb52-898"><a href="#cb52-898" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-899"><a href="#cb52-899" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(crosstalk) --&gt;</span></span>
+<span id="cb52-899"><a href="#cb52-899" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--                patchwork, DT, tidyverse) --&gt;</span></span>
 <span id="cb52-900"><a href="#cb52-900" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-901"><a href="#cb52-901" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("dplyr") --&gt;</span></span>
+<span id="cb52-901"><a href="#cb52-901" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("crosstalk") --&gt;</span></span>
 <span id="cb52-902"><a href="#cb52-902" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-903"><a href="#cb52-903" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(dplyr) --&gt;</span></span>
+<span id="cb52-903"><a href="#cb52-903" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(crosstalk) --&gt;</span></span>
 <span id="cb52-904"><a href="#cb52-904" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-905"><a href="#cb52-905" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggplot2") --&gt;</span></span>
+<span id="cb52-905"><a href="#cb52-905" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("dplyr") --&gt;</span></span>
 <span id="cb52-906"><a href="#cb52-906" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-907"><a href="#cb52-907" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("dplyr") --&gt;</span></span>
+<span id="cb52-907"><a href="#cb52-907" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- library(dplyr) --&gt;</span></span>
 <span id="cb52-908"><a href="#cb52-908" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-909"><a href="#cb52-909" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("gganimate") --&gt;</span></span>
+<span id="cb52-909"><a href="#cb52-909" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("ggplot2") --&gt;</span></span>
 <span id="cb52-910"><a href="#cb52-910" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-911"><a href="#cb52-911" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("magick") --&gt;</span></span>
+<span id="cb52-911"><a href="#cb52-911" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("dplyr") --&gt;</span></span>
+<span id="cb52-912"><a href="#cb52-912" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-913"><a href="#cb52-913" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("gganimate") --&gt;</span></span>
+<span id="cb52-914"><a href="#cb52-914" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-915"><a href="#cb52-915" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- install.packages("magick") --&gt;</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

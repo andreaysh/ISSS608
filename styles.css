@@ -1,7 +1,13 @@
 /* css styles */
+
 h1.title {
   text-align: center;
   color: #4169e1;
+}
+
+h1 {
+    text-align: center;
+    color: #4169e1; /* Replace with your desired color */
 }
 
 h2 {
