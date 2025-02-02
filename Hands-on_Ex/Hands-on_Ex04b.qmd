@@ -459,3 +459,10 @@ summary(model_demographics)
 ```
 
 :::
+
+3.  To perform a complete diagnostic check on the regression model (above)
+
+```{r}
+check_model(model_demographics) 
+```
+
