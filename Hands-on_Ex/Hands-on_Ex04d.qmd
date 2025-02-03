@@ -15,13 +15,14 @@ execute:
 
 ### 4.1 Overview
 
-In this exercise, we will be 
+In this exercise, we will be
 
 -   Creating funnel plots using the [**funnelPlotR**](https://www.rdocumentation.org/packages/rmeta/versions/3.0/topics/funnelplot) package.
 -   Designing static funnel plots with ggplot2.
 -   Building interactive funnel plots by combining [**plotly**](https://www.rdocumentation.org/packages/plotly/versions/4.10.4) and [**ggplot2**](https://www.rdocumentation.org/packages/ggplot2/versions/3.5.0).
 
 ### 4.2 Installing and launching R packages
+
 The below are the R packages that will be used:
 
 -   [**readr**](https://www.rdocumentation.org/packages/readr/versions/2.1.5): For importing CSV files into R.
@@ -36,7 +37,7 @@ pacman::p_load(tidyverse, FunnelPlotR, plotly, knitr)
 
 ### 4.3 Importing data
 
-We will be using the COVID-19_DKI_Jakarta dataset, sourced from the [Open Data Covid-19 Provinsi DKI Jakarta portal](https://riwayat-file-covid-19-dki-jakarta-jakartagis.hub.arcgis.com/). 
+We will be using the COVID-19_DKI_Jakarta dataset, sourced from the [Open Data Covid-19 Provinsi DKI Jakarta portal](https://riwayat-file-covid-19-dki-jakarta-jakartagis.hub.arcgis.com/).
 
 It focuses on comparing the cumulative COVID-19 cases and deaths by sub-district (kelurahan) as of 31st July 2021 in DKI Jakarta.
 
@@ -48,6 +49,7 @@ covid19 <- read_csv("data/COVID-19_DKI_Jakarta.csv") %>%
 
 head(covid19)
 ```
+
 We will check the dataset using below
 
 -   `glimpse()`: provides a transposed overview of a dataset, showing variables and their types in a concise format.
@@ -112,14 +114,14 @@ The [FunnelPlotR](https://nhs-r-community.github.io/FunnelPlotR/) package uses g
 
 #### 4.4.1 [FunnelPlotR](https://www.rdocumentation.org/packages/FunnelPlotR/versions/0.5.0) methods: The basic plot
 
-The code below plots a funnel plot. 
+The code below plots a funnel plot.
 
 ::: callout-note
 ## Things to learn from the code
 
 -   The `group` parameter differs from its use in scatterplots; here, it defines the level of data points to plot, such as **Sub-district**, **District**, or **City**. Selecting City results in only six data points.
--   The data_type argument defaults to "SR", where "SR" stands for **Standardized Ratio** -  used to compare the performance or outcomes of different groups. 
--   'limit' sets the plot limits, with accepted values of **95** or **99**, representing **95%** or **99.8%** quantiles of the distribution. 
+-   The data_type argument defaults to "SR", where "SR" stands for **Standardized Ratio** - used to compare the performance or outcomes of different groups.
+-   'limit' sets the plot limits, with accepted values of **95** or **99**, representing **95%** or **99.8%** quantiles of the distribution.
 :::
 
 ::: panel-tabset
@@ -135,6 +137,7 @@ funnel_plot(
   group = `Sub-district`
 )
 ```
+
 ## Code()
 
 ```{r}
@@ -149,15 +152,21 @@ funnel_plot(
 ```
 :::
 
--   A funnel plot object with 267 points of which 0 are outliers. 
+-   A funnel plot object with 267 points of which 0 are outliers.
 -   Plot is adjusted for overdispersion.
 
 #### 4.4.2 [FunnelPlotR](https://www.rdocumentation.org/packages/FunnelPlotR/versions/0.5.0) methods: Makeover 1
 
 ::: callout-note
 ## Things to learn from the code
--   + `data_type argument` is used to change from default “SR” to “PR” (i.e. proportions).
--   + `xrange` and `yrange` are used to set the range of x-axis and y-axis
+
+-   
+
+    -   `data_type argument` is used to change from default “SR” to “PR” (i.e. proportions).
+
+-   
+
+    -   `xrange` and `yrange` are used to set the range of x-axis and y-axis
 :::
 
 ::: panel-tabset
@@ -176,6 +185,7 @@ funnel_plot(
   yrange = c(0, 0.05)   #<<
 )
 ```
+
 ## Code()
 
 ```{r}
@@ -195,10 +205,11 @@ funnel_plot(
 
 #### 4.4.3 [FunnelPlotR](https://www.rdocumentation.org/packages/FunnelPlotR/versions/0.5.0) methods: Makeover 2
 
-The code below plots a funnel plot. 
+The code below plots a funnel plot.
 
 ::: callout-note
 ## Things to learn from the code
+
 -   `label = NA`: argument disables the default outlier labeling feature.
 -   `title`: argument adds a title to the plot.
 -   `x_label` and `y_label`: arguments are used to add or modify the titles of the x-axis and y-axis.
@@ -224,6 +235,7 @@ funnel_plot(
   y_label = "Cumulative Fatality Rate"  #<<
 )
 ```
+
 ## Code()
 
 ```{r}
@@ -260,7 +272,8 @@ df <- covid19 %>%
   filter(rate > 0)
 ```
 
-The *fit.mean* is computed using the code below: 
+The *fit.mean* is computed using the code below:
+
 ```{r}
 fit.mean <- weighted.mean(df$rate, 1/df$rate.se^2)
 ```
@@ -333,7 +346,9 @@ p <- ggplot(df, aes(x = Positive, y = rate)) +
         legend.key.height = unit(0.3, "cm"))
 p
 ```
+
 ## Code()
+
 ```{r}
 #| eval = FALSE
 
@@ -385,10 +400,11 @@ p
 
 #### 4.5.4 Interactive funnel plot: [plotly](https://www.rdocumentation.org/packages/plotly/versions/4.10.4) + [ggplot2](https://www.rdocumentation.org/packages/ggplot2/versions/3.5.0)
 
-We can make the funnel plot interactive with `ggplotly()` of **plotly** r package. 
+We can make the funnel plot interactive with `ggplotly()` of **plotly** r package.
 
 ::: panel-tabset
 ## Graph()
+
 ```{r}
 #| echo = FALSE 
 
@@ -400,6 +416,7 @@ fp_ggplotly
 ```
 
 ## Code()
+
 ```{r}
 #| eval = FALSE
 
@@ -412,6 +429,7 @@ fp_ggplotly
 :::
 
 ### 4.6 References
+
 -   Kam, T.S(2024). [Visualising Uncertainty](https://r4va.netlify.app/chap12)
 
 -   [funnelPlotR](https://nhs-r-community.github.io/FunnelPlotR/index.html) package.
@@ -428,8 +446,8 @@ fp_ggplotly
 ## Key takeaways
 
 -   Learnt about the general concepts of funnel plots which as specialized data visualizations used for unbiased comparisons between entities like outlets, stores, or sub-districts. Can help to identify outliers by comparing performance metrics against expected variability.
--   Some of the R packages used - `FunnelPlotR`,`ggplot2`,`plotly`,`ggplot2`,`knitr` etc. 
--   Learnt about funnel plot customization with R, using `limit`, `label_outliers`, `poisson_limits`,`OD_adjust`, `xrange`, `yrange`, `title`, `x_label`, and `y_label` etc. -   Learnt that it is possible to convert static `ggplot2` plots into interactive plots using `ggplotly()`.
+-   Some of the R packages used - `FunnelPlotR`,`ggplot2`,`plotly`,`ggplot2`,`knitr` etc.
+-   Learnt about funnel plot customization with R, using `limit`, `label_outliers`, `poisson_limits`,`OD_adjust`, `xrange`, `yrange`, `title`, `x_label`, and `y_label` etc. - Learnt that it is possible to convert static `ggplot2` plots into interactive plots using `ggplotly()`.
 :::
 
 ### 4.9 Further exploration
