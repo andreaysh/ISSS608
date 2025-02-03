@@ -33,6 +33,12 @@ website:
         href: https://public.tableau.com/views/In-class_Ex01_17371867213230/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
       - text: "In-class Exercise 02"
         href: https://public.tableau.com/views/In-class_Ex02_17377896182080/Dashboard2?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+      - text: "In-class Exercise 03"
+        href: https://public.tableau.com/views/In-class_Ex03_17383925295110/Hands-on_Ex03?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+      - text: "In-class Exercise 03-Story"
+        href: https://public.tableau.com/views/In-class_Ex03_Story/Myfirststory?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+      - text: "In-class Exercise 03-Animation"
+        href: https://public.tableau.com/views/In-class_Ex03_Animation/Dashboard6?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
     - text: "Take-home Exercise"
       menu:
       - text: "Take Home Exercise 1"
