@@ -423,19 +423,283 @@ exam %>%
 ```
 :::
 
+#### 4.4.2 Visualizing the uncertainty of point estimates: [`ggdist`](https://www.rdocumentation.org/packages/ggdist/versions/3.3.2) methods
 
+We will makeover the previous plot by showing 95% and 99% confidence intervals. 
 
+-   .width = 0.95 and 0.99
+
+::: callout-note
+-   The `.width` argument in the `stat_pointinterval` function defines the coverage probability of the confidence interval around the summary statistic, such as the median.
+-   It controls the visual width of the confidence interval displayed in the plot.
+:::
+
+::: panel-tabset
+## Code()
+
+```{r}
+#| eval = FALSE
+exam %>%
+  ggplot(aes(x = RACE, 
+             y = MATHS)) +
+  stat_pointinterval(
+    .width = c(0.95, 0.99), 
+    show.legend = FALSE) +   
+  labs(
+    title = "Visualising confidence intervals of mean Math score",
+    subtitle = "Mean Point + Multiple-interval plot")
+```
+
+## Graph()
+
+```{r}
+#| echo = FALSE 
+
+exam %>%
+  ggplot(aes(x = RACE, 
+             y = MATHS)) +
+  stat_pointinterval(
+    .width = c(0.95, 0.99), 
+    show.legend = FALSE) +   
+  labs(
+    title = "Visualising confidence intervals of mean Math score",
+    subtitle = "Mean Point + Multiple-interval plot, 95% and 99%")
+```
+:::
+
+#### 4.4.3 Visualizing the uncertainty of point estimates: [`ggdist`](https://www.rdocumentation.org/packages/ggdist/versions/3.3.2) methods
+
+[`stat_gradientinterval()`](https://mjskay.github.io/ggdist/reference/stat_gradientinterval.html) of **ggdist** is used to build a visual for displaying distribution of maths scores by race. 
+
+::: panel-tabset
+## Code()
+
+```{r}
+#| eval = FALSE
+
+exam %>%
+  ggplot(aes(x = RACE, 
+             y = MATHS)) +
+  stat_gradientinterval(   
+    fill = "#E1B941",      
+    show.legend = TRUE     
+  ) +                        
+  labs(
+    title = "Visualising confidence intervals of mean math score",
+    subtitle = "Gradient + interval plot")
+```
+
+## Graph()
+
+```{r}
+#| echo = FALSE 
+
+exam %>%
+  ggplot(aes(x = RACE, 
+             y = MATHS)) +
+  stat_gradientinterval(   
+    fill = "#E1B941",      
+    show.legend = TRUE     
+  ) +                        
+  labs(
+    title = "Visualising confidence intervals of mean math score",
+    subtitle = "Gradient + interval plot")
+```
+:::
+
+### 4.5 Visualizing uncertainity with hypothetical outcome plots (HOPs)
+
+What are HOPs and when are they used?
+
+-   HOPs are visualizations that display multiple simulated outcomes to help users understand uncertainty in data or predictions. Instead of showing a static confidence interval, HOPs animate or present a series of possible outcomes to illustrate the variability in the data.
+-   Used to help audiences intuitively understand variability and potential results in decision-making and forecasting.
+
+::: panel-tabset
+## Code()
+
+```{r}
+#| eval = FALSE
+
+devtools::install_github("wilkelab/ungeviz")
+library(ungeviz)
+
+ggplot(data = exam, 
+       (aes(x = factor(RACE), y = MATHS))) +
+  geom_point(position = position_jitter(
+    height = 0.3, width = 0.05), 
+    size = 0.4, color = "#E1B941", alpha = 1/2) +
+  geom_hpline(data = sampler(25, group = RACE), height = 0.6, color = "#4169E1") +
+  theme_bw() + 
+  # `.draw` is a generated column indicating the sample draw
+  transition_states(.draw, 1, 3)
+```
+
+## Graph()
+
+```{r}
+#| echo = FALSE 
+
+devtools::install_github("wilkelab/ungeviz")
+library(ungeviz)
+
+ggplot(data = exam, 
+       (aes(x = factor(RACE), y = MATHS))) +
+  geom_point(position = position_jitter(
+    height = 0.3, width = 0.05), 
+    size = 0.4, color = "#E1B941", alpha = 1/2) +
+  geom_hpline(data = sampler(25, group = RACE), height = 0.6, color = "#4169E1") +
+  theme_bw() + 
+  # `.draw` is a generated column indicating the sample draw
+  transition_states(.draw, 1, 3)
+
+```
+:::
 
 ### 4.7 References
 
 -   Kam, T.S(2024). [Visualising Uncertainty](https://r4va.netlify.app/chap11)
-
-### 4.9 Further exploration
 
 ### 4.8 Takeaway
 
 ::: callout-tip
 ## Key takeaways
 
--   Le
+-   Understand uncertainty in statistical graphics: uncertainty is expressed using standard errors/ confidence intervals.
+-   Learnt about plotting error bars with ggplot2: use `geom_errorbar` to represent standard errors around point estimates
+-   Learnt about creating interactive error bars with `plotly` and `DT`
+-   Learnt about visualizing uncertainty with Hypothetical Outcome Plots (HOPs): displaying multiple stimulated outcomes to show data variability. 
+-   Learnt the difference about the uncertainty of point estimates with same variation, where uncertainty reflects estimation confidence, while variation shows data spread. 
 :::
+
+### 4.9 Further exploration
+
+1. To further explore Hypothetical Outcome Plots (HOPs) using `exam` dataset - By increasing the number of stimulated outcomes
+
+-   Increase the number of samples from 25 to 150.
+
+::: callout-note
+-   By increasing the number of samples, it shows more potential outcomes, providing a richer picture of uncertainty. 
+:::
+
+::: panel-tabset
+## Code()
+
+```{r}
+#| eval = FALSE
+
+devtools::install_github("wilkelab/ungeviz")
+library(ungeviz)
+
+ggplot(data = exam, 
+       aes(x = factor(RACE), y = MATHS)) +
+  geom_point(position = position_jitter(height = 0.3, width = 0.05), 
+             size = 0.4, color = "#E1B941", alpha = 1/2) +
+  geom_hpline(data = sampler(150, group = RACE), height = 0.6, color = "#4169E1") +  # Increased from 25 to 150
+  theme_minimal() + 
+  transition_states(.draw, transition_length = 2, state_length = 1)
+
+```
+
+## Graph()
+
+```{r}
+#| echo = FALSE 
+
+devtools::install_github("wilkelab/ungeviz")
+library(ungeviz)
+
+ggplot(data = exam, 
+       aes(x = factor(RACE), y = MATHS)) +
+  geom_point(position = position_jitter(height = 0.3, width = 0.05), 
+             size = 0.4, color = "#E1B941", alpha = 1/2) +
+  geom_hpline(data = sampler(150, group = RACE), height = 0.6, color = "#4169E1") +  # Increased from 25 to 150
+  theme_minimal() + 
+  transition_states(.draw, transition_length = 2, state_length = 1)
+
+
+```
+:::
+
+2. To further visualize how confidence intervals for average MATHS scores shift across class (using `ggdist)
+
+::: callout-note
+-   Helps to track how uncertainty (confidence intervals) widens or narrows across different classes
+:::
+
+::: panel-tabset
+## Code()
+```{r}
+#| eval = FALSE
+
+library(ggdist)
+library(gganimate)
+library(ggplot2)
+library(dplyr)
+
+# Clean data to remove any missing CLASS values
+exam_clean <- exam %>% filter(!is.na(CLASS))
+
+# Animated plot
+ggplot(exam_clean, aes(x = factor(CLASS), y = MATHS)) +
+  stat_pointinterval(aes(color = RACE), 
+                      .width = c(0.66, 0.95), 
+                      position = position_dodge(width = 0.5)) +
+  labs(title = "Confidence Intervals of Maths Scores Across Classes",
+       subtitle = "Class: {closest_state}",  # Dynamic subtitle reflecting the current class
+       y = "Maths Score") +
+  theme_minimal() +
+  transition_states(CLASS, transition_length = 2, state_length = 1) +  # Handles categorical data
+  ease_aes('cubic-in-out')  # Smooth animation transitions
+
+
+```
+## Animated Graph()
+```{r}
+#| echo = FALSE
+
+library(ggdist)
+library(gganimate)
+library(ggplot2)
+library(dplyr)
+
+exam_clean <- exam %>% filter(!is.na(CLASS))
+
+# Animated plot
+ggplot(exam_clean, aes(x = factor(CLASS), y = MATHS)) +
+  stat_pointinterval(aes(color = RACE), 
+                      .width = c(0.66, 0.95), 
+                      position = position_dodge(width = 0.5)) +
+  labs(title = "Confidence Intervals of Maths Scores Across Classes",
+       subtitle = "Class: {closest_state}",  # Dynamic subtitle reflecting the current class
+       y = "Maths Score") +
+  theme_minimal() +
+  transition_states(CLASS, transition_length = 2, state_length = 1) +  # Handles categorical data
+  ease_aes('cubic-in-out')  # Smooth animation transitions
+
+```
+
+## Static Graph()
+
+```{r}
+#| echo = FALSE
+
+library(ggdist)
+library(ggplot2)
+library(dplyr)
+
+exam_clean <- exam %>% filter(!is.na(CLASS))
+
+# Static plot, remove gganimate
+ggplot(exam_clean, aes(x = factor(CLASS), y = MATHS)) +
+  stat_pointinterval(aes(color = RACE), 
+                      .width = c(0.66, 0.95),  # Showing both 66% and 95% confidence intervals
+                      position = position_dodge(width = 0.5)) +
+  labs(title = "Confidence Intervals of Maths Scores Across Classes",
+       subtitle = "Displaying 66% and 95% Confidence Intervals",
+       y = "Maths Score", x = "Class") +
+  theme_minimal() +
+  theme(legend.position = "top")  # Place the legend at the top for better readability
+
+```
+:::
+
