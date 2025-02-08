@@ -31,6 +31,26 @@ ggplot(data = exam,
            y = CLASS)) +
   geom_boxplot()
 ```
+### 1.4 Enhance the visualization of the target
+
+```{r}
+ggplot(data = exam, aes(x = ENGLISH, y = CLASS)) +
+  geom_boxplot(fill = "#7097BB", color = "black", alpha = 0.6, outlier.shape = NA) +  # Boxplot with color
+  geom_jitter(aes(color = CLASS), width = 0.2, alpha = 0.7, size = 2) +  # Add jittered points
+  scale_color_brewer(palette = "Dark2") +  # Use Brewer palette for distinct colors
+  labs(
+    title = "Distribution of English Grades by Class",
+    x = "English Grades",
+    y = "Class"
+  ) +
+  theme_minimal() +  # Modern theme
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),  # Centered title
+    legend.position = "none"  # Hide legend if not needed
+  )
+```
+
+### 1.5 Explore the ridgeline graph
 
 ```{r}
 ggplot(data = exam, aes(x = ENGLISH, y = CLASS)) +
@@ -51,7 +71,5 @@ ggplot(data = exam, aes(x = ENGLISH, y = CLASS)) +
   ) +
   theme_ridges()
 ```
-
-### 1.4 Oneway ANOVA Test: ggbetweenstats() method
 
 
