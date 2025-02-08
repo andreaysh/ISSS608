@@ -1,0 +1,30 @@
+---
+title: "Hands-on Exercise 05a"
+author: "Andrea Yeo"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+[With the assistance of ChatGPT]{style="font-size: 14px;"}
+
+## 5. Creating Ternary Plot with R
+
+### 5.1 Overview
+
+Ternary plots visualize three-part compositional data, such as population age groups or soil composition. Displayed as a triangle with sides scaled from 0 to 1, each side represents a component. Points are plotted based on their proportions, with perpendicular lines indicating their values.
+
+This hands-on exercise teaches you how to create a ternary plot in R to visualize and analyze Singapore’s population structure. The steps include:
+
+Installing and loading tidyverse and ggtern packages.
+Using mutate() from dplyr to derive three new measures.
+Creating a static ternary plot with ggtern().
+Building an interactive ternary plot using plot_ly() from Plotly.
+
+### 5.2 Installing and launching R packages
+
+
+

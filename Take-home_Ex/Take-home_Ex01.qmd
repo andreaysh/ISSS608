@@ -10,17 +10,908 @@ execute:
   freeze: true
 ---
 
-# Heart Attack in Japan Youth Vs Adult 
+# Heart Attack in Japan Youth Vs Adult
 
 ## 1. Overview
 
 ### 1.1 Background
-This analysis explores heart attack incidents in Japan, focusing on youth versus adult age groups, and aims to uncover the key differences in risk factors and triggers for cardiovascular diseases in these populations. With the growing global prevalence of heart disease, understanding how age and related health factors influence heart attack risks in Japan is crucial for shaping preventive strategies and targeted health interventions.
 
-The dataset from [Kaggle](https://www.kaggle.com/datasets/ashaychoudhary/heart-attack-in-japan-youth-vs-adult) provides an opportunity to dive into the heart health of distinct demographic groups—youth and adults—enabling policymakers, healthcare providers, and researchers to design more effective and age-appropriate health policies and prevention programs. By comparing these groups, we can identify unique risk patterns and potential triggers for heart attacks, which may contribute to developing specialized awareness campaigns, healthcare protocols, and resource allocation strategies tailored to each age group.
+This analysis explores heart attack incidents in Japan, focusing on the differences in risk factors between youth and adult age groups. With the growing global prevalence of heart disease, understanding [*how age influences heart attack likelihood*]{.underline} and [*identifying the strongest predictors*]{.underline} are crucial for shaping targeted prevention strategies and healthcare interventions.
 
-The goal of this analysis is to inform health interventions that can reduce the burden of cardiovascular diseases and improve the overall well-being of these populations. By understanding the key factors contributing to heart attack incidents in different age groups, we can help foster healthier lifestyles and more efficient healthcare systems.
+The dataset from Kaggle - [Heart Attack in Japan Youth Vs Adult](https://www.kaggle.com/datasets/ashaychoudhary/heart-attack-in-japan-youth-vs-adult) provides an opportunity to analyze these aspects, helping healthcare providers, policymakers, and researchers develop age-specific awareness campaigns, preventive measures, and resource allocation strategies tailored to reducing heart attack risks in Japan.
+
+### 1.2 Research objective
+
+Using the [Heart Attack in Japan: Youth vs. Adult](https://www.kaggle.com/datasets/ashaychoudhary/heart-attack-in-japan-youth-vs-adult) dataset, this Take-home_Ex01 applies appropriate Exploratory Data Analysis (EDA) methods, using the [tidyverse](https://www.tidyverse.org/) package and [ggplot](https://www.rdocumentation.org/packages/ggplot2/versions/0.9.0/topics/ggplot) functions to:
+
+-   **explore how age influences the likelihood of heart attack incidents**
+-   **identify the strongest predictors contributing to heart attack incidents**
+
+## 2. Getting started
+
+### 2.1 Loading the packages
+
+The following R packages will be loaded for this exercise using `pacman::p_load()`:
+
+-   [**readr**](https://www.rdocumentation.org/packages/readr/versions/2.1.5): Part of a tidyverse package for fast and efficient reading of rectangular data (CSV, TSV, and other delimited files) into R
+-   [**dplyr**](https://www.rdocumentation.org/packages/dplyr/versions/0.5.0): Part of a tidyverse package for efficient data manipulation, including filtering, selecting, mutating, summarizing, and grouping data in R
+-   [**ggplot2**](https://www.rdocumentation.org/packages/ggplot2/versions/3.5.0): Part of a tidyverse package allowing for flexible and layered creation of complex plots
+-   [**tidyverse**](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0): A collection of R packages for data manipulation, visualization, and analysis
+-   [**knitr**](https://www.rdocumentation.org/packages/knitr/versions/1.48): Enables dynamic report generation with R Markdown
+-   [**patchwork**](https://www.rdocumentation.org/packages/patchwork/versions/0.0.1): Combines multiple ggplot2 plots into a single layout
+-   [**ggthemes**](https://www.rdocumentation.org/packages/ggthemes/versions/5.1.0): Provides additional themes and scales for ggplot2
+-   [**scales**](https://www.rdocumentation.org/packages/scales/versions/0.4.1): Enhances visualization by formatting axes and legends in ggplot2
+-   [**ggridges**](https://www.rdocumentation.org/packages/ggridges/versions/0.5.6): Creates ridge plots for density visualization
+-   [**ggpubr**](https://www.rdocumentation.org/packages/ggpubr/versions/0.6.0): Simplifies publication-ready ggplot2 visualizations
+-   [**gganimate**](https://www.rdocumentation.org/packages/gganimate/versions/1.0.9): Adds animation capabilities to ggplot2 graphics
+-   [**ggdist**](https://www.rdocumentation.org/packages/ggdist/versions/3.3.2): Visualizes uncertainty and statistical distributions in ggplot2
+-   [**ggtext**](https://www.rdocumentation.org/packages/ggtext/versions/0.1.2): Enhances text rendering and formatting in ggplot2
+-   [**ggalt**](https://www.rdocumentation.org/packages/GGally/versions/2.2.1): Provides additional geoms, including dumbbell plots and lollipop charts
+-   [**cowplot**](https://www.rdocumentation.org/packages/cowplot/versions/1.1.3): Enhances ggplot2-based layouts and plot annotations
+-   [**ggnewscale**](https://www.rdocumentation.org/packages/ggnewscale/versions/0.4.5): Allows multiple color and fill scales in a single ggplot2 plot
+-   [**ggrepel**](https://www.rdocumentation.org/packages/ggrepel/versions/0.9.6): Prevents overlapping text labels in ggplot2 plots
+
+```{r}
+pacman::p_load(tidyverse, haven, knitr,
+               patchwork, ggthemes, scales,
+               ggridges, ggpubr, gganimate,
+               ggdist, ggtext, ggalt,
+               cowplot, ggnewscale)
+```
+
+## 3. Data wrangling & data prepration
+
+### 3.1 Importing the data
+
+The code chunk below imports the [Heart Attack in Japan: Youth vs. Adult](https://www.kaggle.com/datasets/ashaychoudhary/heart-attack-in-japan-youth-vs-adult) dataset, downloaded from Kaggle, using the read_csv() function from the readr package.
+
+```{r}
+heart_attack <- read_csv("data/japan_heart_attack_dataset.csv", show_col_types = FALSE)
+
+heart_attack
+```
+
+The dataset is structured as a tibble dataframe, containing 30,000 rows and 32 columns. Each observation represents an individual case, and the variables capture key medical and demographic information relevant to heart attack incidents across different age groups in Japan.
+
+### 3.4 Checking the data structure
+
+We will check the dataset using below
+
+-   `glimpse()`: provides a transposed overview of a dataset, showing variables and their types in a concise format.
+-   `head()`: displays the first few rows of a dataset (default is 6 rows) to give a quick preview of the data.
+-   `summary()`: generates a statistical summary of each variable, including measures like mean, median, and range for numeric data.
+-   `duplicated()`:returns a logical vector indicating which elements or rows in a vector or data frame are duplicates.
+-   `colSums(is.na())`: counts the number of missing values (NA) in each column of the data frame.
+-   `spec()`: use `spec()` to quickly inspect the column
+
+:::::: panel-tabset
+## glimpse()
+
+```{r}
+glimpse(heart_attack)
+```
+
+## head()
+
+```{r}
+head(heart_attack)
+```
+
+## summary()
+
+```{r}
+summary(heart_attack)
+```
+
+## duplicated()
+
+```{r}
+heart_attack[duplicated(heart_attack),]
+```
+
+::: callout-note
+-   Ensure that there are no duplicated columns, if not will have to investigate further.
+:::
+
+## colSum(is.na())
+
+```{r}
+colSums(is.na(heart_attack))
+```
+
+::: callout-note
+-   Ensure that there are no NA values, if not will have to investigate further.
+-   Possibility to use `drop_na()` function to drop rows where any specified column contains a missing value.
+:::
+
+## spec())
+
+```{r}
+spec(heart_attack)
+```
+
+::: callout-note
+-   Ensure that all variables are correctly classified by data type; recast variable types if needed.
+-   Variables are correctly classified - where categorical variables are classified as **character**, while continuous variables are classified as **double**.
+:::
+::::::
+
+The heart_attack tibble contains 32 attributes, as shown above.
+
+The following preprocessing checks were conducted as part of data preparation:
+
+::: callout-tip
+## Preprocessing Checks
+
+-   Verified that the correct data types were loaded in the `heart_attack` dataset using `glimpse()` and `spec()`
+-   Ensured there were no duplicate variable names using `duplicated()` in the dataset
+-   Checked for missing values using `colSums(is.na())`
+:::
+
+### 3.2 Understanding the metadata
+
+The table below presents the metadata for the dataset, classifying each variable as either categorical or continuous based on its nature and data type.
+
+-   **Categorical attributes:**
+
+    +-------------------------+------------+------------------------------------------------------------------------------+
+    | Variable Names          | Type       | Description                                                                  |
+    +=========================+============+==============================================================================+
+    | Gender                  | CHAR       | Biological sex of the individual (e.g., Male, Female)                        |
+    +-------------------------+------------+------------------------------------------------------------------------------+
+    | Region                  | CHAR       | Geographic location where the individual resides (e.g., Urban, Rural)        |
+    +-------------------------+------------+------------------------------------------------------------------------------+
+    | Smoking_History         | CHAR       | Past or current smoking habits (e.g., Yes, No)                               |
+    +-------------------------+------------+------------------------------------------------------------------------------+
+    | Diabetes_History        | CHAR       | History of diabetes diagnosis (Yes/No)                                       |
+    +-------------------------+------------+------------------------------------------------------------------------------+
+    | Hypertension_History    | CHAR       | History of high blood pressure diagnosis (Yes/No)                            |
+    +-------------------------+------------+------------------------------------------------------------------------------+
+    | Physical_Activity       | CHAR       | Level of physical activity (e.g., Low, Moderate, High)                       |
+    +-------------------------+------------+------------------------------------------------------------------------------+
+    | Diet_Quality            | CHAR       | Dietary habits and nutritional intake assessment (e.g., Poor, Average, Good) |
+    +-------------------------+------------+------------------------------------------------------------------------------+
+    | Alcohol_Consumption     | CHAR       | Frequency or amount of alcohol intake (e.g., Low, Moderate, High, None)      |
+    +-------------------------+------------+------------------------------------------------------------------------------+
+    | Family_History          | CHAR       | Presence of heart disease in close relatives (Yes/No)                        |
+    +-------------------------+------------+------------------------------------------------------------------------------+
+    | Heart_Attack_Occurrence | CHAR       | Whether the individual has experienced a heart attack (Yes/No)               |
+    +-------------------------+------------+------------------------------------------------------------------------------+
+
+-   **Continuous attributes:**
+
+    +-------------------+--------------+----------------------------------------------------+
+    | Variable Names    | Type         | Description                                        |
+    +===================+==============+====================================================+
+    | Age               | NUM          | Age of the individual in years                     |
+    +-------------------+--------------+----------------------------------------------------+
+    | Cholesterol_Level | NUM          | Measured cholesterol level in the blood            |
+    +-------------------+--------------+----------------------------------------------------+
+    | Stress_Levels     | NUM          | Measured or self-reported stress level             |
+    +-------------------+--------------+----------------------------------------------------+
+    | BMI               | NUM          | Body Mass Index, calculated from height and weight |
+    +-------------------+--------------+----------------------------------------------------+
+    | Heart_Rate        | NUM          | Resting heart rate in beats per minute (bpm)       |
+    +-------------------+--------------+----------------------------------------------------+
+    | Systolic_BP       | NUM          | Systolic blood pressure measurement (mmHg)         |
+    +-------------------+--------------+----------------------------------------------------+
+    | Diastolic_BP      | NUM          | Diastolic blood pressure measurement (mmHg)        |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_1    | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_2    | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_3    | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_4    | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_5    | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_6    | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_7    | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_8    | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_9    | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_10   | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_11   | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_12   | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_13   | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_14   | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+    | Extra_Column_15   | NUM          |                                                    |
+    +-------------------+--------------+----------------------------------------------------+
+
+::: callout-note
+-   Notice that Extra_Column_1 to Extra_Column_15 are additional numeric figures without clear definition.
+-   They are most likely derived calculations from the variables.
+:::
+
+### 3.3 Filtering for relevant variables
+
+Of the 32 variables (columns), only 17 variables(columns) are selected for analysis
+
+-   All columns are selected except for Extra_Column_1 to Extra_Column_15
+
+The `select()` function in the [dplyr](https://www.rdocumentation.org/packages/dplyr/versions/0.5.0) package is used to obtain these rows, and stored as the R object, `heart_attack_1`.
+
+```{r}
+heart_attack_1 <- heart_attack %>% 
+  select("Age", "Gender", "Region", "Smoking_History", "Diabetes_History", 
+         "Hypertension_History", "Cholesterol_Level", "Physical_Activity", 
+         "Diet_Quality", "Alcohol_Consumption", "Stress_Levels", "BMI", 
+         "Heart_Rate", "Systolic_BP", "Diastolic_BP", "Family_History", 
+         "Heart_Attack_Occurrence")
+
+heart_attack_1
+```
+
+The output shows a tibble dataframe with 30,000 rows and 17 columns.
+
+### 3.5 Recoding and creating of new variables
+
+#### 3.5.1 Recoding continuous variables into categorical variables
+
+In the following section, we will recode specific continuous variables into categorical groups for better interpretability. While variables like *Cholesterol_Level*, *Stress_Levels*, *BMI*, *Heart_Rate*, *Systolic_BP*, and *Diastolic_BP* provide valuable insights in their continuous form, categorizing them into meaningful groups will enhance our ability to analyze trends and risk factors more effectively.
+
++-------------------+---------------------+---------------------------------------------------------------------------------------------------+
+| Variable Names    | Measurement         | Categorical ranges [*Approximated classification based on best effort*]{style="font-size: 10px;"} |
++===================+=====================+===================================================================================================+
+| Cholesterol_Level | mg/dL               | -   **Low:** ≤ 150                                                                                |
+|                   |                     | -   **Moderate:** 151–200                                                                         |
+|                   |                     | -   **High:** \> 200                                                                              |
++-------------------+---------------------+---------------------------------------------------------------------------------------------------+
+| Stress_Levels     | Self-reported scale | -   **Miniminal Stress:** 0 \|                                                                    |
+|                   |                     | -   **Low Stress:** 1–3                                                                           |
+|                   |                     | -   **Moderate Stress:** 4–7                                                                      |
+|                   |                     | -   **High Stress:** 8–10                                                                         |
++-------------------+---------------------+---------------------------------------------------------------------------------------------------+
+| BMI               | Body Mass Index     | -   **Underweight:** \< 18.5                                                                      |
+|                   |                     | -   **Normal Weight:** 18.5–24.9                                                                  |
+|                   |                     | -   **Overweight:** 25–29.9                                                                       |
+|                   |                     | -   **Obese:** ≥ 30                                                                               |
++-------------------+---------------------+---------------------------------------------------------------------------------------------------+
+| Heart_Rate        | beats per minute    | -   **Bradycardia (Low):** \< 60                                                                  |
+|                   |                     | -   **Normal:** 60–100                                                                            |
+|                   |                     | -   **Tachycardia (High):** \> 100                                                                |
++-------------------+---------------------+---------------------------------------------------------------------------------------------------+
+| Systolic_BP       | mmHg                | -   **Normal:** \< 120                                                                            |
+|                   |                     | -   **Elevated:** 120–129                                                                         |
+|                   |                     | -   **Hypertension Stage 1:** 130–139                                                             |
+|                   |                     | -   **Hypertension Stage 2:** ≥ 140                                                               |
++-------------------+---------------------+---------------------------------------------------------------------------------------------------+
+| Diastolic_BP      | mmHg                | -   **Normal:** \< 80                                                                             |
+|                   |                     | -   **Elevated:** 80–89                                                                           |
+|                   |                     | -   **Hypertension Stage 1:** 90–99                                                               |
+|                   |                     | -   **Hypertension Stage 2:** ≥ 100                                                               |
++-------------------+---------------------+---------------------------------------------------------------------------------------------------+
+
+```{r}
+library(dplyr)
+
+heart_attack_1 <- heart_attack %>%
+  select("Age", "Gender", "Region", "Smoking_History", "Diabetes_History", 
+         "Hypertension_History", "Cholesterol_Level", "Physical_Activity", 
+         "Diet_Quality", "Alcohol_Consumption", "Stress_Levels", "BMI", 
+         "Heart_Rate", "Systolic_BP", "Diastolic_BP", "Family_History", 
+         "Heart_Attack_Occurrence") %>%
+  mutate(
+    Cholesterol_Level_Category = case_when(
+      Cholesterol_Level <= 150 ~ "Low",
+      Cholesterol_Level <= 200 ~ "Moderate",
+      TRUE ~ "High"
+    ),
+    
+    # **ROUND Stress_Levels before categorization**
+    Rounded_Stress_Levels = round(Stress_Levels), 
+    
+    Stress_Levels_Category = case_when(
+      is.na(Rounded_Stress_Levels) ~ "Unknown",  # Handle missing values
+      Rounded_Stress_Levels == 0 ~ "Minimal Stress",
+      Rounded_Stress_Levels %in% 1:3 ~ "Low Stress",
+      Rounded_Stress_Levels %in% 4:7 ~ "Moderate Stress",
+      Rounded_Stress_Levels %in% 8:10 ~ "High Stress",
+      TRUE ~ "Unknown"
+    ),
+    
+    BMI_Category = case_when(
+      BMI < 18.5 ~ "Underweight",
+      BMI >= 18.5 & BMI < 25 ~ "Normal Weight",
+      BMI >= 25 & BMI < 30 ~ "Overweight",
+      BMI >= 30 ~ "Obese",
+      TRUE ~ "Unknown"
+    ),
+    
+    Heart_Rate_Category = case_when(
+      Heart_Rate < 60 ~ "Bradycardia (Low)",
+      Heart_Rate >= 60 & Heart_Rate <= 100 ~ "Normal",
+      Heart_Rate > 100 ~ "Tachycardia (High)",
+      TRUE ~ "Unknown"
+    ),
+    
+    Systolic_BP_Category = case_when(
+      Systolic_BP < 120 ~ "Normal",
+      Systolic_BP >= 120 & Systolic_BP < 130 ~ "Elevated",
+      Systolic_BP >= 130 & Systolic_BP < 140 ~ "Hypertension Stage 1",
+      Systolic_BP >= 140 ~ "Hypertension Stage 2",
+      TRUE ~ "Unknown"
+    ),
+    
+    Diastolic_BP_Category = case_when(
+      Diastolic_BP < 80 ~ "Normal",
+      Diastolic_BP >= 80 & Diastolic_BP < 90 ~ "Elevated",
+      Diastolic_BP >= 90 & Diastolic_BP < 100 ~ "Hypertension Stage 1",
+      Diastolic_BP >= 100 ~ "Hypertension Stage 2",
+      TRUE ~ "Unknown"
+    )
+  )
+
+# View the modified dataframe with new categorical variables
+heart_attack_1
 
 
+```
+
+#### 3.5.2 Recoding `age` into categorical variable
+
+While analyzing age as a continuous variable provides detailed insights, categorizing the `Age` variable into distinct age groups allows us to explore how age influences the likelihood of heart attack incidents.
+
+The table below are the proposed age categories for this analysis:
+
+| Categories         | Age         |
+|--------------------|-------------|
+| Youth              | ≤25 years   |
+| Young adults       | 26–40 years |
+| Middle-aged adults | 41–55 years |
+| Older adults       | 56–70 years |
+| Elderly            | ≥71 years   |
+
+```{r}
+heart_attack_2 <- heart_attack_1 %>%
+  mutate(
+    Age_Category = case_when(
+      Age <= 25 ~ "Youth",
+      Age >= 26 & Age <= 40 ~ "Young Adult",
+      Age >= 41 & Age <= 55 ~ "Middle-Aged Adult",
+      Age >= 56 & Age <= 70 ~ "Older Adult",
+      Age >= 71 ~ "Elderly",
+      TRUE ~ "Unknown"
+    )
+  )
+
+# View the updated dataset
+heart_attack_2
+```
+
+#### 3.5.3 Checking the data structure after filtering and recoding of variables
+
+We will re-check the dataset after filtering and recoding of continuous variables using below:
+
+:::::: panel-tabset
+## glimpse()
+
+```{r}
+glimpse(heart_attack_2)
+```
+
+## head()
+
+```{r}
+head(heart_attack_2)
+```
+
+## summary()
+
+```{r}
+summary(heart_attack_2)
+```
+
+## duplicated()
+
+```{r}
+heart_attack_2[duplicated(heart_attack_2),]
+```
+
+::: callout-note
+-   Ensure that there are no duplicated columns, if not will have to investigate further.
+:::
+
+## colSum(is.na())
+
+```{r}
+colSums(is.na(heart_attack_2))
+```
+
+::: callout-note
+-   Ensure that there are no NA values, if not will have to investigate further.
+-   Possibility to use `drop_na()` function to drop rows where any specified column contains a missing value.
+:::
+
+## spec())
+
+```{r}
+spec(heart_attack_2)
+```
+
+::: callout-note
+-   Ensure that all variables are correctly classified by data type; recast variable types if needed.
+-   Variables are correctly classified - where categorical variables are classified as **character**, while continuous variables are classified as **double**.
+:::
+::::::
+
+::: callout-tip
+## Preprocessing Checks
+
+-   Verified that the correct data types were loaded in the `heart_attack` dataset using `glimpse()` and `spec()`
+-   Ensured there were no duplicate variable names using `duplicated()` in the dataset
+-   Checked for missing values using `colSums(is.na())`
+:::
+
+The final output - `heart_attack_2` shows a tibble dataframe with 30,000 rows and 17 columns.
+
+### 3.6 Exploratory Data Analysis
+
+#### 3.6.1 EDA - check for potential bias in data collection
+
+::: callout-important
+**Key observations**
+
+1.  Uneven representation of age groups
+    -   Noticeably lower number of Youth (≤25 years) and Elderly (≥71 years) compared to the middle age groups
+
+    -   Young adults (26–40 years), middle-aged adults (41–55 years), and older adults (56–70 years) make up the majority of the dataset
+2.  Potential bias in data collection
+    -   Underrepresentation of elderly individuals might inflate their heart attack rate in percentage-based analyses
+
+    -   Low count of youth suggests they may be under-sampled
+
+**What can we do:**
+
+-   In the future, ensure that the data collected are proportionally across all age groups
+-   Check for potential sampling bias
+-   Normalize the heart attack rates based on the total population for each age group
+:::
+
+::: panel-tabset
+## Absolute age count()
+
+```{r}
+# Count the number of individuals by exact age
+age_distribution <- heart_attack_2 %>%
+  group_by(Age) %>%
+  summarise(Count = n()) %>%
+  arrange(Age)
+
+# Print age count
+print(age_distribution)
+
+```
+
+## Visualization: Absolute age count()
+
+```{r}
+ggplot(age_distribution, aes(x = Age, y = Count)) +
+  geom_bar(stat = "identity", fill = "#78B3EA", color = "black", alpha = 0.7) +
+  labs(title = "Age Distribution of Individuals in Dataset",
+       x = "Age",
+       y = "Number of Individuals") +
+  theme_minimal()
+```
+
+## Count by Age_Category()
+
+```{r}
+# Define age category levels in the required order
+age_levels <- c(
+  "Youth (≤25 years)",
+  "Young adults (26–40 years)",
+  "Older adults (56–70 years)",
+  "Middle-aged adults (41–55 years)",
+  "Elderly (≥71 years)"
+)
+
+# Count individuals by Age Category with ordered factor levels
+age_category_distribution <- heart_attack_2 %>%
+  mutate(Age_Category = case_when(
+    Age <= 25 ~ "Youth (≤25 years)",
+    Age >= 26 & Age <= 40 ~ "Young adults (26–40 years)",
+    Age >= 41 & Age <= 55 ~ "Middle-aged adults (41–55 years)",
+    Age >= 56 & Age <= 70 ~ "Older adults (56–70 years)",
+    Age >= 71 ~ "Elderly (≥71 years)",
+    TRUE ~ "Unknown"
+  )) %>%
+  group_by(Age_Category) %>%
+  summarise(Count = n()) %>%
+  mutate(Age_Category = factor(Age_Category, levels = age_levels)) %>%  # Apply custom sorting
+  arrange(Age_Category)
+
+# Print age category count
+print(age_category_distribution)
+```
+
+## Visualization: Age_Category()
+
+```{r}
+# Visualization: Age Category Distribution
+ggplot(age_category_distribution, aes(x = Age_Category, y = Count, fill = Age_Category)) +
+  geom_bar(stat = "identity", color = "black", alpha = 0.7) +
+  
+  # Add text labels above bars
+  geom_text(aes(label = Count), vjust = -0.5, color = "black", size = 2.5) +
+  
+  labs(title = "Age Category Distribution in Dataset",
+       x = "Age Category",
+       y = "Number of Individuals") +
+  
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set2") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+:::
+
+#### 3.6.2 EDA 1 - explore how age influences the likelihood of heart attack incidents
+
+##### 3.6.2.1 Age distribution of heart attack patients - histogram
+
+Observations:
+
+-   **Heart Attacks Occur Across All Ages:**
+    -   Histogram shows a wide distribution of heart attack patients across various age groups
+-   **Age Group Variation in Heart Attack Rates:**
+    -   Heart attack rate appears to be relatively stable across most age bins, ranging between 8.6% to 11.3%.
+    -   Highest normalized heart attack rate is in the \[73,78\] age bin (\~11.3%).
+-   **Slight Increase in Middle-Aged & Elderly Groups:**
+    -   Gradual increase in heart attack rates from younger groups to middle-aged adults - \[43,48\] (10.8%) and \[48,53\] (11.0%).
+    -   Heart attack remains high in the older and elderly groups, suggesting that heart attack risk increases with age.
+
+:::: panel-tabset
+## Code()
+
+::: callout-note
+-   The `cut()`function was used to divide a continuous variable (like Age) into discrete intervals such as bins.
+-   `cut()` function is part of Base R, which does not require any additional packages to use.
+:::
+
+```{r}
+#| eval = FALSE
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Step 1: Remove any NA values in Age before binning
+heart_attack_2 <- heart_attack_2 %>%
+  filter(!is.na(Age)) %>%  # Remove missing Age values
+  mutate(Age_Bin = cut(Age, 
+                       breaks = seq(floor(min(Age, na.rm = TRUE)), 
+                                    ceiling(max(Age, na.rm = TRUE)) + 5,  
+                                    by = 5), 
+                       right = FALSE))  
+
+# Step 2: Count total individuals per age bin
+total_population <- heart_attack_2 %>%
+  group_by(Age_Bin) %>%
+  summarise(Total_Count = n(), .groups = "drop")
+
+# Step 3: Count heart attack occurrences per age bin
+heart_attack_counts <- heart_attack_2 %>%
+  filter(Heart_Attack_Occurrence == "Yes") %>%
+  group_by(Age_Bin) %>%
+  summarise(Heart_Attack_Count = n(), .groups = "drop")
+
+# Step 4: Merge the two tables and replace NA values with 0
+normalized_data <- left_join(total_population, heart_attack_counts, by = "Age_Bin") %>%
+  mutate(Heart_Attack_Count = replace_na(Heart_Attack_Count, 0),  # Replace NA counts with 0
+         Normalized_Heart_Attack_Rate = (Heart_Attack_Count / Total_Count) * 100) %>%
+  filter(!is.na(Age_Bin))  # Ensure Age_Bin does not contain NA values
+
+# Step 5: Create the normalized histogram
+ggplot(normalized_data, aes(x = Age_Bin, y = Normalized_Heart_Attack_Rate, fill = Age_Bin)) +
+  geom_bar(stat = "identity", color = "black", alpha = 0.7) +
+  
+  # Add text labels showing the percentage per bin
+  geom_text(aes(label = sprintf("%.1f%%", Normalized_Heart_Attack_Rate)), vjust = -0.5, color = "black") +
+  
+  labs(title = "Normalized Age Distribution of Heart Attack Patients",
+       x = "Age Groups (Binned by 5 Years)",
+       y = "Heart Attack Rate (Normalized, % of total in group)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+```
+
+## Graph()
+
+```{r}
+#| echo = FALSE 
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Step 1: Remove any NA values in Age before binning
+heart_attack_2 <- heart_attack_2 %>%
+  filter(!is.na(Age)) %>%  # Remove missing Age values
+  mutate(Age_Bin = cut(Age, 
+                       breaks = seq(floor(min(Age, na.rm = TRUE)), 
+                                    ceiling(max(Age, na.rm = TRUE)) + 5,  
+                                    by = 5), 
+                       right = FALSE))  
+
+# Step 2: Count total individuals per age bin
+total_population <- heart_attack_2 %>%
+  group_by(Age_Bin) %>%
+  summarise(Total_Count = n(), .groups = "drop")
+
+# Step 3: Count heart attack occurrences per age bin
+heart_attack_counts <- heart_attack_2 %>%
+  filter(Heart_Attack_Occurrence == "Yes") %>%
+  group_by(Age_Bin) %>%
+  summarise(Heart_Attack_Count = n(), .groups = "drop")
+
+# Step 4: Merge the two tables and replace NA values with 0
+normalized_data <- left_join(total_population, heart_attack_counts, by = "Age_Bin") %>%
+  mutate(Heart_Attack_Count = replace_na(Heart_Attack_Count, 0),  # Replace NA counts with 0
+         Normalized_Heart_Attack_Rate = (Heart_Attack_Count / Total_Count) * 100) %>%
+  filter(!is.na(Age_Bin))  # Ensure Age_Bin does not contain NA values
+
+# Step 5: Create the normalized histogram
+ggplot(normalized_data, aes(x = Age_Bin, y = Normalized_Heart_Attack_Rate, fill = Age_Bin)) +
+  geom_bar(stat = "identity", color = "black", alpha = 0.7) +
+  
+  # Add text labels showing the percentage per bin
+  geom_text(aes(label = sprintf("%.1f%%", Normalized_Heart_Attack_Rate)), vjust = -0.5, color = "black") +
+  
+  labs(title = "Normalized Age Distribution of Heart Attack Patients",
+       x = "Age Groups (Binned by 5 Years)",
+       y = "Heart Attack Rate (Normalized, % of total in group)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+```
+::::
+
+##### 3.6.2.2 Heart attack rate by age group
+
+Another point of view, categorizing ages into groups and calculating the heart attack rate for each group.
+
+::: panel-tabset
+## Code()
+
+```{r}
+#| eval = FALSE
+
+# Define Age Category Labels with Age Ranges
+age_labels <- c(
+  "Youth (≤25 years)", 
+  "Young adults (26–40 years)", 
+  "Middle-aged adults (41–55 years)", 
+  "Older adults (56–70 years)", 
+  "Elderly (≥71 years)"
+)
+
+# Count total individuals per age category
+total_population <- heart_attack_2 %>%
+  group_by(Age_Category) %>%
+  summarise(Total_Count = n())
+
+# Count heart attack occurrences per age category
+heart_attack_counts <- heart_attack_2 %>%
+  filter(Heart_Attack_Occurrence == "Yes") %>%
+  group_by(Age_Category) %>%
+  summarise(Heart_Attack_Count = n())
+
+# Merge both datasets and calculate the normalized heart attack rate
+normalized_data <- left_join(heart_attack_counts, total_population, by = "Age_Category") %>%
+  mutate(Normalized_Heart_Attack_Rate = (Heart_Attack_Count / Total_Count) * 100) %>%
+  
+  # Convert Age_Category into a factor with labels
+  mutate(Age_Category = factor(Age_Category, 
+                               levels = c("Youth", "Young Adult", "Middle-Aged Adult", "Older Adult", "Elderly"), 
+                               labels = age_labels))
+
+# Create bar plot with normalized rates
+ggplot(normalized_data, aes(x = Age_Category, y = Normalized_Heart_Attack_Rate, fill = Age_Category)) +
+  geom_bar(stat = "identity", color = "black", alpha = 0.7) +
+  
+  # Add data labels to show percentages
+  geom_text(aes(label = sprintf("%.1f%%", Normalized_Heart_Attack_Rate)), vjust = -0.5, color = "black",size = 2.5) +
+  
+  labs(title = "Normalized Heart Attack Rate by Age Group",
+       x = "Age Group",
+       y = "Heart Attack Rate (% of total in group)",
+       fill = "Age Categories (with Ranges)") +  # Updated legend title
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set2") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.text.y = element_text(size = 8))  
+
+```
+
+## Graph()
+
+```{r}
+#| echo = FALSE 
 
 
+# Define Age Category Labels with Age Ranges
+age_labels <- c(
+  "Youth (≤25 years)", 
+  "Young adults (26–40 years)", 
+  "Middle-aged adults (41–55 years)", 
+  "Older adults (56–70 years)", 
+  "Elderly (≥71 years)"
+)
+
+# Count total individuals per age category
+total_population <- heart_attack_2 %>%
+  group_by(Age_Category) %>%
+  summarise(Total_Count = n())
+
+# Count heart attack occurrences per age category
+heart_attack_counts <- heart_attack_2 %>%
+  filter(Heart_Attack_Occurrence == "Yes") %>%
+  group_by(Age_Category) %>%
+  summarise(Heart_Attack_Count = n())
+
+# Merge both datasets and calculate the normalized heart attack rate
+normalized_data <- left_join(heart_attack_counts, total_population, by = "Age_Category") %>%
+  mutate(Normalized_Heart_Attack_Rate = (Heart_Attack_Count / Total_Count) * 100) %>%
+  
+  # Convert Age_Category into a factor with labels
+  mutate(Age_Category = factor(Age_Category, 
+                               levels = c("Youth", "Young Adult", "Middle-Aged Adult", "Older Adult", "Elderly"), 
+                               labels = age_labels))
+
+# Create bar plot with normalized rates
+ggplot(normalized_data, aes(x = Age_Category, y = Normalized_Heart_Attack_Rate, fill = Age_Category)) +
+  geom_bar(stat = "identity", color = "black", alpha = 0.7) +
+  
+  # Add data labels to show percentages
+  geom_text(aes(label = sprintf("%.1f%%", Normalized_Heart_Attack_Rate)), vjust = -0.5, color = "black",size = 2.5) +
+  
+  labs(title = "Normalized Heart Attack Rate by Age Group",
+       x = "Age Group",
+       y = "Heart Attack Rate (% of total in group)",
+       fill = "Age Categories (with Ranges)") +  # Updated legend title
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set2") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.text.y = element_text(size = 8))  
+
+
+```
+:::
+
+##### 3.6.2.3 Age vs heart attack occurence (box plot)
+
+The below chart will show a box plot visualizing the age distribution for patients with and without heart attacks.
+
+```{r}
+#| eval = FALSE
+
+ggplot(heart_attack_2, aes(x = Age, y = Heart_Attack_Occurrence, fill = ..x..)) +
+  geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01) +
+  scale_fill_viridis_c(option = "magma") +
+  theme_ridges() +
+  theme_minimal() +
+  labs(title = "Ridge Density Plot: Age Distribution by Heart Attack Occurrence",
+       x = "Age",
+       y = "Heart Attack Occurrence")
+
+
+```
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+
+# Define and enforce the correct order for Age Categories
+age_order <- c("Youth (≤25 years)", "Young adults (26–40 years)", 
+               "Middle-aged adults (41–55 years)", "Older adults (56–70 years)", 
+               "Elderly (≥71 years)")
+
+# Ensure Age_Category is a factor with the correct order
+heart_attack_2 <- heart_attack_2 %>%
+  mutate(Age_Category = factor(Age_Category, levels = age_order))
+
+# Summarize Data for Stacked Bar Chart
+heart_attack_summary <- heart_attack_2 %>%
+  filter(!is.na(Age_Category)) %>%
+  group_by(Age_Category, Heart_Attack_Occurrence) %>%
+  summarise(Count = n(), .groups = "drop") %>%
+  group_by(Age_Category) %>%
+  mutate(Proportion = Count / sum(Count) * 100)
+
+# Enhanced Stacked Bar Chart
+ggplot(heart_attack_summary, aes(x = Age_Category, y = Proportion, fill = Heart_Attack_Occurrence)) +
+  geom_bar(stat = "identity", color = "black", alpha = 0.85, width = 0.7) +
+  
+  # Add proportional data labels with bold font
+  geom_text(aes(label = sprintf("%.1f%%", Proportion)), 
+            position = position_stack(vjust = 0.5), 
+            size = 5, fontface = "bold", color = "white") +
+  
+  # Custom title and axis labels
+  labs(title = "Proportion of Heart Attack Occurrence by Age Category",
+       x = "Age Category",
+       y = "Proportion (%)",
+       fill = "Heart Attack Occurrence") +
+  
+  # Improved color scheme for better readability
+  scale_fill_manual(values = c("No" = "#2E7D32", "Yes" = "#D32F2F")) +
+  
+  # Minimalist theme with rotated x-axis labels
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+    axis.title = element_text(size = 14),
+    plot.title = element_text(size = 16, face = "bold"),
+    legend.position = "top"
+  )
+
+```
+
+## Graph()
+
+```{r}
+#| echo = FALSE 
+
+
+```
+:::
+
+
+<!-- ```{r} -->
+
+<!-- # Step 1: Count total individuals in each Age_Category -->
+
+<!-- total_population <- heart_attack_2 %>% -->
+
+<!--   group_by(Age_Category) %>% -->
+
+<!--   summarise(Total_Count = n()) -->
+
+<!-- # Step 2: Count heart attack occurrences by Age_Category -->
+
+<!-- heart_attack_counts <- heart_attack_2 %>% -->
+
+<!--   filter(Heart_Attack_Occurrence == "Yes") %>% -->
+
+<!--   group_by(Age_Category) %>% -->
+
+<!--   summarise(Heart_Attack_Count = n()) -->
+
+<!-- # Step 3: Merge the two tables -->
+
+<!-- normalized_data <- left_join(heart_attack_counts, total_population, by = "Age_Category") %>% -->
+
+<!--   mutate(Normalized_Heart_Attack_Rate = (Heart_Attack_Count / Total_Count) * 100) -->
+
+<!-- # Step 4: Plot the normalized heart attack rate -->
+
+<!-- ggplot(normalized_data, aes(x = Age_Category, y = Normalized_Heart_Attack_Rate, fill = Age_Category)) + -->
+
+<!--   geom_bar(stat = "identity", color = "black", alpha = 0.7) + -->
+
+<!--   labs(title = "Normalized Heart Attack Rate by Age Group", -->
+
+<!--        x = "Age Group", -->
+
+<!--        y = "Heart Attack Rate (Normalized, % of total in group)") + -->
+
+<!--   theme_minimal() + -->
+
+<!--   scale_fill_brewer(palette = "Set2") + -->
+
+<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability -->
+
+<!-- ``` -->
+
+-   Ch 
