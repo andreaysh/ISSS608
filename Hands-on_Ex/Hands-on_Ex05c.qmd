@@ -1,5 +1,18 @@
 ---
-title: "Hands-on_Ex05c"
-format: html
+title: "Hands-on Exercise 05c"
+author: "Andrea Yeo"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
 ---
+
+[With the assistance of ChatGPT]{style="font-size: 14px;"}
+
+## 5. Heatmap for Visualising and Analysing Multivariate Data
+
+### 5.1 Overview
+
 
