@@ -88,12 +88,13 @@ summary(wine)
 wine[duplicated(wine),]
 ```
 
-## colSum(is.na(*dataset*))
+## sum(is.na())
 
 ```{r}
 sum(is.na(wine))  
 ```
 
+## spec()
 ```{r}
 spec(wine)
 ```
@@ -731,6 +732,3 @@ corrplot(wine.cor,
 :::
 
 ### 7.0 Further exploration
-
-
-
