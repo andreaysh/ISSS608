@@ -50,13 +50,14 @@ The following R packages will be loaded for this exercise using `pacman::p_load(
 -   [**cowplot**](https://www.rdocumentation.org/packages/cowplot/versions/1.1.3): Enhances ggplot2-based layouts and plot annotations
 -   [**ggnewscale**](https://www.rdocumentation.org/packages/ggnewscale/versions/0.4.5): Allows multiple color and fill scales in a single ggplot2 plot
 -   [**ggrepel**](https://www.rdocumentation.org/packages/ggrepel/versions/0.9.6): Prevents overlapping text labels in ggplot2 plots
+-   [**FunnelPlotrR**](https://www.rdocumentation.org/packages/rmeta/versions/3.0/topics/funnelplot):Used to create funnel plots for visualizing and comparing proportions, rates, or ratios across different groups while accounting for statistical variation.
 
 ```{r}
 pacman::p_load(tidyverse, haven, knitr,
                patchwork, ggthemes, scales,
                ggridges, ggpubr, gganimate,
                ggdist, ggtext, ggalt,
-               cowplot, ggnewscale)
+               cowplot, ggnewscale,FunnelPlotR)
 ```
 
 ## 3. Data wrangling & data prepration
@@ -154,29 +155,29 @@ The table below presents the metadata for the dataset, classifying each variable
 
 -   **Categorical attributes:**
 
-    +-------------------------+------------+------------------------------------------------------------------------------+
-    | Variable Names          | Type       | Description                                                                  |
-    +=========================+============+==============================================================================+
-    | Gender                  | CHAR       | Biological sex of the individual (e.g., Male, Female)                        |
-    +-------------------------+------------+------------------------------------------------------------------------------+
-    | Region                  | CHAR       | Geographic location where the individual resides (e.g., Urban, Rural)        |
-    +-------------------------+------------+------------------------------------------------------------------------------+
-    | Smoking_History         | CHAR       | Past or current smoking habits (e.g., Yes, No)                               |
-    +-------------------------+------------+------------------------------------------------------------------------------+
-    | Diabetes_History        | CHAR       | History of diabetes diagnosis (Yes/No)                                       |
-    +-------------------------+------------+------------------------------------------------------------------------------+
-    | Hypertension_History    | CHAR       | History of high blood pressure diagnosis (Yes/No)                            |
-    +-------------------------+------------+------------------------------------------------------------------------------+
-    | Physical_Activity       | CHAR       | Level of physical activity (e.g., Low, Moderate, High)                       |
-    +-------------------------+------------+------------------------------------------------------------------------------+
-    | Diet_Quality            | CHAR       | Dietary habits and nutritional intake assessment (e.g., Poor, Average, Good) |
-    +-------------------------+------------+------------------------------------------------------------------------------+
-    | Alcohol_Consumption     | CHAR       | Frequency or amount of alcohol intake (e.g., Low, Moderate, High, None)      |
-    +-------------------------+------------+------------------------------------------------------------------------------+
-    | Family_History          | CHAR       | Presence of heart disease in close relatives (Yes/No)                        |
-    +-------------------------+------------+------------------------------------------------------------------------------+
-    | Heart_Attack_Occurrence | CHAR       | Whether the individual has experienced a heart attack (Yes/No)               |
-    +-------------------------+------------+------------------------------------------------------------------------------+
+    +-------------------------+-------------+------------------------------------------------------------------------------+
+    | Variable Names          | Type        | Description                                                                  |
+    +=========================+=============+==============================================================================+
+    | Gender                  | CHAR        | Biological sex of the individual (e.g., Male, Female)                        |
+    +-------------------------+-------------+------------------------------------------------------------------------------+
+    | Region                  | CHAR        | Geographic location where the individual resides (e.g., Urban, Rural)        |
+    +-------------------------+-------------+------------------------------------------------------------------------------+
+    | Smoking_History         | CHAR        | Past or current smoking habits (e.g., Yes, No)                               |
+    +-------------------------+-------------+------------------------------------------------------------------------------+
+    | Diabetes_History        | CHAR        | History of diabetes diagnosis (Yes/No)                                       |
+    +-------------------------+-------------+------------------------------------------------------------------------------+
+    | Hypertension_History    | CHAR        | History of high blood pressure diagnosis (Yes/No)                            |
+    +-------------------------+-------------+------------------------------------------------------------------------------+
+    | Physical_Activity       | CHAR        | Level of physical activity (e.g., Low, Moderate, High)                       |
+    +-------------------------+-------------+------------------------------------------------------------------------------+
+    | Diet_Quality            | CHAR        | Dietary habits and nutritional intake assessment (e.g., Poor, Average, Good) |
+    +-------------------------+-------------+------------------------------------------------------------------------------+
+    | Alcohol_Consumption     | CHAR        | Frequency or amount of alcohol intake (e.g., Low, Moderate, High, None)      |
+    +-------------------------+-------------+------------------------------------------------------------------------------+
+    | Family_History          | CHAR        | Presence of heart disease in close relatives (Yes/No)                        |
+    +-------------------------+-------------+------------------------------------------------------------------------------+
+    | Heart_Attack_Occurrence | CHAR        | Whether the individual has experienced a heart attack (Yes/No)               |
+    +-------------------------+-------------+------------------------------------------------------------------------------+
 
 -   **Continuous attributes:**
 
@@ -457,16 +458,15 @@ The final output - `heart_attack_2` shows a tibble dataframe with 30,000 rows an
 
 ### 3.6 Exploratory Data Analysis
 
-#### 3.6.1 EDA - check for potential bias in data collection
+#### 3.6.1 EDA 0 - check for potential bias in data collection
 
 ::: callout-important
 **Key observations**
 
-1.  Uneven representation of age groups
+-   **Uneven representation of age groups**
     -   Noticeably lower number of Youth (≤25 years) and Elderly (≥71 years) compared to the middle age groups
-
     -   Young adults (26–40 years), middle-aged adults (41–55 years), and older adults (56–70 years) make up the majority of the dataset
-2.  Potential bias in data collection
+-   **Potential bias in data collection**
     -   Underrepresentation of elderly individuals might inflate their heart attack rate in percentage-based analyses
 
     -   Low count of youth suggests they may be under-sampled
@@ -561,14 +561,13 @@ ggplot(age_category_distribution, aes(x = Age_Category, y = Count, fill = Age_Ca
 
 Observations:
 
--   **Heart Attacks Occur Across All Ages:**
+-   **Heart attacks occur across all ages:**
     -   Histogram shows a wide distribution of heart attack patients across various age groups
--   **Age Group Variation in Heart Attack Rates:**
+-   **Age group variation in heart attack rates:**
     -   Heart attack rate appears to be relatively stable across most age bins, ranging between 8.6% to 11.3%.
     -   Highest normalized heart attack rate is in the \[73,78\] age bin (\~11.3%).
--   **Slight Increase in Middle-Aged & Elderly Groups:**
-    -   Gradual increase in heart attack rates from younger groups to middle-aged adults - \[43,48\] (10.8%) and \[48,53\] (11.0%).
-    -   Heart attack remains high in the older and elderly groups, suggesting that heart attack risk increases with age.
+-   **Gradual increase in heart attack rates:**
+    -   Gradual increase in heart attack rates between younger groups \[18,23\] to middle-aged adults \[38,43\]
 
 :::: panel-tabset
 ## Code()
@@ -675,9 +674,17 @@ ggplot(normalized_data, aes(x = Age_Bin, y = Normalized_Heart_Attack_Rate, fill 
 ```
 ::::
 
-##### 3.6.2.2 Heart attack rate by age group
+##### 3.6.2.2 Heart attack rate by age group - histogram
 
 Another point of view, categorizing ages into groups and calculating the heart attack rate for each group.
+
+Observations:
+
+-   **Almost similar rates across age groups :**
+    -   Heart attack rates range between 8.9% and 10.3%, showing no extreme variation.
+    -   Young Adults (26–40) & Elderly (≥71) have the highest rate - at 10.3%
+    -   Youth (≤25) has the lowest rate - at 8.9%, only slightly lower than other groups.
+-   **Suggests that age alone may not be the strongest predictor of heart attack risk, and other lifestyle or health factors might play a key role.**
 
 ::: panel-tabset
 ## Code()
@@ -787,74 +794,36 @@ ggplot(normalized_data, aes(x = Age_Category, y = Normalized_Heart_Attack_Rate, 
 ```
 :::
 
-##### 3.6.2.3 Age vs heart attack occurence (box plot)
+##### 3.6.2.3 Age distribution differs between heart attack occurences - ridgeline density plot
 
-The below chart will show a box plot visualizing the age distribution for patients with and without heart attacks.
+Observations:
+
+-   The Heart Attack Occurence = "No" group is more evenly distributed across age ranges
+-   Heart attacks are more common in Young adults and older individuals (higher density for "Yes" group in older ages).
+-   Youth rarely experience heart attacks, though some cases exist.
+
+::: panel-tabset
+## Code()
 
 ```{r}
 #| eval = FALSE
 
-ggplot(heart_attack_2, aes(x = Age, y = Heart_Attack_Occurrence, fill = ..x..)) +
-  geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01) +
-  scale_fill_viridis_c(option = "magma") +
-  theme_ridges() +
-  theme_minimal() +
-  labs(title = "Ridge Density Plot: Age Distribution by Heart Attack Occurrence",
-       x = "Age",
-       y = "Heart Attack Occurrence")
-
-
-```
-
-```{r}
-# Load necessary libraries
-library(ggplot2)
-library(dplyr)
-
-
-# Define and enforce the correct order for Age Categories
-age_order <- c("Youth (≤25 years)", "Young adults (26–40 years)", 
-               "Middle-aged adults (41–55 years)", "Older adults (56–70 years)", 
-               "Elderly (≥71 years)")
-
-# Ensure Age_Category is a factor with the correct order
+# Ensure Heart Attack Occurrence is a factor
 heart_attack_2 <- heart_attack_2 %>%
-  mutate(Age_Category = factor(Age_Category, levels = age_order))
+  mutate(Heart_Attack_Occurrence = factor(Heart_Attack_Occurrence, levels = c("No", "Yes")))
 
-# Summarize Data for Stacked Bar Chart
-heart_attack_summary <- heart_attack_2 %>%
-  filter(!is.na(Age_Category)) %>%
-  group_by(Age_Category, Heart_Attack_Occurrence) %>%
-  summarise(Count = n(), .groups = "drop") %>%
-  group_by(Age_Category) %>%
-  mutate(Proportion = Count / sum(Count) * 100)
+# Create the Ridgeline Density Plot 
+ggplot(heart_attack_2, aes(x = Age, y = Heart_Attack_Occurrence, fill = after_stat(x))) +
+  geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01, show.legend = TRUE) +
+  scale_fill_viridis_c(option = "magma") +  
 
-# Enhanced Stacked Bar Chart
-ggplot(heart_attack_summary, aes(x = Age_Category, y = Proportion, fill = Heart_Attack_Occurrence)) +
-  geom_bar(stat = "identity", color = "black", alpha = 0.85, width = 0.7) +
-  
-  # Add proportional data labels with bold font
-  geom_text(aes(label = sprintf("%.1f%%", Proportion)), 
-            position = position_stack(vjust = 0.5), 
-            size = 5, fontface = "bold", color = "white") +
-  
-  # Custom title and axis labels
-  labs(title = "Proportion of Heart Attack Occurrence by Age Category",
-       x = "Age Category",
-       y = "Proportion (%)",
-       fill = "Heart Attack Occurrence") +
-  
-  # Improved color scheme for better readability
-  scale_fill_manual(values = c("No" = "#2E7D32", "Yes" = "#D32F2F")) +
-  
-  # Minimalist theme with rotated x-axis labels
+  labs(title = "Ridgeline Density Plot: Age Distribution by Heart Attack Occurrence",
+       x = "Age",
+       y = "Heart Attack Occurrence",
+       fill = "Age") +  
+
   theme_minimal() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-    axis.title = element_text(size = 14),
-    plot.title = element_text(size = 16, face = "bold"),
-    legend.position = "top"
-  )
+  theme(legend.position = "right")
 
 ```
 
@@ -863,9 +832,108 @@ ggplot(heart_attack_summary, aes(x = Age_Category, y = Proportion, fill = Heart_
 ```{r}
 #| echo = FALSE 
 
+# Ensure Heart Attack Occurrence is a factor
+heart_attack_2 <- heart_attack_2 %>%
+  mutate(Heart_Attack_Occurrence = factor(Heart_Attack_Occurrence, levels = c("No", "Yes")))
 
+# Create the Ridgeline Density Plot 
+ggplot(heart_attack_2, aes(x = Age, y = Heart_Attack_Occurrence, fill = after_stat(x))) +
+  geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01, show.legend = TRUE) +
+  scale_fill_viridis_c(option = "magma") +  
+
+  labs(title = "Ridgeline Density Plot: Age Distribution by Heart Attack Occurrence",
+       x = "Age",
+       y = "Heart Attack Occurrence",
+       fill = "Age") +  
+
+  theme_minimal() +
+  theme(legend.position = "right")
 ```
 :::
+
+##### 3.6.2.2 Heart Attack Occurrence Across Age Categories – Funnel Plot Analysis
+
+The analysis is based on five age categories, with heart attack occurrence represented as a proportion.
+
+| Categories         | Age         |
+|--------------------|-------------|
+| Youth              | ≤25 years   |
+| Young adults       | 26–40 years |
+| Middle-aged adults | 41–55 years |
+| Older adults       | 56–70 years |
+| Elderly            | ≥71 years   |
+
+Observations:
+
+-   No overdispersion was detected, meaning the data does not exhibit excessive variance beyond what is expected.
+-   The funnel plot confirms that all data points fall within expected control limits, indicating no statistically significant outliers.
+-   Although, the heart attack occurrence rate varies among age categories but remains within the expected range.
+
+**Further analysis might be needed** to examine specific risk factors that contribute to heart attack rates in different age groups.
+
+::: panel-tabset
+## Code()
+
+```{r}
+#| eval = FALSE
+
+# Step 1: Convert "Yes"/"No" to 1/0
+heart_attack_2 <- heart_attack_2 %>%
+  mutate(Heart_Attack_Occurrence = ifelse(Heart_Attack_Occurrence == "Yes", 1, 0))
+
+# Step 2: Summarize data for all 5 age categories
+age_summary <- heart_attack_2 %>%
+  group_by(Age_Category) %>%
+  summarise(
+    Heart_Attack_Count = sum(Heart_Attack_Occurrence, na.rm = TRUE),  # Numerator
+    Total_Population = n()  # Denominator
+  )
+
+# Step 3: Funnel Plot for all age categories
+funnel_plot(
+  .data = age_summary,
+  numerator = "Heart_Attack_Count",
+  denominator = "Total_Population",
+  group = "Age_Category",
+  data_type = "PR",  # Proportion Rate
+  x_range = c(0, max(age_summary$Total_Population) + 500),  # Adjusted for better scaling
+  y_range = c(0, max(age_summary$Heart_Attack_Count / age_summary$Total_Population) + 0.02)  # Ensure proportions are visible
+)
+
+
+```
+
+## Graph()
+```{r}
+#| echo = FALSE 
+
+# Step 1: Convert "Yes"/"No" to 1/0
+heart_attack_2 <- heart_attack_2 %>%
+  mutate(Heart_Attack_Occurrence = ifelse(Heart_Attack_Occurrence == "Yes", 1, 0))
+
+# Step 2: Summarize data for all 5 age categories
+age_summary <- heart_attack_2 %>%
+  group_by(Age_Category) %>%
+  summarise(
+    Heart_Attack_Count = sum(Heart_Attack_Occurrence, na.rm = TRUE),  # Numerator
+    Total_Population = n()  # Denominator
+  )
+
+# Step 3: Funnel Plot for all age categories
+funnel_plot(
+  .data = age_summary,
+  numerator = "Heart_Attack_Count",
+  denominator = "Total_Population",
+  group = "Age_Category",
+  data_type = "PR",  # Proportion Rate
+  x_range = c(0, max(age_summary$Total_Population) + 500),  # Adjusted for better scaling
+  y_range = c(0, max(age_summary$Heart_Attack_Count / age_summary$Total_Population) + 0.02)  # Ensure proportions are visible
+)
+
+```
+
+:::
+
 
 
 <!-- ```{r} -->
@@ -914,4 +982,4 @@ ggplot(heart_attack_summary, aes(x = Age_Category, y = Proportion, fill = Heart_
 
 <!-- ``` -->
 
--   Ch 
+-   Ch

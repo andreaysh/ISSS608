@@ -17,14 +17,455 @@ execute:
 
 Ternary plots visualize three-part compositional data, such as population age groups or soil composition. Displayed as a triangle with sides scaled from 0 to 1, each side represents a component. Points are plotted based on their proportions, with perpendicular lines indicating their values.
 
-This hands-on exercise teaches you how to create a ternary plot in R to visualize and analyze Singapore’s population structure. The steps include:
+In this hands-on exercise, we will learn how to create a ternary plot in R to visualize and analyze Singapore’s population structure. The steps include:
 
-Installing and loading tidyverse and ggtern packages.
-Using mutate() from dplyr to derive three new measures.
-Creating a static ternary plot with ggtern().
-Building an interactive ternary plot using plot_ly() from Plotly.
+-   Installing and loading [tidyverse](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0) and [ggtern](https://www.rdocumentation.org/packages/ggtern/versions/1.0.2.0/topics/ggtern) packages.
+-   Using `mutate()` from dplyr to derive three new measures.
+-   Creating a static ternary plot with `ggtern()`.
+-   Building an interactive ternary plot using plot_ly() from Plotly.
 
 ### 5.2 Installing and launching R packages
 
+For this exercise, we will use two primary R packages:
+
+-   [ggtern](https://www.rdocumentation.org/packages/ggtern/versions/1.0.2.0/topics/ggtern) – A ggplot extension designed specifically for creating ternary diagrams (static ternary plots).
+-   [Plotly R](https://www.rdocumentation.org/packages/plotly/versions/4.10.4) – A package that enables interactive web-based graphs, using the ggplotly function to convert ggplot2 figures into interactive Plotly objects.
+
+Additionally, we will install and load key tidyverse packages, including **readr**, **dplyr**, and **tidyr**, for data handling and manipulation.
+
+Since the current ggtern package is incompatible with the latest ggplot2 version, we will install ggplot2 version 3.2.1 instead.
+
+```{r}
+pacman::p_load(plotly, ggtern, tidyverse)
+```
+
+### 5.3 Data preparation
+
+#### 5.3.1 The data
+
+For this hands-on exercise, we will use the [Singapore Residents by Planning Area/Subzone, Age Group, Sex, and Type of Dwelling (June 2000-2018)](https://www.singstat.gov.sg/find-data/search-by-theme/population/geographic-distribution/latest-data) dataset. The dataset, named *"respopagsex2000to2018_tidy.csv"*, has already been downloaded and is stored in the data sub-folder within the exercise directory. It is in CSV format.
+
+#### 5.3.2 Importing data
+
+To import *"respopagsex2000to2018_tidy.csv"* into R, we will use the **read_csv()** function from the **readr** package.
+
+```{r}
+#Reading the data into R environment
+pop_data <- read_csv("data/respopagsex2000to2018_tidy.csv") 
+```
+
+#### 5.3.3 Preparing the data
+
+Next, use the `mutate()` function from the [dplyr](https://www.rdocumentation.org/packages/dplyr/versions/0.5.0) package to create three new measures: young, active, and old.
+
+```{r}
+#Deriving the young, economy active and old measures
+agpop_mutated <- pop_data %>%
+  mutate(`Year` = as.character(Year))%>%
+  spread(AG, Population) %>%
+  mutate(YOUNG = rowSums(.[4:8]))%>%
+  mutate(ACTIVE = rowSums(.[9:16]))  %>%
+  mutate(OLD = rowSums(.[17:21])) %>%
+  mutate(TOTAL = rowSums(.[22:24])) %>%
+  filter(Year == 2018)%>%
+  filter(TOTAL > 0)
+```
+
+### 5.4 Data preparation
+
+#### 5.4.1 Plotting a static ternary diagram
+
+Use the *ggtern()* function from the ggtern package to create a basic ternary plot.
+
+```{r}
+#Building the static ternary plot
+ggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +
+  geom_point()
+```
+
+```{r}
+#Building the static ternary plot
+ggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +
+  geom_point() +
+  labs(title="Population structure, 2015") +
+  theme_rgbw()
+```
+
+#### 5.4.2 Plotting an interactive ternary diagram
+
+The code below uses the [plot_ly()](https://www.rdocumentation.org/packages/plotly/versions/4.10.4) function from the **Plotly R** package to create an interactive ternary plot
+
+```{r}
+# reusable function for creating annotation object
+label <- function(txt) {
+  list(
+    text = txt, 
+    x = 0.1, y = 1,
+    ax = 0, ay = 0,
+    xref = "paper", yref = "paper", 
+    align = "center",
+    font = list(family = "serif", size = 15, color = "white"),
+    bgcolor = "#b3b3b3", bordercolor = "black", borderwidth = 2
+  )
+}
+
+# reusable function for axis formatting
+axis <- function(txt) {
+  list(
+    title = txt, tickformat = ".0%", tickfont = list(size = 10)
+  )
+}
+
+ternaryAxes <- list(
+  aaxis = axis("Young"), 
+  baxis = axis("Active"), 
+  caxis = axis("Old")
+)
+
+# Initiating a plotly visualization 
+plot_ly(
+  agpop_mutated, 
+  a = ~YOUNG, 
+  b = ~ACTIVE, 
+  c = ~OLD, 
+  color = I("black"), 
+  type = "scatterternary"
+) %>%
+  layout(
+    annotations = label("Ternary Markers"), 
+    ternary = ternaryAxes
+  )
+```
+
+### 5.5 References
+
+-   Kam, T.S(2024). [Visual Statistical Analysis.](https://r4va.netlify.app/chap13)
+
+### 5.6 Takeaway
+
+::: callout-tip
+## Key takeaways
+
+-   Ternary plots are powerful for visualizing three-variable compositional data.
+-   ggtern makes it easy to create and customize ternary plots in R.
+-   Plotly enhances interactivity, making ternary plots more intuitive for exploration.
+:::
+
+### 5.7 Further exploration
+
+1.  To explore ternary plot by planning area (PA)
+
+**Question:** Do different planning areas (PA) have distinct age distributions?
+
+Observations:
+
+-   All regions have a similar age distribution, with no extreme differences.
+-   The working-age ("Active") population is the largest group across all regions.
+
+::: panel-tabset
+## Graph
+
+```{r}
+#| echo = FALSE 
+
+# Categorize Planning Areas into broader Regions
+region_mapping <- c(
+  # **North Region**
+  "Woodlands" = "North", "Sembawang" = "North", "Yishun" = "North", 
+  "Mandai" = "North", "Simpang" = "North", "Seletar" = "North", "Central Water Catchment" = "North",
+
+  # **West Region**
+  "Bukit Batok" = "West", "Bukit Panjang" = "West", "Choa Chu Kang" = "West", 
+  "Clementi" = "West", "Jurong East" = "West", "Jurong West" = "West", 
+  "Tengah" = "West", "Tuas" = "West", "Pioneer" = "West", 
+  "Western Islands" = "West", "Western Water Catchment" = "West",
+  "Boon Lay" = "West", "Boon Lay/Pioneer" = "West", "Sungei Kadut" = "West", "Lim Chu Kang" = "West",
+
+  # **East Region**
+  "Bedok" = "East", "Changi" = "East", "Pasir Ris" = "East", "Tampines" = "East", 
+  "Paya Lebar" = "East", "Changi Bay" = "East",
+
+  # **South Region**
+  "Bukit Merah" = "South", "Queenstown" = "South", "Sentosa" = "South", 
+  "Marina East" = "South", "Marina South" = "South", "Southern Islands" = "South",
+  "Singapore River" = "South", "Straits View" = "South", "Outram" = "South",
+
+  # **Central Region**
+  "Ang Mo Kio" = "Central", "Bishan" = "Central", "Toa Payoh" = "Central", 
+  "Kallang" = "Central", "Marine Parade" = "Central", "Downtown Core" = "Central",
+  "Geylang" = "Central", "Hougang" = "Central", "Novena" = "Central", "Newton" = "Central",
+  "Orchard" = "Central", "River Valley" = "Central", "Rochor" = "Central", 
+  "Tanglin" = "Central", "Serangoon" = "Central", "Sengkang" = "Central", 
+  "Punggol" = "Central", "Museum" = "Central", "North-Eastern Islands" = "Central",
+  "Bukit Timah" = "Central",  # **Added Missing Bukit Timah**
+  
+  # **Other / Unclassified**
+  "Not Stated" = "Other"  # **Added Missing "Not Stated"**
+)
+
+# **Step 1: Assign Regions based on Planning Areas (PA)**
+pop_data <- pop_data %>%
+  mutate(Region = recode(PA, !!!region_mapping, .default = "Other"))  # Assign regions
+
+# Ensure the Age_Group column is properly categorized
+pop_data <- pop_data %>%
+  mutate(Age_Group = case_when(
+    AG %in% c("AGE0-4", "AGE5-9", "AGE10-14", "AGE15-19", "AGE20-24") ~ "Young",
+    AG %in% c("AGE25-29", "AGE30-34", "AGE35-39", "AGE40-44", "AGE45-49", "AGE50-54") ~ "Active",
+    AG %in% c("AGE55-59", "AGE60-64", "AGE65-69", "AGE70-74", "AGE75-79", "AGE80-84", "AGE85+") ~ "Old",
+    TRUE ~ NA_character_  # Assign NA to any undefined age groups
+  )) %>%
+  filter(!is.na(Age_Group))  # Remove any rows with missing Age_Group
+
+# Summarize population by Region and Age_Group
+df_region <- pop_data %>%
+  group_by(Region, Age_Group) %>%
+  summarise(Population = sum(Population, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = Age_Group, values_from = Population, values_fill = list(Population = 0))  # Convert to wide format
+
+# Convert population counts to proportions
+df_region <- df_region %>%
+  mutate(Total = Young + Active + Old,
+         Young = Young / Total,
+         Active = Active / Total,
+         Old = Old / Total) %>%
+  select(Region, Young, Active, Old)
+
+ggtern(data = df_region, aes(x = Active, y = Young, z = Old)) +  # Swapped x and y
+  geom_point(aes(color = Region), size = 4) +  
+  labs(title = "Age Distribution by Region",
+       x = "Active",   # Left axis
+       y = "Young",    # Top axis
+       z = "Old") +    # Right axis
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 9),
+    plot.title = element_text(size = 14),
+    axis.title = element_text(size = 11),
+    axis.text = element_text(size = 10, color = "black"),
+    axis.title.x = element_text(margin = margin(t = 10)),  # Space below "Active"
+    axis.title.y = element_text(margin = margin(r = 10)),  # Space right of "Young"
+    axis.title.z = element_text(margin = margin(l = 10))   # Space left of "Old"
+  )
+```
+
+## Code
+
+```{r}
+#| eval = FALSE
 
 
+# Categorize Planning Areas into broader Regions
+region_mapping <- c(
+  # **North Region**
+  "Woodlands" = "North", "Sembawang" = "North", "Yishun" = "North", 
+  "Mandai" = "North", "Simpang" = "North", "Seletar" = "North", "Central Water Catchment" = "North",
+
+  # **West Region**
+  "Bukit Batok" = "West", "Bukit Panjang" = "West", "Choa Chu Kang" = "West", 
+  "Clementi" = "West", "Jurong East" = "West", "Jurong West" = "West", 
+  "Tengah" = "West", "Tuas" = "West", "Pioneer" = "West", 
+  "Western Islands" = "West", "Western Water Catchment" = "West",
+  "Boon Lay" = "West", "Boon Lay/Pioneer" = "West", "Sungei Kadut" = "West", "Lim Chu Kang" = "West",
+
+  # **East Region**
+  "Bedok" = "East", "Changi" = "East", "Pasir Ris" = "East", "Tampines" = "East", 
+  "Paya Lebar" = "East", "Changi Bay" = "East",
+
+  # **South Region**
+  "Bukit Merah" = "South", "Queenstown" = "South", "Sentosa" = "South", 
+  "Marina East" = "South", "Marina South" = "South", "Southern Islands" = "South",
+  "Singapore River" = "South", "Straits View" = "South", "Outram" = "South",
+
+  # **Central Region**
+  "Ang Mo Kio" = "Central", "Bishan" = "Central", "Toa Payoh" = "Central", 
+  "Kallang" = "Central", "Marine Parade" = "Central", "Downtown Core" = "Central",
+  "Geylang" = "Central", "Hougang" = "Central", "Novena" = "Central", "Newton" = "Central",
+  "Orchard" = "Central", "River Valley" = "Central", "Rochor" = "Central", 
+  "Tanglin" = "Central", "Serangoon" = "Central", "Sengkang" = "Central", 
+  "Punggol" = "Central", "Museum" = "Central", "North-Eastern Islands" = "Central",
+  "Bukit Timah" = "Central",  # **Added Missing Bukit Timah**
+  
+  # **Other / Unclassified**
+  "Not Stated" = "Other"  # **Added Missing "Not Stated"**
+)
+
+# **Step 1: Assign Regions based on Planning Areas (PA)**
+pop_data <- pop_data %>%
+  mutate(Region = recode(PA, !!!region_mapping, .default = "Other"))  # Assign regions
+
+# Ensure the Age_Group column is properly categorized
+pop_data <- pop_data %>%
+  mutate(Age_Group = case_when(
+    AG %in% c("AGE0-4", "AGE5-9", "AGE10-14", "AGE15-19", "AGE20-24") ~ "Young",
+    AG %in% c("AGE25-29", "AGE30-34", "AGE35-39", "AGE40-44", "AGE45-49", "AGE50-54") ~ "Active",
+    AG %in% c("AGE55-59", "AGE60-64", "AGE65-69", "AGE70-74", "AGE75-79", "AGE80-84", "AGE85+") ~ "Old",
+    TRUE ~ NA_character_  # Assign NA to any undefined age groups
+  )) %>%
+  filter(!is.na(Age_Group))  # Remove any rows with missing Age_Group
+
+# Summarize population by Region and Age_Group
+df_region <- pop_data %>%
+  group_by(Region, Age_Group) %>%
+  summarise(Population = sum(Population, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = Age_Group, values_from = Population, values_fill = list(Population = 0))  # Convert to wide format
+
+# Convert population counts to proportions
+df_region <- df_region %>%
+  mutate(Total = Young + Active + Old,
+         Young = Young / Total,
+         Active = Active / Total,
+         Old = Old / Total) %>%
+  select(Region, Young, Active, Old)
+
+ggtern(data = df_region, aes(x = Active, y = Young, z = Old)) +  # Swapped x and y
+  geom_point(aes(color = Region), size = 4) +  
+  labs(title = "Age Distribution by Region",
+       x = "Active",   # Left axis
+       y = "Young",    # Top axis
+       z = "Old") +    # Right axis
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 9),
+    plot.title = element_text(size = 14),
+    axis.title = element_text(size = 11),
+    axis.text = element_text(size = 10, color = "black"),
+    axis.title.x = element_text(margin = margin(t = 10)),  # Space below "Active"
+    axis.title.y = element_text(margin = margin(r = 10)),  # Space right of "Young"
+    axis.title.z = element_text(margin = margin(l = 10))   # Space left of "Old"
+  )
+
+```
+:::
+
+2.  To explore ternary plot by planning area (PA) - using interactive plot - `plotly`
+
+::: panel-tabset
+## Graph
+
+```{r}
+#| echo = FALSE 
+
+library(plotly)
+library(dplyr)
+library(tidyr)
+
+# Define custom colors matching the attached legend
+custom_colors <- c(
+  "Central" = "#F8766D",  
+  "North" = "#00BA38",     
+  "South" = "#619CFF",     
+  "East" = "#B79F00",      
+  "Other" = "#00BFC4",     
+  "West" = "#F564E3"       
+)
+
+# Create the interactive ternary plot with custom legend colors
+plot_ly(
+  df_region, 
+  a = ~Young,   # Left side
+  b = ~Active,  # Top
+  c = ~Old,     # Right side
+  text = ~paste("Region:", Region, 
+                "<br>Young:", round(Young * 100, 2), "%", 
+                "<br>Active:", round(Active * 100, 2), "%", 
+                "<br>Old:", round(Old * 100, 2), "%"), 
+  color = ~Region, 
+  colors = custom_colors,  
+  type = 'scatterternary',
+  mode = 'markers',
+  marker = list(size = 10),
+  hoverinfo = "text"  
+) %>%
+  layout(
+    title = list(text = "Interactive Ternary Plot: Age Distribution by Region", font = list(size = 16)),
+    margin = list(l = 100, r = 100, b = 100, t = 100),  # Adjust margins to prevent label clipping
+    ternary = list(
+      sum = 1,  # Ensure the ternary plot normalizes proportions
+      aaxis = list(title = "Young", min = 0, max = 1, tickformat = ".0%", titlefont = list(size = 14), tickfont = list(size = 12), titleoffset = 40),
+      baxis = list(title = "Active", min = 0, max = 1, tickformat = ".0%", titlefont = list(size = 14), tickfont = list(size = 12), titleoffset = 40),
+      caxis = list(title = "Old", min = 0, max = 1, tickformat = ".0%", titlefont = list(size = 14), tickfont = list(size = 12), titleoffset = 40)
+    ),
+    legend = list(
+      orientation = "h",  # Horizontal legend
+      x = 0.5, y = -0.2,  # Centered at bottom
+      xanchor = "center", yanchor = "top"
+    ),
+    annotations = list(
+      list(
+        text = "Hover over points for details",
+        x = 0.5, y = 1.15,
+        xref = "paper", yref = "paper",
+        showarrow = FALSE,
+        font = list(size = 12, color = "black")
+      )
+    )
+  )
+```
+
+## Code
+
+```{r}
+#| eval = FALSE
+
+library(plotly)
+library(dplyr)
+library(tidyr)
+
+# Define custom colors matching the attached legend
+custom_colors <- c(
+  "Central" = "#F8766D",  
+  "North" = "#00BA38",     
+  "South" = "#619CFF",     
+  "East" = "#B79F00",      
+  "Other" = "#00BFC4",     
+  "West" = "#F564E3"       
+)
+
+# Create the interactive ternary plot with custom legend colors
+plot_ly(
+  df_region, 
+  a = ~Young,   # Left side
+  b = ~Active,  # Top
+  c = ~Old,     # Right side
+  text = ~paste("Region:", Region, 
+                "<br>Young:", round(Young * 100, 2), "%", 
+                "<br>Active:", round(Active * 100, 2), "%", 
+                "<br>Old:", round(Old * 100, 2), "%"), 
+  color = ~Region, 
+  colors = custom_colors,  
+  type = 'scatterternary',
+  mode = 'markers',
+  marker = list(size = 10),
+  hoverinfo = "text"  
+) %>%
+  layout(
+    title = list(text = "Interactive Ternary Plot: Age Distribution by Region", font = list(size = 16)),
+    margin = list(l = 100, r = 100, b = 100, t = 100),  # Adjust margins to prevent label clipping
+    ternary = list(
+      sum = 1,  # Ensure the ternary plot normalizes proportions
+      aaxis = list(title = "Young", min = 0, max = 1, tickformat = ".0%", titlefont = list(size = 14), tickfont = list(size = 12), titleoffset = 40),
+      baxis = list(title = "Active", min = 0, max = 1, tickformat = ".0%", titlefont = list(size = 14), tickfont = list(size = 12), titleoffset = 40),
+      caxis = list(title = "Old", min = 0, max = 1, tickformat = ".0%", titlefont = list(size = 14), tickfont = list(size = 12), titleoffset = 40)
+    ),
+    legend = list(
+      orientation = "h",  # Horizontal legend
+      x = 0.5, y = -0.2,  # Centered at bottom
+      xanchor = "center", yanchor = "top"
+    ),
+    annotations = list(
+      list(
+        text = "Hover over points for details",
+        x = 0.5, y = 1.15,
+        xref = "paper", yref = "paper",
+        showarrow = FALSE,
+        font = list(size = 12, color = "black")
+      )
+    )
+  )
+
+
+```
+:::
