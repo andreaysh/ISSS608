@@ -20,15 +20,20 @@ Parallel coordinates plots, invented by [Alfred Inselberg](http://www.math.tau.a
 By the end of this hands-on exercise, we will be able to:
 
 -   Plot static parallel coordinates plots using `ggparcoord()` from the [**GGally**](https://www.rdocumentation.org/packages/GGally/versions/2.2.1) package.
-  -   Create interactive parallel coordinates plots with the [**parcoords**](https://www.rdocumentation.org/packages/MASS/versions/7.3-64/topics/parcoord) package.
+-   Create interactive parallel coordinates plots with the [**parcoords**](https://www.rdocumentation.org/packages/MASS/versions/7.3-64/topics/parcoord) package.
 -   Generate interactive parallel coordinates plots using the [**parallelPlot**](https://www.rdocumentation.org/packages/parallelPlot/versions/0.4.0) package.
 
 ### 5.2 Installing and Launching R Packages
+
 For this exercise, the below R packages will be used:
--   [**GGally**](https://www.rdocumentation.org/packages/GGally/versions/2.2.1): An extension of ggplot2 that simplifies multivariate data visualization, including parallel coordinates plots.
--   [**parcoords**](https://www.rdocumentation.org/packages/MASS/versions/7.3-64/topics/parcoord):A package for creating interactive parallel coordinates plots using htmlwidgets in R.
--   [**parallelPlot**](https://www.rdocumentation.org/packages/parallelPlot/versions/0.4.0):A tool for generating interactive parallel coordinates plots with enhanced visualization capabilities.
--   [**tidyverse**](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0):A collection of R packages designed for data manipulation, visualization, and analysis following a consistent syntax.
+
+-   GGally: An extension of ggplot2 that simplifies multivariate data visualization, including parallel coordinates plots.
+
+-    [**parcoords**](https://www.rdocumentation.org/packages/MASS/versions/7.3-64/topics/parcoord):A package for creating interactive parallel coordinates plots using htmlwidgets in R.
+
+-    [**parallelPlot**](https://www.rdocumentation.org/packages/parallelPlot/versions/0.4.0):A tool for generating interactive parallel coordinates plots with enhanced visualization capabilities.
+
+-    [**tidyverse**](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0):A collection of R packages designed for data manipulation, visualization, and analysis following a consistent syntax.
 
 ```{r}
 pacman::p_load(GGally, parallelPlot, tidyverse)
@@ -38,16 +43,20 @@ pacman::p_load(GGally, parallelPlot, tidyverse)
 
 ```{r}
 wh <- read_csv("data/WHData-2018.csv")
+
+spec(wh)
 ```
+
 ::: callout-note
 -   This section data is the same dataset used in [Hands-on_Ex05c](Hands-on_Ex05c.html)
 :::
 
 ### 5.4 Plotting Static Parallel Coordinates Plot
 
-This section covers plotting static parallel coordinates plots using [ggparcoord()](https://ggobi.github.io/ggally/reference/ggparcoord.html) from the **GGally** package. 
+This section covers plotting static parallel coordinates plots using [ggparcoord()](https://ggobi.github.io/ggally/reference/ggparcoord.html) from the **GGally** package.
 
 #### 5.4.1 Plotting a simple parallel coordinates
+
 Code below shows a typical syntax used to plot a basic static parallel coordinates plot by using `ggparcoord()`.
 
 ```{r}
@@ -55,20 +64,12 @@ ggparcoord(data = wh,
            columns = c(7:12))
 ```
 
--   Only two arguments, `data` and `columns`, are used in `ggparcoord()`. 
+-   Only two arguments, `data` and `columns`, are used in `ggparcoord()`.
 -   The data argument maps the dataset (e.g., wh), while columns selects the variables for the parallel coordinates plot.
 
 #### 5.4.2 Plotting a parallel coordinates with boxplot
 
-To improve the interpretability of the World Happiness parallel coordinates plot, `ggparcoord()` provides customization options like 
--   groupColumn for grouping, 
--   scale for variable scaling, 
--   alphaLines to reduce the intensity of the line colour,
--   showPoints for displaying data points, 
--   splineFactor for smoothing, 
--   title for parallel coordinates plot a title,
--   alphaLines for transparency control, and 
--   boxplot for overlaying distributions.
+To improve the interpretability of the World Happiness parallel coordinates plot, `ggparcoord()` provides customization options like - groupColumn for grouping, - scale for variable scaling, - alphaLines to reduce the intensity of the line colour, - showPoints for displaying data points, - splineFactor for smoothing, - title for parallel coordinates plot a title, - alphaLines for transparency control, and - boxplot for overlaying distributions.
 
 ```{r}
 ggparcoord(data = wh, 
@@ -81,7 +82,8 @@ ggparcoord(data = wh,
 ```
 
 #### 5.4.3 Parallel coordinates with facet
-Since `ggparcoord()` extends **ggplot2**, it allows integration with **ggplot2** functions. 
+
+Since `ggparcoord()` extends **ggplot2**, it allows integration with **ggplot2** functions.
 
 The example below uses `facet_wrap()` to create multiple small parallel coordinates plots, each representing a different geographical region, such as East Asia.
 
@@ -99,6 +101,7 @@ ggparcoord(data = wh,
 One of the aesthetic defect of the current design is that some of the variable names overlap on x-axis.
 
 #### 5.4.4 Rotating x-axis text label
+
 To improve readability, the x-axis labels are rotated by 30 degrees using the `theme()` function in ggplot2. This enhances clarity when displaying parallel coordinates plots.
 
 ```{r}
@@ -112,12 +115,15 @@ ggparcoord(data = wh,
   facet_wrap(~ Region) + 
   theme(axis.text.x = element_text(angle = 30))
 ```
+
 Thing to learn from the code chunk above:
 
 -   To rotate x-axis text labels, use `axis.text.x` in the `theme()` function and set `element_text(angle = 30)` to rotate the labels by 30 degrees.
 
 #### 5.4.5 Adjusting the rotated x-axis text label
+
 To prevent label overlap after rotating x-axis text by 30 degrees, adjust text positioning using the `hjust` argument in `element_text()` within the `theme()` function, applied to `axis.text.x`.
+
 ```{r}
 ggparcoord(data = wh, 
            columns = c(7:12), 
@@ -131,6 +137,7 @@ ggparcoord(data = wh,
 ```
 
 ### 5.5 Plotting Interactive Parallel Coordinates Plot: parallelPlot methods
+
 #### 5.5.1 The basic plot
 
 The [parallelPlot](https://cran.r-project.org/web/packages/parallelPlot/) package in R, built on htmlwidgets and d3.js, enables interactive parallel coordinates plots. This section covers its key functions for creating dynamic visualizations.
@@ -143,25 +150,31 @@ parallelPlot(wh,
              height = 250)
 ```
 
-Notice that some of the axis labels are too long. 
+Notice that some of the axis labels are too long.
 
 #### 5.5.2 Rotate axis label
+
 `rotateTitle` argument is used to avoid overlapping axis labels.
+
 ```{r}
 parallelPlot(wh,
              rotateTitle = TRUE)
 ```
+
 A key interactive feature of parallelPlot allows users to click on a variable, such as Happiness Score, changing the default blue color to varying intensities for better visualization.
 
 #### 5.5.3 Changing the colour scheme
 
 We can change the default blue colour scheme by using continousCS argument as shown in the code below:
+
 ```{r}
 parallelPlot(wh,
              continuousCS = "YlOrRd",
              rotateTitle = TRUE)
 ```
+
 #### 5.5.4 Parallel coordinates plot with histogram
+
 `histoVisibility` argument is used to plot histogram along the axis of each variables.
 
 ```{r}
@@ -170,7 +183,6 @@ parallelPlot(wh,
              rotateTitle = TRUE,
              histoVisibility = histoVisibility)
 ```
-
 
 ### 5.6 References
 
@@ -188,47 +200,101 @@ parallelPlot(wh,
 -   Static Plots: Created using ggparcoord() from GGally, allowing customization with grouping, scaling, and faceting.
 -   Improving Readability: Rotate x-axis labels (theme()), adjust label positioning (hjust).
 -   Interactive Plots: parallelPlot() enables dynamic visualization with adjustable colors, rotated labels, and histograms.
-::: 
-
+:::
 
 ### 5.8 Further exploration
 
+1.  To explore key variables that affect happiness score
+
+-   To determine the optimal number of clusters for segmenting the dataset, I use the Elbow Method, which evaluates the within-cluster sum of squares (WSS) for different values of k (from 1 to 10).
+
+-   The WSS measures the compactness of clusters, with lower values indicating better-defined clusters. By plotting WSS against the number of clusters, I identify the "elbow point"—the value of k where additional clusters no longer significantly improve the clustering quality.
+
+```{r}
+head(wh)
+```
+
+```{r}
+library(ggplot2)
+
+# Run k-means for different values of k (1 to 10)
+wss <- sapply(1:10, function(k) {
+  kmeans(wh %>% select(1, 2, 4, 5, 6, 7), centers = k, nstart = 10)$tot.withinss
+})
+
+# Plot the Elbow Method graph
+qplot(1:10, wss, geom = "line") +
+  geom_point() +
+  labs(title = "Elbow Method for Optimal k", x = "Number of Clusters", y = "WSS") +
+  theme_minimal()
+
+```
+
+-   Based on the Elbow Method, I determine that the optimal number of clusters is k = 3. I then apply k-means clustering to the dataset, selecting key numerical variables such as Happiness Score, GDP per Capita, Social Support, Healthy Life Expectancy, Freedom, and Perceptions of Corruption.
+
+-   The k-means algorithm assigns each country to one of the three clusters, grouping similar countries based on these features.
+
+```{r}
+optimal_k <- 3  
+
+wh_cluster <- wh %>%
+  select(1, 2, 4, 5, 6, 7) %>%
+  kmeans(centers = optimal_k, nstart = 10)
+
+wh$Cluster <- as.factor(wh_cluster$cluster)
+
+```
+
+-   To better understand the clustering results, I use a Parallel Coordinates Plot, a multivariate visualization technique that represents each country as a line spanning multiple axes, corresponding to the selected variables.
+
+-   This visualization provides insights into how different groups of countries compare in terms of happiness-related indicators, highlighting key differences between the clusters.
+
+```{r}
+ggparcoord(wh, 
+           columns = c(1, 2, 4, 5, 6, 7),  
+           groupColumn = "Cluster",  
+           scale = "uniminmax",  
+           alphaLines = 0.3,  
+           title = paste("Parallel Coordinates Plot with k =", optimal_k, "Clusters")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 
 
+```
 
+**Key observations:**
 
+Cluster Differentiation:
 
+-   **Cluster 3 (Blue)**: Represents Middle-Income Countries
 
+    -   This cluster falls between the two extremes, with moderate happiness scores and GDP per capita.
 
+    <!-- -->
 
+    -   More variation in freedom to make life choices and generosity, suggesting diverse political and social environments.
 
+    -   Likely includes emerging economies or nations in transition.
 
+    -   Example: Egypt, Cambodia, Laos
 
+-   **Cluster 2 (Green)**: Cluster 2 (Green) Represents Wealthier and Happier Countries
 
+    -   This cluster consistently scores high on GDP per capita, happiness score, life expectancy, and freedom to make life choices.
 
+    -   These countries also have lower perceptions of corruption, indicating a strong governance system.
 
+    -   Likely includes developed nations with strong economies and social support systems.
 
+    -   Example: Denmark, Finland, and Norway
 
+-   **Cluster 1 (Red)**: Represents Lower-Income Countries
 
+    -   Countries in this cluster have lower GDP per capita, happiness scores, and life expectancy.
 
+    <!-- -->
 
+    -   Higher perceptions of corruption suggest governance and institutional challenges.
 
+    -   These may be developing nations with weaker economies.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    -   Example: Tanzania, South Sudan, Central African Republic
