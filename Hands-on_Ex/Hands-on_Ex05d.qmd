@@ -29,11 +29,11 @@ For this exercise, the below R packages will be used:
 
 -   GGally: An extension of ggplot2 that simplifies multivariate data visualization, including parallel coordinates plots.
 
--    [**parcoords**](https://www.rdocumentation.org/packages/MASS/versions/7.3-64/topics/parcoord):A package for creating interactive parallel coordinates plots using htmlwidgets in R.
+-   [**parcoords**](https://www.rdocumentation.org/packages/MASS/versions/7.3-64/topics/parcoord):A package for creating interactive parallel coordinates plots using htmlwidgets in R.
 
--    [**parallelPlot**](https://www.rdocumentation.org/packages/parallelPlot/versions/0.4.0):A tool for generating interactive parallel coordinates plots with enhanced visualization capabilities.
+-   [**parallelPlot**](https://www.rdocumentation.org/packages/parallelPlot/versions/0.4.0):A tool for generating interactive parallel coordinates plots with enhanced visualization capabilities.
 
--    [**tidyverse**](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0):A collection of R packages designed for data manipulation, visualization, and analysis following a consistent syntax.
+-   [**tidyverse**](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0):A collection of R packages designed for data manipulation, visualization, and analysis following a consistent syntax.
 
 ```{r}
 pacman::p_load(GGally, parallelPlot, tidyverse)
@@ -265,11 +265,9 @@ ggparcoord(wh,
 
 Cluster Differentiation:
 
--   **Cluster 3 (Blue)**: Represents Middle-Income Countries
+-   **Cluster 3 (Blue)**: Represents middle-income countries
 
     -   This cluster falls between the two extremes, with moderate happiness scores and GDP per capita.
-
-    <!-- -->
 
     -   More variation in freedom to make life choices and generosity, suggesting diverse political and social environments.
 
@@ -277,7 +275,7 @@ Cluster Differentiation:
 
     -   Example: Egypt, Cambodia, Laos
 
--   **Cluster 2 (Green)**: Cluster 2 (Green) Represents Wealthier and Happier Countries
+-   **Cluster 2 (Green)**: Represents wealthier and happier countries
 
     -   This cluster consistently scores high on GDP per capita, happiness score, life expectancy, and freedom to make life choices.
 
@@ -287,14 +285,9 @@ Cluster Differentiation:
 
     -   Example: Denmark, Finland, and Norway
 
--   **Cluster 1 (Red)**: Represents Lower-Income Countries
+-   **Cluster 1 (Red)**: Represents lower-income countries
 
     -   Countries in this cluster have lower GDP per capita, happiness scores, and life expectancy.
-
-    <!-- -->
-
     -   Higher perceptions of corruption suggest governance and institutional challenges.
-
     -   These may be developing nations with weaker economies.
-
     -   Example: Tanzania, South Sudan, Central African Republic

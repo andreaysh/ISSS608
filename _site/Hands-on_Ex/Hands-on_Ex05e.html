@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Andrea Yeo">
 
-<title>Hands-on_Ex05e – ISSS608 Coursework</title>
+<title>Hands-on Exercise 05e – ISSS608 Coursework</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,7 +101,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
 
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="../site_libs/d3-3.5.5/d3.min.js"></script>
+
+<link href="../site_libs/d3tree-0.1/d3tree.css" rel="stylesheet">
+
+<script src="../site_libs/d3tree-binding-0.1/d3tree.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -214,6 +254,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="https://public.tableau.com/views/In-class_Ex03_Animation/Dashboard6?:language=en-US&amp;:sid=&amp;:redirect=auth&amp;:display_count=n&amp;:origin=viz_share_link">
  <span class="dropdown-text">In-class Exercise 03-Animation</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../In-class_Ex/In-class_Ex04.html">
+ <span class="dropdown-text">In-class Exercise 04</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -248,7 +292,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#treemap-visualisation-with-r" id="toc-treemap-visualisation-with-r" class="nav-link active" data-scroll-target="#treemap-visualisation-with-r">5. Treemap Visualisation with R</a>
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">5.1 Overview</a></li>
+  <li><a href="#installing-and-launching-r-packages" id="toc-installing-and-launching-r-packages" class="nav-link" data-scroll-target="#installing-and-launching-r-packages">5.2 Installing and Launching R Packages</a></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">5.3 Data Wrangling</a>
+  <ul>
+  <li><a href="#importing-the-data-set" id="toc-importing-the-data-set" class="nav-link" data-scroll-target="#importing-the-data-set">5.3.1 Importing the data set</a></li>
+  <li><a href="#data-wrangling-and-manipulation" id="toc-data-wrangling-and-manipulation" class="nav-link" data-scroll-target="#data-wrangling-and-manipulation">5.3.2 Data Wrangling and Manipulation</a></li>
+  <li><a href="#grouped-summaries-without-the-pipe" id="toc-grouped-summaries-without-the-pipe" class="nav-link" data-scroll-target="#grouped-summaries-without-the-pipe">5.3.3 Grouped summaries without the Pipe</a></li>
+  <li><a href="#grouped-summaries-with-the-pipe" id="toc-grouped-summaries-with-the-pipe" class="nav-link" data-scroll-target="#grouped-summaries-with-the-pipe">5.3.4 Grouped summaries with the Pipe</a></li>
+  </ul></li>
+  <li><a href="#designing-treemap-with-treemap-package" id="toc-designing-treemap-with-treemap-package" class="nav-link" data-scroll-target="#designing-treemap-with-treemap-package">5.4 Designing Treemap with treemap Package</a>
+  <ul>
+  <li><a href="#designing-a-static-treemap" id="toc-designing-a-static-treemap" class="nav-link" data-scroll-target="#designing-a-static-treemap">5.4.1 Designing a static treemap</a></li>
+  <li><a href="#using-the-basic-arguments" id="toc-using-the-basic-arguments" class="nav-link" data-scroll-target="#using-the-basic-arguments">5.4.2 Using the basic arguments</a></li>
+  <li><a href="#working-with-vcolor-and-type-arguments" id="toc-working-with-vcolor-and-type-arguments" class="nav-link" data-scroll-target="#working-with-vcolor-and-type-arguments">5.4.3 Working with vColor and type arguments</a></li>
+  <li><a href="#colours-in-treemap-package" id="toc-colours-in-treemap-package" class="nav-link" data-scroll-target="#colours-in-treemap-package">5.4.4 Colours in treemap package</a></li>
+  <li><a href="#the-value-type-treemap" id="toc-the-value-type-treemap" class="nav-link" data-scroll-target="#the-value-type-treemap">5.4.5 The “value” type treemap</a></li>
+  <li><a href="#the-manual-type-treemap" id="toc-the-manual-type-treemap" class="nav-link" data-scroll-target="#the-manual-type-treemap">5.4.6 The “manual” type treemap</a></li>
+  <li><a href="#treemap-layout" id="toc-treemap-layout" class="nav-link" data-scroll-target="#treemap-layout">5.4.7 Treemap Layout</a></li>
+  <li><a href="#working-with-alogorithm-argument" id="toc-working-with-alogorithm-argument" class="nav-link" data-scroll-target="#working-with-alogorithm-argument">5.4.8 Working with alogorithm argument</a></li>
+  <li><a href="#using-sortid" id="toc-using-sortid" class="nav-link" data-scroll-target="#using-sortid">5.4.9 Using <em>sortID</em></a></li>
+  </ul></li>
+  <li><a href="#designing-treemap-using-treemapify-package" id="toc-designing-treemap-using-treemapify-package" class="nav-link" data-scroll-target="#designing-treemap-using-treemapify-package">5.5 Designing Treemap using treemapify Package</a>
+  <ul>
+  <li><a href="#designing-a-basic-treemap" id="toc-designing-a-basic-treemap" class="nav-link" data-scroll-target="#designing-a-basic-treemap">5.5.1 Designing a basic treemap</a></li>
+  <li><a href="#defining-hierarchy" id="toc-defining-hierarchy" class="nav-link" data-scroll-target="#defining-hierarchy">5.5.2 Defining hierarchy</a></li>
+  </ul></li>
+  <li><a href="#designing-interactive-treemap-using-d3treer" id="toc-designing-interactive-treemap-using-d3treer" class="nav-link" data-scroll-target="#designing-interactive-treemap-using-d3treer">5.6 Designing Interactive Treemap using d3treeR</a>
+  <ul>
+  <li><a href="#installing-d3treer-package" id="toc-installing-d3treer-package" class="nav-link" data-scroll-target="#installing-d3treer-package">5.6.1 Installing <em>d3treeR</em> package</a></li>
+  <li><a href="#designing-an-interactive-treemap" id="toc-designing-an-interactive-treemap" class="nav-link" data-scroll-target="#designing-an-interactive-treemap">5.6.2 Designing An Interactive Treemap</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">5.7 References</a></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">5.8 Takeaway</a></li>
+  <li><a href="#further-exploration" id="toc-further-exploration" class="nav-link" data-scroll-target="#further-exploration">5.9 Further exploration</a></li>
+  </ul></li>
+  </ul>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -259,15 +345,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Hands-on_Ex05e</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Hands-on Exercise 05e</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Andrea Yeo </p>
+          </div>
+  </div>
     
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">February 13, 2025</p>
+    </div>
+  </div>
     
   </div>
   
@@ -276,10 +374,794 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><span style="font-size: 14px;">With the assistance of ChatGPT</span></p>
+<section id="treemap-visualisation-with-r" class="level2">
+<h2 class="anchored" data-anchor-id="treemap-visualisation-with-r">5. Treemap Visualisation with R</h2>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">5.1 Overview</h3>
+<p>In this hands-on exercise, we will learn how to design treemaps using R. We will first manipulate transaction data into a treemap structure with <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.5.0"><strong>dplyr</strong></a>, then create a static treemap using <a href="https://www.rdocumentation.org/packages/treemap/versions/2.4-4/topics/treemap"><strong>treemap package</strong></a>, and finally design an interactive version with <a href="https://www.rdocumentation.org/packages/d3treeR/versions/0.1/topics/d3tree"><strong>d3treeR</strong></a>.</p>
+</section>
+<section id="installing-and-launching-r-packages" class="level3">
+<h3 class="anchored" data-anchor-id="installing-and-launching-r-packages">5.2 Installing and Launching R Packages</h3>
+<p>For this exercise, the below R packages will be used: - - <a href="https://www.rdocumentation.org/packages/treemap/versions/2.4-4/topics/treemap"><strong>treemap</strong></a>: Creates hierarchical treemaps to visualize data distributions using nested rectangles. - <a href="https://www.rdocumentation.org/packages/treemapify/versions/0.2.1"><strong>treemapify</strong></a>:Provides <code>ggplot2</code> support for creating treemaps, allowing seamless integration with other visualizations. - <a href="https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0"><strong>tidyverse</strong></a>: A collection of R packages designed for data science, including <code>ggplot2</code>, <code>dplyr</code>, and <code>tidyr</code> for data manipulation and visualization.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(treemap, treemapify, tidyverse) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="data-wrangling" class="level3">
+<h3 class="anchored" data-anchor-id="data-wrangling">5.3 Data Wrangling</h3>
+<p>In this exercise, we will use the <em>REALIS2018.csv</em> dataset, which contains private property transaction records from 2018. The data is sourced from the REALIS portal of Singapore’s Urban Redevelopment Authority (URA) and provides insights into real estate transactions.</p>
+<section id="importing-the-data-set" class="level4">
+<h4 class="anchored" data-anchor-id="importing-the-data-set">5.3.1 Importing the data set</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>realis2018 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/realis2018.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>We will check the dataset using below</p>
+<ul>
+<li><code>glimpse()</code>: provides a transposed overview of a dataset, showing variables and their types in a concise format.</li>
+<li><code>head()</code>: displays the first few rows of a dataset (default is 6 rows) to give a quick preview of the data.</li>
+<li><code>summary()</code>: generates a statistical summary of each variable, including measures like mean, median, and range for numeric data.</li>
+<li><code>duplicated()</code>:returns a logical vector indicating which elements or rows in a vector or data frame are duplicates.</li>
+<li><code>Sum(is.na())</code>: counts the number of missing values (NA) in each column of the data frame.</li>
+<li><code>spec()</code>: use <code>spec()</code> to quickly inspect the column</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">glimpse()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">head()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">summary()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">duplicated()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">sum(is.na())</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false">spec()</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(realis2018)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 23,205
+Columns: 20
+$ `Project Name`                &lt;chr&gt; "ADANA @ THOMSON", "ALANA", "ALANA", "AL…
+$ Address                       &lt;chr&gt; "8 Old Upper Thomson Road  #05-03", "156…
+$ `No. of Units`                &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ `Area (sqm)`                  &lt;dbl&gt; 52, 284, 256, 256, 277, 285, 234, 155, 1…
+$ `Type of Area`                &lt;chr&gt; "Strata", "Strata", "Strata", "Strata", …
+$ `Transacted Price ($)`        &lt;dbl&gt; 888888, 2530000, 2390863, 2450000, 19800…
+$ `Nett Price($)`               &lt;chr&gt; "-", "-", "2382517", "2441654", "-", "-"…
+$ `Unit Price ($ psm)`          &lt;dbl&gt; 17094, 8908, 9307, 9538, 7148, 6947, 147…
+$ `Unit Price ($ psf)`          &lt;dbl&gt; 1588, 828, 865, 886, 664, 645, 1371, 149…
+$ `Sale Date`                   &lt;chr&gt; "4-Jul-18", "5-Oct-18", "9-Jun-18", "14-…
+$ `Property Type`               &lt;chr&gt; "Apartment", "Terrace House", "Terrace H…
+$ Tenure                        &lt;chr&gt; "Freehold", "103 Yrs From 12/08/2013", "…
+$ `Completion Date`             &lt;chr&gt; "2018", "2018", "2018", "2018", "2008", …
+$ `Type of Sale`                &lt;chr&gt; "New Sale", "Sub Sale", "New Sale", "New…
+$ `Purchaser Address Indicator` &lt;chr&gt; "Private", "Private", "HDB", "N.A", "Pri…
+$ `Postal District`             &lt;dbl&gt; 20, 28, 28, 28, 26, 26, 26, 26, 26, 26, …
+$ `Postal Sector`               &lt;dbl&gt; 57, 80, 80, 80, 78, 78, 78, 78, 78, 78, …
+$ `Postal Code`                 &lt;dbl&gt; 573868, 804555, 804529, 804540, 786300, …
+$ `Planning Region`             &lt;chr&gt; "North East Region", "North East Region"…
+$ `Planning Area`               &lt;chr&gt; "Ang Mo Kio", "Ang Mo Kio", "Ang Mo Kio"…</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(realis2018)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 20
+  `Project Name`  Address             `No. of Units` `Area (sqm)` `Type of Area`
+  &lt;chr&gt;           &lt;chr&gt;                        &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;         
+1 ADANA @ THOMSON 8 Old Upper Thomso…              1           52 Strata        
+2 ALANA           156 Sunrise Terrace              1          284 Strata        
+3 ALANA           104 Sunrise Terrace              1          256 Strata        
+4 ALANA           126 Sunrise Terrace              1          256 Strata        
+5 ATELIER VILLAS  43 Yio Chu Kang Dr…              1          277 Strata        
+6 ATELIER VILLAS  11 Yio Chu Kang Dr…              1          285 Strata        
+# ℹ 15 more variables: `Transacted Price ($)` &lt;dbl&gt;, `Nett Price($)` &lt;chr&gt;,
+#   `Unit Price ($ psm)` &lt;dbl&gt;, `Unit Price ($ psf)` &lt;dbl&gt;, `Sale Date` &lt;chr&gt;,
+#   `Property Type` &lt;chr&gt;, Tenure &lt;chr&gt;, `Completion Date` &lt;chr&gt;,
+#   `Type of Sale` &lt;chr&gt;, `Purchaser Address Indicator` &lt;chr&gt;,
+#   `Postal District` &lt;dbl&gt;, `Postal Sector` &lt;dbl&gt;, `Postal Code` &lt;dbl&gt;,
+#   `Planning Region` &lt;chr&gt;, `Planning Area` &lt;chr&gt;</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(realis2018)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> Project Name         Address           No. of Units   Area (sqm)    
+ Length:23205       Length:23205       Min.   :1     Min.   :  24.0  
+ Class :character   Class :character   1st Qu.:1     1st Qu.:  67.0  
+ Mode  :character   Mode  :character   Median :1     Median :  98.0  
+                                       Mean   :1     Mean   : 118.2  
+                                       3rd Qu.:1     3rd Qu.: 127.0  
+                                       Max.   :1     Max.   :4836.0  
+ Type of Area       Transacted Price ($) Nett Price($)      Unit Price ($ psm)
+ Length:23205       Min.   :    40000    Length:23205       Min.   :  355     
+ Class :character   1st Qu.:   950000    Class :character   1st Qu.:11231     
+ Mode  :character   Median :  1280000    Mode  :character   Median :14621     
+                    Mean   :  1734099                       Mean   :15246     
+                    3rd Qu.:  1858000                       3rd Qu.:18075     
+                    Max.   :100000000                       Max.   :54363     
+ Unit Price ($ psf)  Sale Date         Property Type         Tenure         
+ Min.   :  33       Length:23205       Length:23205       Length:23205      
+ 1st Qu.:1043       Class :character   Class :character   Class :character  
+ Median :1358       Mode  :character   Mode  :character   Mode  :character  
+ Mean   :1416                                                               
+ 3rd Qu.:1679                                                               
+ Max.   :5050                                                               
+ Completion Date    Type of Sale       Purchaser Address Indicator
+ Length:23205       Length:23205       Length:23205               
+ Class :character   Class :character   Class :character           
+ Mode  :character   Mode  :character   Mode  :character           
+                                                                  
+                                                                  
+                                                                  
+ Postal District Postal Sector    Postal Code     Planning Region   
+ Min.   : 1.00   Min.   : 1.00   Min.   : 18965   Length:23205      
+ 1st Qu.:10.00   1st Qu.:26.00   1st Qu.:267952   Class :character  
+ Median :15.00   Median :45.00   Median :456068   Mode  :character  
+ Mean   :14.96   Mean   :42.66   Mean   :434269                     
+ 3rd Qu.:19.00   3rd Qu.:54.00   3rd Qu.:548461                     
+ Max.   :28.00   Max.   :82.00   Max.   :829750                     
+ Planning Area     
+ Length:23205      
+ Class :character  
+ Mode  :character  
+                   
+                   
+                   </code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>realis2018[<span class="fu">duplicated</span>(realis2018),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 20
+# ℹ 20 variables: Project Name &lt;chr&gt;, Address &lt;chr&gt;, No. of Units &lt;dbl&gt;,
+#   Area (sqm) &lt;dbl&gt;, Type of Area &lt;chr&gt;, Transacted Price ($) &lt;dbl&gt;,
+#   Nett Price($) &lt;chr&gt;, Unit Price ($ psm) &lt;dbl&gt;, Unit Price ($ psf) &lt;dbl&gt;,
+#   Sale Date &lt;chr&gt;, Property Type &lt;chr&gt;, Tenure &lt;chr&gt;, Completion Date &lt;chr&gt;,
+#   Type of Sale &lt;chr&gt;, Purchaser Address Indicator &lt;chr&gt;,
+#   Postal District &lt;dbl&gt;, Postal Sector &lt;dbl&gt;, Postal Code &lt;dbl&gt;,
+#   Planning Region &lt;chr&gt;, Planning Area &lt;chr&gt;</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(realis2018))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span>(realis2018)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>cols(
+  `Project Name` = col_character(),
+  Address = col_character(),
+  `No. of Units` = col_double(),
+  `Area (sqm)` = col_double(),
+  `Type of Area` = col_character(),
+  `Transacted Price ($)` = col_double(),
+  `Nett Price($)` = col_character(),
+  `Unit Price ($ psm)` = col_double(),
+  `Unit Price ($ psf)` = col_double(),
+  `Sale Date` = col_character(),
+  `Property Type` = col_character(),
+  Tenure = col_character(),
+  `Completion Date` = col_character(),
+  `Type of Sale` = col_character(),
+  `Purchaser Address Indicator` = col_character(),
+  `Postal District` = col_double(),
+  `Postal Sector` = col_double(),
+  `Postal Code` = col_double(),
+  `Planning Region` = col_character(),
+  `Planning Area` = col_character()
+)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The realis2018 tibble contains 12 attributes, as shown above:</p>
+<ul>
+<li><p><strong>Categorical attributes:</strong> Project Name Address Type of Area Sale Date Property Type Tenure Type of Sale Purchaser Address Indicator Planning Region Planning Area</p></li>
+<li><p><strong>Continuous attributes:</strong> No.&nbsp;of Units Area (sqm) Transacted Price (<span class="math inline">\()    Nett Price(\)</span>) Unit Price ($ psm) Unit Price ($ psf) Completion Date Postal District Postal Sector Postal Code</p></li>
+</ul>
+</section>
+<section id="data-wrangling-and-manipulation" class="level4">
+<h4 class="anchored" data-anchor-id="data-wrangling-and-manipulation">5.3.2 Data Wrangling and Manipulation</h4>
+<p>The <strong>REALIS2018</strong> dataset contains highly disaggregated transaction records, making it unsuitable for direct treemap visualization.</p>
+<p>To prepare the data, we will use <code>dplyr</code> functions to group transactions by key attributes such as <strong>Project Name, Planning Region, Planning Area, Property Type, and Type of Sale.</strong></p>
+<p>We will then apply summary statistics using <code>summarise()</code> to compute <strong>Total Units Sold, Total Area, Median Unit Price, and Median Transacted Price.</strong></p>
+<p>The <code>group_by()</code> function will structure the data for aggregation, ensuring that <code>summarise()</code> calculates relevant statistics for each group, creating a summarized dataset suitable for treemap visualization.</p>
+</section>
+<section id="grouped-summaries-without-the-pipe" class="level4">
+<h4 class="anchored" data-anchor-id="grouped-summaries-without-the-pipe">5.3.3 Grouped summaries without the Pipe</h4>
+<p>The code below shows a typical two lines code approach to perform the steps.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>realis2018_grouped <span class="ot">&lt;-</span> <span class="fu">group_by</span>(realis2018, <span class="st">`</span><span class="at">Project Name</span><span class="st">`</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                               <span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>, <span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>, </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                               <span class="st">`</span><span class="at">Property Type</span><span class="st">`</span>, <span class="st">`</span><span class="at">Type of Sale</span><span class="st">`</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>realis2018_summarised <span class="ot">&lt;-</span> <span class="fu">summarise</span>(realis2018_grouped, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">No. of Units</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">`</span><span class="at">Total Area</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Area (sqm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                          <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Unit Price ($ psm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                          <span class="st">`</span><span class="at">Median Transacted Price</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Transacted Price ($)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Aggregation functions like<code>sum()</code> and <code>median()</code> in R follow the standard rule for missing values: if any input contains NA, the result will also be NA.</p></li>
+<li><p>To handle this, the argument <code>na.rm = TRUE</code> can be used to remove missing values before computation, ensuring accurate summary statistics.</p></li>
+<li><p>This is particularly useful when calculating total units sold, total area, median unit price, and median transacted price in the <strong>REALIS2018</strong> dataset, preventing missing values from affecting the results.</p></li>
+</ul>
+</div>
+</div>
+<p>The code chunk above is not very efficient because we have to give each intermediate data.frame a name, even though we don’t have to care about it.</p>
+</section>
+<section id="grouped-summaries-with-the-pipe" class="level4">
+<h4 class="anchored" data-anchor-id="grouped-summaries-with-the-pipe">5.3.4 Grouped summaries with the Pipe</h4>
+<p>The code chunk below shows a more efficient way to tackle the same processes by using the pipe, <code>%&gt;%</code>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>realis2018_summarised <span class="ot">&lt;-</span> realis2018 <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Project Name</span><span class="st">`</span>,<span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>, <span class="st">`</span><span class="at">Property Type</span><span class="st">`</span>, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">Type of Sale</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">No. of Units</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Total Area</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Area (sqm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Unit Price ($ psm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Median Transacted Price</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Transacted Price ($)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="designing-treemap-with-treemap-package" class="level3">
+<h3 class="anchored" data-anchor-id="designing-treemap-with-treemap-package">5.4 Designing Treemap with treemap Package</h3>
+<p>The <a href="https://www.rdocumentation.org/packages/treemap/versions/2.4-4/topics/treemap">treemap package</a> in R provides a highly flexible <code>treemap()</code> function with over <strong>43 arguments</strong> for customization. This section focuses on key parameters to create <strong>elegant and accurate treemaps</strong>, allowing effective visualization of hierarchical data while maintaining clarity and truthfulness.</p>
+<section id="designing-a-static-treemap" class="level4">
+<h4 class="anchored" data-anchor-id="designing-a-static-treemap">5.4.1 Designing a static treemap</h4>
+<p>In this section, treemap() from the treemap package is used to visualize the distribution of median unit prices and total units sold for resale condominiums by geographic hierarchy in 2017.</p>
+<p>First, records for resale condominiums are filtered from the <code>realis2018_selected</code> dataset to ensure relevant data for visualization.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>realis2018_selected <span class="ot">&lt;-</span> realis2018_summarised <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Property Type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Condominium"</span>, <span class="st">`</span><span class="at">Type of Sale</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Resale"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="using-the-basic-arguments" class="level4">
+<h4 class="anchored" data-anchor-id="using-the-basic-arguments">5.4.2 Using the basic arguments</h4>
+<p>The code below creates a treemap using three key arguments of treemap():</p>
+<ul>
+<li>index: Defines hierarchical grouping.</li>
+<li>vSize: Specifies the variable determining the rectangle size.</li>
+<li>vColor: Assigns colors based on a chosen variable.</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Key takeaways from the three core treemap() arguments:</p>
+<ul>
+<li><p><code>index</code>: Requires at least two column names for hierarchical treemaps. The first column represents the highest level of aggregation, followed by lower levels.</p></li>
+<li><p><code>vSize</code>: Maps rectangle sizes based on a numeric variable, which must contain only non-negative values.</p></li>
+<li><p><code>vColor</code>: Works with the <code>type</code> argument to determine rectangle colors. If <code>type</code> is not defined, <code>treemap()</code> defaults to using <code>index</code>, which may result in incorrect coloring. Properly setting <code>type</code> ensures colors reflect median unit prices in this case.</p></li>
+</ul>
+</section>
+<section id="working-with-vcolor-and-type-arguments" class="level4">
+<h4 class="anchored" data-anchor-id="working-with-vcolor-and-type-arguments">5.4.3 Working with vColor and type arguments</h4>
+<p>In the code below, <code>type</code> argument is define as value.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">"value"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Key insights from the code:</p>
+<ul>
+<li>The rectangles are <strong>shaded in varying intensities of green</strong>, representing differences in <strong>median unit prices</strong>.</li>
+<li>The legend indicates that values are <strong>binned into ten equal intervals (e.g., 0–5000, 5000–10000, etc.)</strong> with a fixed interval of <strong>5000</strong>, ensuring clear data interpretation.</li>
+</ul>
+</section>
+<section id="colours-in-treemap-package" class="level4">
+<h4 class="anchored" data-anchor-id="colours-in-treemap-package">5.4.4 Colours in treemap package</h4>
+<p>Two arguments control color mapping in treemap():</p>
+<ul>
+<li><code>mapping</code>: Defines how values are mapped to colors.</li>
+<li><code>palette</code>: Specifies the color scheme.</li>
+</ul>
+<p>Differences:</p>
+<ul>
+<li><p><strong>“value” mapping</strong>: Uses a diverging color palette (e.g., “RdYlBu”), centering 0 at the middle color and mapping extreme values symmetrically.</p></li>
+<li><p><strong>“manual” mapping</strong>: Maps min(values) to the left-end color, max(values) to the right-end color, and the midpoint to the middle color.</p></li>
+</ul>
+</section>
+<section id="the-value-type-treemap" class="level4">
+<h4 class="anchored" data-anchor-id="the-value-type-treemap">5.4.5 The “value” type treemap</h4>
+<p>The code below shows a value type treemap.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"value"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">"RdYlBu"</span>, </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Key takeaways from the code:</p>
+<ul>
+<li><p>Despite using the “RdYlBu” color palette, no red rectangles appear because all median unit prices are positive.</p></li>
+<li><p>The legend displays values from 5000 to 45000 due to the default range = c(min(values), max(values)), which applies automatic rounding for better readability.</p></li>
+</ul>
+</section>
+<section id="the-manual-type-treemap" class="level4">
+<h4 class="anchored" data-anchor-id="the-manual-type-treemap">5.4.6 The “manual” type treemap</h4>
+<p>The “manual” type maps the value range linearly to the color palette, unlike the “value” type, which directly interprets values.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"manual"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">"RdYlBu"</span>, </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Key takeaways from the code:</p>
+<ul>
+<li><strong>Confusing Color Scheme</strong>: The chosen color mapping makes interpretation difficult.</li>
+<li><strong>Mapping Issue</strong>: The mapping formula <code>(min(values), mean(range(values))</code>, <code>max(values))</code> may not suit all datasets.</li>
+<li><strong>Diverging Palette Misuse</strong>: Avoid diverging palettes (e.g., RdYlBu) when all values are strictly positive or negative.</li>
+</ul>
+<p>To overcome this problem, a single colour palette such as <strong>Blues</strong> should be used.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"manual"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">"Blues"</span>, </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="treemap-layout" class="level4">
+<h4 class="anchored" data-anchor-id="treemap-layout">5.4.7 Treemap Layout</h4>
+<ul>
+<li><strong>Treemap Layouts</strong>: Supports “squarified” and “pivotSize” (default: “pivotSize”).</li>
+<li><strong>Squarified (Bruls et al., 2000)</strong>: Optimizes aspect ratios but ignores sorting order (sortID).</li>
+<li><strong>Pivot-by-Size (Bederson et al., 2002)</strong>: Maintains sorting order while keeping acceptable aspect ratios.</li>
+</ul>
+</section>
+<section id="working-with-alogorithm-argument" class="level4">
+<h4 class="anchored" data-anchor-id="working-with-alogorithm-argument">5.4.8 Working with alogorithm argument</h4>
+<p>The code below plots a <strong>squarified treemap</strong> by changing the <em>algorithm</em> argument.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"manual"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">"Blues"</span>, </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">algorithm =</span> <span class="st">"squarified"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="using-sortid" class="level4">
+<h4 class="anchored" data-anchor-id="using-sortid">5.4.9 Using <em>sortID</em></h4>
+<p>With the <strong>“pivotSize”</strong> algorithm, the <em>sortID</em> argument controls the placement order of rectangles from top left to bottom right.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"manual"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">"Blues"</span>, </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">algorithm =</span> <span class="st">"pivotSize"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">sortID =</span> <span class="st">"Median Transacted Price"</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="designing-treemap-using-treemapify-package" class="level3">
+<h3 class="anchored" data-anchor-id="designing-treemap-using-treemapify-package">5.5 Designing Treemap using treemapify Package</h3>
+<p>The <a href="https://www.rdocumentation.org/packages/treemapify/versions/0.2.1">treemapify</a> package in R is designed for creating treemaps in <strong>ggplot2</strong>.</p>
+<p>References: (1) <a href="https://cran.r-project.org/web/packages/treemapify/vignettes/introduction-to-treemapify.html">Introduction to treemapify</a>, &amp; (2) <a href="https://cran.r-project.org/web/packages/treemapify/treemapify.pdf">user guide</a></p>
+<section id="designing-a-basic-treemap" class="level4">
+<h4 class="anchored" data-anchor-id="designing-a-basic-treemap">5.5.1 Designing a basic treemap</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>realis2018_selected, </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">area =</span> <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">layout =</span> <span class="st">"scol"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">start =</span> <span class="st">"bottomleft"</span>) <span class="sc">+</span> </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap</span>() <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"light blue"</span>, <span class="at">high =</span> <span class="st">"pink"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="defining-hierarchy" class="level4">
+<h4 class="anchored" data-anchor-id="defining-hierarchy">5.5.2 Defining hierarchy</h4>
+<ul>
+<li>Group by Planning Region</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>realis2018_selected, </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">area =</span> <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">subgroup =</span> <span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">start =</span> <span class="st">"topleft"</span>) <span class="sc">+</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Group by Planning Area</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>realis2018_selected, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">area =</span> <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">subgroup =</span> <span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">subgroup2 =</span> <span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Adding boundary line</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>realis2018_selected, </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">area =</span> <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span>,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">subgroup =</span> <span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">subgroup2 =</span> <span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap</span>() <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap_subgroup2_border</span>(<span class="at">colour =</span> <span class="st">"lightgreen"</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>                                <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap_subgroup_border</span>(<span class="at">colour =</span> <span class="st">"green"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="designing-interactive-treemap-using-d3treer" class="level3">
+<h3 class="anchored" data-anchor-id="designing-interactive-treemap-using-d3treer">5.6 Designing Interactive Treemap using d3treeR</h3>
+<section id="installing-d3treer-package" class="level4">
+<h4 class="anchored" data-anchor-id="installing-d3treer-package">5.6.1 Installing <em>d3treeR</em> package</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install_github("timelyportfolio/d3treeR")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(d3treeR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="designing-an-interactive-treemap" class="level4">
+<h4 class="anchored" data-anchor-id="designing-an-interactive-treemap">5.6.2 Designing An Interactive Treemap</h4>
+<p>The code below perform two steps:</p>
+<ol type="1">
+<li>Uses <code>treemap()</code> to create a treemap from selected variables in the condominium data frame and saves it as an object named <strong>tm</strong>.</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tm <span class="ot">&lt;-</span> <span class="fu">treemap</span>(realis2018_summarised,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>),</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"value"</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Private Residential Property Sold, 2017"</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><em>d3tree()</em> is then used to build an interactive treemap.</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">d3tree</span>(tm,<span class="at">rootname =</span> <span class="st">"Singapore"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="d3tree html-widget html-fill-item" id="htmlwidget-a346ce968efacf749ea7" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-a346ce968efacf749ea7">{"x":{"data":{"name":"Singapore","id":1,"size":null,"children":[{"name":"Central Region","color":"#006837","h":1,"id":2,"size":10825,"stdErr":10825,"vColor":20978846.5,"vColorValue":20978846.5,"vSize":10825,"w":0.4664942900237018,"x0":0,"y0":0,"children":[{"name":"Bishan","color":"#D9EF8B","h":0.2165611047442029,"id":3,"size":698,"stdErr":698,"vColor":749211.5,"vColorValue":749211.5,"vSize":698,"w":0.1388971682283426,"x0":0.3275971217953593,"y0":0.3973880869417094},{"name":"Bukit Merah","color":"#DCF090","h":0.2165611047442029,"id":4,"size":708,"stdErr":708,"vColor":689448,"vColorValue":689448,"vSize":708,"w":0.1408870990052529,"x0":0.1867100227901064,"y0":0.3973880869417094},{"name":"Bukit Timah","color":"#219B51","h":0.2702761291218809,"id":5,"size":1171,"stdErr":1171,"vColor":2823552.5,"vColorValue":2823552.5,"vSize":1171,"w":0.1867100227901064,"x0":0,"y0":0.3436730625640314},{"name":"Downtown Core","color":"#E0F295","h":0.225794694775928,"id":6,"size":439,"stdErr":439,"vColor":570894,"vColorValue":570894,"vSize":439,"w":0.08378556716830476,"x0":0.3035036878329677,"y0":0.1715933921657813},{"name":"Geylang","color":"#66BD63","h":0.3860508083140878,"id":7,"size":1489,"stdErr":1489,"vColor":2140814.5,"vColorValue":2140814.5,"vSize":1489,"w":0.1662144048445302,"x0":0,"y0":0.6139491916859122},{"name":"Kallang","color":"#A6D96A","h":0.1747216308670059,"id":8,"size":757,"stdErr":757,"vColor":1415268,"vColorValue":1415268,"vSize":757,"w":0.1867100227901064,"x0":0,"y0":0.1689514316970255},{"name":"Marine Parade","color":"#ABDB6D","h":0.1807986653680943,"id":9,"size":490,"stdErr":490,"vColor":1397529.5,"vColorValue":1397529.5,"vSize":490,"w":0.1167936650428614,"x0":0.1867100227901064,"y0":0},{"name":"Museum","color":"#FBFDB9","h":0.0351116940585223,"id":10,"size":28,"stdErr":28,"vColor":135893,"vColorValue":135893,"vSize":28,"w":0.03436565888114059,"x0":0.4321286311425612,"y0":0.02884174869092903},{"name":"Newton","color":"#B0DD70","h":0.1715933921657813,"id":11,"size":268,"stdErr":268,"vColor":1306816,"vColorValue":1306816,"vSize":268,"w":0.06730582648246029,"x0":0.3035036878329677,"y0":0},{"name":"Novena","color":"#40AA59","h":0.1689514316970255,"id":12,"size":732,"stdErr":732,"vColor":2483944.5,"vColorValue":2483944.5,"vSize":732,"w":0.1867100227901064,"x0":0,"y0":0},{"name":"Orchard","color":"#F3FAAF","h":0.06395344274945129,"id":13,"size":42,"stdErr":42,"vColor":251834.5,"vColorValue":251834.5,"vSize":42,"w":0.02830113084329224,"x0":0.403827500299269,"y0":0},{"name":"Outram","color":"#FBFDB9","h":0.02884174869092899,"id":14,"size":23,"stdErr":23,"vColor":130671,"vColorValue":130671,"vSize":23,"w":0.03436565888114063,"x0":0.4321286311425612,"y0":0},{"name":"Queenstown","color":"#C9E881","h":0.3860508083140878,"id":15,"size":1432,"stdErr":1432,"vColor":953979.5,"vColorValue":953979.5,"vSize":1432,"w":0.1598515968686147,"x0":0.1662144048445302,"y0":0.6139491916859122},{"name":"River Valley","color":"#72C264","h":0.216589421573615,"id":16,"size":587,"stdErr":587,"vColor":1998014,"vColorValue":1998014,"vSize":587,"w":0.1167936650428614,"x0":0.1867100227901064,"y0":0.1807986653680943},{"name":"Rochor","color":"#E4F39A","h":0.1076399494163301,"id":17,"size":132,"stdErr":132,"vColor":520971,"vColorValue":520971,"vSize":132,"w":0.05284682173009263,"x0":0.3708095143154281,"y0":0.06395344274945132},{"name":"Singapore River","color":"#ECF7A4","h":0.10763994941633,"id":18,"size":107,"stdErr":107,"vColor":378001,"vColorValue":378001,"vSize":107,"w":0.04283795397818115,"x0":0.4236563360455207,"y0":0.06395344274945133},{"name":"Southern Islands","color":"#F7FBB4","h":0.06395344274945129,"id":19,"size":49,"stdErr":49,"vColor":173903,"vColorValue":173903,"vSize":49,"w":0.03301798598384095,"x0":0.3708095143154281,"y0":0},{"name":"Tanglin","color":"#66BD63","h":0.225794694775928,"id":20,"size":415,"stdErr":415,"vColor":2187332,"vColorValue":2187332,"vSize":415,"w":0.07920503502242932,"x0":0.3872892550012725,"y0":0.1715933921657814},{"name":"Toa Payoh","color":"#DCF090","h":0.3860508083140878,"id":21,"size":1258,"stdErr":1258,"vColor":670769,"vColorValue":670769,"vSize":1258,"w":0.1404282883105568,"x0":0.326066001713145,"y0":0.6139491916859122}]},{"name":"East Region","color":"#006837","h":0.6954765751211631,"id":22,"size":3775,"stdErr":3775,"vColor":4616987.5,"vColorValue":4616987.5,"vSize":3775,"w":0.2339122015285163,"x0":0.7660877984714837,"y0":0.3045234248788369,"children":[{"name":"Bedok","color":"#006837","h":0.3334602916474981,"id":23,"size":1810,"stdErr":1810,"vColor":3529868.5,"vColorValue":3529868.5,"vSize":1810,"w":0.2339122015285163,"x0":0.7660877984714837,"y0":0.666539708352502},{"name":"Changi","color":"#FFFFBF","h":0.001895373211904017,"id":24,"size":5,"stdErr":5,"vColor":20564,"vColorValue":20564,"vSize":5,"w":0.113682520335742,"x0":0.886317479664258,"y0":0.3045234248788369},{"name":"Pasir Ris","color":"#DCF090","h":0.360120910261761,"id":25,"size":950,"stdErr":950,"vColor":669171,"vColorValue":669171,"vSize":950,"w":0.113682520335742,"x0":0.886317479664258,"y0":0.306418798090741},{"name":"Tampines","color":"#ECF7A4","h":0.362016283473665,"id":26,"size":1010,"stdErr":1010,"vColor":397384,"vColorValue":397384,"vSize":1010,"w":0.1202296811927743,"x0":0.7660877984714837,"y0":0.304523424878837}]},{"name":"North East Region","color":"#006837","h":0.6954765751211631,"id":27,"size":4835,"stdErr":4835,"vColor":4208661,"vColorValue":4208661,"vSize":4835,"w":0.2995935084477819,"x0":0.4664942900237018,"y0":0.3045234248788369,"children":[{"name":"Ang Mo Kio","color":"#DCF090","h":0.1240051577145652,"id":28,"size":316,"stdErr":316,"vColor":640722.5,"vColorValue":640722.5,"vSize":316,"w":0.1098160354391928,"x0":0.656271763032291,"y0":0.427351318437884},{"name":"Hougang","color":"#99D368","h":0.4486435238475507,"id":29,"size":1875,"stdErr":1875,"vColor":1617014.5,"vColorValue":1617014.5,"vSize":1875,"w":0.1801019007180478,"x0":0.4664942900237018,"y0":0.5513564761524492},{"name":"Punggol","color":"#FBFDB9","h":0.1228278935590471,"id":30,"size":313,"stdErr":313,"vColor":126110,"vColorValue":126110,"vSize":313,"w":0.1098160354391928,"x0":0.656271763032291,"y0":0.3045234248788369},{"name":"Sengkang","color":"#EFF8AA","h":0.4486435238475507,"id":31,"size":1244,"stdErr":1244,"vColor":348343.5,"vColorValue":348343.5,"vSize":1244,"w":0.1194916077297341,"x0":0.6465961907417496,"y0":0.5513564761524492},{"name":"Serangoon","color":"#A6D96A","h":0.2468330512736124,"id":32,"size":1087,"stdErr":1087,"vColor":1476470.5,"vColorValue":1476470.5,"vSize":1087,"w":0.1897774730085891,"x0":0.4664942900237018,"y0":0.3045234248788368}]},{"name":"North Region","color":"#CEEA84","h":0.3045234248788368,"id":33,"size":1117,"stdErr":1117,"vColor":866745,"vColorValue":866745,"vSize":1117,"w":0.1580705246799801,"x0":0.8419294753200199,"y0":0,"children":[{"name":"Mandai","color":"#FFFFBF","h":0.02952717240970038,"id":34,"size":29,"stdErr":29,"vColor":62025,"vColorValue":62025,"vSize":29,"w":0.04232476595303115,"x0":0.9503778606067911,"y0":0},{"name":"Sembawang","color":"#F3FAAF","h":0.1968360902081649,"id":35,"size":286,"stdErr":286,"vColor":244075,"vColorValue":244075,"vSize":286,"w":0.06261519398680651,"x0":0.9373848060131935,"y0":0.1076873346706719},{"name":"Sungei Kadut","color":"#FFFFBF","h":0.02952717240970027,"id":36,"size":5,"stdErr":5,"vColor":24359,"vColorValue":24359,"vSize":5,"w":0.007297373440177785,"x0":0.9927026265598221,"y0":0},{"name":"Woodlands","color":"#F7FBB4","h":0.1076873346706719,"id":37,"size":271,"stdErr":271,"vColor":164195,"vColorValue":164195,"vSize":271,"w":0.1084483852867712,"x0":0.8419294753200199,"y0":0},{"name":"Yishun","color":"#EFF8AA","h":0.1968360902081649,"id":38,"size":436,"stdErr":436,"vColor":313496,"vColorValue":313496,"vSize":436,"w":0.09545533069317358,"x0":0.8419294753200199,"y0":0.1076873346706719},{"name":"YISHUN","color":"#FFFFBF","h":0.07816016226097153,"id":39,"size":90,"stdErr":90,"vColor":58595,"vColorValue":58595,"vSize":90,"w":0.04962213939320893,"x0":0.9503778606067911,"y0":0.02952717240970034}]},{"name":"West Region","color":"#79C565","h":0.3045234248788369,"id":40,"size":2653,"stdErr":2653,"vColor":1919890.5,"vColorValue":1919890.5,"vSize":2653,"w":0.3754351852963181,"x0":0.4664942900237018,"y0":0,"children":[{"name":"Bukit Batok","color":"#E0F295","h":0.2045358948206935,"id":41,"size":583,"stdErr":583,"vColor":618812.5,"vColorValue":618812.5,"vSize":583,"w":0.1228336754003785,"x0":0.6316404872497866,"y0":0.09998753005814345},{"name":"Bukit Panjang","color":"#ECF7A4","h":0.09998753005814345,"id":42,"size":285,"stdErr":285,"vColor":374543.5,"vColorValue":374543.5,"vSize":285,"w":0.1228336754003785,"x0":0.6316404872497866,"y0":0},{"name":"Choa Chu Kang","color":"#FBFDB9","h":0.1320587020510166,"id":43,"size":268,"stdErr":268,"vColor":125114,"vColorValue":125114,"vSize":268,"w":0.08745531266985472,"x0":0.7544741626501652,"y0":0.03498570091650066},{"name":"Clementi","color":"#E4F39A","h":0.3045234248788369,"id":44,"size":1167,"stdErr":1167,"vColor":531398.5,"vColorValue":531398.5,"vSize":1167,"w":0.1651461972260849,"x0":0.4664942900237018,"y0":0},{"name":"Jurong East","color":"#FFFFBF","h":0.03498570091650072,"id":45,"size":71,"stdErr":71,"vColor":65122,"vColorValue":65122,"vSize":71,"w":0.08745531266985475,"x0":0.7544741626501652,"y0":0},{"name":"Jurong West","color":"#F7FBB4","h":0.1374790219113196,"id":46,"size":279,"stdErr":279,"vColor":204900,"vColorValue":204900,"vSize":279,"w":0.08745531266985472,"x0":0.7544741626501652,"y0":0.1670444029675173}]}]},"meta":{"type":"value","vSize":"Total Unit Sold","vColor":"Median Unit Price ($ psm)","stdErr":"Total Unit Sold","algorithm":"pivotSize","vpCoorX":[0.02812148481439815,0.9718785151856019],"vpCoorY":[0.1716850393700787,0.9103149606299213],"aspRatio":1.788798157900348,"range":[0,3500000],"mapping":[null,null,null],"draw":true},"options":{"id":"id","celltext":"name","valueField":"size"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">5.7 References</h3>
+<ul>
+<li>Kam, T.S(2024). <a href="https://r4va.netlify.app/chap16">Visual Statistical Analysis.</a></li>
+</ul>
+</section>
+<section id="takeaway" class="level3">
+<h3 class="anchored" data-anchor-id="takeaway">5.8 Takeaway</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key takeaways
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Treemaps in R: Use treemap for static visualizations, treemapify for ggplot2 integration, and d3treeR for interactivity.</li>
+<li>Treemap Arguments:
+<ul>
+<li>index: Defines hierarchy.</li>
+<li>vSize: Sets rectangle size.</li>
+<li>vColor: Determines color mapping.</li>
+</ul></li>
+<li>Color Mapping:
+<ul>
+<li>“value”: Uses diverging palettes, best for datasets with mixed values.</li>
+<li>“manual”: Maps values linearly but can be misleading.</li>
+</ul></li>
+<li>Treemap Layouts:
+<ul>
+<li>“squarified”: Better aspect ratios but ignores sorting.</li>
+<li>“pivotSize”: Preserves sorting (sortID argument) while maintaining acceptable aspect ratios.</li>
+</ul></li>
+<li>Interactive Treemaps: Convert static treemaps (treemap()) into interactive ones using d3tree().</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="further-exploration" class="level3">
+<h3 class="anchored" data-anchor-id="further-exploration">5.9 Further exploration</h3>
+<ol type="1">
+<li>Helps identify which property type dominates each region and highlights the price variations across Singapore’s real estate market.</li>
+</ol>
+<ul>
+<li><p>This treemap visualizes the distribution of property types across different planning regions in Singapore.</p></li>
+<li><p>Each rectangle’s size represents the total number of units sold</p></li>
+<li><p>The color intensity corresponds to the median unit price per square meter (psm).</p></li>
+</ul>
+<p>Key insights:</p>
+<ul>
+<li><p>Larger rectangles indicate dominant property types in each region.</p></li>
+<li><p>Central Region has the largest share of Apartments and Condominiums, reflecting its high-density residential areas.</p></li>
+<li><p>North-East, East, and North Regions show a mix of Condominiums, Apartments, and landed properties like Terrace Houses.</p></li>
+<li><p>Darker purple shades signify areas with higher property prices, particularly in central locations.</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required libraries</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required libraries</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treemap)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(d3treeR)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize data: Total units sold and median unit price per sqm</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>realis2018_summarised <span class="ot">&lt;-</span> realis2018 <span class="sc">%&gt;%</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>, <span class="st">`</span><span class="at">Property Type</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">No. of Units</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Area</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Area (sqm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Unit Price ($ psm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Median Transacted Price</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Transacted Price ($)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a static treemap</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>tm <span class="ot">&lt;-</span> <span class="fu">treemap</span>(realis2018_summarised,</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Property Type"</span>),</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"value"</span>,</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette =</span> <span class="st">"Purples"</span>,</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Property Type Distribution by Planning Region"</span>,</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sqm)"</span></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex05e_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to interactive treemap</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">d3tree</span>(tm, <span class="at">rootname =</span> <span class="st">"Singapore"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="d3tree html-widget html-fill-item" id="htmlwidget-89305f4dfbc5b96d42f2" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-89305f4dfbc5b96d42f2">{"x":{"data":{"name":"Singapore","id":1,"size":null,"children":[{"name":"Central Region","color":"#3F007D","h":1,"id":2,"size":10825,"stdErr":10825,"vColor":95038.5,"vColorValue":95038.5,"vSize":10825,"w":0.4664942900237018,"x0":0,"y0":0,"children":[{"name":"Apartment","color":"#3F007D","h":0.4679907621247113,"id":3,"size":5066,"stdErr":5066,"vColor":18592,"vColorValue":18592,"vSize":5066,"w":0.4664942900237018,"x0":0,"y0":0.5320092378752888},{"name":"Condominium","color":"#440981","h":0.5320092378752888,"id":4,"size":5030,"stdErr":5030,"vColor":17775,"vColorValue":17775,"vSize":5030,"w":0.4074433545440563,"x0":0,"y0":0},{"name":"Detached House","color":"#4A1587","h":0.09487133185704737,"id":5,"size":130,"stdErr":130,"vColor":16186.5,"vColorValue":16186.5,"vSize":130,"w":0.0590509354796455,"x0":0.4074433545440563,"y0":0.01532536899229228},{"name":"Executive Condominium","color":"#5D3997","h":0.01532536899229228,"id":6,"size":21,"stdErr":21,"vColor":12132,"vColorValue":12132,"vSize":21,"w":0.0590509354796455,"x0":0.4074433545440563,"y0":0},{"name":"Semi-Detached House","color":"#4F1F8B","h":0.1714981768185087,"id":7,"size":235,"stdErr":235,"vColor":15127,"vColorValue":15127,"vSize":235,"w":0.0590509354796455,"x0":0.4074433545440563,"y0":0.1101967008493396},{"name":"Terrace House","color":"#4F1F8B","h":0.2503143602074404,"id":8,"size":343,"stdErr":343,"vColor":15226,"vColorValue":15226,"vSize":343,"w":0.0590509354796455,"x0":0.4074433545440563,"y0":0.2816948776678484}]},{"name":"East Region","color":"#3F007D","h":0.6954765751211631,"id":9,"size":3775,"stdErr":3775,"vColor":69802.5,"vColorValue":69802.5,"vSize":3775,"w":0.2339122015285163,"x0":0.7660877984714837,"y0":0.3045234248788369,"children":[{"name":"Apartment","color":"#51228C","h":0.232316810921268,"id":10,"size":671,"stdErr":671,"vColor":14507,"vColorValue":14507,"vSize":671,"w":0.1244687448260384,"x0":0.7660877984714837,"y0":0.3045234248788369},{"name":"Condominium","color":"#5D3997","h":0.4631597641998951,"id":11,"size":2514,"stdErr":2514,"vColor":11934.5,"vColorValue":11934.5,"vSize":2514,"w":0.2339122015285163,"x0":0.7660877984714837,"y0":0.5368402358001049},{"name":"Detached House","color":"#62439C","h":0.06536371290327213,"id":12,"size":45,"stdErr":45,"vColor":10855,"vColorValue":10855,"vSize":45,"w":0.0296684069374187,"x0":0.9703315930625813,"y0":0.3045234248788368},{"name":"Executive Condominium","color":"#715FAA","h":0.065363712903272,"id":13,"size":121,"stdErr":121,"vColor":7922,"vColorValue":7922,"vSize":121,"w":0.07977504976505917,"x0":0.8905565432975221,"y0":0.3045234248788369},{"name":"Semi-Detached House","color":"#61409B","h":0.1669530980179961,"id":14,"size":131,"stdErr":131,"vColor":11394,"vColorValue":11394,"vSize":131,"w":0.0338138981793033,"x0":0.9661861018206966,"y0":0.3698871377821087},{"name":"Terrace House","color":"#582F93","h":0.166953098017996,"id":15,"size":293,"stdErr":293,"vColor":13190,"vColorValue":13190,"vSize":293,"w":0.07562955852317457,"x0":0.8905565432975221,"y0":0.3698871377821089}]},{"name":"North East Region","color":"#3F007D","h":0.6954765751211631,"id":16,"size":4835,"stdErr":4835,"vColor":70288,"vColorValue":70288,"vSize":4835,"w":0.2995935084477819,"x0":0.4664942900237018,"y0":0.3045234248788369,"children":[{"name":"Apartment","color":"#53258E","h":0.4575617343248025,"id":17,"size":1901,"stdErr":1901,"vColor":14419,"vColorValue":14419,"vSize":1901,"w":0.1790403205153201,"x0":0.4664942900237018,"y0":0.5424382656751975},{"name":"Condominium","color":"#5D3997","h":0.4575617343248025,"id":18,"size":1280,"stdErr":1280,"vColor":11918,"vColorValue":11918,"vSize":1280,"w":0.1205531879324618,"x0":0.6455346105390221,"y0":0.5424382656751975},{"name":"Detached House","color":"#64469E","h":0.2379148407963607,"id":19,"size":35,"stdErr":35,"vColor":10620,"vColorValue":10620,"vSize":35,"w":0.006339644979245714,"x0":0.759748153492238,"y0":0.3045234248788368},{"name":"Executive Condominium","color":"#64469E","h":0.2379148407963606,"id":20,"size":897,"stdErr":897,"vColor":10458,"vColorValue":10458,"vSize":897,"w":0.1624760441823823,"x0":0.4664942900237018,"y0":0.3045234248788368},{"name":"Semi-Detached House","color":"#64469E","h":0.05371207624626976,"id":21,"size":163,"stdErr":163,"vColor":10526,"vColorValue":10526,"vSize":163,"w":0.1307778192861539,"x0":0.6289703342060842,"y0":0.3045234248788369},{"name":"Terrace House","color":"#5B3696","h":0.1842027645500908,"id":22,"size":559,"stdErr":559,"vColor":12347,"vColorValue":12347,"vSize":559,"w":0.1307778192861539,"x0":0.6289703342060842,"y0":0.3582355011251066}]},{"name":"North Region","color":"#3F007D","h":0.3045234248788368,"id":23,"size":1117,"stdErr":1117,"vColor":60708,"vColorValue":60708,"vSize":1117,"w":0.1580705246799801,"x0":0.8419294753200199,"y0":0,"children":[{"name":"Apartment","color":"#54288F","h":0.05397998041719757,"id":24,"size":39,"stdErr":39,"vColor":13980,"vColorValue":13980,"vSize":39,"w":0.03113510334605673,"x0":0.9648732167377821,"y0":0},{"name":"Condominium","color":"#684DA1","h":0.2505434444616392,"id":25,"size":453,"stdErr":453,"vColor":10000,"vColorValue":10000,"vSize":453,"w":0.07791724448316757,"x0":0.9220827555168324,"y0":0.05397998041719757},{"name":"Detached House","color":"#715FAA","h":0.05397998041719757,"id":26,"size":5,"stdErr":5,"vColor":7940,"vColorValue":7940,"vSize":5,"w":0.003991679916161056,"x0":0.9960083200838389,"y0":0},{"name":"Executive Condominium","color":"#6D58A6","h":0.2505434444616392,"id":27,"size":466,"stdErr":466,"vColor":8729,"vColorValue":8729,"vSize":466,"w":0.08015328019681252,"x0":0.8419294753200199,"y0":0.05397998041719757},{"name":"Semi-Detached House","color":"#6A51A3","h":0.05397998041719757,"id":28,"size":40,"stdErr":40,"vColor":9662,"vColorValue":9662,"vSize":40,"w":0.03193343932928892,"x0":0.9329397774084933,"y0":0},{"name":"Terrace House","color":"#664A9F","h":0.05397998041719757,"id":29,"size":114,"stdErr":114,"vColor":10397,"vColorValue":10397,"vSize":114,"w":0.0910103020884734,"x0":0.8419294753200199,"y0":0}]},{"name":"West Region","color":"#3F007D","h":0.3045234248788369,"id":30,"size":2653,"stdErr":2653,"vColor":64487.5,"vColorValue":64487.5,"vSize":2653,"w":0.3754351852963181,"x0":0.4664942900237018,"y0":0,"children":[{"name":"Apartment","color":"#51228C","h":0.3045234248788369,"id":31,"size":1061,"stdErr":1061,"vColor":14727,"vColorValue":14727,"vSize":1061,"w":0.1501457714283428,"x0":0.638150105992203,"y0":0},{"name":"Condominium","color":"#61409B","h":0.3045234248788369,"id":32,"size":1213,"stdErr":1213,"vColor":11495,"vColorValue":11495,"vSize":1213,"w":0.1716558159685013,"x0":0.4664942900237018,"y0":0},{"name":"Detached House","color":"#664A9F","h":0.03294316733517741,"id":33,"size":6,"stdErr":6,"vColor":10342,"vColorValue":10342,"vSize":6,"w":0.007848819204801086,"x0":0.8340806561152188,"y0":0},{"name":"Executive Condominium","color":"#7262AC","h":0.1623053610172166,"id":34,"size":202,"stdErr":202,"vColor":7701,"vColorValue":7701,"vSize":202,"w":0.05363359789947399,"x0":0.788295877420546,"y0":0.1422180638616204},{"name":"Semi-Detached House","color":"#6A51A3","h":0.03294316733517751,"id":35,"size":35,"stdErr":35,"vColor":9660,"vColorValue":9660,"vSize":35,"w":0.0457847786946729,"x0":0.788295877420546,"y0":0},{"name":"Terrace House","color":"#64469E","h":0.1092748965264428,"id":36,"size":136,"stdErr":136,"vColor":10562.5,"vColorValue":10562.5,"vSize":136,"w":0.05363359789947399,"x0":0.788295877420546,"y0":0.0329431673351776}]}]},"meta":{"type":"value","vSize":"Total Unit Sold","vColor":"Median Unit Price ($ psm)","stdErr":"Total Unit Sold","algorithm":"pivotSize","vpCoorX":[0.02812148481439815,0.9718785151856019],"vpCoorY":[0.1716850393700787,0.9103149606299213],"aspRatio":1.788798157900348,"range":[8000,18000],"mapping":[null,null,null],"draw":true},"options":{"id":"id","celltext":"name","valueField":"size"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 
 
 <!-- -->
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -750,10 +1632,494 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Hands-on_Ex05e"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Hands-on Exercise 05e"</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Andrea Yeo"</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> "last-modified"</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co">  eval: true</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: true</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">With the assistance of ChatGPT</span><span class="co">]</span>{style="font-size: 14px;"}</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Treemap Visualisation with R</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.1 Overview</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>In this hands-on exercise, we will learn how to design treemaps using R. We will first manipulate transaction data into a treemap structure with <span class="co">[</span><span class="ot">**dplyr**</span><span class="co">](https://www.rdocumentation.org/packages/dplyr/versions/0.5.0)</span>, then create a static treemap using <span class="co">[</span><span class="ot">**treemap package**</span><span class="co">](https://www.rdocumentation.org/packages/treemap/versions/2.4-4/topics/treemap)</span>, and finally design an interactive version with <span class="co">[</span><span class="ot">**d3treeR**</span><span class="co">](https://www.rdocumentation.org/packages/d3treeR/versions/0.1/topics/d3tree)</span>.</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.2 Installing and Launching R Packages</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>For this exercise, the below R packages will be used: - - <span class="co">[</span><span class="ot">**treemap**</span><span class="co">](https://www.rdocumentation.org/packages/treemap/versions/2.4-4/topics/treemap)</span>: Creates hierarchical treemaps to visualize data distributions using nested rectangles. - <span class="co">[</span><span class="ot">**treemapify**</span><span class="co">](https://www.rdocumentation.org/packages/treemapify/versions/0.2.1)</span>:Provides <span class="in">`ggplot2`</span> support for creating treemaps, allowing seamless integration with other visualizations. - <span class="co">[</span><span class="ot">**tidyverse**</span><span class="co">](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0)</span>: A collection of R packages designed for data science, including <span class="in">`ggplot2`</span>, <span class="in">`dplyr`</span>, and <span class="in">`tidyr`</span> for data manipulation and visualization.</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(treemap, treemapify, tidyverse) </span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.3 Data Wrangling</span></span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a>In this exercise, we will use the *REALIS2018.csv* dataset, which contains private property transaction records from 2018. The data is sourced from the REALIS portal of Singapore's Urban Redevelopment Authority (URA) and provides insights into real estate transactions.</span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3.1 Importing the data set</span></span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>realis2018 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/realis2018.csv"</span>)</span>
+<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a>We will check the dataset using below</span>
+<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`glimpse()`</span>: provides a transposed overview of a dataset, showing variables and their types in a concise format.</span>
+<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`head()`</span>: displays the first few rows of a dataset (default is 6 rows) to give a quick preview of the data.</span>
+<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`summary()`</span>: generates a statistical summary of each variable, including measures like mean, median, and range for numeric data.</span>
+<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`duplicated()`</span>:returns a logical vector indicating which elements or rows in a vector or data frame are duplicates.</span>
+<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`Sum(is.na())`</span>: counts the number of missing values (NA) in each column of the data frame.</span>
+<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`spec()`</span>: use <span class="in">`spec()`</span> to quickly inspect the column</span>
+<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb36-52"><a href="#cb36-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## glimpse()</span></span>
+<span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(realis2018)</span>
+<span id="cb36-58"><a href="#cb36-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-59"><a href="#cb36-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-60"><a href="#cb36-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## head()</span></span>
+<span id="cb36-61"><a href="#cb36-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-64"><a href="#cb36-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-65"><a href="#cb36-65" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(realis2018)</span>
+<span id="cb36-66"><a href="#cb36-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-67"><a href="#cb36-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-68"><a href="#cb36-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## summary()</span></span>
+<span id="cb36-69"><a href="#cb36-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-72"><a href="#cb36-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-73"><a href="#cb36-73" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(realis2018)</span>
+<span id="cb36-74"><a href="#cb36-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-75"><a href="#cb36-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-76"><a href="#cb36-76" aria-hidden="true" tabindex="-1"></a><span class="fu">## duplicated()</span></span>
+<span id="cb36-77"><a href="#cb36-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-80"><a href="#cb36-80" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-81"><a href="#cb36-81" aria-hidden="true" tabindex="-1"></a>realis2018[<span class="fu">duplicated</span>(realis2018),]</span>
+<span id="cb36-82"><a href="#cb36-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-83"><a href="#cb36-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-84"><a href="#cb36-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## sum(is.na())</span></span>
+<span id="cb36-85"><a href="#cb36-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-88"><a href="#cb36-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-89"><a href="#cb36-89" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(realis2018))  </span>
+<span id="cb36-90"><a href="#cb36-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-91"><a href="#cb36-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-92"><a href="#cb36-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## spec()</span></span>
+<span id="cb36-93"><a href="#cb36-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-96"><a href="#cb36-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-97"><a href="#cb36-97" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span>(realis2018)</span>
+<span id="cb36-98"><a href="#cb36-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-99"><a href="#cb36-99" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-100"><a href="#cb36-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-101"><a href="#cb36-101" aria-hidden="true" tabindex="-1"></a>The realis2018 tibble contains 12 attributes, as shown above:</span>
+<span id="cb36-102"><a href="#cb36-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-103"><a href="#cb36-103" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Categorical attributes:** Project Name Address Type of Area Sale Date Property Type Tenure Type of Sale Purchaser Address Indicator Planning Region Planning Area</span>
+<span id="cb36-104"><a href="#cb36-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-105"><a href="#cb36-105" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Continuous attributes:** No. of Units Area (sqm) Transacted Price ($)    Nett Price($) Unit Price (\$ psm) Unit Price (\$ psf) Completion Date Postal District Postal Sector Postal Code</span>
+<span id="cb36-106"><a href="#cb36-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-107"><a href="#cb36-107" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3.2 Data Wrangling and Manipulation</span></span>
+<span id="cb36-108"><a href="#cb36-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-109"><a href="#cb36-109" aria-hidden="true" tabindex="-1"></a>The **REALIS2018** dataset contains highly disaggregated transaction records, making it unsuitable for direct treemap visualization.</span>
+<span id="cb36-110"><a href="#cb36-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-111"><a href="#cb36-111" aria-hidden="true" tabindex="-1"></a>To prepare the data, we will use <span class="in">`dplyr`</span> functions to group transactions by key attributes such as **Project Name, Planning Region, Planning Area, Property Type, and Type of Sale.**</span>
+<span id="cb36-112"><a href="#cb36-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-113"><a href="#cb36-113" aria-hidden="true" tabindex="-1"></a>We will then apply summary statistics using <span class="in">`summarise()`</span> to compute **Total Units Sold, Total Area, Median Unit Price, and Median Transacted Price.**</span>
+<span id="cb36-114"><a href="#cb36-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-115"><a href="#cb36-115" aria-hidden="true" tabindex="-1"></a>The <span class="in">`group_by()`</span> function will structure the data for aggregation, ensuring that <span class="in">`summarise()`</span> calculates relevant statistics for each group, creating a summarized dataset suitable for treemap visualization.</span>
+<span id="cb36-116"><a href="#cb36-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-117"><a href="#cb36-117" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3.3 Grouped summaries without the Pipe</span></span>
+<span id="cb36-118"><a href="#cb36-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-119"><a href="#cb36-119" aria-hidden="true" tabindex="-1"></a>The code below shows a typical two lines code approach to perform the steps.</span>
+<span id="cb36-120"><a href="#cb36-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-123"><a href="#cb36-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-124"><a href="#cb36-124" aria-hidden="true" tabindex="-1"></a>realis2018_grouped <span class="ot">&lt;-</span> <span class="fu">group_by</span>(realis2018, <span class="st">`</span><span class="at">Project Name</span><span class="st">`</span>,</span>
+<span id="cb36-125"><a href="#cb36-125" aria-hidden="true" tabindex="-1"></a>                               <span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>, <span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>, </span>
+<span id="cb36-126"><a href="#cb36-126" aria-hidden="true" tabindex="-1"></a>                               <span class="st">`</span><span class="at">Property Type</span><span class="st">`</span>, <span class="st">`</span><span class="at">Type of Sale</span><span class="st">`</span>)</span>
+<span id="cb36-127"><a href="#cb36-127" aria-hidden="true" tabindex="-1"></a>realis2018_summarised <span class="ot">&lt;-</span> <span class="fu">summarise</span>(realis2018_grouped, </span>
+<span id="cb36-128"><a href="#cb36-128" aria-hidden="true" tabindex="-1"></a>                          <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">No. of Units</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb36-129"><a href="#cb36-129" aria-hidden="true" tabindex="-1"></a>                          <span class="st">`</span><span class="at">Total Area</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Area (sqm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb36-130"><a href="#cb36-130" aria-hidden="true" tabindex="-1"></a>                          <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Unit Price ($ psm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb36-131"><a href="#cb36-131" aria-hidden="true" tabindex="-1"></a>                          <span class="st">`</span><span class="at">Median Transacted Price</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Transacted Price ($)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb36-132"><a href="#cb36-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-133"><a href="#cb36-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-134"><a href="#cb36-134" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb36-135"><a href="#cb36-135" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Aggregation functions like<span class="in">`sum()`</span> and <span class="in">`median()`</span> in R follow the standard rule for missing values: if any input contains NA, the result will also be NA.</span>
+<span id="cb36-136"><a href="#cb36-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-137"><a href="#cb36-137" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>To handle this, the argument <span class="in">`na.rm = TRUE`</span> can be used to remove missing values before computation, ensuring accurate summary statistics.</span>
+<span id="cb36-138"><a href="#cb36-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-139"><a href="#cb36-139" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>This is particularly useful when calculating total units sold, total area, median unit price, and median transacted price in the **REALIS2018** dataset, preventing missing values from affecting the results.</span>
+<span id="cb36-140"><a href="#cb36-140" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-141"><a href="#cb36-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-142"><a href="#cb36-142" aria-hidden="true" tabindex="-1"></a>The code chunk above is not very efficient because we have to give each intermediate data.frame a name, even though we don’t have to care about it.</span>
+<span id="cb36-143"><a href="#cb36-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-144"><a href="#cb36-144" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3.4 Grouped summaries with the Pipe</span></span>
+<span id="cb36-145"><a href="#cb36-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-146"><a href="#cb36-146" aria-hidden="true" tabindex="-1"></a>The code chunk below shows a more efficient way to tackle the same processes by using the pipe, <span class="in">`%&gt;%`</span>:</span>
+<span id="cb36-147"><a href="#cb36-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-150"><a href="#cb36-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-151"><a href="#cb36-151" aria-hidden="true" tabindex="-1"></a>realis2018_summarised <span class="ot">&lt;-</span> realis2018 <span class="sc">%&gt;%</span> </span>
+<span id="cb36-152"><a href="#cb36-152" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Project Name</span><span class="st">`</span>,<span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>, </span>
+<span id="cb36-153"><a href="#cb36-153" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>, <span class="st">`</span><span class="at">Property Type</span><span class="st">`</span>, </span>
+<span id="cb36-154"><a href="#cb36-154" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">Type of Sale</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-155"><a href="#cb36-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">No. of Units</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb36-156"><a href="#cb36-156" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Total Area</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Area (sqm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb36-157"><a href="#cb36-157" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Unit Price ($ psm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb36-158"><a href="#cb36-158" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Median Transacted Price</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Transacted Price ($)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb36-159"><a href="#cb36-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-160"><a href="#cb36-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-161"><a href="#cb36-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.4 Designing Treemap with treemap Package</span></span>
+<span id="cb36-162"><a href="#cb36-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-163"><a href="#cb36-163" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">treemap package</span><span class="co">](https://www.rdocumentation.org/packages/treemap/versions/2.4-4/topics/treemap)</span> in R provides a highly flexible <span class="in">`treemap()`</span> function with over **43 arguments** for customization. This section focuses on key parameters to create **elegant and accurate treemaps**, allowing effective visualization of hierarchical data while maintaining clarity and truthfulness.</span>
+<span id="cb36-164"><a href="#cb36-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-165"><a href="#cb36-165" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.4.1 Designing a static treemap</span></span>
+<span id="cb36-166"><a href="#cb36-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-167"><a href="#cb36-167" aria-hidden="true" tabindex="-1"></a>In this section, treemap() from the treemap package is used to visualize the distribution of median unit prices and total units sold for resale condominiums by geographic hierarchy in 2017.</span>
+<span id="cb36-168"><a href="#cb36-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-169"><a href="#cb36-169" aria-hidden="true" tabindex="-1"></a>First, records for resale condominiums are filtered from the <span class="in">`realis2018_selected`</span> dataset to ensure relevant data for visualization.</span>
+<span id="cb36-170"><a href="#cb36-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-173"><a href="#cb36-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-174"><a href="#cb36-174" aria-hidden="true" tabindex="-1"></a>realis2018_selected <span class="ot">&lt;-</span> realis2018_summarised <span class="sc">%&gt;%</span></span>
+<span id="cb36-175"><a href="#cb36-175" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Property Type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Condominium"</span>, <span class="st">`</span><span class="at">Type of Sale</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Resale"</span>)</span>
+<span id="cb36-176"><a href="#cb36-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-177"><a href="#cb36-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-178"><a href="#cb36-178" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.4.2 Using the basic arguments</span></span>
+<span id="cb36-179"><a href="#cb36-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-180"><a href="#cb36-180" aria-hidden="true" tabindex="-1"></a>The code below creates a treemap using three key arguments of treemap():</span>
+<span id="cb36-181"><a href="#cb36-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-182"><a href="#cb36-182" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>index: Defines hierarchical grouping.</span>
+<span id="cb36-183"><a href="#cb36-183" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>vSize: Specifies the variable determining the rectangle size.</span>
+<span id="cb36-184"><a href="#cb36-184" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>vColor: Assigns colors based on a chosen variable.</span>
+<span id="cb36-185"><a href="#cb36-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-188"><a href="#cb36-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-189"><a href="#cb36-189" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb36-190"><a href="#cb36-190" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb36-191"><a href="#cb36-191" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb36-192"><a href="#cb36-192" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb36-193"><a href="#cb36-193" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb36-194"><a href="#cb36-194" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb36-195"><a href="#cb36-195" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb36-196"><a href="#cb36-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-197"><a href="#cb36-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-198"><a href="#cb36-198" aria-hidden="true" tabindex="-1"></a>Key takeaways from the three core treemap() arguments:</span>
+<span id="cb36-199"><a href="#cb36-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-200"><a href="#cb36-200" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`index`</span>: Requires at least two column names for hierarchical treemaps. The first column represents the highest level of aggregation, followed by lower levels.</span>
+<span id="cb36-201"><a href="#cb36-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-202"><a href="#cb36-202" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`vSize`</span>: Maps rectangle sizes based on a numeric variable, which must contain only non-negative values.</span>
+<span id="cb36-203"><a href="#cb36-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-204"><a href="#cb36-204" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`vColor`</span>: Works with the <span class="in">`type`</span> argument to determine rectangle colors. If <span class="in">`type`</span> is not defined, <span class="in">`treemap()`</span> defaults to using <span class="in">`index`</span>, which may result in incorrect coloring. Properly setting <span class="in">`type`</span> ensures colors reflect median unit prices in this case.</span>
+<span id="cb36-205"><a href="#cb36-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-206"><a href="#cb36-206" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.4.3 Working with vColor and type arguments</span></span>
+<span id="cb36-207"><a href="#cb36-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-208"><a href="#cb36-208" aria-hidden="true" tabindex="-1"></a>In the code below, <span class="in">`type`</span> argument is define as value.</span>
+<span id="cb36-209"><a href="#cb36-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-212"><a href="#cb36-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-213"><a href="#cb36-213" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb36-214"><a href="#cb36-214" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb36-215"><a href="#cb36-215" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb36-216"><a href="#cb36-216" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb36-217"><a href="#cb36-217" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">"value"</span>,</span>
+<span id="cb36-218"><a href="#cb36-218" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb36-219"><a href="#cb36-219" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb36-220"><a href="#cb36-220" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb36-221"><a href="#cb36-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-222"><a href="#cb36-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-223"><a href="#cb36-223" aria-hidden="true" tabindex="-1"></a>Key insights from the code:</span>
+<span id="cb36-224"><a href="#cb36-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-225"><a href="#cb36-225" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The rectangles are **shaded in varying intensities of green**, representing differences in **median unit prices**.</span>
+<span id="cb36-226"><a href="#cb36-226" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The legend indicates that values are **binned into ten equal intervals (e.g., 0–5000, 5000–10000, etc.)** with a fixed interval of **5000**, ensuring clear data interpretation.</span>
+<span id="cb36-227"><a href="#cb36-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-228"><a href="#cb36-228" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.4.4 Colours in treemap package</span></span>
+<span id="cb36-229"><a href="#cb36-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-230"><a href="#cb36-230" aria-hidden="true" tabindex="-1"></a>Two arguments control color mapping in treemap():</span>
+<span id="cb36-231"><a href="#cb36-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-232"><a href="#cb36-232" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mapping`</span>: Defines how values are mapped to colors.</span>
+<span id="cb36-233"><a href="#cb36-233" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`palette`</span>: Specifies the color scheme.</span>
+<span id="cb36-234"><a href="#cb36-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-235"><a href="#cb36-235" aria-hidden="true" tabindex="-1"></a>Differences:</span>
+<span id="cb36-236"><a href="#cb36-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-237"><a href="#cb36-237" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**"value" mapping**: Uses a diverging color palette (e.g., "RdYlBu"), centering 0 at the middle color and mapping extreme values symmetrically.</span>
+<span id="cb36-238"><a href="#cb36-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-239"><a href="#cb36-239" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**"manual" mapping**: Maps min(values) to the left-end color, max(values) to the right-end color, and the midpoint to the middle color.</span>
+<span id="cb36-240"><a href="#cb36-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-241"><a href="#cb36-241" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.4.5 The “value” type treemap</span></span>
+<span id="cb36-242"><a href="#cb36-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-243"><a href="#cb36-243" aria-hidden="true" tabindex="-1"></a>The code below shows a value type treemap.</span>
+<span id="cb36-244"><a href="#cb36-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-247"><a href="#cb36-247" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-248"><a href="#cb36-248" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb36-249"><a href="#cb36-249" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb36-250"><a href="#cb36-250" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb36-251"><a href="#cb36-251" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb36-252"><a href="#cb36-252" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"value"</span>,</span>
+<span id="cb36-253"><a href="#cb36-253" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">"RdYlBu"</span>, </span>
+<span id="cb36-254"><a href="#cb36-254" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb36-255"><a href="#cb36-255" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb36-256"><a href="#cb36-256" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb36-257"><a href="#cb36-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-258"><a href="#cb36-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-259"><a href="#cb36-259" aria-hidden="true" tabindex="-1"></a>Key takeaways from the code:</span>
+<span id="cb36-260"><a href="#cb36-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-261"><a href="#cb36-261" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Despite using the "RdYlBu" color palette, no red rectangles appear because all median unit prices are positive.</span>
+<span id="cb36-262"><a href="#cb36-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-263"><a href="#cb36-263" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The legend displays values from 5000 to 45000 due to the default range = c(min(values), max(values)), which applies automatic rounding for better readability.</span>
+<span id="cb36-264"><a href="#cb36-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-265"><a href="#cb36-265" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.4.6 The “manual” type treemap</span></span>
+<span id="cb36-266"><a href="#cb36-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-267"><a href="#cb36-267" aria-hidden="true" tabindex="-1"></a>The "manual" type maps the value range linearly to the color palette, unlike the "value" type, which directly interprets values.</span>
+<span id="cb36-268"><a href="#cb36-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-271"><a href="#cb36-271" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-272"><a href="#cb36-272" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb36-273"><a href="#cb36-273" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb36-274"><a href="#cb36-274" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb36-275"><a href="#cb36-275" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb36-276"><a href="#cb36-276" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"manual"</span>,</span>
+<span id="cb36-277"><a href="#cb36-277" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">"RdYlBu"</span>, </span>
+<span id="cb36-278"><a href="#cb36-278" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb36-279"><a href="#cb36-279" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb36-280"><a href="#cb36-280" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb36-281"><a href="#cb36-281" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-282"><a href="#cb36-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-283"><a href="#cb36-283" aria-hidden="true" tabindex="-1"></a>Key takeaways from the code:</span>
+<span id="cb36-284"><a href="#cb36-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-285"><a href="#cb36-285" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Confusing Color Scheme**: The chosen color mapping makes interpretation difficult.</span>
+<span id="cb36-286"><a href="#cb36-286" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Mapping Issue**: The mapping formula <span class="in">`(min(values), mean(range(values))`</span>, <span class="in">`max(values))`</span> may not suit all datasets.</span>
+<span id="cb36-287"><a href="#cb36-287" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Diverging Palette Misuse**: Avoid diverging palettes (e.g., RdYlBu) when all values are strictly positive or negative.</span>
+<span id="cb36-288"><a href="#cb36-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-289"><a href="#cb36-289" aria-hidden="true" tabindex="-1"></a>To overcome this problem, a single colour palette such as **Blues** should be used.</span>
+<span id="cb36-290"><a href="#cb36-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-293"><a href="#cb36-293" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-294"><a href="#cb36-294" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb36-295"><a href="#cb36-295" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb36-296"><a href="#cb36-296" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb36-297"><a href="#cb36-297" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb36-298"><a href="#cb36-298" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"manual"</span>,</span>
+<span id="cb36-299"><a href="#cb36-299" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">"Blues"</span>, </span>
+<span id="cb36-300"><a href="#cb36-300" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb36-301"><a href="#cb36-301" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb36-302"><a href="#cb36-302" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb36-303"><a href="#cb36-303" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-304"><a href="#cb36-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-305"><a href="#cb36-305" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.4.7 Treemap Layout</span></span>
+<span id="cb36-306"><a href="#cb36-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-307"><a href="#cb36-307" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Treemap Layouts**: Supports “squarified” and “pivotSize” (default: “pivotSize”).</span>
+<span id="cb36-308"><a href="#cb36-308" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Squarified (Bruls et al., 2000)**: Optimizes aspect ratios but ignores sorting order (sortID).</span>
+<span id="cb36-309"><a href="#cb36-309" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Pivot-by-Size (Bederson et al., 2002)**: Maintains sorting order while keeping acceptable aspect ratios.</span>
+<span id="cb36-310"><a href="#cb36-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-311"><a href="#cb36-311" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.4.8 Working with alogorithm argument</span></span>
+<span id="cb36-312"><a href="#cb36-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-313"><a href="#cb36-313" aria-hidden="true" tabindex="-1"></a>The code below plots a **squarified treemap** by changing the *algorithm* argument.</span>
+<span id="cb36-314"><a href="#cb36-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-317"><a href="#cb36-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-318"><a href="#cb36-318" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb36-319"><a href="#cb36-319" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb36-320"><a href="#cb36-320" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb36-321"><a href="#cb36-321" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb36-322"><a href="#cb36-322" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"manual"</span>,</span>
+<span id="cb36-323"><a href="#cb36-323" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">"Blues"</span>, </span>
+<span id="cb36-324"><a href="#cb36-324" aria-hidden="true" tabindex="-1"></a>        <span class="at">algorithm =</span> <span class="st">"squarified"</span>,</span>
+<span id="cb36-325"><a href="#cb36-325" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb36-326"><a href="#cb36-326" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb36-327"><a href="#cb36-327" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb36-328"><a href="#cb36-328" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-329"><a href="#cb36-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-330"><a href="#cb36-330" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.4.9 Using *sortID*</span></span>
+<span id="cb36-331"><a href="#cb36-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-332"><a href="#cb36-332" aria-hidden="true" tabindex="-1"></a>With the **“pivotSize”** algorithm, the *sortID* argument controls the placement order of rectangles from top left to bottom right.</span>
+<span id="cb36-333"><a href="#cb36-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-336"><a href="#cb36-336" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-337"><a href="#cb36-337" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
+<span id="cb36-338"><a href="#cb36-338" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
+<span id="cb36-339"><a href="#cb36-339" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb36-340"><a href="#cb36-340" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb36-341"><a href="#cb36-341" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"manual"</span>,</span>
+<span id="cb36-342"><a href="#cb36-342" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">"Blues"</span>, </span>
+<span id="cb36-343"><a href="#cb36-343" aria-hidden="true" tabindex="-1"></a>        <span class="at">algorithm =</span> <span class="st">"pivotSize"</span>,</span>
+<span id="cb36-344"><a href="#cb36-344" aria-hidden="true" tabindex="-1"></a>        <span class="at">sortID =</span> <span class="st">"Median Transacted Price"</span>,</span>
+<span id="cb36-345"><a href="#cb36-345" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Resale Condominium by Planning Region and Area, 2017"</span>,</span>
+<span id="cb36-346"><a href="#cb36-346" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb36-347"><a href="#cb36-347" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb36-348"><a href="#cb36-348" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-349"><a href="#cb36-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-350"><a href="#cb36-350" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.5 Designing Treemap using treemapify Package</span></span>
+<span id="cb36-351"><a href="#cb36-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-352"><a href="#cb36-352" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">treemapify</span><span class="co">](https://www.rdocumentation.org/packages/treemapify/versions/0.2.1)</span> package in R is designed for creating treemaps in **ggplot2**.</span>
+<span id="cb36-353"><a href="#cb36-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-354"><a href="#cb36-354" aria-hidden="true" tabindex="-1"></a>References: (1) <span class="co">[</span><span class="ot">Introduction to treemapify</span><span class="co">](https://cran.r-project.org/web/packages/treemapify/vignettes/introduction-to-treemapify.html)</span>, &amp; (2) <span class="co">[</span><span class="ot">user guide</span><span class="co">](https://cran.r-project.org/web/packages/treemapify/treemapify.pdf)</span></span>
+<span id="cb36-355"><a href="#cb36-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-356"><a href="#cb36-356" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.5.1 Designing a basic treemap</span></span>
+<span id="cb36-357"><a href="#cb36-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-360"><a href="#cb36-360" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-361"><a href="#cb36-361" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>realis2018_selected, </span>
+<span id="cb36-362"><a href="#cb36-362" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">area =</span> <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span>,</span>
+<span id="cb36-363"><a href="#cb36-363" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span>),</span>
+<span id="cb36-364"><a href="#cb36-364" aria-hidden="true" tabindex="-1"></a>       <span class="at">layout =</span> <span class="st">"scol"</span>,</span>
+<span id="cb36-365"><a href="#cb36-365" aria-hidden="true" tabindex="-1"></a>       <span class="at">start =</span> <span class="st">"bottomleft"</span>) <span class="sc">+</span> </span>
+<span id="cb36-366"><a href="#cb36-366" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap</span>() <span class="sc">+</span></span>
+<span id="cb36-367"><a href="#cb36-367" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"light blue"</span>, <span class="at">high =</span> <span class="st">"pink"</span>)</span>
+<span id="cb36-368"><a href="#cb36-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-369"><a href="#cb36-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-370"><a href="#cb36-370" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.5.2 Defining hierarchy</span></span>
+<span id="cb36-371"><a href="#cb36-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-372"><a href="#cb36-372" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Group by Planning Region</span>
+<span id="cb36-373"><a href="#cb36-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-376"><a href="#cb36-376" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-377"><a href="#cb36-377" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>realis2018_selected, </span>
+<span id="cb36-378"><a href="#cb36-378" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">area =</span> <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span>,</span>
+<span id="cb36-379"><a href="#cb36-379" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span>,</span>
+<span id="cb36-380"><a href="#cb36-380" aria-hidden="true" tabindex="-1"></a>           <span class="at">subgroup =</span> <span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>),</span>
+<span id="cb36-381"><a href="#cb36-381" aria-hidden="true" tabindex="-1"></a>       <span class="at">start =</span> <span class="st">"topleft"</span>) <span class="sc">+</span> </span>
+<span id="cb36-382"><a href="#cb36-382" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap</span>()</span>
+<span id="cb36-383"><a href="#cb36-383" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-384"><a href="#cb36-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-385"><a href="#cb36-385" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Group by Planning Area</span>
+<span id="cb36-386"><a href="#cb36-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-389"><a href="#cb36-389" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-390"><a href="#cb36-390" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>realis2018_selected, </span>
+<span id="cb36-391"><a href="#cb36-391" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">area =</span> <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span>,</span>
+<span id="cb36-392"><a href="#cb36-392" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span>,</span>
+<span id="cb36-393"><a href="#cb36-393" aria-hidden="true" tabindex="-1"></a>           <span class="at">subgroup =</span> <span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>,</span>
+<span id="cb36-394"><a href="#cb36-394" aria-hidden="true" tabindex="-1"></a>           <span class="at">subgroup2 =</span> <span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb36-395"><a href="#cb36-395" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap</span>()</span>
+<span id="cb36-396"><a href="#cb36-396" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-397"><a href="#cb36-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-398"><a href="#cb36-398" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Adding boundary line</span>
+<span id="cb36-399"><a href="#cb36-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-402"><a href="#cb36-402" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-403"><a href="#cb36-403" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>realis2018_selected, </span>
+<span id="cb36-404"><a href="#cb36-404" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">area =</span> <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span>,</span>
+<span id="cb36-405"><a href="#cb36-405" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span>,</span>
+<span id="cb36-406"><a href="#cb36-406" aria-hidden="true" tabindex="-1"></a>           <span class="at">subgroup =</span> <span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>,</span>
+<span id="cb36-407"><a href="#cb36-407" aria-hidden="true" tabindex="-1"></a>           <span class="at">subgroup2 =</span> <span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb36-408"><a href="#cb36-408" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap</span>() <span class="sc">+</span></span>
+<span id="cb36-409"><a href="#cb36-409" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap_subgroup2_border</span>(<span class="at">colour =</span> <span class="st">"lightgreen"</span>,</span>
+<span id="cb36-410"><a href="#cb36-410" aria-hidden="true" tabindex="-1"></a>                                <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb36-411"><a href="#cb36-411" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap_subgroup_border</span>(<span class="at">colour =</span> <span class="st">"green"</span>)</span>
+<span id="cb36-412"><a href="#cb36-412" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-413"><a href="#cb36-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-414"><a href="#cb36-414" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.6 Designing Interactive Treemap using d3treeR</span></span>
+<span id="cb36-415"><a href="#cb36-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-416"><a href="#cb36-416" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.6.1 Installing *d3treeR* package</span></span>
+<span id="cb36-417"><a href="#cb36-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-420"><a href="#cb36-420" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-421"><a href="#cb36-421" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
+<span id="cb36-422"><a href="#cb36-422" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-423"><a href="#cb36-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-426"><a href="#cb36-426" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-427"><a href="#cb36-427" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb36-428"><a href="#cb36-428" aria-hidden="true" tabindex="-1"></a><span class="co"># install_github("timelyportfolio/d3treeR")</span></span>
+<span id="cb36-429"><a href="#cb36-429" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-430"><a href="#cb36-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-433"><a href="#cb36-433" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-434"><a href="#cb36-434" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(d3treeR)</span>
+<span id="cb36-435"><a href="#cb36-435" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-436"><a href="#cb36-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-437"><a href="#cb36-437" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.6.2 Designing An Interactive Treemap</span></span>
+<span id="cb36-438"><a href="#cb36-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-439"><a href="#cb36-439" aria-hidden="true" tabindex="-1"></a>The code below perform two steps:</span>
+<span id="cb36-440"><a href="#cb36-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-441"><a href="#cb36-441" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Uses <span class="in">`treemap()`</span> to create a treemap from selected variables in the condominium data frame and saves it as an object named **tm**.</span>
+<span id="cb36-442"><a href="#cb36-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-445"><a href="#cb36-445" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-446"><a href="#cb36-446" aria-hidden="true" tabindex="-1"></a>tm <span class="ot">&lt;-</span> <span class="fu">treemap</span>(realis2018_summarised,</span>
+<span id="cb36-447"><a href="#cb36-447" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>),</span>
+<span id="cb36-448"><a href="#cb36-448" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb36-449"><a href="#cb36-449" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb36-450"><a href="#cb36-450" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"value"</span>,</span>
+<span id="cb36-451"><a href="#cb36-451" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Private Residential Property Sold, 2017"</span>,</span>
+<span id="cb36-452"><a href="#cb36-452" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sq. m)"</span></span>
+<span id="cb36-453"><a href="#cb36-453" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb36-454"><a href="#cb36-454" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-455"><a href="#cb36-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-456"><a href="#cb36-456" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>*d3tree()* is then used to build an interactive treemap.</span>
+<span id="cb36-457"><a href="#cb36-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-460"><a href="#cb36-460" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-461"><a href="#cb36-461" aria-hidden="true" tabindex="-1"></a><span class="fu">d3tree</span>(tm,<span class="at">rootname =</span> <span class="st">"Singapore"</span> )</span>
+<span id="cb36-462"><a href="#cb36-462" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-463"><a href="#cb36-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-464"><a href="#cb36-464" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.7 References</span></span>
+<span id="cb36-465"><a href="#cb36-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-466"><a href="#cb36-466" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Kam, T.S(2024). <span class="co">[</span><span class="ot">Visual Statistical Analysis.</span><span class="co">](https://r4va.netlify.app/chap16)</span></span>
+<span id="cb36-467"><a href="#cb36-467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-468"><a href="#cb36-468" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.8 Takeaway</span></span>
+<span id="cb36-469"><a href="#cb36-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-470"><a href="#cb36-470" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb36-471"><a href="#cb36-471" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key takeaways</span></span>
+<span id="cb36-472"><a href="#cb36-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-473"><a href="#cb36-473" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Treemaps in R: Use treemap for static visualizations, treemapify for ggplot2 integration, and d3treeR for interactivity.</span>
+<span id="cb36-474"><a href="#cb36-474" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Treemap Arguments:</span>
+<span id="cb36-475"><a href="#cb36-475" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>index: Defines hierarchy.</span>
+<span id="cb36-476"><a href="#cb36-476" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>vSize: Sets rectangle size.</span>
+<span id="cb36-477"><a href="#cb36-477" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>vColor: Determines color mapping.</span>
+<span id="cb36-478"><a href="#cb36-478" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Color Mapping:</span>
+<span id="cb36-479"><a href="#cb36-479" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>"value": Uses diverging palettes, best for datasets with mixed values.</span>
+<span id="cb36-480"><a href="#cb36-480" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>"manual": Maps values linearly but can be misleading.</span>
+<span id="cb36-481"><a href="#cb36-481" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Treemap Layouts:</span>
+<span id="cb36-482"><a href="#cb36-482" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>"squarified": Better aspect ratios but ignores sorting.</span>
+<span id="cb36-483"><a href="#cb36-483" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>"pivotSize": Preserves sorting (sortID argument) while maintaining acceptable aspect ratios.</span>
+<span id="cb36-484"><a href="#cb36-484" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Interactive Treemaps: Convert static treemaps (treemap()) into interactive ones using d3tree().</span>
+<span id="cb36-485"><a href="#cb36-485" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-486"><a href="#cb36-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-487"><a href="#cb36-487" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.9 Further exploration</span></span>
+<span id="cb36-488"><a href="#cb36-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-489"><a href="#cb36-489" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Helps identify which property type dominates each region and highlights the price variations across Singapore's real estate market.</span>
+<span id="cb36-490"><a href="#cb36-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-491"><a href="#cb36-491" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>This treemap visualizes the distribution of property types across different planning regions in Singapore.</span>
+<span id="cb36-492"><a href="#cb36-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-493"><a href="#cb36-493" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each rectangle's size represents the total number of units sold</span>
+<span id="cb36-494"><a href="#cb36-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-495"><a href="#cb36-495" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The color intensity corresponds to the median unit price per square meter (psm).</span>
+<span id="cb36-496"><a href="#cb36-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-497"><a href="#cb36-497" aria-hidden="true" tabindex="-1"></a>Key insights:</span>
+<span id="cb36-498"><a href="#cb36-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-499"><a href="#cb36-499" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Larger rectangles indicate dominant property types in each region.</span>
+<span id="cb36-500"><a href="#cb36-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-501"><a href="#cb36-501" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Central Region has the largest share of Apartments and Condominiums, reflecting its high-density residential areas.</span>
+<span id="cb36-502"><a href="#cb36-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-503"><a href="#cb36-503" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>North-East, East, and North Regions show a mix of Condominiums, Apartments, and landed properties like Terrace Houses.</span>
+<span id="cb36-504"><a href="#cb36-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-505"><a href="#cb36-505" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Darker purple shades signify areas with higher property prices, particularly in central locations.</span>
+<span id="cb36-506"><a href="#cb36-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-509"><a href="#cb36-509" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-510"><a href="#cb36-510" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required libraries</span></span>
+<span id="cb36-511"><a href="#cb36-511" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required libraries</span></span>
+<span id="cb36-512"><a href="#cb36-512" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb36-513"><a href="#cb36-513" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treemap)</span>
+<span id="cb36-514"><a href="#cb36-514" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(d3treeR)</span>
+<span id="cb36-515"><a href="#cb36-515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-516"><a href="#cb36-516" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize data: Total units sold and median unit price per sqm</span></span>
+<span id="cb36-517"><a href="#cb36-517" aria-hidden="true" tabindex="-1"></a>realis2018_summarised <span class="ot">&lt;-</span> realis2018 <span class="sc">%&gt;%</span></span>
+<span id="cb36-518"><a href="#cb36-518" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>, <span class="st">`</span><span class="at">Property Type</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-519"><a href="#cb36-519" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb36-520"><a href="#cb36-520" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Unit Sold</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">No. of Units</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb36-521"><a href="#cb36-521" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Area</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Area (sqm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb36-522"><a href="#cb36-522" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Median Unit Price ($ psm)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Unit Price ($ psm)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb36-523"><a href="#cb36-523" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Median Transacted Price</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Transacted Price ($)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-524"><a href="#cb36-524" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb36-525"><a href="#cb36-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-526"><a href="#cb36-526" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a static treemap</span></span>
+<span id="cb36-527"><a href="#cb36-527" aria-hidden="true" tabindex="-1"></a>tm <span class="ot">&lt;-</span> <span class="fu">treemap</span>(realis2018_summarised,</span>
+<span id="cb36-528"><a href="#cb36-528" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Property Type"</span>),</span>
+<span id="cb36-529"><a href="#cb36-529" aria-hidden="true" tabindex="-1"></a>        <span class="at">vSize=</span><span class="st">"Total Unit Sold"</span>,</span>
+<span id="cb36-530"><a href="#cb36-530" aria-hidden="true" tabindex="-1"></a>        <span class="at">vColor=</span><span class="st">"Median Unit Price ($ psm)"</span>,</span>
+<span id="cb36-531"><a href="#cb36-531" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">"value"</span>,</span>
+<span id="cb36-532"><a href="#cb36-532" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette =</span> <span class="st">"Purples"</span>,</span>
+<span id="cb36-533"><a href="#cb36-533" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">"Property Type Distribution by Planning Region"</span>,</span>
+<span id="cb36-534"><a href="#cb36-534" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.legend =</span> <span class="st">"Median Unit Price (S$ per sqm)"</span></span>
+<span id="cb36-535"><a href="#cb36-535" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-536"><a href="#cb36-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-537"><a href="#cb36-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-538"><a href="#cb36-538" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-539"><a href="#cb36-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-542"><a href="#cb36-542" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-543"><a href="#cb36-543" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to interactive treemap</span></span>
+<span id="cb36-544"><a href="#cb36-544" aria-hidden="true" tabindex="-1"></a><span class="fu">d3tree</span>(tm, <span class="at">rootname =</span> <span class="st">"Singapore"</span>)</span>
+<span id="cb36-545"><a href="#cb36-545" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
