@@ -51,6 +51,8 @@ website:
         href: https://public.tableau.com/views/In-class_Ex03_Animation/Dashboard6?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
       - text: "In-class Exercise 04"
         href: In-class_Ex/In-class_Ex04.html
+      - text: "In-class Exercise 05"
+        href: In-class_Ex/In-class_Ex05.html
     - text: "Take-home Exercise"
       menu:
       - text: "Take Home Exercise 1"

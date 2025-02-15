@@ -270,29 +270,29 @@ While variables like *Cholesterol_Level*, *Stress_Levels*, *BMI*, *Heart_Rate*, 
 |                   |                     | -   **Moderate:** 151–200                                                       |
 |                   |                     | -   **High:** \> 200                                                            |
 +-------------------+---------------------+---------------------------------------------------------------------------------+
-| Stress_Levels     | Self-reported scale | -   **Miniminal Stress:** 0 \|                                                  |
-|                   |                     | -   **Low Stress:** 1–3                                                         |
-|                   |                     | -   **Moderate Stress:** 4–7                                                    |
-|                   |                     | -   **High Stress:** 8–10                                                       |
+| Stress_Levels     | Self-reported scale | -   **Miniminal_Stress:** 0                                                     |
+|                   |                     | -   **Low_Stress:** 1–3                                                         |
+|                   |                     | -   **Moderate_Stress:** 4–7                                                    |
+|                   |                     | -   **High_Stress:** 8–10                                                       |
 +-------------------+---------------------+---------------------------------------------------------------------------------+
 | BMI               | Body Mass Index     | -   **Underweight:** \< 18.5                                                    |
-|                   |                     | -   **Normal Weight:** 18.5–24.9                                                |
+|                   |                     | -   **Normal_Weight:** 18.5–24.9                                                |
 |                   |                     | -   **Overweight:** 25–29.9                                                     |
 |                   |                     | -   **Obese:** ≥ 30                                                             |
 +-------------------+---------------------+---------------------------------------------------------------------------------+
-| Heart_Rate        | beats per minute    | -   **Bradycardia (Low):** \< 60                                                |
+| Heart_Rate        | beats per minute    | -   **Low:** \< 60 \|                                                           |
 |                   |                     | -   **Normal:** 60–100                                                          |
-|                   |                     | -   **Tachycardia (High):** \> 100                                              |
+|                   |                     | -   **High:** \> 100 \|                                                         |
 +-------------------+---------------------+---------------------------------------------------------------------------------+
 | Systolic_BP       | mmHg                | -   **Normal:** \< 120                                                          |
 |                   |                     | -   **Elevated:** 120–129                                                       |
-|                   |                     | -   **Hypertension Stage 1:** 130–139                                           |
-|                   |                     | -   **Hypertension Stage 2:** ≥ 140                                             |
+|                   |                     | -   **Hypertension_Stage_1:** 130–139                                           |
+|                   |                     | -   **Hypertension_Stage_2:** ≥ 140                                             |
 +-------------------+---------------------+---------------------------------------------------------------------------------+
 | Diastolic_BP      | mmHg                | -   **Normal:** \< 80                                                           |
 |                   |                     | -   **Elevated:** 80–89                                                         |
-|                   |                     | -   **Hypertension Stage 1:** 90–99                                             |
-|                   |                     | -   **Hypertension Stage 2:** ≥ 100                                             |
+|                   |                     | -   **Hypertension_Stage_1:** 90–99                                             |
+|                   |                     | -   **Hypertension_Stage_2:** ≥ 100                                             |
 +-------------------+---------------------+---------------------------------------------------------------------------------+
 
 ```{r}
@@ -316,41 +316,41 @@ heart_attack_1 <- heart_attack %>%
     
     Stress_Levels_Category = case_when(
       is.na(Rounded_Stress_Levels) ~ "Unknown",  # Handle missing values
-      Rounded_Stress_Levels == 0 ~ "Minimal Stress",
-      Rounded_Stress_Levels %in% 1:3 ~ "Low Stress",
-      Rounded_Stress_Levels %in% 4:7 ~ "Moderate Stress",
-      Rounded_Stress_Levels %in% 8:10 ~ "High Stress",
+      Rounded_Stress_Levels == 0 ~ "Miniminal_Stress",
+      Rounded_Stress_Levels %in% 1:3 ~ "Low_Stress",
+      Rounded_Stress_Levels %in% 4:7 ~ "Moderate_Stress",
+      Rounded_Stress_Levels %in% 8:10 ~ "High_Stress",
       TRUE ~ "Unknown"
     ),
     
     BMI_Category = case_when(
       BMI < 18.5 ~ "Underweight",
-      BMI >= 18.5 & BMI < 25 ~ "Normal Weight",
+      BMI >= 18.5 & BMI < 25 ~ "Normal_Weight",
       BMI >= 25 & BMI < 30 ~ "Overweight",
       BMI >= 30 ~ "Obese",
       TRUE ~ "Unknown"
     ),
     
     Heart_Rate_Category = case_when(
-      Heart_Rate < 60 ~ "Bradycardia (Low)",
+      Heart_Rate < 60 ~ "Low",
       Heart_Rate >= 60 & Heart_Rate <= 100 ~ "Normal",
-      Heart_Rate > 100 ~ "Tachycardia (High)",
+      Heart_Rate > 100 ~ "High",
       TRUE ~ "Unknown"
     ),
     
     Systolic_BP_Category = case_when(
       Systolic_BP < 120 ~ "Normal",
       Systolic_BP >= 120 & Systolic_BP < 130 ~ "Elevated",
-      Systolic_BP >= 130 & Systolic_BP < 140 ~ "Hypertension Stage 1",
-      Systolic_BP >= 140 ~ "Hypertension Stage 2",
+      Systolic_BP >= 130 & Systolic_BP < 140 ~ "Hypertension_Stage_1",
+      Systolic_BP >= 140 ~ "Hypertension_Stage_2",
       TRUE ~ "Unknown"
     ),
     
     Diastolic_BP_Category = case_when(
       Diastolic_BP < 80 ~ "Normal",
       Diastolic_BP >= 80 & Diastolic_BP < 90 ~ "Elevated",
-      Diastolic_BP >= 90 & Diastolic_BP < 100 ~ "Hypertension Stage 1",
-      Diastolic_BP >= 100 ~ "Hypertension Stage 2",
+      Diastolic_BP >= 90 & Diastolic_BP < 100 ~ "Hypertension_Stage_1",
+      Diastolic_BP >= 100 ~ "Hypertension_Stage_2",
       TRUE ~ "Unknown"
     )
   )
@@ -968,7 +968,7 @@ In the following analysis, we will examine the strongest predictors of heart att
 +=================+=======================================================================================================+
 | Demographic     | Gender, Region, Family_History                                                                        |
 +-----------------+-------------------------------------------------------------------------------------------------------+
-| Lifestyle       | Smoking_History, Alcohol_Consumption, Physical_Activity, Diet_Quality, Stress_Levels                  |
+| Lifestyle       | Smoking_History, Alcohol_Consumption, Physical_Activity, Diet_Quality, Stress_Levels_Category         |
 +-----------------+-------------------------------------------------------------------------------------------------------+
 | Medical/ Health | Diabetes_History, Hypertension_History, Cholesterol_Level, BMI, Heart_Rate, Systolic_BP, Diastolic_BP |
 +-----------------+-------------------------------------------------------------------------------------------------------+
@@ -1076,7 +1076,7 @@ library(tidyr)
 # Prepare Data: Convert demographic factors to long format & Filter for "Yes"
 heart_attack_long <- heart_attack_2 %>%
   select(Age, Gender, Region, Family_History, Heart_Attack_Occurrence) %>%
-  filter(Heart_Attack_Occurrence == "1") %>%  # 🔹 Keep only heart attack cases
+  filter(Heart_Attack_Occurrence == "Yes") %>%  # 🔹 Keep only heart attack cases
   pivot_longer(cols = c(Gender, Region, Family_History), 
                names_to = "Demographic_Factor", 
                values_to = "Category") %>%
@@ -1115,7 +1115,7 @@ library(tidyr)
 # Prepare Data: Convert demographic factors to long format & Filter for "Yes"
 heart_attack_long <- heart_attack_2 %>%
   select(Age, Gender, Region, Family_History, Heart_Attack_Occurrence) %>%
-  filter(Heart_Attack_Occurrence == "1") %>%  # 🔹 Keep only heart attack cases
+  filter(Heart_Attack_Occurrence == "Yes") %>%  # 🔹 Keep only heart attack cases
   pivot_longer(cols = c(Gender, Region, Family_History), 
                names_to = "Demographic_Factor", 
                values_to = "Category") %>%
@@ -1138,12 +1138,167 @@ ggplot(heart_attack_long, aes(x = Age,
   labs(title = "Half-Eye Plot with Boxplot: Age Distribution for Heart Attack Cases",
        x = "Age", y = "Demographic Categories")
 
+
 ```
-:::
 
-#### 4.3.2 Does health factor plays a role in contributing to heart attack incidents
+#### 4.3.2 Does health factors play a role in contributing to heart attack incidents
 
-We will perform a similar analysis on Region to identify if it plays a significant role in contributing to heart attack incidents.
+##### 4.3.2.1 Correlation matrix
+
+```{r}
+
+# Load necessary libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(stats)
+# library(glmnet) # Removed since it's not installed
+
+# Select relevant health-related columns
+relevant_factors <- heart_attack_2 %>% 
+  select("Gender", "Region", "Smoking_History", "Diabetes_History", "Hypertension_History", "Physical_Activity",
+         "Diet_Quality", "Alcohol_Consumption", "Family_History", "Cholesterol_Level_Category", "Heart_Attack_Occurrence", 
+         "Stress_Levels_Category", "BMI_Category", "Heart_Rate_Category", "Systolic_BP_Category", "Diastolic_BP_Category")
+
+# Convert categorical variables
+# Gender encoding
+relevant_factors$Gender <- factor(relevant_factors$Gender, levels = c("Male", "Female"))
+
+# Region encoding
+relevant_factors$Region <- factor(relevant_factors$Region, levels = c("Rural", "Urban"))
+
+# Smoking_History encoding
+relevant_factors$Smoking_History <- factor(relevant_factors$Smoking_History, levels = c("Yes", "No"))
+
+# Diabetes_History encoding
+relevant_factors$Diabetes_History <- factor(relevant_factors$Diabetes_History, levels = c("Yes", "No"))
+
+# Hypertension_History encoding
+relevant_factors$Hypertension_History <- factor(relevant_factors$Hypertension_History, levels = c("Yes", "No"))
+
+# Physical_Activity is now numeric (Low = 0, Moderate = 1, High = 2)
+relevant_factors$Physical_Activity <- recode(relevant_factors$Physical_Activity, "Low" = 0, "Moderate" = 1, "High" = 2) %>% as.numeric()
+
+# Diet_Quality is now numeric (Poor = 0, Average = 1, Good = 2)
+relevant_factors$Diet_Quality <- recode(relevant_factors$Diet_Quality, "Poor" = 0, "Average" = 1, "Good" = 2) %>% as.numeric()
+
+# Alcohol_Consumption is now numeric (None = 0, Low = 0, Moderate = 1, High = 2)
+relevant_factors$Alcohol_Consumption <- recode(relevant_factors$Alcohol_Consumption, "None" = 0, "Low" = 0, "Moderate" = 1, "High" = 2) %>% as.numeric()
+
+# Family_History encoding
+relevant_factors$Family_History <- factor(relevant_factors$Family_History, levels = c("Yes", "No"))
+
+# Cholesterol_Level_Category is now numeric (Low = 0, Moderate = 1, High = 2)
+relevant_factors$Cholesterol_Level_Category <- recode(relevant_factors$Cholesterol_Level_Category, "Low" = 0, "Moderate" = 1, "High" = 2) %>% as.numeric()
+
+# Stress_Levels_Category is now numeric (Minimal Stress = 0, Low Stress = 0, Moderate Stress = 1, High Stress = 2)
+relevant_factors$Stress_Levels_Category <- recode(relevant_factors$Stress_Levels_Category,
+  "Miniminal_Stress" = 0,
+  "Low_Stress" = 0,
+  "Moderate_Stress" = 1,
+  "High_Stress" = 2
+) %>% as.numeric()
+
+# BMI_Category is now numeric (Underweight = 0, Normal_Weight = 1, Overweight = 2, Obese = 2)
+relevant_factors$BMI_Category <- recode(relevant_factors$BMI_Category, "Underweight" = 0, "Normal_Weight" = 1, "Overweight" = 2, "Obese" = 2) %>% as.numeric()
+
+# Heart_Rate_Category is now numeric (Low = 0, Normal = 1, High = 2)
+relevant_factors$Heart_Rate_Category <- recode(relevant_factors$Heart_Rate_Category, "Low" = 0, "Normal" = 1, "High" = 2) %>% as.numeric()
+
+# Systolic_BP_Category is now numeric (Normal = 0, Elevated = 1, Hypertension_Stage_1 = 2, Hypertension_Stage_2 = 2)
+relevant_factors$Systolic_BP_Category <- recode(relevant_factors$Systolic_BP_Category, "Normal" = 0, "Elevated" = 1, "Hypertension_Stage_1" = 2, "Hypertension_Stage_2" = 2) %>% as.numeric()
+
+# Diastolic_BP_Category is now numeric (Normal = 0, Elevated = 1, Hypertension_Stage_1 = 2, Hypertension_Stage_2 = 2)
+relevant_factors$Diastolic_BP_Category <- recode(relevant_factors$Diastolic_BP_Category, "Normal" = 0, "Elevated" = 1, "Hypertension_Stage_1" = 2, "Hypertension_Stage_2" = 2) %>% as.numeric()
+
+# Convert Heart_Attack_Occurrence to binary and ensure it remains a factor
+relevant_factors$Heart_Attack_Occurrence <- factor(ifelse(relevant_factors$Heart_Attack_Occurrence == "Yes", 1, 0), levels = c(0, 1))
+
+# Compute correlation matrix for numerical encoding
+cor_matrix <- relevant_factors %>% 
+  mutate(across(where(is.factor), as.numeric)) %>%
+  select(-Smoking_History, -Heart_Attack_Occurrence) %>%
+  cor(use = "complete.obs")
+
+print(cor_matrix)
+
+# Run Logistic Regression Model
+logistic_model <- glm(Heart_Attack_Occurrence ~ ., data = relevant_factors, family = binomial())
+
+# Print Model Summary
+summary(logistic_model)
+
+```
+
+
+```{r}
+if (!requireNamespace("randomForest", quietly = TRUE)) {
+  install.packages("randomForest")
+}
+library(randomForest)
+
+if (!requireNamespace("caret", quietly = TRUE)) {
+  install.packages("caret")
+}
+library(caret)
+```
+
+```{r}
+# Load necessary libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(stats)
+library(randomForest)  # Load Random Forest
+library(caret)  # For model evaluation
+
+# Select relevant health-related columns
+relevant_factors <- heart_attack_2 %>% 
+  select("Gender", "Region", "Smoking_History", "Diabetes_History", "Hypertension_History", "Physical_Activity",
+         "Diet_Quality", "Alcohol_Consumption", "Family_History", "Cholesterol_Level_Category", "Heart_Attack_Occurrence", 
+         "Stress_Levels_Category", "BMI_Category", "Heart_Rate_Category", "Systolic_BP_Category", "Diastolic_BP_Category")
+
+# Convert categorical variables to factors
+relevant_factors <- relevant_factors %>% 
+  mutate(across(where(is.character), as.factor))
+
+# Convert Heart_Attack_Occurrence to binary factor
+relevant_factors$Heart_Attack_Occurrence <- factor(ifelse(relevant_factors$Heart_Attack_Occurrence == "Yes", 1, 0), levels = c(0, 1))
+
+# Split dataset into training and testing sets
+set.seed(123)
+trainIndex <- createDataPartition(relevant_factors$Heart_Attack_Occurrence, p = 0.7, list = FALSE)
+train_data <- relevant_factors[trainIndex, ]
+test_data <- relevant_factors[-trainIndex, ]
+
+# Train a Random Forest model
+rf_model <- randomForest(Heart_Attack_Occurrence ~ ., data = train_data, ntree = 500, mtry = 3, importance = TRUE)
+print(rf_model)
+
+# Evaluate model on test data
+predictions <- predict(rf_model, test_data)
+confusionMatrix(predictions, test_data$Heart_Attack_Occurrence)
+
+# Feature importance
+importance_rf <- importance(rf_model)
+varImpPlot(rf_model)
+```
+
+
+
+```{r}
+# Load necessary library
+library(writexl)  # Or use openxlsx for more features
+
+# Define file path to save the Excel file
+file_path <- "C:/andreaysh/ISSS608/try.xlsx"
+
+# Export chi-square test results to Excel
+write_xlsx(heart_attack_2, path = file_path)
+
+# Confirm export
+print(paste("File saved to:", file_path))
+```
 
 <!-- ```{r} -->
 
@@ -1192,3 +1347,4 @@ We will perform a similar analysis on Region to identify if it plays a significa
 <!-- ``` -->
 
 -   Ch
+:::
