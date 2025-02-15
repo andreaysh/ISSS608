@@ -8,6 +8,7 @@ execute:
   warning: false
   freeze: true
 ---
+
 ## 1. Getting started
 
 ### 1.1 Installing and loading of R packages
@@ -15,6 +16,7 @@ execute:
 ```{r}
 pacman::p_load(tidyverse, readxl, SmartEDA, easystats, gtsummary, ggstatsplot)
 ```
+
 -   `readxl()`: Function from the readxl package used to read .xls (Excel 97-2003) files into R.
 -   `SmartEDA()`: Automates exploratory data analysis (EDA) by generating summaries, visualizations, and reports for both numerical and categorical variables.
 -   `easystats()`: Provides a collection of packages for easy, intuitive, and efficient statistical analysis, including model evaluation, data visualization, and reporting.
@@ -26,22 +28,29 @@ car_resale <- read_xls("data/ToyotaCorolla.xls",
                        "data")
 car_resale
 ```
+
 ### 1.3 Understanding the data
-#### 1.3.1 Using Summary() 
+
+#### 1.3.1 Using Summary()
 
 ```{r}
 summary(car_resale)
 ```
-#### 1.3.2 Using list() 
+
+#### 1.3.2 Using list()
+
 ```{r}
 list(car_resale)
 ```
-#### 1.3.3 Using glimpse() 
+
+#### 1.3.3 Using glimpse()
+
 ```{r}
 glimpse(car_resale)
 ```
 
 ### 1.3 Data overview
+
 **What does `SmartEDA`package `type` means?**
 
 -   `Type = 1`: generates descriptive statistics for numerical and categorical variables, including summaries like mean, median, missing values, and unique counts.
@@ -53,6 +62,7 @@ glimpse(car_resale)
 car_resale %>%
   ExpData(type = 1)
 ```
+
 #### 1.3.2 When `type = 2`
 
 ```{r}
@@ -61,6 +71,7 @@ car_resale %>%
 ```
 
 ### 1.4 Data wrangling
+
 The below code reads an Excel file, converts the Id column to a character, and transforms all columns in cols into factors.
 
 ```{r}
@@ -79,6 +90,7 @@ car_resale <- read_xls("data/ToyotaCorolla.xls",
 ```
 
 ### 1.5 `SmartEDA` - Data Visualization
+
 #### 1.5.1 Numerical Variable Distribution Visualization for Car Resale Data - target = 'NULL'
 
 -   `target =  NULL`: No target variable is specified, so the function will analyze and visualize all numerical variables independently
@@ -125,11 +137,13 @@ model <- lm(Price ~ Age_08_04 + Mfg_Year + KM +
               Weight + Guarantee_Period, data = car_resale)
 model
 ```
+
 ### 1.7 Checking for multicolinearity
 
 ```{r}
 check_collinearity(model)
 ```
+
 #### 1.7.1 Identify variables with high multicollinearity
 
 -   When 1 - 5 : Low collinearity
@@ -141,6 +155,7 @@ check_c <- check_collinearity(model)
 plot(check_c)
 
 ```
+
 -   **Remove the `Mfg_Year` as it has multi-collinearity**
 
 ```{r}
@@ -155,6 +170,7 @@ model1 <- lm(Price ~ Age_08_04 + KM +
 check_n <- check_normality(model1)
 plot(check_n)
 ```
+
 ### 1.9 Check model for homogeneity of variances
 
 -   To check for homogeneity of variances
@@ -172,7 +188,8 @@ plot(check_h)
 ```{r}
 check_model(model1)
 ```
-### 2.1 Visualising Regression Parameters using see methods 
+
+### 2.1 Visualising Regression Parameters using see methods
 
 ```{r}
 tbl_regression(model1, 
@@ -185,6 +202,7 @@ tbl_regression(model1,
   )
          
 ```
+
 ### 2.2 Visualising Regression Parameters
 
 ```{r}
@@ -192,6 +210,7 @@ library(parameters)
 model_parameters(model1)
 
 ```
+
 #### 2.2.1 Visualising Regression Parameters using `see` methods
 
 ```{r}
@@ -204,4 +223,3 @@ p_model1 <- parameters(model1)
 ggcoefstats(model1, 
             output = "plot")
 ```
-
