@@ -1447,6 +1447,7 @@ summary(optimized_model)
 :::
 
 ### 4.4 EDA 3 - focused analysis of heart attack based on significant predictors
+
 #### 4.4.1 Scatter plots of cholesterol level vs stress levels
 
 ```{r, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
@@ -1615,6 +1616,7 @@ ggMarginal(p, type = "boxplot", groupColour = TRUE, groupFill = TRUE)
 
 ::: panel-tabset
 ## Graph
+
 ```{r}
 #| echo = FALSE 
 
@@ -1658,6 +1660,7 @@ interactive_plot
 ```
 
 ## Code
+
 ```{r}
 #| eval = FALSE
 
@@ -1700,55 +1703,14 @@ interactive_plot <- girafe(ggobj = p)
 # Display the interactive plot
 interactive_plot
 ```
-
 :::
 
+## 5.0 Summary and findings
 
+-   Age alone is not the strongest predictor—lifestyle & health factors play a bigger role.
 
-<!-- ```{r} -->
+-   In this analysis, high cholesterol levels (\>200 mg/dL) are a primary risk factor for heart attacks.
 
-<!-- # Step 1: Count total individuals in each Age_Category -->
+-   Gender differences exist, but cholesterol remains the dominant factor.
 
-<!-- total_population <- heart_attack_2 %>% -->
-
-<!--   group_by(Age_Category) %>% -->
-
-<!--   summarise(Total_Count = n()) -->
-
-<!-- # Step 2: Count heart attack occurrences by Age_Category -->
-
-<!-- heart_attack_counts <- heart_attack_2 %>% -->
-
-<!--   filter(Heart_Attack_Occurrence == "Yes") %>% -->
-
-<!--   group_by(Age_Category) %>% -->
-
-<!--   summarise(Heart_Attack_Count = n()) -->
-
-<!-- # Step 3: Merge the two tables -->
-
-<!-- normalized_data <- left_join(heart_attack_counts, total_population, by = "Age_Category") %>% -->
-
-<!--   mutate(Normalized_Heart_Attack_Rate = (Heart_Attack_Count / Total_Count) * 100) -->
-
-<!-- # Step 4: Plot the normalized heart attack rate -->
-
-<!-- ggplot(normalized_data, aes(x = Age_Category, y = Normalized_Heart_Attack_Rate, fill = Age_Category)) + -->
-
-<!--   geom_bar(stat = "identity", color = "black", alpha = 0.7) + -->
-
-<!--   labs(title = "Normalized Heart Attack Rate by Age Group", -->
-
-<!--        x = "Age Group", -->
-
-<!--        y = "Heart Attack Rate (Normalized, % of total in group)") + -->
-
-<!--   theme_minimal() + -->
-
-<!--   scale_fill_brewer(palette = "Set2") + -->
-
-<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability -->
-
-<!-- ``` -->
-
-
+-   Targeted interventions should focus on reducing cholesterol and managing hypertension rather than stress alone
