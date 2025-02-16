@@ -32,6 +32,6 @@ My journey into programming felt like starring in a drama-comedy series\
 ## Find out what I have learnt
 
 |  |  |  |
-|:----------------------:|:----------------------:|:----------------------:|
+|:--:|:--:|:--:|
 | [![](images/Pic02.jpg){width="153"}](In-class_Ex/In-class_Ex01.html) | [![](images/Pic03.jpg){width="188"}](Hands-on_Ex/Hands-on_Ex01.html) | [![](images/Pic04.jpeg){width="188"}](Take-home_Ex/Take-home_Ex01.html) |
 | **In-class Exercise** | **Hands-on Exercise** | **Take-home Exercise** |
