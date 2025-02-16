@@ -40,24 +40,22 @@ The following R packages will be loaded for this exercise using `pacman::p_load(
 -   [**knitr**](https://www.rdocumentation.org/packages/knitr/versions/1.48): Enables dynamic report generation with R Markdown
 -   [**patchwork**](https://www.rdocumentation.org/packages/patchwork/versions/0.0.1): Combines multiple ggplot2 plots into a single layout
 -   [**ggthemes**](https://www.rdocumentation.org/packages/ggthemes/versions/5.1.0): Provides additional themes and scales for ggplot2
--   [**scales**](https://www.rdocumentation.org/packages/scales/versions/0.4.1): Enhances visualization by formatting axes and legends in ggplot2
 -   [**ggridges**](https://www.rdocumentation.org/packages/ggridges/versions/0.5.6): Creates ridge plots for density visualization
 -   [**ggpubr**](https://www.rdocumentation.org/packages/ggpubr/versions/0.6.0): Simplifies publication-ready ggplot2 visualizations
 -   [**gganimate**](https://www.rdocumentation.org/packages/gganimate/versions/1.0.9): Adds animation capabilities to ggplot2 graphics
--   [**ggdist**](https://www.rdocumentation.org/packages/ggdist/versions/3.3.2): Visualizes uncertainty and statistical distributions in ggplot2
--   [**ggtext**](https://www.rdocumentation.org/packages/ggtext/versions/0.1.2): Enhances text rendering and formatting in ggplot2
--   [**ggalt**](https://www.rdocumentation.org/packages/GGally/versions/2.2.1): Provides additional geoms, including dumbbell plots and lollipop charts
--   [**cowplot**](https://www.rdocumentation.org/packages/cowplot/versions/1.1.3): Enhances ggplot2-based layouts and plot annotations
--   [**ggnewscale**](https://www.rdocumentation.org/packages/ggnewscale/versions/0.4.5): Allows multiple color and fill scales in a single ggplot2 plot
--   [**ggrepel**](https://www.rdocumentation.org/packages/ggrepel/versions/0.9.6): Prevents overlapping text labels in ggplot2 plots
 -   [**FunnelPlotrR**](https://www.rdocumentation.org/packages/rmeta/versions/3.0/topics/funnelplot):Used to create funnel plots for visualizing and comparing proportions, rates, or ratios across different groups while accounting for statistical variation.
+-   [**performance**](https://easystats.github.io/performance/index.html): Provides tools for assessing and comparing statistical models, including metrics for model quality, diagnostics, and visualization.
+-   [**stats**](https://www.rdocumentation.org/packages/stats/versions/3.6.2): Provides essential statistical functions for modeling, hypothesis testing, regression, and probability distributions.
+-   [**parameters**](https://www.rdocumentation.org/packages/parameters/versions/0.22.0): Provides tools for processing, reporting, and visualizing model parameters in a tidy and user-friendly format.
+-   [**ggstatsplot**](https://www.rdocumentation.org/packages/ggstatsplot/versions/0.6.1): Creates visualizations with statistical details embedded, combining `ggplot2` with statistical tests for easy interpretation.
+-   [**patchwork**](https://www.rdocumentation.org/packages/patchwork/versions/0.0.1): Allows easy combination and arrangement of multiple ggplot2 plots into a single cohesive layout.
 
 ```{r}
 pacman::p_load(tidyverse, haven, knitr,
                patchwork, ggthemes, scales,
                ggridges, ggpubr, gganimate,
                ggdist, ggtext, ggalt,
-               cowplot, ggnewscale,FunnelPlotR)
+               cowplot, ggnewscale,FunnelPlotR, performance, parameters, ggstatsplot)
 ```
 
 ## 3. Data wrangling & data prepration
@@ -74,7 +72,7 @@ heart_attack
 
 The dataset is structured as a tibble dataframe, containing 30,000 rows and 32 columns. Each observation represents an individual case, and the variables capture key medical and demographic information relevant to heart attack incidents across different age groups in Japan.
 
-### 3.4 Checking the data structure
+### 3.2 Checking the data structure
 
 We will check the dataset using below
 
@@ -149,7 +147,7 @@ The following preprocessing checks were conducted as part of data preparation:
 -   Checked for missing values using `colSums(is.na())`
 :::
 
-### 3.2 Understanding the metadata
+### 3.3 Understanding the metadata
 
 The table below presents the metadata for the dataset, classifying each variable as either categorical or continuous based on its nature and data type.
 
@@ -234,7 +232,7 @@ The table below presents the metadata for the dataset, classifying each variable
 -   They are most likely derived calculations from the variables.
 :::
 
-### 3.3 Filtering for relevant variables
+### 3.4 Filtering for relevant variables
 
 Of the 32 variables (columns), only 17 variables(columns) are selected for analysis
 
@@ -959,19 +957,21 @@ funnel_plot(
 
 ### 4.3 EDA 2 - identify the strongest predictors contributing to heart attack incidents
 
-From the above analysis, it suggests that age alone may not be the strongest predictor of heart attack risk, other demographic, lifestyle or health factors might play a key role.
+From the above analysis, it suggests that age alone may not be the strongest predictor of heart attack risk, other factors might play a key role.
 
-In the following analysis, we will examine the strongest predictors of heart attack incidents based on three key factor types: **Demographic, Lifestyle, and Medical/Health.**
+In the following analysis, we will examine the strongest predictors of heart attack incidents based on two key factor types: **Demographic** and **Lifestyle/ Health.**
 
-+-----------------+-------------------------------------------------------------------------------------------------------+
-| Factor types    | Variables to consider                                                                                 |
-+=================+=======================================================================================================+
-| Demographic     | Gender, Region, Family_History                                                                        |
-+-----------------+-------------------------------------------------------------------------------------------------------+
-| Lifestyle       | Smoking_History, Alcohol_Consumption, Physical_Activity, Diet_Quality, Stress_Levels_Category         |
-+-----------------+-------------------------------------------------------------------------------------------------------+
-| Medical/ Health | Diabetes_History, Hypertension_History, Cholesterol_Level, BMI, Heart_Rate, Systolic_BP, Diastolic_BP |
-+-----------------+-------------------------------------------------------------------------------------------------------+
+-   **Demographic variables** are inherent characteristics that define a person but are not directly influence by behavior or lifestyle
+
+-   **Lifestyle/ health variables** are a result from both genetics and lifestyle factors
+
++-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Factor types      | Variables to consider                                                                                                                                                                                |
++===================+======================================================================================================================================================================================================+
+| Demographic       | Gender, Region, Family_History                                                                                                                                                                       |
++-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Lifestyle/ Health | Smoking_History, Alcohol_Consumption, Physical_Activity, Diet_Quality, Stress_Levels_Category, Diabetes_History, Hypertension_History, Cholesterol_Level, BMI, Heart_Rate, Systolic_BP, Diastolic_BP |
++-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 #### 4.3.1 Does demographic factors play a role in contributing to heart attack incidents
 
@@ -1076,7 +1076,7 @@ library(tidyr)
 # Prepare Data: Convert demographic factors to long format & Filter for "Yes"
 heart_attack_long <- heart_attack_2 %>%
   select(Age, Gender, Region, Family_History, Heart_Attack_Occurrence) %>%
-  filter(Heart_Attack_Occurrence == "Yes") %>%  # 🔹 Keep only heart attack cases
+  filter(Heart_Attack_Occurrence == "1") %>%  # 🔹 Keep only heart attack cases
   pivot_longer(cols = c(Gender, Region, Family_History), 
                names_to = "Demographic_Factor", 
                values_to = "Category") %>%
@@ -1086,7 +1086,7 @@ heart_attack_long <- heart_attack_2 %>%
 # Half-Eye Plot with Boxplot Overlay (Filtered)
 ggplot(heart_attack_long, aes(x = Age, 
                               y = interaction(Demographic_Factor, Category), 
-                              fill = Category)) +  # 🔹 Change fill to Category for demographic focus
+                              fill = Category)) +  
   stat_halfeye(adjust = 0.5, justification = -0.2,  
                .width = c(0.5, 0.8, 0.95),  
                slab_alpha = 0.8, 
@@ -1094,7 +1094,7 @@ ggplot(heart_attack_long, aes(x = Age,
   geom_boxplot(width = 0.20, 
                outlier.shape = NA, 
                alpha = 0.6) +  # Add boxplot without outliers
-  scale_fill_brewer(palette = "Set2", name = "Demographic Category") +  # 🔹 Different colors for categories
+  scale_fill_brewer(palette = "Set2", name = "Demographic Category") +
   theme_minimal() +
   labs(title = "Half-Eye Plot with Boxplot: Age Distribution for Heart Attack Cases",
        x = "Age", y = "Demographic Categories")
@@ -1115,7 +1115,7 @@ library(tidyr)
 # Prepare Data: Convert demographic factors to long format & Filter for "Yes"
 heart_attack_long <- heart_attack_2 %>%
   select(Age, Gender, Region, Family_History, Heart_Attack_Occurrence) %>%
-  filter(Heart_Attack_Occurrence == "Yes") %>%  # 🔹 Keep only heart attack cases
+  filter(Heart_Attack_Occurrence == "1") %>%  # 🔹 Keep only heart attack cases
   pivot_longer(cols = c(Gender, Region, Family_History), 
                names_to = "Demographic_Factor", 
                values_to = "Category") %>%
@@ -1140,20 +1140,15 @@ ggplot(heart_attack_long, aes(x = Age,
 
 
 ```
+:::
 
-#### 4.3.2 Does health factors play a role in contributing to heart attack incidents
+#### 4.3.2 How does lifestyle/ health factors play a role in contributing to heart attack incidents
 
-##### 4.3.2.1 Correlation matrix
+##### 4.3.2.1 Data preparation for logistic regression on heart attack risk
+
+The below are the steps taken to prepare the dataset for logistic regression. The key lifestyle/ health factors were selected, where categorical variables were encoded, and ordinal scales variables were converted to numeric values.
 
 ```{r}
-
-# Load necessary libraries
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(stats)
-# library(glmnet) # Removed since it's not installed
-
 # Select relevant health-related columns
 relevant_factors <- heart_attack_2 %>% 
   select("Gender", "Region", "Smoking_History", "Diabetes_History", "Hypertension_History", "Physical_Activity",
@@ -1182,8 +1177,8 @@ relevant_factors$Physical_Activity <- recode(relevant_factors$Physical_Activity,
 # Diet_Quality is now numeric (Poor = 0, Average = 1, Good = 2)
 relevant_factors$Diet_Quality <- recode(relevant_factors$Diet_Quality, "Poor" = 0, "Average" = 1, "Good" = 2) %>% as.numeric()
 
-# Alcohol_Consumption is now numeric (None = 0, Low = 0, Moderate = 1, High = 2)
-relevant_factors$Alcohol_Consumption <- recode(relevant_factors$Alcohol_Consumption, "None" = 0, "Low" = 0, "Moderate" = 1, "High" = 2) %>% as.numeric()
+# Alcohol_Consumption is now numeric (None = 0, Low = 1, Moderate = 2, High = 3)
+relevant_factors$Alcohol_Consumption <- recode(relevant_factors$Alcohol_Consumption, "None" = 0, "Low" = 1, "Moderate" = 2, "High" = 3) %>% as.numeric()
 
 # Family_History encoding
 relevant_factors$Family_History <- factor(relevant_factors$Family_History, levels = c("Yes", "No"))
@@ -1191,114 +1186,213 @@ relevant_factors$Family_History <- factor(relevant_factors$Family_History, level
 # Cholesterol_Level_Category is now numeric (Low = 0, Moderate = 1, High = 2)
 relevant_factors$Cholesterol_Level_Category <- recode(relevant_factors$Cholesterol_Level_Category, "Low" = 0, "Moderate" = 1, "High" = 2) %>% as.numeric()
 
-# Stress_Levels_Category is now numeric (Minimal Stress = 0, Low Stress = 0, Moderate Stress = 1, High Stress = 2)
+# Stress_Levels_Category is now numeric (Minimal Stress = 0, Low Stress = 1, Moderate Stress = 2, High Stress = 3)
 relevant_factors$Stress_Levels_Category <- recode(relevant_factors$Stress_Levels_Category,
   "Miniminal_Stress" = 0,
-  "Low_Stress" = 0,
-  "Moderate_Stress" = 1,
-  "High_Stress" = 2
+  "Low_Stress" = 1,
+  "Moderate_Stress" = 2,
+  "High_Stress" = 3
 ) %>% as.numeric()
 
-# BMI_Category is now numeric (Underweight = 0, Normal_Weight = 1, Overweight = 2, Obese = 2)
-relevant_factors$BMI_Category <- recode(relevant_factors$BMI_Category, "Underweight" = 0, "Normal_Weight" = 1, "Overweight" = 2, "Obese" = 2) %>% as.numeric()
+# BMI_Category is now numeric (Underweight = 0, Normal_Weight = 1, Overweight = 2, Obese = 3)
+relevant_factors$BMI_Category <- recode(relevant_factors$BMI_Category, "Underweight" = 0, "Normal_Weight" = 1, "Overweight" = 2, "Obese" = 3) %>% as.numeric()
 
 # Heart_Rate_Category is now numeric (Low = 0, Normal = 1, High = 2)
 relevant_factors$Heart_Rate_Category <- recode(relevant_factors$Heart_Rate_Category, "Low" = 0, "Normal" = 1, "High" = 2) %>% as.numeric()
 
-# Systolic_BP_Category is now numeric (Normal = 0, Elevated = 1, Hypertension_Stage_1 = 2, Hypertension_Stage_2 = 2)
-relevant_factors$Systolic_BP_Category <- recode(relevant_factors$Systolic_BP_Category, "Normal" = 0, "Elevated" = 1, "Hypertension_Stage_1" = 2, "Hypertension_Stage_2" = 2) %>% as.numeric()
+# Systolic_BP_Category is now numeric (Normal = 0, Elevated = 1, Hypertension_Stage_1 = 2, Hypertension_Stage_2 = 3)
+relevant_factors$Systolic_BP_Category <- recode(relevant_factors$Systolic_BP_Category, "Normal" = 0, "Elevated" = 1, "Hypertension_Stage_1" = 2, "Hypertension_Stage_2" = 3) %>% as.numeric()
 
-# Diastolic_BP_Category is now numeric (Normal = 0, Elevated = 1, Hypertension_Stage_1 = 2, Hypertension_Stage_2 = 2)
-relevant_factors$Diastolic_BP_Category <- recode(relevant_factors$Diastolic_BP_Category, "Normal" = 0, "Elevated" = 1, "Hypertension_Stage_1" = 2, "Hypertension_Stage_2" = 2) %>% as.numeric()
+# Diastolic_BP_Category is now numeric (Normal = 0, Elevated = 1, Hypertension_Stage_1 = 2, Hypertension_Stage_2 = 3)
+relevant_factors$Diastolic_BP_Category <- recode(relevant_factors$Diastolic_BP_Category, "Normal" = 0, "Elevated" = 1, "Hypertension_Stage_1" = 2, "Hypertension_Stage_2" = 3) %>% as.numeric()
 
 # Convert Heart_Attack_Occurrence to binary and ensure it remains a factor
 relevant_factors$Heart_Attack_Occurrence <- factor(ifelse(relevant_factors$Heart_Attack_Occurrence == "Yes", 1, 0), levels = c(0, 1))
+```
 
-# Compute correlation matrix for numerical encoding
-cor_matrix <- relevant_factors %>% 
-  mutate(across(where(is.factor), as.numeric)) %>%
-  select(-Smoking_History, -Heart_Attack_Occurrence) %>%
-  cor(use = "complete.obs")
+##### 4.3.2.2 Multiple regression using lm()
 
-print(cor_matrix)
+The code below is used to calibrate a multiple linear regression model by using glm() of Base Stats of R.
+
+::: panel-tabset
+## Result
+
+```{r}
+#| echo = FALSE
 
 # Run Logistic Regression Model
 logistic_model <- glm(Heart_Attack_Occurrence ~ ., data = relevant_factors, family = binomial())
 
 # Print Model Summary
+logistic_model
+```
+
+## Code
+
+```{r}
+#| eval = FALSE 
+
+# Run Logistic Regression Model
+logistic_model <- glm(Heart_Attack_Occurrence ~ ., data = relevant_factors, family = binomial())
+
+# Print Model Summary
+logistic_model
+```
+:::
+
+##### 4.3.2.3 Model Diagnostic: checking for multicolinearity
+
+In the code below, we use `check_collinearity()` of [**performance**](https://easystats.github.io/performance/index.html) package to check for multicolinearity.
+
+Observations:
+
+-   **Low Multicollinearity** – VIF values are all \~1.00, indicating minimal correlation among independent variables.
+
+-   **No Immediate Need for Variable Removal** – Since there is no strong multicollinearity, all predictors can remain in the model.
+
+::: panel-tabset
+## Result
+
+```{r}
+#| echo = FALSE
+check_collinearity(logistic_model)
+
+```
+
+## Code
+
+```{r}
+#| eval = FALSE 
+
+check_collinearity(logistic_model)
+```
+:::
+
+##### 4.3.2.4 Model Diagnostic: correlation analysis of risk factors
+
+Observations:
+
+-   **Low Correlations Between Variables**
+
+    -   Correlation values range between -0.01 and 0.01, indicating very weak relationships.
+
+    -   No strong correlations suggest that multicollinearity is not a major issue
+
+    -   No predictor strongly influences another, meaning variables are mostly independent in the model, to include all variables in regression model
+
+::: panel-tabset
+## Graph
+
+```{r}
+#| echo = FALSE
+
+# Generate correlation matrix plot 
+ggstatsplot::ggcorrmat(
+  data = relevant_factors, 
+  cor.vars = 1:ncol(relevant_factors), 
+  ggcorrplot.args = list(
+    outline.color = "blue",  # Add black outline for clarity
+    hc.order = TRUE,          # Hierarchical clustering to group correlated variables
+    tl.cex = 10               # Adjust text size for readability
+  ),
+  title    = "Correlogram for Heart Attack Risk Factors",
+  subtitle = "Significance level: p < 0.05"
+)
+```
+
+## Code
+
+```{r}
+#| eval = FALSE 
+
+# Generate correlation matrix plot 
+ggstatsplot::ggcorrmat(
+  data = relevant_factors, 
+  cor.vars = 1:ncol(relevant_factors), 
+  ggcorrplot.args = list(
+    outline.color = "blue",  # Add black outline for clarity
+    hc.order = TRUE,          # Hierarchical clustering to group correlated variables
+    tl.cex = 10               # Adjust text size for readability
+  ),
+  title    = "Correlogram for Heart Attack Risk Factors",
+  subtitle = "Significance level: p < 0.05"
+)
+```
+:::
+
+##### 4.3.2.5 Model Diagnostic: checking for statistical significance of predictors in logistic regression
+
+-   Stress Levels Category is the only statistically significant variable (p = 0.0273).
+-   Gender (Female) is the next most significant (p = 0.0666), although it is not below the traditional 0.05 threshold, it is marginally significant (p \< 0.1).
+-   All other variables (Hypertension, Smoking, Diabetes, etc.) have p-values \> 0.1, making them far less significant.
+
+::: panel-tabset
+## Graph
+
+![](/images/Pic12.jpg)
+
+## Code
+
+```{r}
+#| eval = FALSE 
+
 summary(logistic_model)
-
 ```
+:::
 
+##### 4.3.2.6 Visualising Regression Parameters: see methods
+
+::: panel-tabset
+## Graph
 
 ```{r}
-if (!requireNamespace("randomForest", quietly = TRUE)) {
-  install.packages("randomForest")
-}
-library(randomForest)
+#| echo = FALSE
 
-if (!requireNamespace("caret", quietly = TRUE)) {
-  install.packages("caret")
-}
-library(caret)
+plot(parameters(logistic_model))
 ```
+
+## Code
 
 ```{r}
-# Load necessary libraries
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(stats)
-library(randomForest)  # Load Random Forest
-library(caret)  # For model evaluation
+#| eval = FALSE 
 
-# Select relevant health-related columns
-relevant_factors <- heart_attack_2 %>% 
-  select("Gender", "Region", "Smoking_History", "Diabetes_History", "Hypertension_History", "Physical_Activity",
-         "Diet_Quality", "Alcohol_Consumption", "Family_History", "Cholesterol_Level_Category", "Heart_Attack_Occurrence", 
-         "Stress_Levels_Category", "BMI_Category", "Heart_Rate_Category", "Systolic_BP_Category", "Diastolic_BP_Category")
-
-# Convert categorical variables to factors
-relevant_factors <- relevant_factors %>% 
-  mutate(across(where(is.character), as.factor))
-
-# Convert Heart_Attack_Occurrence to binary factor
-relevant_factors$Heart_Attack_Occurrence <- factor(ifelse(relevant_factors$Heart_Attack_Occurrence == "Yes", 1, 0), levels = c(0, 1))
-
-# Split dataset into training and testing sets
-set.seed(123)
-trainIndex <- createDataPartition(relevant_factors$Heart_Attack_Occurrence, p = 0.7, list = FALSE)
-train_data <- relevant_factors[trainIndex, ]
-test_data <- relevant_factors[-trainIndex, ]
-
-# Train a Random Forest model
-rf_model <- randomForest(Heart_Attack_Occurrence ~ ., data = train_data, ntree = 500, mtry = 3, importance = TRUE)
-print(rf_model)
-
-# Evaluate model on test data
-predictions <- predict(rf_model, test_data)
-confusionMatrix(predictions, test_data$Heart_Attack_Occurrence)
-
-# Feature importance
-importance_rf <- importance(rf_model)
-varImpPlot(rf_model)
+ggcoefstats(logistic_model, 
+            output = "plot")
 ```
+:::
 
+##### 4.3.2.7 Feature selection and model optimization using stepwise selection
 
+Observations:
+
+-   Stepwise selection has removed many non-significant variables, leaving Gender, Cholesterol Levels, Stress Levels, and BMI Category as predictors.
+
+-   This model has a lower AIC (19337), suggesting better fit compared to previous models.
+
+::: panel-tabset
+## Result
+
+![](/images/Pic11.jpg){width="619"}
+
+## Code - Iteration of stepwise selection
 
 ```{r}
-# Load necessary library
-library(writexl)  # Or use openxlsx for more features
+#| eval = FALSE 
 
-# Define file path to save the Excel file
-file_path <- "C:/andreaysh/ISSS608/try.xlsx"
+# Fit logistic regression model with all predictors + Stress Levels interactions
+full_model <- glm(Heart_Attack_Occurrence ~ . + Stress_Levels_Category * Hypertension_History, 
+                  family = binomial(), data = relevant_factors)
 
-# Export chi-square test results to Excel
-write_xlsx(heart_attack_2, path = file_path)
+# Check significance of all predictors
+summary(full_model)
 
-# Confirm export
-print(paste("File saved to:", file_path))
+library(MASS)
+optimized_model <- stepAIC(full_model, direction = "both")
+summary(optimized_model)
 ```
+:::
+
+
 
 <!-- ```{r} -->
 
@@ -1347,4 +1441,3 @@ print(paste("File saved to:", file_path))
 <!-- ``` -->
 
 -   Ch
-:::
