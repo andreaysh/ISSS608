@@ -41,8 +41,6 @@ The following R packages will be loaded for this exercise using `pacman::p_load(
 -   [**patchwork**](https://www.rdocumentation.org/packages/patchwork/versions/0.0.1): Combines multiple ggplot2 plots into a single layout
 -   [**ggthemes**](https://www.rdocumentation.org/packages/ggthemes/versions/5.1.0): Provides additional themes and scales for ggplot2
 -   [**ggridges**](https://www.rdocumentation.org/packages/ggridges/versions/0.5.6): Creates ridge plots for density visualization
--   [**ggpubr**](https://www.rdocumentation.org/packages/ggpubr/versions/0.6.0): Simplifies publication-ready ggplot2 visualizations
--   [**gganimate**](https://www.rdocumentation.org/packages/gganimate/versions/1.0.9): Adds animation capabilities to ggplot2 graphics
 -   [**FunnelPlotrR**](https://www.rdocumentation.org/packages/rmeta/versions/3.0/topics/funnelplot):Used to create funnel plots for visualizing and comparing proportions, rates, or ratios across different groups while accounting for statistical variation.
 -   [**performance**](https://easystats.github.io/performance/index.html): Provides tools for assessing and comparing statistical models, including metrics for model quality, diagnostics, and visualization.
 -   [**stats**](https://www.rdocumentation.org/packages/stats/versions/3.6.2): Provides essential statistical functions for modeling, hypothesis testing, regression, and probability distributions.
@@ -51,10 +49,9 @@ The following R packages will be loaded for this exercise using `pacman::p_load(
 -   [**patchwork**](https://www.rdocumentation.org/packages/patchwork/versions/0.0.1): Allows easy combination and arrangement of multiple ggplot2 plots into a single cohesive layout.
 
 ```{r}
-pacman::p_load(tidyverse, haven, knitr,
+pacman::p_load(tidyverse, knitr,
                patchwork, ggthemes, scales,
-               ggridges, ggpubr, gganimate,
-               ggdist, ggtext, ggalt,
+               ggridges, ggdist, ggtext, ggalt,
                cowplot, ggnewscale,FunnelPlotR, performance, parameters, ggstatsplot)
 ```
 
@@ -261,37 +258,37 @@ In the following section, we will recode specific continuous variables into cate
 
 While variables like *Cholesterol_Level*, *Stress_Levels*, *BMI*, *Heart_Rate*, *Systolic_BP*, and *Diastolic_BP* provide valuable insights in their continuous form, categorizing them into meaningful groups can enhance our ability to analyze trends and risk factors more effectively.
 
-+-------------------+---------------------+---------------------------------------------------------------------------------+
-| Variable Names    | Measurement         | Categorical ranges [*Approximated classification*]{style="font-size: 10px;"} \| |
-+===================+=====================+=================================================================================+
-| Cholesterol_Level | mg/dL               | -   **Low:** ≤ 150                                                              |
-|                   |                     | -   **Moderate:** 151–200                                                       |
-|                   |                     | -   **High:** \> 200                                                            |
-+-------------------+---------------------+---------------------------------------------------------------------------------+
-| Stress_Levels     | Self-reported scale | -   **Miniminal_Stress:** 0                                                     |
-|                   |                     | -   **Low_Stress:** 1–3                                                         |
-|                   |                     | -   **Moderate_Stress:** 4–7                                                    |
-|                   |                     | -   **High_Stress:** 8–10                                                       |
-+-------------------+---------------------+---------------------------------------------------------------------------------+
-| BMI               | Body Mass Index     | -   **Underweight:** \< 18.5                                                    |
-|                   |                     | -   **Normal_Weight:** 18.5–24.9                                                |
-|                   |                     | -   **Overweight:** 25–29.9                                                     |
-|                   |                     | -   **Obese:** ≥ 30                                                             |
-+-------------------+---------------------+---------------------------------------------------------------------------------+
-| Heart_Rate        | beats per minute    | -   **Low:** \< 60 \|                                                           |
-|                   |                     | -   **Normal:** 60–100                                                          |
-|                   |                     | -   **High:** \> 100 \|                                                         |
-+-------------------+---------------------+---------------------------------------------------------------------------------+
-| Systolic_BP       | mmHg                | -   **Normal:** \< 120                                                          |
-|                   |                     | -   **Elevated:** 120–129                                                       |
-|                   |                     | -   **Hypertension_Stage_1:** 130–139                                           |
-|                   |                     | -   **Hypertension_Stage_2:** ≥ 140                                             |
-+-------------------+---------------------+---------------------------------------------------------------------------------+
-| Diastolic_BP      | mmHg                | -   **Normal:** \< 80                                                           |
-|                   |                     | -   **Elevated:** 80–89                                                         |
-|                   |                     | -   **Hypertension_Stage_1:** 90–99                                             |
-|                   |                     | -   **Hypertension_Stage_2:** ≥ 100                                             |
-+-------------------+---------------------+---------------------------------------------------------------------------------+
++-------------------+---------------------+------------------------------------------------------------------------------+
+| Variable Names    | Measurement         | Categorical ranges [*Approximated classification*]{style="font-size: 10px;"} |
++===================+=====================+==============================================================================+
+| Cholesterol_Level | mg/dL               | -   Low: ≤ 150                                                               |
+|                   |                     | -   Moderate: 151–200                                                        |
+|                   |                     | -   High: \> 200                                                             |
++-------------------+---------------------+------------------------------------------------------------------------------+
+| Stress_Levels     | Self-reported scale | -   Miniminal_Stress: 0                                                      |
+|                   |                     | -   Low_Stress: 1–3                                                          |
+|                   |                     | -   Moderate_Stress: 4–7                                                     |
+|                   |                     | -   High_Stress: 8–10                                                        |
++-------------------+---------------------+------------------------------------------------------------------------------+
+| BMI               | Body Mass Index     | -   Underweight: \< 18.5                                                     |
+|                   |                     | -   Normal_Weight: 18.5–24.9                                                 |
+|                   |                     | -   Overweight: 25–29.9                                                      |
+|                   |                     | -   Obese: ≥ 30                                                              |
++-------------------+---------------------+------------------------------------------------------------------------------+
+| Heart_Rate        | beats per minute    | -   Low: \< 60                                                               |
+|                   |                     | -   Normal: 60–100                                                           |
+|                   |                     | -   High: \> 100                                                             |
++-------------------+---------------------+------------------------------------------------------------------------------+
+| Systolic_BP       | mmHg                | -   Normal: \< 120                                                           |
+|                   |                     | -   Elevated: 120–129                                                        |
+|                   |                     | -   Hypertension_Stage_1: 130–139                                            |
+|                   |                     | -   Hypertension_Stage_2: ≥ 140                                              |
++-------------------+---------------------+------------------------------------------------------------------------------+
+| Diastolic_BP      | mmHg                | -   Normal: \< 80                                                            |
+|                   |                     | -   Elevated: 80–89                                                          |
+|                   |                     | -   Hypertension_Stage_1: 90–99                                              |
+|                   |                     | -   Hypertension_Stage_2: ≥ 100                                              |
++-------------------+---------------------+------------------------------------------------------------------------------+
 
 ```{r}
 library(dplyr)
@@ -1144,11 +1141,55 @@ ggplot(heart_attack_long, aes(x = Age,
 
 #### 4.3.2 How does lifestyle/ health factors play a role in contributing to heart attack incidents
 
-##### 4.3.2.1 Data preparation for logistic regression on heart attack risk
+##### 4.3.2.1 Logistic regression
+
+###### 4.3.2.1.1 Data preparation for logistic regression on heart attack risk
 
 The below are the steps taken to prepare the dataset for logistic regression. The key lifestyle/ health factors were selected, where categorical variables were encoded, and ordinal scales variables were converted to numeric values.
 
+::: panel-tabset
+## Table
+
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Variable Names             | Type (Ordinal/ Binary) | Values                                                                       |
++============================+========================+==============================================================================+
+| Gender                     | Binary                 | Male, Female                                                                 |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Region                     | Binary                 | Rural, Urban                                                                 |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Smoking_History            | Binary                 | Yes = 1, No = 0                                                              |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Diabetes_History           | Binary                 | Yes = 1, No = 0                                                              |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Hypertension_History       | Binary                 | Yes = 1, No = 0                                                              |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Physical_Activity          | Ordinal                | Low = 0, Moderate = 1, High = 2                                              |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Diet_Quality               | Ordinal                | Poor = 0, Average = 1, Good = 2                                              |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Alcohol_Consumption        | Ordinal                | None = 0, Low = 1, Moderate = 2, High = 3                                    |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Family_History             | Binary                 | Yes = 1, No = 0                                                              |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Cholesterol_Level_Category | Ordinal                | Low = 0, Moderate = 1, High = 2                                              |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Stress_Levels_Category     | Ordinal                | Minimal Stress = 0, Low Stress = 1, Moderate Stress = 2, High Stress = 3     |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| BMI_Category               | Ordinal                | Underweight = 0, Normal Weight = 1, Overweight = 2, Obese = 3                |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Heart_Rate_Category        | Ordinal                | Low = 0, Normal = 1, High = 2                                                |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Systolic_BP_Category       | Ordinal                | Normal = 0, Elevated = 1, Hypertension Stage 1 = 2, Hypertension Stage 2 = 3 |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Diastolic_BP_Category      | Ordinal                | Normal = 0, Elevated = 1, Hypertension Stage 1 = 2, Hypertension Stage 2 = 3 |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+| Heart_Attack_Occurrence    | Binary                 | Yes = 1, No = 0                                                              |
++----------------------------+------------------------+------------------------------------------------------------------------------+
+
+## Code
+
 ```{r}
+
 # Select relevant health-related columns
 relevant_factors <- heart_attack_2 %>% 
   select("Gender", "Region", "Smoking_History", "Diabetes_History", "Hypertension_History", "Physical_Activity",
@@ -1209,8 +1250,9 @@ relevant_factors$Diastolic_BP_Category <- recode(relevant_factors$Diastolic_BP_C
 # Convert Heart_Attack_Occurrence to binary and ensure it remains a factor
 relevant_factors$Heart_Attack_Occurrence <- factor(ifelse(relevant_factors$Heart_Attack_Occurrence == "Yes", 1, 0), levels = c(0, 1))
 ```
+:::
 
-##### 4.3.2.2 Multiple regression using lm()
+###### 4.3.2.2.2 Multiple regression using lm()
 
 The code below is used to calibrate a multiple linear regression model by using glm() of Base Stats of R.
 
@@ -1240,7 +1282,7 @@ logistic_model
 ```
 :::
 
-##### 4.3.2.3 Model Diagnostic: checking for multicolinearity
+###### 4.3.2.3.3 Model Diagnostic: checking for multicolinearity
 
 In the code below, we use `check_collinearity()` of [**performance**](https://easystats.github.io/performance/index.html) package to check for multicolinearity.
 
@@ -1268,7 +1310,7 @@ check_collinearity(logistic_model)
 ```
 :::
 
-##### 4.3.2.4 Model Diagnostic: correlation analysis of risk factors
+###### 4.3.2.4.4 Model Diagnostic: correlation analysis of risk factors
 
 Observations:
 
@@ -1320,7 +1362,7 @@ ggstatsplot::ggcorrmat(
 ```
 :::
 
-##### 4.3.2.5 Model Diagnostic: checking for statistical significance of predictors in logistic regression
+###### 4.3.2.5.5 Model Diagnostic: checking for statistical significance of predictors in logistic regression
 
 -   Stress Levels Category is the only statistically significant variable (p = 0.0273).
 -   Gender (Female) is the next most significant (p = 0.0666), although it is not below the traditional 0.05 threshold, it is marginally significant (p \< 0.1).
@@ -1340,7 +1382,7 @@ summary(logistic_model)
 ```
 :::
 
-##### 4.3.2.6 Visualising Regression Parameters: see methods
+###### 4.3.2.6.6 Visualising Regression Parameters: see methods
 
 ::: panel-tabset
 ## Graph
@@ -1361,11 +1403,11 @@ ggcoefstats(logistic_model,
 ```
 :::
 
-##### 4.3.2.7 Feature selection and model optimization using stepwise selection
+##### 4.3.2.2 Feature selection and model optimization - using stepwise selction
 
 Observations:
 
--   Stepwise selection has removed many non-significant variables, leaving Gender, Cholesterol Levels, Stress Levels, and BMI Category as predictors.
+-   Stepwise selection has removed many non-significant variables, leaving **Gender, Cholesterol Levels, Stress Levels, and BMI Category** as predictors.
 
 -   This model has a lower AIC (19337), suggesting better fit compared to previous models.
 
@@ -1390,6 +1432,275 @@ library(MASS)
 optimized_model <- stepAIC(full_model, direction = "both")
 summary(optimized_model)
 ```
+:::
+
+::: callout-note
+**Statistically significant variables table from each model:**
+
++---------------------+------------------------------------------------------------------+
+| Model               | Statistically significant                                        |
++=====================+==================================================================+
+| Logistic regression | Stress Levels Category, and Gender                               |
++---------------------+------------------------------------------------------------------+
+| Stepwise selection  | Gender, Cholesterol Levels, Stress Levels Category, BMI Category |
++---------------------+------------------------------------------------------------------+
+:::
+
+### 4.4 EDA 3 - focused analysis of heart attack based on significant predictors
+#### 4.4.1 Scatter plots of cholesterol level vs stress levels
+
+```{r, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+heart_attack_3 <- read_csv("data/japan_heart_attack_dataset.csv", show_col_types = FALSE)
+```
+
+Based on the statistically significant variables identified through logistic regression and stepwise selection — **Gender, Cholesterol Levels, Stress Levels Category, and BMI Category** — the following analysis focuses on individuals aged 26 to 40 years.
+
+This analysis focuses on young adults (26–40 years), as they have the highest normalized heart attack rate (10.3%). We further filter for urban residents with hypertension history, as urban lifestyles and hypertension are key risk factors of heart attack occurence. By comparing males and females, we aim to assess whether stress and cholesterol levels contribute differently to heart attack risk across genders.
+
+Observations:
+
+-   **Weak correlation** between stress and cholesterol levels for both genders; regression lines are nearly flat.
+-   **Gender Differences:** Males: Slight positive trend (higher stress → slightly higher cholesterol), greater cholesterol variability. Females: Slight negative trend (higher stress → slightly lower cholesterol).
+-   **Heart Attack Patterns:** Cases are evenly spread for males but slightly more frequent at mid-range cholesterol levels for females.
+-   **Boxplots:** Males show wider cholesterol variation; stress levels are similar across genders.
+-   **Overall**: No strong evidence of a direct link
+
+::: panel-tabset
+## Graph - Female
+
+```{r}
+#| echo = FALSE
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(ggExtra)
+
+# Filter dataset: Females only, Age 26-40, Urban region, Underlying hypertension history
+heart_attack_filtered <- heart_attack_3 %>%
+  filter(Gender == "Female" & Age >= 26 & Age <= 40 & Region == "Urban" & Hypertension_History == "Yes") %>%
+  mutate(Heart_Attack_Occurrence = factor(Heart_Attack_Occurrence, levels = c("No", "Yes"))) %>%  
+  filter(!is.na(Heart_Attack_Occurrence))  # Remove NA values to fix legend issue
+
+# Create scatter plot (Original Stress Levels vs. Cholesterol Level)
+p <- ggplot(heart_attack_filtered, aes(x = Stress_Levels, y = Cholesterol_Level, color = Heart_Attack_Occurrence)) +
+  geom_point(alpha = 0.8, size = 2) +  # Improve visibility
+  geom_smooth(method = "lm", se = TRUE, aes(color = Heart_Attack_Occurrence)) +  
+  scale_color_manual(values = c("No" = "lightpink", "Yes" = "deeppink")) +  
+  labs(
+    title = "Scatter Plot of  Cholesterol Level vs Stress Levels",
+    subtitle = "Filtered: Females, Age 26-40, Urban, with Hypertension History",
+    x = "Stress Levels",
+    y = "Cholesterol Level",
+    color = "Heart Attack"
+  ) +
+  theme_minimal()
+
+# Add marginal boxplots
+ggMarginal(p, type = "boxplot", groupColour = TRUE, groupFill = TRUE)
+
+
+```
+
+## Code - Female
+
+```{r}
+#| eval = FALSE 
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(ggExtra)
+
+# Filter dataset: Females only, Age 26-40, Urban region, Underlying hypertension history
+heart_attack_filtered <- heart_attack_3 %>%
+  filter(Gender == "Female" & Age >= 26 & Age <= 40 & Region == "Urban" & Hypertension_History == "Yes") %>%
+  mutate(Heart_Attack_Occurrence = factor(Heart_Attack_Occurrence, levels = c("No", "Yes"))) %>%  
+  filter(!is.na(Heart_Attack_Occurrence))  # Remove NA values to fix legend issue
+
+# Create scatter plot (Original Stress Levels vs. Cholesterol Level)
+p <- ggplot(heart_attack_filtered, aes(x = Stress_Levels, y = Cholesterol_Level, color = Heart_Attack_Occurrence)) +
+  geom_point(alpha = 0.8, size = 2) +  # Improve visibility
+  geom_smooth(method = "lm", se = TRUE, aes(color = Heart_Attack_Occurrence)) +  
+  scale_color_manual(values = c("No" = "lightpink", "Yes" = "deeppink")) +  
+  labs(
+    title = "Scatter Plot of Cholesterol Level vs Stress Levels",
+    subtitle = "Filtered: Females, Age 26-40, Urban, with Hypertension History",
+    x = "Stress Levels",
+    y = "Cholesterol Level",
+    color = "Heart Attack"
+  ) +
+  theme_minimal()
+
+# Add marginal boxplots
+ggMarginal(p, type = "boxplot", groupColour = TRUE, groupFill = TRUE)
+
+```
+
+## Graph - Male
+
+```{r}
+#| echo = FALSE
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(ggExtra)
+
+# Filter dataset: Males only, Age 26-40, Urban region, Underlying hypertension history
+heart_attack_filtered <- heart_attack_3 %>%
+  filter(Gender == "Male" & Age >= 26 & Age <= 40 & Region == "Urban" & Hypertension_History == "Yes") %>%
+  mutate(Heart_Attack_Occurrence = factor(Heart_Attack_Occurrence, levels = c("No", "Yes"))) %>%  
+  filter(!is.na(Heart_Attack_Occurrence))  
+
+# Create scatter plot (Original Stress Levels vs. Cholesterol Level)
+p <- ggplot(heart_attack_filtered, aes(x = Stress_Levels, y = Cholesterol_Level, color = Heart_Attack_Occurrence)) +
+  geom_point(alpha = 0.8, size = 2) +  
+  geom_smooth(method = "lm", se = TRUE, aes(color = Heart_Attack_Occurrence)) +  
+  scale_color_manual(values = c("No" = "skyblue", "Yes" = "navy")) +  
+  labs(
+    title = "Scatter Plot of Cholesterol Level vs Stress Levels",
+    subtitle = "Filtered: Males, Age 26-40, Urban, with Hypertension History",
+    x = "Stress Levels",
+    y = "Cholesterol Level",
+    color = "Heart Attack"
+  ) +
+  theme_minimal()
+
+ggMarginal(p, type = "boxplot", groupColour = TRUE, groupFill = TRUE)
+
+
+```
+
+## Code - Male
+
+```{r}
+#| eval = FALSE 
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(ggExtra)
+
+# Filter dataset: Males only, Age 26-40, Urban region, Underlying hypertension history
+heart_attack_filtered <- heart_attack_3 %>%
+  filter(Gender == "Male" & Age >= 26 & Age <= 40 & Region == "Urban" & Hypertension_History == "Yes") %>%
+  mutate(Heart_Attack_Occurrence = factor(Heart_Attack_Occurrence, levels = c("No", "Yes"))) %>%  
+  filter(!is.na(Heart_Attack_Occurrence))  
+
+# Create scatter plot (Original Stress Levels vs. Cholesterol Level)
+p <- ggplot(heart_attack_filtered, aes(x = Stress_Levels, y = Cholesterol_Level, color = Heart_Attack_Occurrence)) +
+  geom_point(alpha = 0.8, size = 2) +  
+  geom_smooth(method = "lm", se = TRUE, aes(color = Heart_Attack_Occurrence)) +  
+  scale_color_manual(values = c("No" = "skyblue", "Yes" = "navy")) +  
+  labs(
+    title = "Scatter Plot of Cholesterol Level vs Stress Levels",
+    subtitle = "Filtered: Males, Age 26-40, Urban, with Hypertension History",
+    x = "Stress Levels",
+    y = "Cholesterol Level",
+    color = "Heart Attack"
+  ) +
+  theme_minimal()
+
+ggMarginal(p, type = "boxplot", groupColour = TRUE, groupFill = TRUE)
+```
+:::
+
+#### 4.4.2 Interactive plot: cholesterol level vs stress levels in young adults with heart attacks
+
+-   Cholesterol levels above 200 are prevalent in heart attack cases.
+-   No strong correlation between stress levels and cholesterol, but stress around 5+ is common.
+-   Majority of heart attack cases cluster around high cholesterol levels (above the 200 threshold).
+-   Stress alone may not be a primary driver, but high cholesterol appears to be a stronger risk factor.
+
+::: panel-tabset
+## Graph
+```{r}
+#| echo = FALSE 
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(ggExtra)
+library(ggiraph)  
+
+# Filter dataset: Age 26-40, Urban region, Hypertension History, and Heart Attack = "Yes"
+heart_attack_filtered <- heart_attack_3 %>%
+  filter(Age >= 26 & Age <= 40 & Region == "Urban" & 
+         Hypertension_History == "Yes" & Heart_Attack_Occurrence == "Yes") %>%  
+  filter(!is.na(Cholesterol_Level))  
+
+p <- ggplot(heart_attack_filtered, aes(
+    x = Stress_Levels, 
+    y = Cholesterol_Level, 
+    color = "Heart Attack (Yes)",  # Dummy legend entry
+    tooltip = paste("Stress:", Stress_Levels, "<br>Cholesterol:", Cholesterol_Level, "<br>Heart Attack: Yes")  
+  )) +
+  geom_point_interactive(alpha = 0.6) +  
+  geom_smooth(method = "lm", se = TRUE, color = "red") +  # Regression trendline
+  geom_hline(yintercept = 200, linetype = "dashed", color = "blue") +  # Horizontal line at Cholesterol = 200
+  geom_vline(xintercept = 5, linetype = "dotted", color = "green") +   # Vertical line at Stress = 5
+  scale_color_manual(values = c("Heart Attack (Yes)" = "red")) +  # Add legend entry
+  labs(
+    title = "Interactive Scatter Plot of Stress Levels vs. Cholesterol Level",
+    subtitle = "Filtered: Age 26-40, Urban, with Hypertension History & Heart Attack Occurrence = Yes",
+    x = "Stress Levels",
+    y = "Cholesterol Level",
+    color = "Heart Attack Status"  
+  ) +
+  theme_minimal()
+
+# Convert to interactive plot
+interactive_plot <- girafe(ggobj = p)
+
+# Display the interactive plot
+interactive_plot
+```
+
+## Code
+```{r}
+#| eval = FALSE
+
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(ggExtra)
+library(ggiraph)  
+
+# Filter dataset: Age 26-40, Urban region, Hypertension History, and Heart Attack = "Yes"
+heart_attack_filtered <- heart_attack_3 %>%
+  filter(Age >= 26 & Age <= 40 & Region == "Urban" & 
+         Hypertension_History == "Yes" & Heart_Attack_Occurrence == "Yes") %>%  
+  filter(!is.na(Cholesterol_Level))  
+
+p <- ggplot(heart_attack_filtered, aes(
+    x = Stress_Levels, 
+    y = Cholesterol_Level, 
+    color = "Heart Attack (Yes)",  # Dummy legend entry
+    tooltip = paste("Stress:", Stress_Levels, "<br>Cholesterol:", Cholesterol_Level, "<br>Heart Attack: Yes")  
+  )) +
+  geom_point_interactive(alpha = 0.6) +  
+  geom_smooth(method = "lm", se = TRUE, color = "red") +  # Regression trendline
+  geom_hline(yintercept = 200, linetype = "dashed", color = "blue") +  # Horizontal line at Cholesterol = 200
+  geom_vline(xintercept = 5, linetype = "dotted", color = "green") +   # Vertical line at Stress = 5
+  scale_color_manual(values = c("Heart Attack (Yes)" = "red")) +  # Add legend entry
+  labs(
+    title = "Interactive Scatter Plot of Stress Levels vs. Cholesterol Level",
+    subtitle = "Filtered: Age 26-40, Urban, with Hypertension History & Heart Attack Occurrence = Yes",
+    x = "Stress Levels",
+    y = "Cholesterol Level",
+    color = "Heart Attack Status"  
+  ) +
+  theme_minimal()
+
+# Convert to interactive plot
+interactive_plot <- girafe(ggobj = p)
+
+# Display the interactive plot
+interactive_plot
+```
+
 :::
 
 
@@ -1440,4 +1751,4 @@ summary(optimized_model)
 
 <!-- ``` -->
 
--   Ch
+
