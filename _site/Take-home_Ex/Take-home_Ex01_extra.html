@@ -183,6 +183,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05e.html">
  <span class="dropdown-text">Hands-on Exercise 05e</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex07.html">
+ <span class="dropdown-text">Hands-on Exercise 07</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -221,6 +225,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../In-class_Ex/In-class_Ex05.html">
  <span class="dropdown-text">In-class Exercise 05</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://public.tableau.com/views/In-class_Ex05_17397001428450/Realis2018?:language=en-US&amp;publish=yes&amp;:sid=&amp;:redirect=auth&amp;:display_count=n&amp;:origin=viz_share_link">
+ <span class="dropdown-text">In-class Exercise 05 Tableau</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://andreayeosh.shinyapps.io/In-class_Ex06/">
+ <span class="dropdown-text">In-class Exercise 06</span></a>
   </li>  
     </ul>
   </li>
@@ -413,6 +425,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- write_xlsx(heart_attack_2, path = file_path) -->
 <!-- # Confirm export -->
 <!-- print(paste("File saved to:", file_path)) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- # Step 1: Count total individuals in each Age_Category -->
+<!-- total_population <- heart_attack_2 %>% -->
+<!--   group_by(Age_Category) %>% -->
+<!--   summarise(Total_Count = n()) -->
+<!-- # Step 2: Count heart attack occurrences by Age_Category -->
+<!-- heart_attack_counts <- heart_attack_2 %>% -->
+<!--   filter(Heart_Attack_Occurrence == "Yes") %>% -->
+<!--   group_by(Age_Category) %>% -->
+<!--   summarise(Heart_Attack_Count = n()) -->
+<!-- # Step 3: Merge the two tables -->
+<!-- normalized_data <- left_join(heart_attack_counts, total_population, by = "Age_Category") %>% -->
+<!--   mutate(Normalized_Heart_Attack_Rate = (Heart_Attack_Count / Total_Count) * 100) -->
+<!-- # Step 4: Plot the normalized heart attack rate -->
+<!-- ggplot(normalized_data, aes(x = Age_Category, y = Normalized_Heart_Attack_Rate, fill = Age_Category)) + -->
+<!--   geom_bar(stat = "identity", color = "black", alpha = 0.7) + -->
+<!--   labs(title = "Normalized Heart Attack Rate by Age Group", -->
+<!--        x = "Age Group", -->
+<!--        y = "Heart Attack Rate (Normalized, % of total in group)") + -->
+<!--   theme_minimal() + -->
+<!--   scale_fill_brewer(palette = "Set2") + -->
+<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability -->
 <!-- ``` -->
 
 
@@ -1108,7 +1143,56 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- # Confirm export --&gt;</span></span>
 <span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- print(paste("File saved to:", file_path)) --&gt;</span></span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- ``` --&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- ``` --&gt;</span></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- ```{r} --&gt;</span></span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- # Step 1: Count total individuals in each Age_Category --&gt;</span></span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- total_population &lt;- heart_attack_2 %&gt;% --&gt;</span></span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   group_by(Age_Category) %&gt;% --&gt;</span></span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   summarise(Total_Count = n()) --&gt;</span></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- # Step 2: Count heart attack occurrences by Age_Category --&gt;</span></span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- heart_attack_counts &lt;- heart_attack_2 %&gt;% --&gt;</span></span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   filter(Heart_Attack_Occurrence == "Yes") %&gt;% --&gt;</span></span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   group_by(Age_Category) %&gt;% --&gt;</span></span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   summarise(Heart_Attack_Count = n()) --&gt;</span></span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- # Step 3: Merge the two tables --&gt;</span></span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- normalized_data &lt;- left_join(heart_attack_counts, total_population, by = "Age_Category") %&gt;% --&gt;</span></span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   mutate(Normalized_Heart_Attack_Rate = (Heart_Attack_Count / Total_Count) * 100) --&gt;</span></span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- # Step 4: Plot the normalized heart attack rate --&gt;</span></span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- ggplot(normalized_data, aes(x = Age_Category, y = Normalized_Heart_Attack_Rate, fill = Age_Category)) + --&gt;</span></span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   geom_bar(stat = "identity", color = "black", alpha = 0.7) + --&gt;</span></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   labs(title = "Normalized Heart Attack Rate by Age Group", --&gt;</span></span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--        x = "Age Group", --&gt;</span></span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--        y = "Heart Attack Rate (Normalized, % of total in group)") + --&gt;</span></span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   theme_minimal() + --&gt;</span></span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   scale_fill_brewer(palette = "Set2") + --&gt;</span></span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability --&gt;</span></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- ``` --&gt;</span></span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

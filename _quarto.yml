@@ -35,6 +35,8 @@ website:
         href: Hands-on_Ex/Hands-on_Ex05d.html
       - text: "Hands-on Exercise 05e"
         href: Hands-on_Ex/Hands-on_Ex05e.html
+      - text: "Hands-on Exercise 07"
+        href: Hands-on_Ex/Hands-on_Ex07.html
     - text: "In-class Exercise"
       menu:
       - text: "In-class Exercise Outline"
@@ -55,6 +57,9 @@ website:
         href: In-class_Ex/In-class_Ex05.html
       - text: "In-class Exercise 05 Tableau"
         href: https://public.tableau.com/views/In-class_Ex05_17397001428450/Realis2018?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+      - text: "In-class Exercise 06"
+        href: https://andreayeosh.shinyapps.io/In-class_Ex06/
+
     - text: "Take-home Exercise"
       menu:
       - text: "Take Home Exercise 1"
