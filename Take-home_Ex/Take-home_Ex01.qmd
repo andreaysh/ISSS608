@@ -106,7 +106,16 @@ heart_attack[duplicated(heart_attack),]
 ```
 
 ::: callout-note
--   Ensure that there are no duplicated columns, if not will have to investigate further.
+## Limitations of pie charts in data visualization
+
+-   **Distored perception:** Pie chart makes comparisons difficult due to the reliance on angles and areas rather than a common baseline.
+-   **Difficult to compare similar data slices:** Can be misleading when there are many segments/ similar-sized portions making it hard to interpret differences accurately.
+-   **Space constraints:** Pie chart can take up more space than necessary and can clutter dashboards or reports.
+-   **Poor for trend analysis:** Pie charts only show a single point in time and do not help in comparing trends over multiple years.
+
+## Why are the use of pie charts be frown upon in data visualization?
+
+-   Refer to this [page](https://bernardmarr.com/why-you-shouldnt-use-pie-charts-in-your-dashboards-and-performance-reports/#:~:text=From%20a%20design%20point%20of,data%20more%20complicated%20than%20before.) to find out why the use of pie charts are discouraged.
 :::
 
 ## colSum(is.na())
