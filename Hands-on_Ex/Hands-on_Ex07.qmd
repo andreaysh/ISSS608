@@ -459,3 +459,5 @@ newggslopegraph(df_filtered, Year, Avg_Value, `Consumer Items`,
                 Caption = "Prepared using R")
 
 ```
+
+
