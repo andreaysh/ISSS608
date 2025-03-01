@@ -266,7 +266,6 @@ vietnam_ts <- tsibble_longer %>%
 ```
 
 Next, a training data set is extracted from the original data set by using filter() of dplyr package. 
-
 ```{r}
 vietnam_train <- vietnam_ts %>%
   filter(`Month-Year` < "2019-01-01")
