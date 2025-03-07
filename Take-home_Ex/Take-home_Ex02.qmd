@@ -1,0 +1,2682 @@
+---
+title: "Take-home Exercise 02"
+author: "Andrea Yeo"
+date-modified: "last-modified"
+date: "February 24, 2025"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+# Be Tradewise or Otherwise
+
+[***All values are in Million Dollars***]{style="font-size: 16px; color: blue;"}
+
+## 1. Overview
+
+### 1.1 Background
+
+Since Mr. Donald Trump assumed office as the President of the United States on January 20, 2025, global trade has been a highly scrutinized topic. Given Singapore's role as a key global trade hub, understanding its trade dynamics is crucial in assessing the potential impact of shifting geopolitical and economic policies.
+
+In this take-home exercise, we apply newly acquired data visualization and analytical techniques to explore **Singapore’s Trade in Services** - *Singapore's exports and imports of services between Singapore and the rest of the world.* By leveraging statistical tools and visualization methods, this study aims to uncover **key trends, service category distributions, and trade imbalances** while providing deeper insights into **how different service sectors contribute to Singapore’s economy.**
+
+### 1.2 Research objective
+
+Using data from the [Department of Statistics Singapore, DOS](https://www.singstat.gov.sg/) on [Trade In Services By Services Category](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/trade-in-services/latest-data), this analysis applies Exploratory Data (EDA) and data visualization techniques to:
+
+-   **Assess three existing visualizations** from [this page](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade), identifying each of these visualization pros and cons.
+-   **Redesign and enhance these visualizations** using ggplot2 and other R packages to improve data interpretation, visual appeal, and accessibility.
+-   **Conduct time-series analysis and forecasting** to identify key trends in Singapore’s trade in services, evaluate growth patterns across service categories, and predict potential future trade movements.
+
+## 2. Getting started
+
+### 2.1 Loading the packages
+
+The following R packages will be loaded for this exercise using `pacman::p_load()`:
+
+-   [**readxl**](https://www.rdocumentation.org/packages/readxl/versions/1.4.3): Reads Excel files (.xls and .xlsx) into R
+-   [**writexl**](https://www.rdocumentation.org/packages/misty/versions/0.4.6/topics/write.xlsx): Writes data frames to Excel files (.xlsx).
+-   [**tidyverse**](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0): A collection of packages for data manipulation, visualization, and modeling.
+-   [**timetk**](https://www.rdocumentation.org/packages/timetk/versions/2.9.0): Provides time series analysis and forecasting tools.
+-   [**forecast**](https://www.rdocumentation.org/packages/forecast/versions/8.23.0): Implements forecasting methods like ARIMA, ETS, and more.
+-   [**ggplot2**](https://www.rdocumentation.org/packages/ggplot2/versions/3.5.0): A powerful package for data visualization using the grammar of graphics.
+-   [**plotly**](https://www.rdocumentation.org/packages/plotly/versions/4.10.4): Creates interactive plots, including 3D and web-based visualizations.
+-   [**treemapify**](https://www.rdocumentation.org/packages/treemapify/versions/0.2.1): Enables the creation of treemap visualizations in ggplot2.
+-   [**patchwork**](https://www.rdocumentation.org/packages/patchwork/versions/0.0.1): Helps combine multiple ggplot2 plots into a single layout.
+-   [**dplyr**](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8): Provides fast and intuitive data manipulation functions.
+-   [**CGPfunctions**](https://www.rdocumentation.org/packages/CGPfunctions/versions/0.6.3): Offers additional plotting and visualization functions.
+-   [**rnaturalearth**](https://www.rdocumentation.org/packages/rnaturalearth/versions/0.0.0.9000): Provides world map data for geographic visualizations.
+-   [**rnaturalearthdata**](https://www.rdocumentation.org/packages/rnaturalearthdata/versions/1.0.0): Supplies natural Earth vector data for spatial analysis.
+-   [**sf**](https://www.rdocumentation.org/packages/sf/versions/0.1-1): Supports simple features for spatial data (GIS).
+-   [**viridis**](https://www.rdocumentation.org/packages/viridisLite/versions/0.4.2/topics/viridis): Provides color palettes for better visualization accessibility.
+-   [**ggrepel**](https://www.rdocumentation.org/packages/ggrepel/versions/0.9.6): Improves text labeling in ggplot2 by avoiding overlapping labels.
+-   [**ggHoriPlot**](https://www.rdocumentation.org/packages/ggHoriPlot/versions/1.0.1): Creates horizontal bar plots for ggplot2.
+-   [**ggthemes**](https://www.rdocumentation.org/packages/ggthemes/versions/5.1.0): Adds additional themes and styles for ggplot2.
+-   [**tidymodels**](https://www.rdocumentation.org/packages/tidymodels/versions/1.3.0): A collection of packages for machine learning and modeling.
+-   [**modeltime**](https://www.rdocumentation.org/packages/modeltime/versions/1.3.0): A framework for time series forecasting using machine learning and statistical models.
+
+```{r}
+pacman::p_load(readxl, openxlsx, data.table, tidyverse, timetk, plotly, forecast, ggplot2, CGPfunctions, rnaturalearth, rnaturalearthdata, sf, viridis, ggrepel, ggHoriPlot, ggthemes, tidymodels, timetk, modeltime)
+```
+
+## 3. DataVis makeover 1
+
+### 3.1 Makeover of - Overall Exports and Import of Services
+
+#### 3.1.1 Original visualization
+
+The original visualizations analyzed in this analysis are sourced from [here](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade).
+
+![](/images/Pic13.jpg){width="576"}
+
+#### 3.1.2 Evaluation of the original visualization
+
+In the below section, we will evaluate the effectiveness of the above visualization by identifying its pros and cons, focusing on aspects such as (1) **clarity**, and (2) **visual appeal**:
+
+-   **Clarity**: How well the data is presented and understood
+
+| Pros | Cons | Suggested fixes |
+|------------------------|------------------------|------------------------|
+| **Clear categorization of exports and imports** - The chart effectively differentiates between exports and imports | **Year-specific colors make trend analysis difficult** – Each year is assigned a different color, making it hard to track trends across time. | **Use consistent colors for exports and imports across all years** (Implemented by converting them into line charts). |
+| **Total trade values are highlighted** – The total trade (Exports + Imports) is displayed for each year. | **Floating "Total" labels can be easily overlooked** – They are placed above bars separately, which may lead to misinterpretation. | Introduce a line chart for total trade trends instead of floating labels. |
+| **Growth rate (CAGR) and trade balance data are included** – Additional insights are provided. | **Trade balance is not well integrated** – It is displayed separately at the bottom instead of being visually linked to the bars. | **Represent trade balance directly as a bar chart** (Green for surplus, Red for deficit) |
+
+-   **Visual appeal**: How visually engaging and effective the design is
+
+| Pros | Cons | Suggested fixes |
+|------------------------|------------------------|------------------------|
+| **Engaging use of colors and icons** – Makes the visualization appealing and eye-catching. | **Overuse of colors creates clutter** – Different colors for each year make it visually overwhelming. | Reduce unnecessary color variations and **simplify color coding**. |
+
+### 3.2 Makeover of the original data visualization
+
+#### 3.2.1 Data wrangling & data prepration
+
+##### 3.2.1.1 Importing the data
+
+The code chunk below imports the [Trade In Services By Services Category](https://tablebuilder.singstat.gov.sg/table/TS/M060251) dataset, downloaded from [Department of Statistics Singapore, DOS](https://www.singstat.gov.sg/), using the `read_excel()` function from the `readxl` package.
+
+```{r}
+trade_services <- read_excel("data/Trade In Services By Services Category_base.xlsx")
+```
+
+##### 3.2.1.2 Understanding the data structure
+
+-   `glimpse()`: provides a transposed overview of a dataset, showing variables and their types in a concise format.
+-   `head()`: displays the first few rows of a dataset (default is 6 rows) to give a quick preview of the data.
+-   `summary()`: generates a statistical summary of each variable, including measures like mean, median, and range for numeric data.
+-   `duplicated()`:returns a logical vector indicating which elements or rows in a vector or data frame are duplicates.
+-   `colSums(is.na())`: counts the number of missing values (NA) in each column of the data frame.
+-   `str()`: use `str()` to display the column names, data types, and a preview of the data.
+
+:::::: panel-tabset
+## glimpse()
+
+```{r}
+glimpse(trade_services)
+```
+
+## head()
+
+```{r}
+head(trade_services)
+```
+
+## summary()
+
+```{r}
+summary(trade_services)
+```
+
+## duplicated()
+
+```{r}
+trade_services[duplicated(trade_services),]
+```
+
+::: callout-note
+-   Ensure that there are no duplicated columns, if not will have to investigate further.
+:::
+
+## colSum(is.na())
+
+```{r}
+colSums(is.na(trade_services))
+```
+
+::: callout-note
+-   Ensure that there are no NA values, if not will have to investigate further.
+-   Possibility to use `drop_na()` function to drop rows where any specified column contains a missing value.
+:::
+
+## str())
+
+```{r}
+str(trade_services)
+```
+
+::: callout-note
+-   Ensure that all variables are correctly classified by data type; recast variable types if needed.
+-   Variables are correctly classified - where categorical variables are classified as **character**, while continuous variables are classified as **double**.
+:::
+::::::
+
+The `trade_services` tibble contains 26 attributes, as shown above.
+
+The following preprocessing checks were conducted as part of data preparation:
+
+::: callout-tip
+## Preprocessing Checks
+
+-   Verified that the correct data types were loaded in the `trade_services` dataset using `glimpse()` and `str()`
+-   Ensured there were no duplicate variable names using `duplicated()` in the dataset
+-   Checked for missing values using `colSums(is.na())`
+:::
+
+::: callout-note
+-   `trade_services` dataset will be used for both **DataVis makeover 1 & 2**
+:::
+
+##### 3.2.1.3 Data preparation and filtering for relevant variables
+
+After importing the `trade_services` dataset, we will filter for the three rows - **Exports of Services, Imports of Services,** and **Total Trade in Services**, which are essential for recreating the original visualization.
+
+```{r}
+# Select rows where 'Data Series' is either "Exports Of Services" or "Imports Of Services"
+export_vs_import <- trade_services %>%
+  filter(`Data Series` %in% c("Exports Of Services", "Imports Of Services", "Total Trade In Services"))
+
+# View the filtered data
+print(export_vs_import)
+```
+
+#### 3.2.2 Revised visualization - Combination plot
+
+Key makeover changes:
+
+1️⃣ **Overall design improvements:**
+
+-   **Replaced bar chart with a line chart for exports and imports** –\> Helps in tracking trends more effectively over time instead of color-coded bars per year.
+
+-   **Introduced a dashed line for total trade values** –\> Previously, total trade was only displayed as floating labels above bars, which could be overlooked.
+
+-   **Changed color usage** –\> Original chart had different colors for each year, making trend analysis harder. Now, consistent colors are used:
+
+    -   Exports are in [red]{style="color:red"},
+
+    -   Imports are in [blue]{style="color:blue"},
+
+    -   Total Trade is in [black (dashed)]{style="color:black"},
+
+    -   Trade Surplus is in [green]{style="color:green"}, and
+
+    -   Trade Deficit is in [red]{style="color:red"}.
+
+2️⃣ **Trade Balance Integration:**
+
+-   **Integration of key insights** –\> Previously trade balance was displayed separately as a small section at the bottom. Now, I have integrated it as a bar chart within the main graph
+
+    -   [green]{style="color:green"} bars represent trade surplus, and
+
+    -   [red]{style="color:red"} bars will represent trade deficit.
+
+::: callout-note
+## Overall
+
+-   The new chart is cleaner, and provides a better narrative of how exports, imports, total trade, and trade balance evolve over time.
+-   The new chart simplifies year-on-year trend analysis, making it easier to identify patterns in Singapore's international trade.
+:::
+
+::: panel-tabset
+## Enhance graph()
+
+```{r}
+#| echo = FALSE 
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Filter relevant rows (Exports, Imports, and Total Trade)
+export_vs_import <- trade_services %>%
+  filter(`Data Series` %in% c("Exports Of Services", "Imports Of Services", "Total Trade In Services"))
+
+# Convert dataset from wide to long format for ggplot
+data_long <- export_vs_import %>%
+  pivot_longer(cols = -`Data Series`, names_to = "Year", values_to = "Value") %>%
+  mutate(Year = as.numeric(Year)) %>%
+  filter(Year >= 2020 & Year <= 2024)
+
+# Extract `Total Trade In Services` from dataset
+total_trade_data <- data_long %>%
+  filter(`Data Series` == "Total Trade In Services") %>%
+  select(Year, Value) %>%
+  rename(Total_Trade = Value)
+
+# Calculate Trade Balance (Exports - Imports)
+trade_balance <- data_long %>%
+  spread(`Data Series`, Value) %>%
+  mutate(Services_Trade_Balance = `Exports Of Services` - `Imports Of Services`) %>%
+  select(Year, Services_Trade_Balance)
+
+# Merge Trade Balance & Total Trade into DataFrame
+data_long <- left_join(data_long, trade_balance, by = "Year")
+data_long <- left_join(data_long, total_trade_data, by = "Year")
+
+# Increase plotting window size
+options(repr.plot.width=16, repr.plot.height=9)  
+
+# Create the plot
+p <- ggplot(data_long) +
+
+  # **Line Chart for Exports**
+  geom_line(data = subset(data_long, `Data Series` == "Exports Of Services"), 
+            aes(x = Year, y = Value, color = "Exports"), linewidth = 1.5) +
+  
+  # **Data Labels for Exports**
+  geom_text(data = subset(data_long, `Data Series` == "Exports Of Services"), 
+            aes(x = Year, y = Value, label = round(Value, 1)), 
+            vjust = -1, size = 2.5, color = "red") +
+
+  # **Line Chart for Imports**
+  geom_line(data = subset(data_long, `Data Series` == "Imports Of Services"), 
+            aes(x = Year, y = Value, color = "Imports"), linewidth = 1.5) +
+
+  # **Data Labels for Imports**
+  geom_text(data = subset(data_long, `Data Series` == "Imports Of Services"), 
+            aes(x = Year, y = Value, label = round(Value, 1)), 
+            vjust = 1.5, size = 2.5, color = "blue") +
+
+  # **Line Chart for Total Trade (Black, Dashed)**
+  geom_line(data = total_trade_data,
+            aes(x = Year, y = Total_Trade, color = "Total Trade"), linewidth = 1.5, linetype = "dashed") +
+
+  # **Labels for Total Trade**
+  geom_text(data = total_trade_data,
+            aes(x = Year, y = Total_Trade + 20000, label = round(Total_Trade, 1)), 
+            vjust = -0.5, size = 2.5, color = "black") +
+
+  # **Bar Chart for Trade Balance (Surplus = Green, Deficit = Red)**
+  geom_bar(data = trade_balance, 
+           aes(x = Year, y = Services_Trade_Balance, 
+               fill = ifelse(Services_Trade_Balance >= 0, "Surplus", "Deficit")), 
+           stat = "identity", width = 0.5) +
+
+  # **Move Labels to the Top of Trade Balance Bars**
+  geom_text(data = trade_balance, 
+            aes(x = Year, y = Services_Trade_Balance + 5000, 
+                label = round(Services_Trade_Balance, 1)), 
+            vjust = -0.5, size = 2.5, color = "black") +
+
+  # **Title & Labels**
+  labs(title = "Trends in International Trade in Services (2020-2024)",
+       subtitle = "Exports, Imports & Total Trade as Lines, Trade Balance as Bars",
+       x = "Year", y = "S$ Billion") +
+
+  # **Custom Theme**
+  theme_minimal(base_size = 10) +  
+
+  # **Color Customization**
+  scale_color_manual(name = "Category", values = c("Exports" = "red", "Imports" = "blue", "Total Trade" = "black")) +
+  scale_fill_manual(name = "Trade Balance", values = c("Surplus" = "green", "Deficit" = "red")) +
+
+  # **Formatting**
+  theme(
+        legend.position = "bottom",
+        panel.grid.major.y = element_line(color = "gray", linetype = "dashed"),
+        axis.text.x = element_text(face = "bold"))
+
+# Display the plot
+print(p)
+
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+# Filter relevant rows (Exports, Imports, and Total Trade)
+export_vs_import <- trade_services %>%
+  filter(`Data Series` %in% c("Exports Of Services", "Imports Of Services", "Total Trade In Services"))
+
+# Convert dataset from wide to long format for ggplot
+data_long <- export_vs_import %>%
+  pivot_longer(cols = -`Data Series`, names_to = "Year", values_to = "Value") %>%
+  mutate(Year = as.numeric(Year)) %>%
+  filter(Year >= 2020 & Year <= 2024)
+
+# Extract `Total Trade In Services` from dataset
+total_trade_data <- data_long %>%
+  filter(`Data Series` == "Total Trade In Services") %>%
+  select(Year, Value) %>%
+  rename(Total_Trade = Value)
+
+# Calculate Trade Balance (Exports - Imports)
+trade_balance <- data_long %>%
+  spread(`Data Series`, Value) %>%
+  mutate(Services_Trade_Balance = `Exports Of Services` - `Imports Of Services`) %>%
+  select(Year, Services_Trade_Balance)
+
+# Merge Trade Balance & Total Trade into DataFrame
+data_long <- left_join(data_long, trade_balance, by = "Year")
+data_long <- left_join(data_long, total_trade_data, by = "Year")
+
+# Increase plotting window size
+options(repr.plot.width=16, repr.plot.height=9)  
+
+# Create the plot
+p <- ggplot(data_long) +
+
+  # **Line Chart for Exports**
+  geom_line(data = subset(data_long, `Data Series` == "Exports Of Services"), 
+            aes(x = Year, y = Value, color = "Exports"), linewidth = 1.5) +
+  
+  # **Data Labels for Exports**
+  geom_text(data = subset(data_long, `Data Series` == "Exports Of Services"), 
+            aes(x = Year, y = Value, label = round(Value, 1)), 
+            vjust = -1, size = 2.5, color = "red") +
+
+  # **Line Chart for Imports**
+  geom_line(data = subset(data_long, `Data Series` == "Imports Of Services"), 
+            aes(x = Year, y = Value, color = "Imports"), linewidth = 1.5) +
+
+  # **Data Labels for Imports**
+  geom_text(data = subset(data_long, `Data Series` == "Imports Of Services"), 
+            aes(x = Year, y = Value, label = round(Value, 1)), 
+            vjust = 1.5, size = 2.5, color = "blue") +
+
+  # **Line Chart for Total Trade (Black, Dashed)**
+  geom_line(data = total_trade_data,
+            aes(x = Year, y = Total_Trade, color = "Total Trade"), linewidth = 1.5, linetype = "dashed") +
+
+  # **Labels for Total Trade**
+  geom_text(data = total_trade_data,
+            aes(x = Year, y = Total_Trade + 20000, label = round(Total_Trade, 1)), 
+            vjust = -0.5, size = 2.5, color = "black") +
+
+  # **Bar Chart for Trade Balance (Surplus = Green, Deficit = Red)**
+  geom_bar(data = trade_balance, 
+           aes(x = Year, y = Services_Trade_Balance, 
+               fill = ifelse(Services_Trade_Balance >= 0, "Surplus", "Deficit")), 
+           stat = "identity", width = 0.5) +
+
+  # **Move Labels to the Top of Trade Balance Bars**
+  geom_text(data = trade_balance, 
+            aes(x = Year, y = Services_Trade_Balance + 5000, 
+                label = round(Services_Trade_Balance, 1)), 
+            vjust = -0.5, size = 2.5, color = "black") +
+
+  # **Title & Labels**
+  labs(title = "Trends in International Trade in Services (2020-2024)",
+       subtitle = "Exports, Imports & Total Trade as Lines, Trade Balance as Bars",
+       x = "Year", y = "S$ Billion") +
+
+  # **Custom Theme**
+  theme_minimal(base_size = 10) +  
+
+  # **Color Customization**
+  scale_color_manual(name = "Category", values = c("Exports" = "red", "Imports" = "blue", "Total Trade" = "black")) +
+  scale_fill_manual(name = "Trade Balance", values = c("Surplus" = "green", "Deficit" = "red")) +
+
+  # **Formatting**
+  theme(
+        legend.position = "bottom",
+        panel.grid.major.y = element_line(color = "gray", linetype = "dashed"),
+        axis.text.x = element_text(face = "bold"))
+
+# Display the plot
+print(p)
+```
+:::
+
+### 3.3 Time series analysis
+
+I conducted time-series analysis to analyze trends in exports, imports, and total trade from 2000 to 2024. First, I visualized the historical data using `ggplot2`, ensuring clear differentiation of trends by assigning red for exports, blue for imports, and black for total trade. This provided insights into the overall growth patterns and fluctuations over time.
+
+Key observations:
+
+-   **Steady growth:** Singapore’s total trade in services has shown a strong upward trend, reflecting its role as a global trade hub.
+-   **Exports Lead Imports:** While both have grown, exports consistently exceed imports, indicating a positive trade balance.
+-   **Impact of Global Events:** Periods of slower growth (e.g., 2008-2012) align with economic disruptions like the Global Financial Crisis.
+-   **Accelerated Growth After 2018:** Likely driven by Singapore’s push for digital services, financial innovation, and trade agreements.
+
+::: panel-tabset
+## Graph()
+
+```{r}
+#| echo = FALSE 
+
+# Load necessary libraries
+library(ggplot2)
+library(tidyverse)
+library(forecast)
+library(plotly)
+
+# Convert data from wide to long format
+export_vs_import_long <- export_vs_import %>%
+  pivot_longer(cols = -`Data Series`, names_to = "Year", values_to = "Value") %>%
+  mutate(Year = as.numeric(Year)) %>%
+  arrange(Year)  # Ensure years are sorted in ascending order
+
+# Create separate data frames for each category to ensure proper order
+exports_data <- export_vs_import_long %>% filter(`Data Series` == "Exports Of Services")
+imports_data <- export_vs_import_long %>% filter(`Data Series` == "Imports Of Services")
+total_trade_data <- export_vs_import_long %>% filter(`Data Series` == "Total Trade In Services")
+
+# Convert to time-series format (with correctly sorted values)
+exports_ts <- ts(exports_data$Value, start = exports_data$Year[1], frequency = 1)
+imports_ts <- ts(imports_data$Value, start = imports_data$Year[1], frequency = 1)
+total_trade_ts <- ts(total_trade_data$Value, start = total_trade_data$Year[1], frequency = 1)
+
+# Create Data Frame for Plotting
+df <- data.frame(
+  Year = rep(exports_data$Year, 3),
+  Value = c(exports_data$Value, imports_data$Value, total_trade_data$Value),
+  Category = rep(c("Exports", "Imports", "Total Trade"), each = nrow(exports_data))
+)
+
+# Create a ggplot with explicit group aesthetic
+p <- ggplot(df, aes(x = Year, y = Value, color = Category, group = Category, 
+                     text = paste0("Year: ", Year, "<br>Value: ", round(Value, 1)))) +
+  geom_line(linewidth = 1.2) +  # Use linewidth instead of size (ggplot2 3.4.0+)
+  scale_color_manual(values = c("Exports" = "red", "Imports" = "blue", "Total Trade" = "black")) +
+  ggtitle("Export vs Import vs Total Trade Trends") +
+  ylab("Value (in Millions)") + xlab("Year") +
+  theme_minimal()
+
+# Convert to interactive plot with tooltips
+interactive_plot <- ggplotly(p, tooltip = "text")
+
+# Display interactive plot
+interactive_plot
+
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+# Load necessary libraries
+library(ggplot2)
+library(tidyverse)
+library(forecast)
+library(plotly)
+
+# Convert data from wide to long format
+export_vs_import_long <- export_vs_import %>%
+  pivot_longer(cols = -`Data Series`, names_to = "Year", values_to = "Value") %>%
+  mutate(Year = as.numeric(Year)) %>%
+  arrange(Year)  # Ensure years are sorted in ascending order
+
+# Create separate data frames for each category to ensure proper order
+exports_data <- export_vs_import_long %>% filter(`Data Series` == "Exports Of Services")
+imports_data <- export_vs_import_long %>% filter(`Data Series` == "Imports Of Services")
+total_trade_data <- export_vs_import_long %>% filter(`Data Series` == "Total Trade In Services")
+
+# Convert to time-series format (with correctly sorted values)
+exports_ts <- ts(exports_data$Value, start = exports_data$Year[1], frequency = 1)
+imports_ts <- ts(imports_data$Value, start = imports_data$Year[1], frequency = 1)
+total_trade_ts <- ts(total_trade_data$Value, start = total_trade_data$Year[1], frequency = 1)
+
+# Create Data Frame for Plotting
+df <- data.frame(
+  Year = rep(exports_data$Year, 3),
+  Value = c(exports_data$Value, imports_data$Value, total_trade_data$Value),
+  Category = rep(c("Exports", "Imports", "Total Trade"), each = nrow(exports_data))
+)
+
+# Create a ggplot with explicit group aesthetic
+p <- ggplot(df, aes(x = Year, y = Value, color = Category, group = Category, 
+                     text = paste0("Year: ", Year, "<br>Value: ", round(Value, 1)))) +
+  geom_line(linewidth = 1.2) +  # Use linewidth instead of size (ggplot2 3.4.0+)
+  scale_color_manual(values = c("Exports" = "red", "Imports" = "blue", "Total Trade" = "black")) +
+  ggtitle("Export vs Import vs Total Trade Trends") +
+  ylab("Value (in Millions)") + xlab("Year") +
+  theme_minimal()
+
+# Convert to interactive plot with tooltips
+interactive_plot <- ggplotly(p, tooltip = "text")
+
+# Display interactive plot
+interactive_plot
+```
+:::
+
+### 3.4 Time series forecasting
+
+#### 3.4.1 ETS vs ARIMA model comparison
+
+Based on the model accuracy metrics, ARIMA outperforms ETS in forecasting both exports and imports. ARIMA consistently shows lower RMSE, MAE, and MAPE values, indicating that its predictions are more precise and closer to actual observations. Thus, ARIMA will be the preferred model for time series forecasting.
+
+::: panel-tabset
+## Result()
+
+```{r}
+#| echo = FALSE 
+
+library(forecast)
+library(tidyverse)
+library(ggplot2)
+
+# Set forecast horizon (e.g., last 5 years)
+horizon <- 5
+
+# Ensure there are enough observations for training and test
+if (length(exports_ts) <= horizon | length(imports_ts) <= horizon) {
+  stop("Not enough data points for proper train-test split!")
+}
+
+# Split data: Use last `horizon` years as the test set
+train_exports <- head(exports_ts, length(exports_ts) - horizon)
+test_exports <- tail(exports_ts, horizon)
+
+train_imports <- head(imports_ts, length(imports_ts) - horizon)
+test_imports <- tail(imports_ts, horizon)
+
+# Fit ETS models
+ets_exports <- ets(train_exports)
+ets_imports <- ets(train_imports)
+
+# Fit ARIMA models
+arima_exports <- auto.arima(train_exports)
+arima_imports <- auto.arima(train_imports)
+
+# 🔹 Generate Forecasts BEFORE extracting forecast values
+ets_forecast_exports <- forecast(ets_exports, h = horizon)
+ets_forecast_imports <- forecast(ets_imports, h = horizon)
+
+arima_forecast_exports <- forecast(arima_exports, h = horizon)
+arima_forecast_imports <- forecast(arima_imports, h = horizon)
+
+# 🔹 Extract the forecasted mean values
+ets_forecast_exports_values <- as.numeric(ets_forecast_exports$mean)
+ets_forecast_imports_values <- as.numeric(ets_forecast_imports$mean)
+
+arima_forecast_exports_values <- as.numeric(arima_forecast_exports$mean)
+arima_forecast_imports_values <- as.numeric(arima_forecast_imports$mean)
+
+# Ensure test sets are numeric
+test_exports <- as.numeric(test_exports)
+test_imports <- as.numeric(test_imports)
+
+# Ensure test and forecast lengths match
+if (length(test_exports) != length(ets_forecast_exports_values)) {
+  test_exports <- head(test_exports, length(ets_forecast_exports_values))
+}
+
+if (length(test_imports) != length(ets_forecast_imports_values)) {
+  test_imports <- head(test_imports, length(ets_forecast_imports_values))
+}
+
+# 🔹 Use accuracy() correctly with the model object
+ets_accuracy_exports <- forecast::accuracy(ets_forecast_exports, test_exports)
+ets_accuracy_imports <- forecast::accuracy(ets_forecast_imports, test_imports)
+
+arima_accuracy_exports <- forecast::accuracy(arima_forecast_exports, test_exports)
+arima_accuracy_imports <- forecast::accuracy(arima_forecast_imports, test_imports)
+
+print(ets_accuracy_exports)
+print(arima_accuracy_exports)
+
+# 🔹 Combine accuracy results into a structured dataframe
+accuracy_df <- tibble(
+  Model = rep(c("ETS", "ARIMA"), each = 2),
+  Type = rep(c("Exports", "Imports"), times = 2),
+  RMSE = c(ets_accuracy_exports["Test set", "RMSE"], 
+           ets_accuracy_imports["Test set", "RMSE"],
+           arima_accuracy_exports["Test set", "RMSE"], 
+           arima_accuracy_imports["Test set", "RMSE"]),
+  MAE = c(ets_accuracy_exports["Test set", "MAE"], 
+          ets_accuracy_imports["Test set", "MAE"],
+          arima_accuracy_exports["Test set", "MAE"], 
+          arima_accuracy_imports["Test set", "MAE"]),
+  MAPE = c(ets_accuracy_exports["Test set", "MAPE"], 
+           ets_accuracy_imports["Test set", "MAPE"],
+           arima_accuracy_exports["Test set", "MAPE"], 
+           arima_accuracy_imports["Test set", "MAPE"])
+)
+
+# Print final accuracy dataframe
+print(accuracy_df)
+
+
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+library(forecast)
+library(tidyverse)
+library(ggplot2)
+
+# Set forecast horizon (e.g., last 5 years)
+horizon <- 5
+
+# Ensure there are enough observations for training and test
+if (length(exports_ts) <= horizon | length(imports_ts) <= horizon) {
+  stop("Not enough data points for proper train-test split!")
+}
+
+# Split data: Use last `horizon` years as the test set
+train_exports <- head(exports_ts, length(exports_ts) - horizon)
+test_exports <- tail(exports_ts, horizon)
+
+train_imports <- head(imports_ts, length(imports_ts) - horizon)
+test_imports <- tail(imports_ts, horizon)
+
+# Fit ETS models
+ets_exports <- ets(train_exports)
+ets_imports <- ets(train_imports)
+
+# Fit ARIMA models
+arima_exports <- auto.arima(train_exports)
+arima_imports <- auto.arima(train_imports)
+
+# 🔹 Generate Forecasts BEFORE extracting forecast values
+ets_forecast_exports <- forecast(ets_exports, h = horizon)
+ets_forecast_imports <- forecast(ets_imports, h = horizon)
+
+arima_forecast_exports <- forecast(arima_exports, h = horizon)
+arima_forecast_imports <- forecast(arima_imports, h = horizon)
+
+# 🔹 Extract the forecasted mean values
+ets_forecast_exports_values <- as.numeric(ets_forecast_exports$mean)
+ets_forecast_imports_values <- as.numeric(ets_forecast_imports$mean)
+
+arima_forecast_exports_values <- as.numeric(arima_forecast_exports$mean)
+arima_forecast_imports_values <- as.numeric(arima_forecast_imports$mean)
+
+# Ensure test sets are numeric
+test_exports <- as.numeric(test_exports)
+test_imports <- as.numeric(test_imports)
+
+# Ensure test and forecast lengths match
+if (length(test_exports) != length(ets_forecast_exports_values)) {
+  test_exports <- head(test_exports, length(ets_forecast_exports_values))
+}
+
+if (length(test_imports) != length(ets_forecast_imports_values)) {
+  test_imports <- head(test_imports, length(ets_forecast_imports_values))
+}
+
+# 🔹 Use accuracy() correctly with the model object
+ets_accuracy_exports <- forecast::accuracy(ets_forecast_exports, test_exports)
+ets_accuracy_imports <- forecast::accuracy(ets_forecast_imports, test_imports)
+
+arima_accuracy_exports <- forecast::accuracy(arima_forecast_exports, test_exports)
+arima_accuracy_imports <- forecast::accuracy(arima_forecast_imports, test_imports)
+
+print(ets_accuracy_exports)
+print(arima_accuracy_exports)
+
+# 🔹 Combine accuracy results into a structured dataframe
+accuracy_df <- tibble(
+  Model = rep(c("ETS", "ARIMA"), each = 2),
+  Type = rep(c("Exports", "Imports"), times = 2),
+  RMSE = c(ets_accuracy_exports["Test set", "RMSE"], 
+           ets_accuracy_imports["Test set", "RMSE"],
+           arima_accuracy_exports["Test set", "RMSE"], 
+           arima_accuracy_imports["Test set", "RMSE"]),
+  MAE = c(ets_accuracy_exports["Test set", "MAE"], 
+          ets_accuracy_imports["Test set", "MAE"],
+          arima_accuracy_exports["Test set", "MAE"], 
+          arima_accuracy_imports["Test set", "MAE"]),
+  MAPE = c(ets_accuracy_exports["Test set", "MAPE"], 
+           ets_accuracy_imports["Test set", "MAPE"],
+           arima_accuracy_exports["Test set", "MAPE"], 
+           arima_accuracy_imports["Test set", "MAPE"])
+)
+
+# Print final accuracy dataframe
+print(accuracy_df)
+
+```
+:::
+
+#### 3.4.2 ARIMA model
+
+Next, I applied **ARIMA modeling** (`auto.arima()`) using the `forecast package` to predict trade values for the next five years (2025-2029).
+
+::: panel-tabset
+## ARIMA Forecast for Exports()
+
+```{r}
+#| echo = FALSE 
+
+library(forecast)
+
+# Apply ARIMA Model
+arima_exports <- auto.arima(exports_ts)
+arima_imports <- auto.arima(imports_ts)
+arima_total_trade <- auto.arima(total_trade_ts)
+
+# Forecast for the next 5 years
+arima_forecast_exports <- forecast(arima_exports, h = 5)
+arima_forecast_imports <- forecast(arima_imports, h = 5)
+arima_forecast_total_trade <- forecast(arima_total_trade, h = 5)
+
+# Plot ARIMA forecasts
+autoplot(arima_forecast_exports) + ggtitle("ARIMA Forecast for Exports")
+```
+
+## ARIMA Forecast for Imports()
+
+```{r}
+#| echo = FALSE 
+
+autoplot(arima_forecast_imports) + ggtitle("ARIMA Forecast for Imports")
+```
+
+## ARIMA Forecast for Total Trade()
+
+```{r}
+#| echo = FALSE 
+
+autoplot(arima_forecast_total_trade) + ggtitle("ARIMA Forecast for Total Trade")
+```
+
+## Combined Forecast()
+
+```{r}
+#| echo = FALSE 
+
+# Convert forecasts to data frames for ggplot
+df_exports <- as.data.frame(arima_forecast_exports) %>% mutate(Year = seq(max(exports_data$Year) + 1, by = 1, length.out = 5), Category = "Exports")
+df_imports <- as.data.frame(arima_forecast_imports) %>% mutate(Year = seq(max(imports_data$Year) + 1, by = 1, length.out = 5), Category = "Imports")
+df_total_trade <- as.data.frame(arima_forecast_total_trade) %>% mutate(Year = seq(max(total_trade_data$Year) + 1, by = 1, length.out = 5), Category = "Total Trade")
+
+# Combine all forecasts
+df_forecast <- bind_rows(df_exports, df_imports, df_total_trade)
+
+# Create the forecast plot
+ggplot(df_forecast, aes(x = Year, y = `Point Forecast`, color = Category)) +
+  geom_line(linewidth = 1.5) +  # Use linewidth instead of size (ggplot2 3.4.0+)
+  scale_color_manual(values = c("Exports" = "red", "Imports" = "blue", "Total Trade" = "black")) +
+  ggtitle("ARIMA Forecast for Exports, Imports, and Total Trade") +
+  ylab("Forecasted Value (in Millions)") + xlab("Year") +
+  theme_minimal()
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+library(forecast)
+
+# Apply ARIMA Model
+arima_exports <- auto.arima(exports_ts)
+arima_imports <- auto.arima(imports_ts)
+arima_total_trade <- auto.arima(total_trade_ts)
+
+# Forecast for the next 5 years
+arima_forecast_exports <- forecast(arima_exports, h = 5)
+arima_forecast_imports <- forecast(arima_imports, h = 5)
+arima_forecast_total_trade <- forecast(arima_total_trade, h = 5)
+
+# Plot ARIMA forecasts
+autoplot(arima_forecast_exports) + ggtitle("ARIMA Forecast for Exports")
+autoplot(arima_forecast_imports) + ggtitle("ARIMA Forecast for Imports")
+autoplot(arima_forecast_total_trade) + ggtitle("ARIMA Forecast for Total Trade")
+
+# Convert forecasts to data frames for ggplot
+df_exports <- as.data.frame(arima_forecast_exports) %>% mutate(Year = seq(max(exports_data$Year) + 1, by = 1, length.out = 5), Category = "Exports")
+df_imports <- as.data.frame(arima_forecast_imports) %>% mutate(Year = seq(max(imports_data$Year) + 1, by = 1, length.out = 5), Category = "Imports")
+df_total_trade <- as.data.frame(arima_forecast_total_trade) %>% mutate(Year = seq(max(total_trade_data$Year) + 1, by = 1, length.out = 5), Category = "Total Trade")
+
+# Combine all forecasts
+df_forecast <- bind_rows(df_exports, df_imports, df_total_trade)
+
+# Create the forecast plot
+ggplot(df_forecast, aes(x = Year, y = `Point Forecast`, color = Category)) +
+  geom_line(linewidth = 1.5) +  # Use linewidth instead of size (ggplot2 3.4.0+)
+  scale_color_manual(values = c("Exports" = "red", "Imports" = "blue", "Total Trade" = "black")) +
+  ggtitle("ARIMA Forecast for Exports, Imports, and Total Trade") +
+  ylab("Forecasted Value (in Millions)") + xlab("Year") +
+  theme_minimal()
+
+```
+:::
+
+#### 3.4.2 Forecast accuracy
+
+We will also be testing the accuracy of the forecast model to evaluate its performance and reliability.
+
+Standard market practices for evaluating forecast accuracy rely on key metrics such as MAPE, RMSE, MAE, and ACF1.
+
+-   Based on these measures, the imports forecast is highly accurate (MAPE \~4.84%), while exports and total trade forecasts fall within the "good" range (MAPE \~6.10% and \~5.23%).
+
+-   The absence of significant autocorrelation in residuals suggests the models effectively capture trends.
+
+-   The high RMSE values, particularly for total trade, indicate potential reliability issues due to large fluctuations in data.
+
+::: panel-tabset
+## Forecast accuracy for Exports()
+
+```{r}
+#| echo = FALSE 
+
+# Ensure test set is numeric
+test_exports <- as.numeric(test_exports)
+
+# Ensure test set length matches forecasted values
+test_exports <- head(test_exports, length(arima_forecast_exports$mean))
+
+# Compute and print accuracy
+cat("### Forecast Accuracy for Exports ###\n")
+print(forecast::accuracy(arima_forecast_exports, test_exports))
+
+
+```
+
+## Forecast accuracy for Imports()
+
+```{r}
+#| echo = FALSE 
+
+# Ensure test set is numeric
+test_imports <- as.numeric(test_imports)
+
+# Ensure test set length matches forecasted values
+test_imports <- head(test_imports, length(arima_forecast_imports$mean))
+
+# Print forecast accuracy for imports
+cat("\n### Forecast Accuracy for Imports ###\n")
+print(forecast::accuracy(arima_forecast_imports, test_imports))
+
+```
+
+## Forecast accuracy for Total Trade()
+
+```{r}
+#| echo = FALSE 
+
+# Define horizon (forecasting period)
+horizon <- 5
+
+# Ensure there are enough observations for training and test
+if (length(total_trade_ts) <= horizon) {
+  stop("Not enough data points for proper train-test split!")
+}
+
+# Split total trade data: Use last `horizon` years as the test set
+train_total_trade <- head(total_trade_ts, length(total_trade_ts) - horizon)
+test_total_trade <- tail(total_trade_ts, horizon)
+
+# Ensure test set is numeric
+test_total_trade <- as.numeric(test_total_trade)
+
+# Ensure test set length matches forecasted values
+test_total_trade <- head(test_total_trade, length(arima_forecast_total_trade$mean))
+
+# Print forecast accuracy for total trade
+cat("\n### Forecast Accuracy for Total Trade ###\n")
+print(forecast::accuracy(arima_forecast_total_trade, test_total_trade))
+
+
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+# Compute and print accuracy
+cat("### Forecast Accuracy for Exports ###\n")
+print(forecast::accuracy(arima_forecast_exports, test_exports))
+
+# Print forecast accuracy for imports
+cat("\n### Forecast Accuracy for Imports ###\n")
+print(forecast::accuracy(arima_forecast_imports, test_imports))
+
+# Print forecast accuracy for total trade
+cat("\n### Forecast Accuracy for Total Trade ###\n")
+print(forecast::accuracy(arima_forecast_total_trade, test_total_trade))
+```
+:::
+
+## 4. DataVis makeover 2
+
+### 4.1 Makeover of - Exports/ Imports of Services by Services Category
+
+#### 4.1.1 Original visualization
+
+The original visualizations analyzed in this analysis are sourced from [here](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade).
+
+![](/images/Pic14.jpg){width="506"}
+
+![](/images/Pic15.jpg){width="510"}
+
+#### 4.1.2 Evaluation of the original visualization
+
+In the below section, we will evaluate the effectiveness of the above visualization by identifying its pros and cons, focusing on aspects such as (1) **clarity**, and (2) **visual appeal**:
+
+-   **Clarity**: How well the data is presented and understood
+
+| Pros | Cons | Suggested fixes |
+|------------------------|------------------------|------------------------|
+| **Clearly labeled service categories with values and percentages** – Each category is distinctly labeled, making it easy to understand the contributions of each service type. | **Pie charts are not effective for comparing data slices** – When multiple categories have close values, it is difficult to differentiate them accurately. | **Replace pie charts with bar charts or grouped bar charts -** for clearer comparison of service categories. |
+| **Percentage values enhance clarity** – Helps users quickly understand each category’s contribution to total exports/ imports. | **Pie charts are only useful when there are limited categories** – Too many slices make it difficult to interpret, as smaller sections become unreadable. | **Replace with a bar chart or grouped bar chart** to improve readability. |
+|  | **The pie chart format makes trend comparison difficult** – Pie charts only represent a single year and do not show how exports have changed over time. | **Add a trend chart (e.g., line graph or bar chart)** – Including historical data can help identify patterns and trends over multiple years. |
+
+-   **Visual appeal**: How visually engaging and effective the design is
+
+| Pros | Cons | Suggested fixes |
+|------------------------|------------------------|------------------------|
+| **Good use of icons to represent different services** – This makes the chart more engaging and helps with intuitive understanding. | **Pie charts distort perception** – it's hard to accurately compare slice sizes, especially when they are similar. | **Use a** **bar chart, grouped bar chart or treemaps**, which allows for more proportional representation of each service category. |
+| **Well-structured layout with categories spread around the chart -** The service categories for both exports and imports maintain a similar placement | **Pie chart format is too cluttered** – The large number of slices makes it difficult to read smaller segments and their labels. | **Use a** **bar chart, grouped bar chart or treemaps** for better spacing and spatial representation. |
+|  | Too many elements are packed into the chart, making it overwhelming. | Simplify by **removing non-essential elements -** i.e: icons |
+|  | **No legend for color segmentation** – The chart uses various colors for different service categories, but there is no clear legend explaining their grouping or significance. | **Include a legend or categorize colors meaningfully** – Assign gradient based color scale to visually emphasize trade volume intensity. |
+
+::: callout-tip
+## Limitations of pie charts in data visualization
+
+-   **Distorted perception:** Pie chart makes comparisons difficult due to the reliance on angles and areas rather than a common baseline.
+-   **Difficult to compare similar data slices:** Can be misleading when there are many segments/ similar-sized portions making it hard to interpret differences accurately.
+-   **Space constraints:** Pie chart can take up more space than necessary and can clutter dashboards or reports.
+-   **Poor for trend analysis:** Pie charts only show a single point in time and do not help in comparing trends over multiple years.
+:::
+
+::: callout-note
+## Why are the use of pie charts be frown upon in data visualization?
+
+-   Refer to this [page](https://bernardmarr.com/why-you-shouldnt-use-pie-charts-in-your-dashboards-and-performance-reports/#:~:text=From%20a%20design%20point%20of,data%20more%20complicated%20than%20before.) to find out why the use of pie charts are discouraged.
+:::
+
+### 4.2 Makeover of the original data visualization
+
+#### 4.2.1 Data preparation and filtering for relevant variables
+
+After importing the `trade_services` data set, we will filter for the key categories that contribute to the exports/ imports of services in Singapore, excluding subcategories. The 12 major categories are identified based on indentation, as shown below:
+
+| Data Series | Shortened label |
+|------------------------------------|------------------------------------|
+| Manufacturing Services On Physical Inputs Owned By Others | Manuf. Services |
+| Maintenance And Repair Services | Maintenance & Repair |
+| Transport | Transport |
+| Travel | Travel |
+| Insurance | Insurance |
+| Government Goods And Services | Govt. Services |
+| Construction | Construction |
+| Financial | Financial Services |
+| Telecommunications, Computer & Information | Telecom & IT |
+| Charges For The Use Of Intellectual Property | Intellectual Property |
+| Personal, Cultural And Recreational | Cultural & Recreational |
+| Other Business Services | Other Biz Services |
+
+We first clean the "Data Series" column by removing leading and trailing spaces to ensure consistency. Next, we identify the positions of "Exports Of Services" and "Imports Of Services" in the dataset, extracting only the rows between these markers for exports and those following the imports marker for imports. We then filter both datasets to retain only the 12 major service categories as hghlighted above.
+
+Finally, we combine the cleaned exports and imports data into a single structured table, adding a "Trade Type" column to differentiate between imports/ exports.
+
+```{r}
+# Trim leading/trailing spaces from 'Data Series' column
+trade_services$`Data Series` <- trimws(trade_services$`Data Series`)
+
+# Identify row indices for "Exports Of Services" and "Imports Of Services"
+export_start_idx <- which(trade_services$`Data Series` == "Exports Of Services")
+import_start_idx <- which(trade_services$`Data Series` == "Imports Of Services")
+
+# Extract rows between "Exports Of Services" and "Imports Of Services"
+exports_df <- trade_services[(export_start_idx + 1):(import_start_idx - 1), ]
+imports_df <- trade_services[(import_start_idx + 1):nrow(trade_services), ]
+
+# Define the 12 major categories
+major_categories <- c(
+  "Manufacturing Services On Physical Inputs Owned By Others",
+  "Maintenance And Repair Services",
+  "Transport",
+  "Travel",
+  "Insurance",
+  "Government Goods And Services",
+  "Construction",
+  "Financial",
+  "Telecommunications, Computer & Information",
+  "Charges For The Use Of Intellectual Property",
+  "Personal, Cultural And Recreational",
+  "Other Business Services"
+)
+
+# Filter only the major categories for exports and imports
+exports_major <- exports_df %>% filter(`Data Series` %in% major_categories)
+imports_major <- imports_df %>% filter(`Data Series` %in% major_categories)
+
+# Add a column to indicate whether it's exports or imports
+exports_major$`Trade Type` <- "Exports"
+imports_major$`Trade Type` <- "Imports"
+
+# Combine into a single dataframe
+final_trade_df <- bind_rows(exports_major, imports_major)
+
+# Reorder columns: Move "Trade Type" to the second column
+final_trade_df <- final_trade_df %>% select(`Data Series`, `Trade Type`, everything())
+
+# View the final structured data
+print(final_trade_df)
+```
+
+#### 4.2.2 Revised visualization - bar chart
+
+Key makeover changes:
+
+1️⃣ **Single chart for imports and exports:**
+
+-   **Combined visualization** –\> Instead of two separate pie charts, the new bar chart combines both, allowing for side-by-side comparison.
+
+2️⃣ **Improved readability and comparability:**
+
+-   **Grouped bars (red for exports, blue for imports)** –\> Offer a clearer visual distinction between trade types.
+
+-   **Sorted categories (largest to smallest)** –\> Focus attention on key contributors, ensuring the most impactful sectors are easily identified.
+
+3️⃣ **Simplified layout:**
+
+-   **Removed unnecessary graphics** **(i.e.: icons, maps)** –\>Decluttered the chart to emphasize trade data information.
+
+4️⃣ **Interactive insights:**
+
+-   **Hover tooltips** –\> Display category names, trade values, and percentages shares, making the chart more dynamic and user-friendly.
+
+::: callout-note
+## Overall
+
+-   Better clarity, accuracy, and direct comparison in a single view.
+-   Eliminates redundancy and improves clarity for faster data interpretation.
+:::
+
+::: panel-tabset
+## Enhance graph()
+
+```{r}
+#| echo = FALSE
+
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(plotly)  
+
+# Filter data for the year 2024
+trade_2024 <- final_trade_df %>%
+  select(`Data Series`, `Trade Type`, `2024`) %>%
+  rename(Value = `2024`)
+
+# Shorten long category labels for better readability
+trade_2024$`Data Series` <- gsub("Manufacturing Services On Physical Inputs Owned By Others", "Manuf. Services", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Maintenance And Repair Services", "Maintenance & Repair", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Government Goods And Services", "Govt. Services", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Financial", "Financial Services", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Telecommunications, Computer & Information", "Telecom & IT", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Charges For The Use Of Intellectual Property", "Intellectual Property", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Personal, Cultural And Recreational", "Cultural & Recreational", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Other Business Services", "Other Biz Services", trade_2024$`Data Series`)
+
+# Compute Total Exports & Imports for Percentage Calculation
+total_exports <- sum(trade_2024$Value[trade_2024$`Trade Type` == "Exports"], na.rm = TRUE)
+total_imports <- sum(trade_2024$Value[trade_2024$`Trade Type` == "Imports"], na.rm = TRUE)
+
+# Add Percentage Column
+trade_2024 <- trade_2024 %>%
+  mutate(Percentage = ifelse(`Trade Type` == "Exports", 
+                             Value / total_exports * 100, 
+                             Value / total_imports * 100))
+
+# Sum values for sorting (descending order)
+category_order <- trade_2024 %>%
+  group_by(`Data Series`) %>%
+  summarise(Total_Trade = sum(Value, na.rm = TRUE)) %>%
+  arrange(desc(Total_Trade)) %>%
+  pull(`Data Series`)
+
+# Convert `Data Series` to factor for correct sorting
+trade_2024$`Data Series` <- factor(trade_2024$`Data Series`, levels = category_order)
+
+# Define custom colors for Exports (Red) and Imports (Blue)
+custom_colors <- c("Exports" = "red", "Imports" = "blue")
+
+# Create the ggplot object
+gg <- ggplot(trade_2024, aes(x = `Data Series`, y = Value, fill = `Trade Type`,
+                             text = paste("Category:", `Data Series`, 
+                                          "<br>Trade Type:", `Trade Type`, 
+                                          "<br>Value: S$", scales::comma(Value),
+                                          "<br>Share:", round(Percentage, 1), "%"))) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8)) +  # Side-by-side bars
+  scale_fill_manual(values = custom_colors) +  # Apply custom colors
+  scale_y_continuous(labels = scales::comma) +  # Format y-axis labels
+  labs(title = "Singapore Trade in Services - 2024",
+       subtitle = "Side-by-Side Comparison of Imports and Exports for 12 Service Categories",
+       x = "Service Category",
+       y = "Trade Value",
+       fill = "Trade Type") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),  # Rotate x-axis labels
+        legend.position = "bottom")  
+
+# Convert to interactive plot with tooltips
+ggplotly(gg, tooltip = "text")
+
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(plotly)  # For interactive tooltips
+
+# Filter data for the year 2024
+trade_2024 <- final_trade_df %>%
+  select(`Data Series`, `Trade Type`, `2024`) %>%
+  rename(Value = `2024`)
+
+# Shorten long category labels for better readability
+trade_2024$`Data Series` <- gsub("Manufacturing Services On Physical Inputs Owned By Others", "Manuf. Services", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Maintenance And Repair Services", "Maintenance & Repair", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Government Goods And Services", "Govt. Services", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Financial", "Financial Services", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Telecommunications, Computer & Information", "Telecom & IT", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Charges For The Use Of Intellectual Property", "Intellectual Property", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Personal, Cultural And Recreational", "Cultural & Recreational", trade_2024$`Data Series`)
+trade_2024$`Data Series` <- gsub("Other Business Services", "Other Biz Services", trade_2024$`Data Series`)
+
+# Compute Total Exports & Imports for Percentage Calculation
+total_exports <- sum(trade_2024$Value[trade_2024$`Trade Type` == "Exports"], na.rm = TRUE)
+total_imports <- sum(trade_2024$Value[trade_2024$`Trade Type` == "Imports"], na.rm = TRUE)
+
+# Add Percentage Column
+trade_2024 <- trade_2024 %>%
+  mutate(Percentage = ifelse(`Trade Type` == "Exports", 
+                             Value / total_exports * 100, 
+                             Value / total_imports * 100))
+
+# Sum values for sorting (descending order)
+category_order <- trade_2024 %>%
+  group_by(`Data Series`) %>%
+  summarise(Total_Trade = sum(Value, na.rm = TRUE)) %>%
+  arrange(desc(Total_Trade)) %>%
+  pull(`Data Series`)
+
+# Convert `Data Series` to factor for correct sorting
+trade_2024$`Data Series` <- factor(trade_2024$`Data Series`, levels = category_order)
+
+# Define custom colors for Exports (Red) and Imports (Blue)
+custom_colors <- c("Exports" = "red", "Imports" = "blue")
+
+# Create the ggplot object
+gg <- ggplot(trade_2024, aes(x = `Data Series`, y = Value, fill = `Trade Type`,
+                             text = paste("Category:", `Data Series`, 
+                                          "<br>Trade Type:", `Trade Type`, 
+                                          "<br>Value: S$", scales::comma(Value),
+                                          "<br>Share:", round(Percentage, 1), "%"))) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8)) +  # Side-by-side bars
+  scale_fill_manual(values = custom_colors) +  # Apply custom colors
+  scale_y_continuous(labels = scales::comma) +  # Format y-axis labels
+  labs(title = "Singapore Trade in Services - 2024",
+       subtitle = "Side-by-Side Comparison of Imports and Exports for 12 Service Categories",
+       x = "Service Category",
+       y = "Trade Value",
+       fill = "Trade Type") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),  # Rotate x-axis labels
+        legend.position = "bottom")  
+
+# Convert to interactive plot with tooltips
+ggplotly(gg, tooltip = "text")
+
+```
+:::
+
+#### 4.2.3 Revised visualization - Treemap
+
+Key makeover changes:
+
+1️⃣ **Transition from Pie charts to Treemaps**
+
+-   **Pie charts are replaced with treemaps** –\> Treemaps uses area size to provide a better spatial comparison instead of circular slices in pie charts
+
+2️⃣ **Added plotly inteactive features:**
+
+-   **Enabled interactive treempas using plotly** –\> Allows for hovering over categories to explore trade value more dynamically.
+
+3️⃣ **Gradient-based color scale for trade value:**
+
+-   **Applied green gradient (darker green = higher value, lighter green = lower value)** –\> Visually emphasizes trade volume intensity instead of random colors in pie charts.
+
+::: panel-tabset
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results="hide"}
+
+# Load required libraries
+library(dplyr)
+library(tidyr)
+library(treemap)
+library(plotly)
+
+# Filter data for the year 2024
+trade_2024 <- final_trade_df %>%
+  select(`Data Series`, `Trade Type`, `2024`) %>%
+  rename(Value = `2024`)
+
+# Shorten long category labels for better readability
+trade_2024 <- trade_2024 %>%
+  mutate(Short_Label = case_when(
+    `Data Series` == "Manufacturing Services On Physical Inputs Owned By Others" ~ "Manuf. Services",
+    `Data Series` == "Maintenance And Repair Services" ~ "Maintenance & Repair",
+    `Data Series` == "Government Goods And Services" ~ "Govt. Services",
+    `Data Series` == "Financial" ~ "Financial Services",
+    `Data Series` == "Telecommunications, Computer & Information" ~ "Telecom & IT",
+    `Data Series` == "Charges For The Use Of Intellectual Property" ~ "Intellectual Property",
+    `Data Series` == "Personal, Cultural And Recreational" ~ "Cultural & Recreational",
+    `Data Series` == "Other Business Services" ~ "Other Biz Services",
+    TRUE ~ `Data Series`
+  ))
+
+# Split the dataset into Exports and Imports
+trade_exports <- trade_2024 %>% filter(`Trade Type` == "Exports")
+trade_imports <- trade_2024 %>% filter(`Trade Type` == "Imports")
+
+# Create Treemap Data for Exports
+treemap_exports <- treemap(trade_exports,
+                           index = "Short_Label",
+                           vSize = "Value",
+                           type = "index",
+                           palette = "Blues",
+                           title = "Exports Treemap - 2024",
+                           draw = FALSE)
+
+# Create Treemap Data for Imports
+treemap_imports <- treemap(trade_imports,
+                           index = "Short_Label",
+                           vSize = "Value",
+                           type = "index",
+                           palette = "Oranges",
+                           title = "Imports Treemap - 2024",
+                           draw = FALSE)
+```
+
+## Enhance graph()
+
+```{r}
+#| echo = FALSE
+# Rename the index column correctly for both treemaps
+colnames(treemap_exports$tm)[colnames(treemap_exports$tm) == "index"] <- "Short_Label"
+colnames(treemap_imports$tm)[colnames(treemap_imports$tm) == "index"] <- "Short_Label"
+
+# Convert Exports Treemap Data to Plotly (Darker Green for Higher Values)
+p1_interactive <- plot_ly(
+  data = treemap_exports$tm,
+  labels = ~Short_Label,
+  parents = "",
+  values = ~vSize,
+  text = ~paste("Category:", Short_Label, "<br>Value:", vSize),
+  type = "treemap",
+  textinfo = "label+text",
+  marker = list(
+    colorscale = list(c(0, 1), c("#d9f2d9", "#006400")),  # Light to Dark Green
+    cmin = min(treemap_exports$tm$vSize),
+    cmax = max(treemap_exports$tm$vSize),
+    colorbar = list(title = "Trade Value")
+  )
+) %>%
+  layout(title = "Exports Treemap - 2024")
+
+# Convert Imports Treemap Data to Plotly (Darker Green for Higher Values)
+p2_interactive <- plot_ly(
+  data = treemap_imports$tm,
+  labels = ~Short_Label,
+  parents = "",
+  values = ~vSize,
+  text = ~paste("Category:", Short_Label, "<br>Value:", vSize),
+  type = "treemap",
+  textinfo = "label+text",
+  marker = list(
+    colorscale = list(c(0, 1), c("#d9f2d9", "#006400")),  # Light to Dark Green
+    cmin = min(treemap_imports$tm$vSize),
+    cmax = max(treemap_imports$tm$vSize),
+    colorbar = list(title = "Trade Value")
+  )
+) %>%
+  layout(title = "Imports Treemap - 2024")
+
+p1_interactive
+p2_interactive
+
+
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+# Load required libraries
+library(dplyr)
+library(tidyr)
+library(treemap)
+library(plotly)
+
+# Filter data for the year 2024
+trade_2024 <- final_trade_df %>%
+  select(`Data Series`, `Trade Type`, `2024`) %>%
+  rename(Value = `2024`)
+
+# Shorten long category labels for better readability
+trade_2024 <- trade_2024 %>%
+  mutate(Short_Label = case_when(
+    `Data Series` == "Manufacturing Services On Physical Inputs Owned By Others" ~ "Manuf. Services",
+    `Data Series` == "Maintenance And Repair Services" ~ "Maintenance & Repair",
+    `Data Series` == "Government Goods And Services" ~ "Govt. Services",
+    `Data Series` == "Financial" ~ "Financial Services",
+    `Data Series` == "Telecommunications, Computer & Information" ~ "Telecom & IT",
+    `Data Series` == "Charges For The Use Of Intellectual Property" ~ "Intellectual Property",
+    `Data Series` == "Personal, Cultural And Recreational" ~ "Cultural & Recreational",
+    `Data Series` == "Other Business Services" ~ "Other Biz Services",
+    TRUE ~ `Data Series`
+  ))
+
+# Split the dataset into Exports and Imports
+trade_exports <- trade_2024 %>% filter(`Trade Type` == "Exports")
+trade_imports <- trade_2024 %>% filter(`Trade Type` == "Imports")
+
+# Create Treemap Data for Exports
+treemap_exports <- treemap(trade_exports,
+                           index = "Short_Label",
+                           vSize = "Value",
+                           type = "index",
+                           palette = "Blues",
+                           title = "Exports Treemap - 2024",
+                           draw = FALSE)
+
+# Create Treemap Data for Imports
+treemap_imports <- treemap(trade_imports,
+                           index = "Short_Label",
+                           vSize = "Value",
+                           type = "index",
+                           palette = "Oranges",
+                           title = "Imports Treemap - 2024",
+                           draw = FALSE)
+
+# Convert Exports Treemap Data to Plotly (Darker Green for Higher Values)
+p1_interactive <- plot_ly(
+  data = treemap_exports$tm,
+  labels = ~Short_Label,
+  parents = "",
+  values = ~vSize,
+  text = ~paste("Category:", Short_Label, "<br>Value:", vSize),
+  type = "treemap",
+  textinfo = "label+text",
+  marker = list(
+    colorscale = list(c(0, 1), c("#d9f2d9", "#006400")),  # Light to Dark Green
+    cmin = min(treemap_exports$tm$vSize),
+    cmax = max(treemap_exports$tm$vSize),
+    colorbar = list(title = "Trade Value")
+  )
+) %>%
+  layout(title = "Exports Treemap - 2024")
+
+# Convert Imports Treemap Data to Plotly (Darker Green for Higher Values)
+p2_interactive <- plot_ly(
+  data = treemap_imports$tm,
+  labels = ~Short_Label,
+  parents = "",
+  values = ~vSize,
+  text = ~paste("Category:", Short_Label, "<br>Value:", vSize),
+  type = "treemap",
+  textinfo = "label+text",
+  marker = list(
+    colorscale = list(c(0, 1), c("#d9f2d9", "#006400")),  # Light to Dark Green
+    cmin = min(treemap_imports$tm$vSize),
+    cmax = max(treemap_imports$tm$vSize),
+    colorbar = list(title = "Trade Value")
+  )
+) %>%
+  layout(title = "Imports Treemap - 2024")
+
+p1_interactive
+p2_interactive
+
+```
+:::
+
+### 4.3 Time series analysis
+
+#### 4.3.1 Trade in Services (Exports) - 2000 to 2012 to 2024
+
+Key observations:
+
+-   **Rapid Growth:** Singapore’s service exports have grown significantly, reinforcing its role as a global trade hub.
+
+-   **Leading Sectors**: Transport and Other Business Services dominate, showing the steepest growth.
+
+-   **Financial & Digital Expansion: Financial Services, Telecom & IT, and Intellectual Property** have surged, driven by digitalization and economic policies.
+
+-   **Resilience & Acceleration:** Despite slower growth around 2012 (likely due to economic shocks), post-2018 expansion highlights policy-driven trade growth.
+
+::: callout-note
+-   Singapore's services exports continue to thrive, reflecting its strong economic positioning
+:::
+
+::: panel-tabset
+## Time series()
+
+```{r, echo=FALSE, fig.width=8, fig.height=6}
+
+# Load required libraries
+library(dplyr)
+library(tidyr)
+library(CGPfunctions)
+
+# Ensure column names are trimmed properly
+colnames(final_trade_df) <- trimws(colnames(final_trade_df))
+
+# Shorten long category labels for better readability (Fixed repetitive label issue)
+final_trade_df$`Data Series` <- gsub("Manufacturing Services On Physical Inputs Owned By Others", "Manuf. Services", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Maintenance And Repair Services", "Maintenance & Repair", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Government Goods And Services", "Govt. Services", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("^Financial$", "Financial Services", final_trade_df$`Data Series`)  
+final_trade_df$`Data Series` <- gsub("Telecommunications, Computer & Information", "Telecom & IT", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Charges For The Use Of Intellectual Property", "Intellectual Property", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Personal, Cultural And Recreational", "Cultural & Recreational", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Other Business Services", "Other Biz Services", final_trade_df$`Data Series`)
+
+# Filter for Exports only
+exports_df <- final_trade_df %>% filter(`Trade Type` == "Exports")
+
+# Select relevant columns: Data Series, 2000, 2012, 2024
+exports_slope <- exports_df %>%
+  select(`Data Series`, `2000`, `2012`, `2024`) %>%
+  drop_na()
+
+# Keep only the top 10 services in 2024 for clarity
+exports_slope <- exports_slope %>% arrange(desc(`2024`)) %>% head(10)
+
+# Convert data to long format for `newggslopegraph()`
+exports_long <- exports_slope %>%
+  pivot_longer(cols = c(`2000`, `2012`, `2024`), names_to = "Year", values_to = "Value")
+
+# Convert Year to character (Fix for newggslopegraph)
+exports_long$Year <- as.character(exports_long$Year)
+
+# Increase figure height to improve label spacing
+options(repr.plot.width = 14, repr.plot.height = 12)
+
+# Create slopegraph with **2000, 2012, and 2024**
+newggslopegraph(dataframe = exports_long,
+                Times = Year,   
+                Measurement = Value,
+                Grouping = `Data Series`,
+                Title = "Trade in Services (Exports) - Slopegraph (2000-2012-2024)",
+                SubTitle = "Top 10 Services by Export Value",
+                LineThickness = 1.0,
+                DataTextSize = 2.5)
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+#| fig-width: 8
+#| fig-height: 6
+
+# Load required libraries
+library(dplyr)
+library(tidyr)
+library(CGPfunctions)
+
+# Ensure column names are trimmed properly
+colnames(final_trade_df) <- trimws(colnames(final_trade_df))
+
+# Shorten long category labels for better readability (Fixed repetitive label issue)
+final_trade_df$`Data Series` <- gsub("Manufacturing Services On Physical Inputs Owned By Others", "Manuf. Services", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Maintenance And Repair Services", "Maintenance & Repair", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Government Goods And Services", "Govt. Services", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("^Financial$", "Financial Services", final_trade_df$`Data Series`)  
+final_trade_df$`Data Series` <- gsub("Telecommunications, Computer & Information", "Telecom & IT", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Charges For The Use Of Intellectual Property", "Intellectual Property", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Personal, Cultural And Recreational", "Cultural & Recreational", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Other Business Services", "Other Biz Services", final_trade_df$`Data Series`)
+
+# Filter for Exports only
+exports_df <- final_trade_df %>% filter(`Trade Type` == "Exports")
+
+# Select relevant columns: Data Series, 2000, 2012, 2024
+exports_slope <- exports_df %>%
+  select(`Data Series`, `2000`, `2012`, `2024`) %>%
+  drop_na()
+
+# Keep only the top 10 services in 2024 for clarity
+exports_slope <- exports_slope %>% arrange(desc(`2024`)) %>% head(10)
+
+# Convert data to long format for `newggslopegraph()`
+exports_long <- exports_slope %>%
+  pivot_longer(cols = c(`2000`, `2012`, `2024`), names_to = "Year", values_to = "Value")
+
+# Convert Year to character (Fix for newggslopegraph)
+exports_long$Year <- as.character(exports_long$Year)
+
+# Increase figure height to improve label spacing
+options(repr.plot.width = 14, repr.plot.height = 12)
+
+# Create slopegraph with **2000, 2012, and 2024**
+newggslopegraph(dataframe = exports_long,
+                Times = Year,   
+                Measurement = Value,
+                Grouping = `Data Series`,
+                Title = "Trade in Services (Exports) - Slopegraph (2000-2012-2024)",
+                SubTitle = "Top 10 Services by Export Value",
+                LineThickness = 1.0,
+                DataTextSize = 2.5)
+```
+:::
+
+#### 4.3.2 Trade in Services (Imports) - 2000 to 2012 to 2024
+
+Key observations:
+
+-   **Strong Growth in Imports:** Similar to exports, Singapore’s service imports have grown significantly, reflecting its global trade connectivity.
+
+-   **Transport & Other Business Services Lead:** These two sectors dominate imports, mirroring export trends, but at slightly lower values.
+
+-   **Rising Financial Services & Telecom & IT:** These sectors have seen notable import growth, indicating increasing reliance on foreign expertise and digital services.
+
+-   **Higher Import Dependency in Intellectual Property:** Compared to exports, imports in Intellectual Property have increased faster, suggesting rising licensing and royalty payments.
+
+::: callout-note
+-   Singapore’s service imports align with its export-driven economy, with strong growth in digital services, finance, and transport.
+:::
+
+::: panel-tabset
+## Time series()
+
+```{r, echo=FALSE, fig.width=8, fig.height=6}
+
+# Load required libraries
+library(dplyr)
+library(tidyr)
+library(CGPfunctions)
+
+# Ensure column names are trimmed properly
+colnames(final_trade_df) <- trimws(colnames(final_trade_df))
+
+# Shorten long category labels for better readability (Fixed repetitive label issue)
+final_trade_df$`Data Series` <- gsub("Manufacturing Services On Physical Inputs Owned By Others", "Manuf. Services", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Maintenance And Repair Services", "Maintenance & Repair", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Government Goods And Services", "Govt. Services", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("^Financial$", "Financial Services", final_trade_df$`Data Series`)  
+final_trade_df$`Data Series` <- gsub("Telecommunications, Computer & Information", "Telecom & IT", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Charges For The Use Of Intellectual Property", "Intellectual Property", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Personal, Cultural And Recreational", "Cultural & Recreational", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Other Business Services", "Other Biz Services", final_trade_df$`Data Series`)
+
+# Filter for Imports only
+imports_df <- final_trade_df %>% filter(`Trade Type` == "Imports")
+
+# Select relevant columns: Data Series, 2000, 2012, 2024
+imports_slope <- imports_df %>%
+  select(`Data Series`, `2000`, `2012`, `2024`) %>%
+  drop_na()
+
+# Keep only the top 10 services in 2024 for clarity
+imports_slope <- imports_slope %>% arrange(desc(`2024`)) %>% head(10)
+
+# Convert data to long format for `newggslopegraph()`
+imports_long <- imports_slope %>%
+  pivot_longer(cols = c(`2000`, `2012`, `2024`), names_to = "Year", values_to = "Value")
+
+# Convert Year to character (Fix for newggslopegraph)
+imports_long$Year <- as.character(imports_long$Year)
+
+# Increase figure height to improve label spacing
+options(repr.plot.width = 14, repr.plot.height = 12)
+
+# Create slopegraph with **2000, 2012, and 2024**
+newggslopegraph(dataframe = imports_long,
+                Times = Year,   
+                Measurement = Value,
+                Grouping = `Data Series`,
+                Title = "Trade in Services (Imports) - Slopegraph (2000-2012-2024)",
+                SubTitle = "Top 10 Services by Import Value",
+                LineThickness = 1.0,
+                DataTextSize = 2.5)
+
+
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+#| fig-width: 8
+#| fig-height: 6
+
+# Load required libraries
+library(dplyr)
+library(tidyr)
+library(CGPfunctions)
+
+# Ensure column names are trimmed properly
+colnames(final_trade_df) <- trimws(colnames(final_trade_df))
+
+# Shorten long category labels for better readability (Fixed repetitive label issue)
+final_trade_df$`Data Series` <- gsub("Manufacturing Services On Physical Inputs Owned By Others", "Manuf. Services", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Maintenance And Repair Services", "Maintenance & Repair", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Government Goods And Services", "Govt. Services", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("^Financial$", "Financial Services", final_trade_df$`Data Series`)  
+final_trade_df$`Data Series` <- gsub("Telecommunications, Computer & Information", "Telecom & IT", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Charges For The Use Of Intellectual Property", "Intellectual Property", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Personal, Cultural And Recreational", "Cultural & Recreational", final_trade_df$`Data Series`)
+final_trade_df$`Data Series` <- gsub("Other Business Services", "Other Biz Services", final_trade_df$`Data Series`)
+
+# Filter for Imports only
+imports_df <- final_trade_df %>% filter(`Trade Type` == "Imports")
+
+# Select relevant columns: Data Series, 2000, 2012, 2024
+imports_slope <- imports_df %>%
+  select(`Data Series`, `2000`, `2012`, `2024`) %>%
+  drop_na()
+
+# Keep only the top 10 services in 2024 for clarity
+imports_slope <- imports_slope %>% arrange(desc(`2024`)) %>% head(10)
+
+# Convert data to long format for `newggslopegraph()`
+imports_long <- imports_slope %>%
+  pivot_longer(cols = c(`2000`, `2012`, `2024`), names_to = "Year", values_to = "Value")
+
+# Convert Year to character (Fix for newggslopegraph)
+imports_long$Year <- as.character(imports_long$Year)
+
+# Increase figure height to improve label spacing
+options(repr.plot.width = 14, repr.plot.height = 12)
+
+# Create slopegraph with **2000, 2012, and 2024**
+newggslopegraph(dataframe = imports_long,
+                Times = Year,   
+                Measurement = Value,
+                Grouping = `Data Series`,
+                Title = "Trade in Services (Imports) - Slopegraph (2000-2012-2024)",
+                SubTitle = "Top 10 Services by Import Value",
+                LineThickness = 1.0,
+                DataTextSize = 2.5)
+```
+:::
+
+## 5. DataVis makeover 3
+
+### 5.1 Makeover of - Major Trading Partners for Trade in Services, 2023
+
+#### 5.1.1 Original visualization
+
+The original visualizations analyzed in this analysis are sourced from [here](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade).
+
+![](/images/Pic16.jpg){width="523"}
+
+![](/images/Pic17.jpg){width="523"}
+
+#### 5.1.2 Evaluation of the original visualization
+
+In the below section, we will evaluate the effectiveness of the above visualization by identifying its pros and cons, focusing on aspects such as (1) **clarity**, and (2) **visual appeal**:
+
+-   **Clarity**: How well the data is presented and understood
+
+| Pros | Cons | Suggested fixes |
+|------------------------|------------------------|------------------------|
+| **Clear regional differentiation** - The color-coded regions (North America, Europe, Asia, Oceania) make it easier to distinguish areas. | **Color scheme inconsistency** - The colors used for regions in the world map do not match the second visualization, leading to confusion. | **Ensure consistent colors** across both graphics (e.g., North America should be red in both images). |
+| **Easy country identification -** The use of country flags provides quick recognition of major trading partners on the world map. | **Lack of legend for flags** - It is unclear whether the flags represent top import/export partners or something else. | **Include a small legend** explaining the significance of the flags. |
+| **Well-placed title** - The main title is clear and ensures users immediately understand the topic. | **World map does not indicate rankings -** It is difficult to determine the largest trading partners. | **Add ranking indicators -** e.g.: numbered markers, or a gradient effect on the map. |
+|  | **Need to scroll to see rankings -** Users must scroll down to understand that U.S is the top trading partner, followed by EU, and China. | **Overlay rankings on the world map** so users can see top trading partners at a glance. |
+|  | **Lack of clear distinction between Regions, Countries, and Economic & Political Unions** - The visualization presents them together, making it difficult to see how rankings differ. | **Introduce clear labels or grouping** for Regions, Countries, and Economic & Political Unions in both the world map and bar chart. |
+
+-   **Visual appeal**: How visually engaging and effective the design is
+
+| Pros | Cons | Suggested fixes |
+|------------------------|------------------------|------------------------|
+| **Engaging world map design** - The dotted world map with vibrant colors creates a modern and appealing look. | **Color inconsistency between the two visuals** - North America is red in the map but blue in the bar chart. | **Use a unified color scheme** so regions in both visuals match. |
+
+### 5.2 Makeover of the original data visualization
+
+#### 5.2.1 Data wrangling & data preparation
+
+##### 5.2.1.1 Importing the data
+
+The code chunk below imports the (1) [Exports of Services by Major Trading Partner datasets](https://tablebuilder.singstat.gov.sg/table/TS/M060201), and (2) [Imports of Services by Major Trading Partner datasets](https://tablebuilder.singstat.gov.sg/table/TS/M060211#!) downloaded from the [Department of Statistics Singapore (DOS)](https://www.singstat.gov.sg/), using the `read_excel()` function from the `readxl` package. These datasets contain trade value of exports and imports of services by major trading partner across various 2000 to 2023, which will be processed and analyzed in subsequent steps.
+
+```{r}
+export_partners <- read_excel("data/Exports Of Services By Major Trading Partner_base.xlsx")
+```
+
+```{r}
+import_partners <- read_excel("data/Imports Of Services By Major Trading Partner_base.xlsx")
+```
+
+##### 5.2.1.2 Understanding the `export_partners` data structure
+
+-   `glimpse()`: provides a transposed overview of a dataset, showing variables and their types in a concise format.
+-   `head()`: displays the first few rows of a dataset (default is 6 rows) to give a quick preview of the data.
+-   `summary()`: generates a statistical summary of each variable, including measures like mean, median, and range for numeric data.
+-   `duplicated()`:returns a logical vector indicating which elements or rows in a vector or data frame are duplicates.
+-   `colSums(is.na())`: counts the number of missing values (NA) in each column of the data frame.
+-   `str()`: use `str()` to display the column names, data types, and a preview of the data.
+
+:::::: panel-tabset
+## glimpse()
+
+```{r}
+glimpse(export_partners)
+```
+
+## head()
+
+```{r}
+head(export_partners)
+```
+
+## summary()
+
+```{r}
+summary(export_partners)
+```
+
+## duplicated()
+
+```{r}
+export_partners[duplicated(export_partners),]
+```
+
+::: callout-note
+-   Ensure that there are no duplicated columns, if not will have to investigate further.
+:::
+
+## colSum(is.na())
+
+```{r}
+colSums(is.na(export_partners))
+```
+
+::: callout-note
+-   Ensure that there are no NA values, if not will have to investigate further.
+-   Possibility to use the `replace_na()` function to replace missing values with 0 in specified columns.
+:::
+
+## str())
+
+```{r}
+str(export_partners)
+```
+
+::: callout-note
+-   Ensure that all variables are correctly classified by data type; recast variable types if needed.
+-   Variables are correctly classified - where categorical variables are classified as **character**, while continuous variables are classified as **double**.
+:::
+::::::
+
+##### 5.2.1.3 Understanding the `import_partners` data structure
+
+:::::: panel-tabset
+## glimpse()
+
+```{r}
+glimpse(import_partners)
+```
+
+## head()
+
+```{r}
+head(import_partners)
+```
+
+## summary()
+
+```{r}
+summary(import_partners)
+```
+
+## duplicated()
+
+```{r}
+import_partners[duplicated(import_partners),]
+```
+
+::: callout-note
+-   Ensure that there are no duplicated columns, if not will have to investigate further.
+:::
+
+## colSum(is.na())
+
+```{r}
+colSums(is.na(import_partners))
+```
+
+::: callout-note
+-   Ensure that there are no NA values, if not will have to investigate further.
+-   Possibility to use the `replace_na()` function to replace missing values with 0 in specified columns.
+:::
+
+## str())
+
+```{r}
+str(import_partners)
+```
+
+::: callout-note
+-   Ensure that all variables are correctly classified by data type; recast variable types if needed.
+-   Variables are correctly classified - where categorical variables are classified as **character**, while continuous variables are classified as **double**.
+:::
+::::::
+
+##### 5.2.1.4 Combining the `export_partners` and `import_partners`
+
+To ensure consistency, column names were converted to lowercase, and spaces were replaced with underscores. Since numerical values were stored as different data types in the datasets, all year columns (2000-2023) were converted to numeric format to prevent data type mismatches. Additionally, any missing (NA) values or dashes ("-") were replaced with 0 to ensure data integrity. A "category" column was added to distinguish between Exports and Imports. Finally, the two datasets were combined using `bind_rows()`.
+
+::: callout-important
+-   Year columns (2000-2023) in both Exports and Imports dataset were converted to numeric format to ensure consistency and prevent data type mismatches.
+-   There are missing (NA) values and "-" characters in the dataset.
+-   Replace NA values and "-" with 0 using the mutate() and replace() functions.
+:::
+
+```{r}
+# Ensure column names are consistent
+colnames(export_partners) <- tolower(gsub(" ", "_", colnames(export_partners)))
+colnames(import_partners) <- tolower(gsub(" ", "_", colnames(import_partners)))
+
+# Convert all numeric year columns to numeric type safely by handling non-numeric values and replacing NA and "-" with 0
+export_partners <- export_partners %>% mutate(across(matches("^\\d{4}$"), ~suppressWarnings(as.numeric(.)))) %>%
+    mutate(across(matches("^\\d{4}$"), ~replace(., is.na(.) | . == "-", 0)))
+import_partners <- import_partners %>% mutate(across(matches("^\\d{4}$"), ~suppressWarnings(as.numeric(.)))) %>%
+    mutate(across(matches("^\\d{4}$"), ~replace(., is.na(.) | . == "-", 0)))
+
+# Add a column to indicate the category (Exports, Imports)
+export_partners <- export_partners %>% mutate(category = "Exports")
+import_partners <- import_partners %>% mutate(category = "Imports")
+
+# Combine both datasets
+combined_data <- bind_rows(export_partners, import_partners)
+
+```
+
+##### 5.2.1.5 Understanding the `combined_data` data structure
+
+The `combined_data` tibble contains 26 attributes, as shown below.
+
+The following preprocessing checks were conducted as part of data preparation:
+
+::: callout-tip
+## Preprocessing Checks
+
+-   Verified that the correct data types were loaded in the `combined_data` dataset using `glimpse()` and `str()`
+-   Ensured there were no duplicate variable names using `duplicated()` in the dataset
+-   Checked for missing values using `colSums(is.na())`
+:::
+
+:::::: panel-tabset
+## glimpse()
+
+```{r}
+glimpse(combined_data)
+```
+
+## head()
+
+```{r}
+head(combined_data)
+```
+
+## summary()
+
+```{r}
+summary(combined_data)
+```
+
+## duplicated()
+
+```{r}
+combined_data[duplicated(combined_data),]
+```
+
+::: callout-note
+-   Ensure that there are no duplicated columns, if not will have to investigate further.
+:::
+
+## colSum(is.na())
+
+```{r}
+colSums(is.na(combined_data))
+```
+
+::: callout-note
+-   Ensure that there are no NA values, if not will have to investigate further.
+-   Possibility to use the `replace_na()` function to replace missing values with 0 in specified columns.
+:::
+
+## str())
+
+```{r}
+str(combined_data)
+```
+
+::: callout-note
+-   Ensure that all variables are correctly classified by data type; recast variable types if needed.
+-   Variables are correctly classified - where categorical variables are classified as **character**, while continuous variables are classified as **double**.
+:::
+::::::
+
+##### 5.2.1.6 Categorizing trading partners
+
+A new "category" column will be added to classify each trading partner as a **Country**, **Region**, or **Economic & Political Union**. This helps organize the data, making it easier to analyze trade patterns across different entity types.
+
+| types | data_series |
+|-----------------------|------------------------------------------------|
+| Country | Bangladesh, Brunei Darussalam, Cambodia, Hong Kong, India, Indonesia, Israel, Japan, Kuwait, Mainland China, Malaysia, Myanmar, Pakistan, Philippines, Qatar, Republic Of Korea, Saudi Arabia, Sri Lanka, Taiwan Thailand,Turkiye United Arab Emirates, Vietnam, Belgium, Cyprus Denmark, Finland France Germany, Greece Ireland Italy, Luxembourg, Netherlands, Norway, Portugal, Russian Federation, Spain, Sweden, Switzerland, United Kingdom, United States Of America, Canada, Australia, Marshall Islands, New Zealand, Papua New Guinea, Bermuda, Brazil, British Virgin Islands, Cayman Islands, Chile, Mexico Panama, Peru, Egypt, Liberia, Mauritius, Nigeria South Africa |
+| Region | Asia, Europe, North America, Oceania, South And Central America And The Caribbean, Africa |
+| Economic & Political Union | ASEAN, European Union (EU-27) |
+
+```{r}
+# Load the categorization mapping from Excel
+categorization_mapping <- read_excel("data/categorizationmapping.xlsx")
+
+# Ensure column names are consistent
+colnames(categorization_mapping) <- tolower(gsub(" ", "_", colnames(categorization_mapping)))
+
+# Merge only the type into combined_data
+combined_data <- combined_data %>% left_join(categorization_mapping, by = "data_series")
+
+```
+
+##### 5.2.1.7 Aggregating the trade values across the years
+
+To calculate the total trade values for each trading partner, the dataset was grouped by "data_series", and trade values from 2000 to 2023 were summed using `summarise()`, ensuring missing values were ignored with `na.rm = TRUE`. A "category" column was assigned the value "Total" to indicate aggregated trade figures. The computed totals were then appended to the original dataset using `bind_rows()`.
+
+```{r}
+# Summing up the values for each trading partner across all years (2000-2023)
+summed_data <- combined_data %>%
+    group_by(data_series, types) %>%
+    summarise(across(matches("^\\d{4}$"), sum, na.rm = TRUE), .groups = "drop") %>%
+    mutate(category = "Total")
+
+# Add the total category to the combined dataset
+final_data <- bind_rows(combined_data, summed_data)
+
+# Reorder columns to move category to the second position
+final_data <- final_data %>% select(data_series, category, types, everything())
+
+# Display a preview of the merged data
+print(head(final_data))
+
+# library(openxlsx)
+# 
+# write.xlsx(final_data, "final_data.xlsx")
+
+```
+
+#### 5.2.2 Revised visualization - pie chart \[region\]
+
+Key makeover changes:
+
+1️⃣ **Breaking down trade data by types - e.g.: countries/ regions/ economic & political union**
+
+-   Original visualization grouped countries, regions, economic & political unions making trade relationships harder to interpret.
+
+-   Revised visualization will categorize data into different types, ensuring clarity.
+
+2️⃣ **Pie chart for region-level aggregation:**
+
+-   **Pie chart groups trade volumes by region** –\>Provide a high-level trade distribution which allow users to quickly assess which regions contribute the most to total trade.
+
+::: callout-note
+-   Easier comparison --\> Highlights contributions from countries, regions, and unions seperately.
+-   Pie chart only showcase the **Major Trading Partners for Trade in Services 2023** - Total Trade Volume Distribution **by Region**
+:::
+
+::: panel-tabset
+## Graph()
+
+```{r}
+#| echo = FALSE 
+
+library(ggplot2)
+library(dplyr)
+library(viridis)
+library(ggrepel)
+
+# Filter the trade data for regions
+region_trade_data <- final_data %>%
+  filter(types == "Region", category == "Total") %>%
+  select(region = data_series, trade_value = `2023`)
+
+# Ensure correct ordering based on trade value
+region_trade_data <- region_trade_data %>%
+  arrange(desc(trade_value))
+
+# Compute cumulative sum for positioning
+region_trade_data <- region_trade_data %>%
+  mutate(label = paste0(region, "\n$", format(trade_value, big.mark = ",")),
+         pos = cumsum(trade_value) - (0.5 * trade_value))  
+
+# Create Static Pie Chart with Labels Outside
+static_pie_chart <- ggplot(region_trade_data, aes(x = "", y = trade_value, fill = trade_value)) +
+  geom_bar(stat = "identity", width = 1, color = "white") +  
+  coord_polar(theta = "y") +
+  scale_fill_viridis(option = "viridis", direction = -1) +  
+  geom_text_repel(aes(y = pos, label = label), size = 3, color = "black", nudge_x = 1, box.padding = 0.5) +  
+  theme_void() +
+  labs(
+    title = "Major Trading Partners for Trade in Services, 2023",
+    subtitle = "Total Trade Volume Distribution by Region",
+    fill = "Trade Value (SGD)"
+  ) +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(hjust = 0, face = "bold", size = 14),  # Centered, bold title
+    plot.subtitle = element_text(hjust = 0, size = 12)  # Centered subtitle
+  )
+
+# Show the static pie chart
+print(static_pie_chart)
+
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+library(ggplot2)
+library(dplyr)
+library(viridis)
+library(ggrepel)
+
+# Filter the trade data for regions
+region_trade_data <- final_data %>%
+  filter(types == "Region", category == "Total") %>%
+  select(region = data_series, trade_value = `2023`)
+
+# Ensure correct ordering based on trade value
+region_trade_data <- region_trade_data %>%
+  arrange(desc(trade_value))
+
+# Compute cumulative sum for positioning
+region_trade_data <- region_trade_data %>%
+  mutate(label = paste0(region, "\n$", format(trade_value, big.mark = ",")),
+         pos = cumsum(trade_value) - (0.5 * trade_value))  
+
+# Create Static Pie Chart with Labels Outside
+static_pie_chart <- ggplot(region_trade_data, aes(x = "", y = trade_value, fill = trade_value)) +
+  geom_bar(stat = "identity", width = 1, color = "white") +  
+  coord_polar(theta = "y") +
+  scale_fill_viridis(option = "viridis", direction = -1) +  
+  geom_text_repel(aes(y = pos, label = label), size = 3, color = "black", nudge_x = 1, box.padding = 0.5) +  
+  theme_void() +
+  labs(
+    title = "Major Trading Partners for Trade in Services, 2023",
+    subtitle = "Total Trade Volume Distribution by Region",
+    fill = "Trade Value (SGD)"
+  ) +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(hjust = 0, face = "bold", size = 14),  # Centered, bold title
+    plot.subtitle = element_text(hjust = 0, size = 12)  # Centered subtitle
+  )
+
+# Show the static pie chart
+print(static_pie_chart)
+```
+:::
+
+#### 5.2.3 Revised visualization - worldmap \[countries\]
+
+Key makeover changes:
+
+1️⃣ **Enhanced trade value representation with a geo-spatial context** -
+
+-   Original uses static infographics with flag-based indicators, the revised visualization presents an intecative world map, allowing for dynamic exploration.
+
+-   Color gradient (from yellow to purple) effectively communciates the trade value inensity in SGD
+
+::: panel-tabset
+## Graph()
+
+```{r}
+#| echo = FALSE 
+
+library(ggplot2)
+library(dplyr)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(sf)
+library(viridis)
+library(plotly)
+
+# Load world map data
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Filter the trade data (assuming it's already in your R environment as `final_data`)
+trade_data <- final_data %>%
+  filter(types == "Country", category == "Total") %>%
+  select(region = data_series, trade_value = `2023`)
+
+# Standardize region names
+trade_data$region <- tolower(trimws(trade_data$region))
+world$name <- tolower(trimws(world$name))
+
+# Correct mismatched country names
+trade_data$region <- recode(trade_data$region,
+                             "mainland china" = "china",
+                             "republic of korea" = "south korea",
+                             "russian federation" = "russia",
+                             "turkiye" = "turkey",
+                             "british virgin islands" = "u.s. virgin is.",
+                             "cayman islands" = "cayman is.",
+                             "brunei darussalam" = "brunei",
+                             "marshall islands" = "marshall is.")
+
+# Merge world map with trade data
+world <- world %>%
+  left_join(trade_data, by = c("name" = "region"))
+
+# Create a ggplot object with title and subtitle
+ggplot_map <- ggplot(data = world) +
+  geom_sf(aes(fill = trade_value, text = paste("Country:", name, "<br>Trade Value: $", trade_value)), 
+          color = "black", size = 0.2) +
+  scale_fill_viridis(option = "viridis", direction = -1, na.value = "gray90") +
+  theme_minimal() +
+  labs(
+    title = "Major Trading Partners for Trade in Services, 2023",
+    subtitle = "Total Trade Value Distribution by Countries",
+    fill = "Trade Value (SGD)"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0, face = "bold", size = 14), 
+    plot.subtitle = element_text(hjust = 0, size = 12)  
+  )
+
+# Convert to interactive Plotly map and manually add subtitle
+plotly_map <- ggplotly(ggplot_map, tooltip = "text") %>%
+  layout(
+    annotations = list(
+      list(
+        text = "<b>Total Trade Value Distribution by Countries</b>",
+        x = 0,  # Left align
+        y = 1.03,  # Position above plot
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+        font = list(size = 12)
+      )
+    )
+  )
+
+# Show interactive map
+plotly_map
+
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+library(ggplot2)
+library(dplyr)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(sf)
+library(viridis)
+library(plotly)
+
+# Load world map data
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Filter the trade data (assuming it's already in your R environment as `final_data`)
+trade_data <- final_data %>%
+  filter(types == "Country", category == "Total") %>%
+  select(region = data_series, trade_value = `2023`)
+
+# Standardize region names
+trade_data$region <- tolower(trimws(trade_data$region))
+world$name <- tolower(trimws(world$name))
+
+# Correct mismatched country names
+trade_data$region <- recode(trade_data$region,
+                             "mainland china" = "china",
+                             "republic of korea" = "south korea",
+                             "russian federation" = "russia",
+                             "turkiye" = "turkey",
+                             "british virgin islands" = "u.s. virgin is.",
+                             "cayman islands" = "cayman is.",
+                             "brunei darussalam" = "brunei",
+                             "marshall islands" = "marshall is.")
+
+# Merge world map with trade data
+world <- world %>%
+  left_join(trade_data, by = c("name" = "region"))
+
+# Create a ggplot object with title and subtitle
+ggplot_map <- ggplot(data = world) +
+  geom_sf(aes(fill = trade_value, text = paste("Country:", name, "<br>Trade Value: $", trade_value)), 
+          color = "black", size = 0.2) +
+  scale_fill_viridis(option = "viridis", direction = -1, na.value = "gray90") +
+  theme_minimal() +
+  labs(
+    title = "Major Trading Partners for Trade in Services, 2023",
+    subtitle = "Total Trade Value Distribution by Countries",
+    fill = "Trade Value (SGD)"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0, face = "bold", size = 14), 
+    plot.subtitle = element_text(hjust = 0, size = 12)  
+  )
+
+# Convert to interactive Plotly map and manually add subtitle
+plotly_map <- ggplotly(ggplot_map, tooltip = "text") %>%
+  layout(
+    annotations = list(
+      list(
+        text = "<b>Total Trade Value Distribution by Countries</b>",
+        x = 0,  # Left align
+        y = 1.03,  # Position above plot
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+        font = list(size = 12)
+      )
+    )
+  )
+
+# Show interactive map
+plotly_map
+
+```
+:::
+
+### 5.3 Time series analysis
+
+Key observations:
+
+-   **Total trade vol()**
+
+    -   **Top 5 trade partners:** United States, Japan, Mainland China, Australia, and United Kingdom
+
+    -   **Trends:** Significant growth post-2010, with accelerated trade activities from 2018 onward, with Asia and North America dominating trade volume.
+
+-   **Exports()**
+
+    -   **Top 5 export destinations:** United States, Japan, Australia, Mainland China, and United Kingdom
+
+-   **Imports()**
+
+    -   **Top 5 import destinations:** United States, Mainland China, Japan, United Kingdom, and Hong Kong.
+
+::: callout-note
+-   United States, Mainland China, Japan, and Australia consistently reman Singapore's top trade partners in services
+-   Exports and imports have surged post-2018, reinforcing Singapore's role as a global trade hub
+-   Digitalization and financial sector growth are key factors shaping the country trade landscape
+:::
+
+::: panel-tabset
+## Total trade vol()
+
+```{r, fig.height=10, fig.width=8}
+#| echo = FALSE 
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(viridis)
+
+# Filter trade data for countries
+trade_data <- final_data %>%
+  filter(types == "Country", category == "Total") %>%
+  select(country = data_series, `2000`:`2023`)  # Select years from 2000 to 2023
+
+# Reshape data from wide to long format
+trade_data_long <- trade_data %>%
+  pivot_longer(cols = `2000`:`2023`, names_to = "year", values_to = "trade_value") %>%
+  mutate(year = as.numeric(year))  # Convert year to numeric
+
+# Calculate total trade value per country and reorder factors (highest at the top)
+trade_data_long <- trade_data_long %>%
+  group_by(country) %>%
+  mutate(total_trade_value = sum(trade_value, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(country = fct_reorder(country, total_trade_value, .desc = TRUE))  
+
+# Create heatmap-style plot using geom_tile()
+hori_plot <- ggplot(trade_data_long, aes(x = year, y = country, fill = trade_value)) +
+  geom_tile(color = "white") +  # Add white borders between tiles
+  scale_fill_viridis_c(option = "magma", na.value = "gray90") +  # Color gradient for intensity
+  labs(
+    title = "Total Trade Value Trends (2000-2023)",
+    subtitle = "Major Trading Partners for Trade in Services",
+    x = "Year",
+    y = "Country",
+    fill = "Trade Value (SGD)"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 8),  # Adjust country label size
+    axis.text.x = element_text(angle = 45, hjust = 1),  # Rotate year labels
+    plot.title = element_text(hjust = 0, face = "bold", size = 14),  # Left-aligned title
+    plot.subtitle = element_text(hjust = 0, size = 12)  # Left-aligned subtitle
+  )
+
+# Show plot
+print(hori_plot)
+
+
+```
+
+## Export()
+
+```{r, fig.height=10, fig.width=8}
+#| echo = FALSE 
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(viridis)
+
+# Filter trade data for countries
+trade_data <- final_data %>%
+  filter(types == "Country", category == "Exports") %>%
+  select(country = data_series, `2000`:`2023`)  # Select years from 2000 to 2023
+
+# Reshape data from wide to long format
+trade_data_long <- trade_data %>%
+  pivot_longer(cols = `2000`:`2023`, names_to = "year", values_to = "trade_value") %>%
+  mutate(year = as.numeric(year))  # Convert year to numeric
+
+# Calculate total trade value per country and reorder factors (highest at the top)
+trade_data_long <- trade_data_long %>%
+  group_by(country) %>%
+  mutate(total_trade_value = sum(trade_value, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(country = fct_reorder(country, total_trade_value, .desc = TRUE))  
+
+# Create heatmap-style plot using geom_tile()
+hori_plot <- ggplot(trade_data_long, aes(x = year, y = country, fill = trade_value)) +
+  geom_tile(color = "white") +  # Add white borders between tiles
+  scale_fill_viridis_c(option = "magma", na.value = "gray90") +  # Color gradient for intensity
+  labs(
+    title = "Export Trade Value Trends (2000-2023)",
+    subtitle = "Major Trading Partners for Trade in Services",
+    x = "Year",
+    y = "Country",
+    fill = "Trade Value (SGD)"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 8),  # Adjust country label size
+    axis.text.x = element_text(angle = 45, hjust = 1),  # Rotate year labels
+    plot.title = element_text(hjust = 0, face = "bold", size = 14),  # Left-aligned title
+    plot.subtitle = element_text(hjust = 0, size = 12)  # Left-aligned subtitle
+  )
+
+# Show plot
+print(hori_plot)
+
+```
+
+## Import()
+
+```{r, fig.height=10, fig.width=8}
+#| echo = FALSE 
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(viridis)
+
+# Filter trade data for countries
+trade_data <- final_data %>%
+  filter(types == "Country", category == "Imports") %>%
+  select(country = data_series, `2000`:`2023`)  # Select years from 2000 to 2023
+
+# Reshape data from wide to long format
+trade_data_long <- trade_data %>%
+  pivot_longer(cols = `2000`:`2023`, names_to = "year", values_to = "trade_value") %>%
+  mutate(year = as.numeric(year))  # Convert year to numeric
+
+# Calculate total trade value per country and reorder factors (highest at the top)
+trade_data_long <- trade_data_long %>%
+  group_by(country) %>%
+  mutate(total_trade_value = sum(trade_value, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(country = fct_reorder(country, total_trade_value, .desc = TRUE))  
+
+# Create heatmap-style plot using geom_tile()
+hori_plot <- ggplot(trade_data_long, aes(x = year, y = country, fill = trade_value)) +
+  geom_tile(color = "white") +  # Add white borders between tiles
+  scale_fill_viridis_c(option = "magma", na.value = "gray90") +  # Color gradient for intensity
+  labs(
+    title = "Import Trade Value Trends (2000-2023)",
+    subtitle = "Major Trading Partners for Trade in Services",
+    x = "Year",
+    y = "Country",
+    fill = "Trade Value (SGD)"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 8),  # Adjust country label size
+    axis.text.x = element_text(angle = 45, hjust = 1),  # Rotate year labels
+    plot.title = element_text(hjust = 0, face = "bold", size = 14),  # Left-aligned title
+    plot.subtitle = element_text(hjust = 0, size = 12)  # Left-aligned subtitle
+  )
+
+# Show plot
+print(hori_plot)
+
+```
+
+## Code()
+
+```{r}
+#| eval = FALSE
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(viridis)
+
+# Filter trade data for countries
+trade_data <- final_data %>%
+  filter(types == "Country", category == "Imports") %>%
+  select(country = data_series, `2000`:`2023`)  # Select years from 2000 to 2023
+
+# Reshape data from wide to long format
+trade_data_long <- trade_data %>%
+  pivot_longer(cols = `2000`:`2023`, names_to = "year", values_to = "trade_value") %>%
+  mutate(year = as.numeric(year))  # Convert year to numeric
+
+# Calculate total trade value per country and reorder factors (highest at the top)
+trade_data_long <- trade_data_long %>%
+  group_by(country) %>%
+  mutate(total_trade_value = sum(trade_value, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(country = fct_reorder(country, total_trade_value, .desc = TRUE))  
+
+# Create heatmap-style plot using geom_tile()
+hori_plot <- ggplot(trade_data_long, aes(x = year, y = country, fill = trade_value)) +
+  geom_tile(color = "white") +  # Add white borders between tiles
+  scale_fill_viridis_c(option = "magma", na.value = "gray90") +  # Color gradient for intensity
+  labs(
+    title = "Total Trade Value Trends (2000-202f3)",
+    subtitle = "Major Trading Partners for Trade in Services",
+    x = "Year",
+    y = "Country",
+    fill = "Trade Value (SGD)"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 8),  # Adjust country label size
+    axis.text.x = element_text(angle = 45, hjust = 1),  # Rotate year labels
+    plot.title = element_text(hjust = 0, face = "bold", size = 14),  # Left-aligned title
+    plot.subtitle = element_text(hjust = 0, size = 12)  # Left-aligned subtitle
+  )
+
+# Show plot
+print(hori_plot)
+```
+:::
+
+### 5.4 Time series forecast
+
+In the below code, we will explore the tidymodels approach in time series forecasting. 
+
+#### 5.4.1 Data sampling
+
+```{r}
+# Load all necessary packages
+library(tidyverse)
+library(modeltime)
+library(timetk)
+library(lubridate)
+library(rsample)
+library(parsnip)
+library(recipes)
+library(workflows)
+library(yardstick)
+
+# Convert wide format to long format
+long_data <- final_data %>%
+    pivot_longer(cols = matches("^\\d{4}$"), names_to = "year", values_to = "value") %>%
+    mutate(year = as.integer(year)) 
+
+# Convert year to Date format
+long_data <- long_data %>%
+    mutate(date = make_date(year = year, month = 1, day = 1)) %>%
+    select(data_series, category, types, date, value)
+
+# Filter for a specific country and only "Exports"
+selected_series <- long_data %>%
+    filter(data_series == "United States Of America", category == "Exports") %>%
+    select(date, value) %>%
+    arrange(date)
+
+# Remove duplicates if any
+selected_series <- selected_series %>%
+    distinct(date, .keep_all = TRUE)
+
+# Perform a time-based split (80% training, 20% testing)
+splits <- initial_time_split(selected_series, prop = 0.8)
+
+cat("The training dataset contains", nrow(training(splits)), "observations.\n")
+cat("The testing dataset consists of", nrow(testing(splits)), "observations.\n")
+
+```
+#### 5.4.2 Create and fit multiple models
+
+In the code below, we will fit four models:
+-   Error-Trend-Season (ETS) model by using `exp_smoothing()`
+-   Auto ARIMA model by using `arima_reg()`
+-   Boosted Auto ARIMA by using `arima_boost()`
+-   Prophet model by using `prophet_reg()`
+
+```{r}
+
+model_fit_ets <- exp_smoothing() %>%
+    set_engine("ets") %>%
+    fit(value ~ date, data = training(splits))
+
+model_fit_arima <- arima_reg() %>%
+    set_engine("auto_arima") %>%
+    fit(value ~ date, data = training(splits))
+
+model_fit_arima_boosted <- arima_boost(
+  min_n = 2,
+  learn_rate = 0.015) %>%
+  set_engine("auto_arima_xgboost") %>%
+  fit(value ~ date, data = training(splits))
+
+model_fit_prophet <- prophet_reg() %>%
+    set_engine("prophet") %>%
+    fit(value ~ date, data = training(splits))
+
+```
+
+#### 5.4.3 Add fitted models to a Model Table
+Next, we will use `modeltime_table` of **modeltime** package to add each of the models to a Modeltime Table.
+
+```{r}
+models_tbl <- modeltime_table(
+    model_fit_ets,
+    model_fit_arima,
+    model_fit_arima_boosted,
+    model_fit_prophet
+)
+
+print(models_tbl)
+
+```
+
+#### 5.4.4 Calibrate the model to a testing set
+We will then use the `modeltime_calibrate()` to add a new column called .calibrate_data into the newly created models_tbl tibble data table.
+
+```{r}
+calibration_tbl <- models_tbl %>%
+    modeltime_calibrate(new_data = testing(splits))
+
+print(calibration_tbl)
+
+```
+
+#### 5.4.5 Model accuracy assessment
+We will use two way to assess the accuracy of the models - by (1) means of accuracy metrics, (2) visualization
+
+##### 5.4.5.1 Means of accuracy metrics
+`modeltime_accuracy()` of modeltime package is used compute the accuracy metrics. Then, `table_modeltime_accuracy()` is used to present the accuracy metrics in tabular form.
+
+```{r}
+calibration_tbl %>%
+  modeltime_accuracy() %>%
+  table_modeltime_accuracy(.interactive = FALSE)
+```
+
+##### 5.4.5.2 Visualization
+We can also use the interactive plotly visualization to assess the accuracy of the models. 
+
+```{r}
+calibration_tbl %>%
+    modeltime_forecast(new_data = testing(splits), actual_data = selected_series) %>%
+    plot_modeltime_forecast()
+```
+
+#### 5.4.6 Refit to full dataset & forecast forward
+Next, we refit the models to the full dataset using `modeltime_refit()` and forecast them forward.We can use `modeltime_refit()` to refit the forecasting models with the full data.
+
+Then, `modeltime_forecast()` is used to forecast to a selected future time period, in this example 10 years.
+
+```{r}
+refit_tbl <- calibration_tbl %>%
+    modeltime_refit(data = selected_series)  # Now trained on full dataset
+
+forecast_tbl <- refit_tbl %>%
+    modeltime_forecast(
+        h = 10,  # Forecast for 10 years
+        actual_data = selected_series,
+        keep_data = TRUE  # Keep historical data for better visualization
+    )
+forecast_tbl %>%
+    plot_modeltime_forecast(
+        .legend_max_width = 25, 
+        .interactive = TRUE,
+        .plotly_slider = TRUE
+    )
+
+```
+
+#### 5.4.7 Examine the model accuract metrics after refitting the full data set
+
+```{r}
+refit_tbl %>%
+    modeltime_accuracy() %>%
+    table_modeltime_accuracy(.interactive = FALSE)
+```
+
