@@ -78,7 +78,7 @@ In the below section, we will evaluate the effectiveness of the above visualizat
 -   **Clarity**: How well the data is presented and understood
 
 | Pros | Cons | Suggested fixes |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Clear categorization of exports and imports** - The chart effectively differentiates between exports and imports | **Year-specific colors make trend analysis difficult** – Each year is assigned a different color, making it hard to track trends across time. | **Use consistent colors for exports and imports across all years** (Implemented by converting them into line charts). |
 | **Total trade values are highlighted** – The total trade (Exports + Imports) is displayed for each year. | **Floating "Total" labels can be easily overlooked** – They are placed above bars separately, which may lead to misinterpretation. | Introduce a line chart for total trade trends instead of floating labels. |
 | **Growth rate (CAGR) and trade balance data are included** – Additional insights are provided. | **Trade balance is not well integrated** – It is displayed separately at the bottom instead of being visually linked to the bars. | **Represent trade balance directly as a bar chart** (Green for surplus, Red for deficit) |
@@ -86,7 +86,7 @@ In the below section, we will evaluate the effectiveness of the above visualizat
 -   **Visual appeal**: How visually engaging and effective the design is
 
 | Pros | Cons | Suggested fixes |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Engaging use of colors and icons** – Makes the visualization appealing and eye-catching. | **Overuse of colors creates clutter** – Different colors for each year make it visually overwhelming. | Reduce unnecessary color variations and **simplify color coding**. |
 
 ### 3.2 Makeover of the original data visualization
@@ -959,7 +959,7 @@ In the below section, we will evaluate the effectiveness of the above visualizat
 -   **Clarity**: How well the data is presented and understood
 
 | Pros | Cons | Suggested fixes |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Clearly labeled service categories with values and percentages** – Each category is distinctly labeled, making it easy to understand the contributions of each service type. | **Pie charts are not effective for comparing data slices** – When multiple categories have close values, it is difficult to differentiate them accurately. | **Replace pie charts with bar charts or grouped bar charts -** for clearer comparison of service categories. |
 | **Percentage values enhance clarity** – Helps users quickly understand each category’s contribution to total exports/ imports. | **Pie charts are only useful when there are limited categories** – Too many slices make it difficult to interpret, as smaller sections become unreadable. | **Replace with a bar chart or grouped bar chart** to improve readability. |
 |  | **The pie chart format makes trend comparison difficult** – Pie charts only represent a single year and do not show how exports have changed over time. | **Add a trend chart (e.g., line graph or bar chart)** – Including historical data can help identify patterns and trends over multiple years. |
@@ -967,7 +967,7 @@ In the below section, we will evaluate the effectiveness of the above visualizat
 -   **Visual appeal**: How visually engaging and effective the design is
 
 | Pros | Cons | Suggested fixes |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Good use of icons to represent different services** – This makes the chart more engaging and helps with intuitive understanding. | **Pie charts distort perception** – it's hard to accurately compare slice sizes, especially when they are similar. | **Use a** **bar chart, grouped bar chart or treemaps**, which allows for more proportional representation of each service category. |
 | **Well-structured layout with categories spread around the chart -** The service categories for both exports and imports maintain a similar placement | **Pie chart format is too cluttered** – The large number of slices makes it difficult to read smaller segments and their labels. | **Use a** **bar chart, grouped bar chart or treemaps** for better spacing and spatial representation. |
 |  | Too many elements are packed into the chart, making it overwhelming. | Simplify by **removing non-essential elements -** i.e: icons |
@@ -995,7 +995,7 @@ In the below section, we will evaluate the effectiveness of the above visualizat
 After importing the `trade_services` data set, we will filter for the key categories that contribute to the exports/ imports of services in Singapore, excluding subcategories. The 12 major categories are identified based on indentation, as shown below:
 
 | Data Series | Shortened label |
-|------------------------------------|------------------------------------|
+|----|----|
 | Manufacturing Services On Physical Inputs Owned By Others | Manuf. Services |
 | Maintenance And Repair Services | Maintenance & Repair |
 | Transport | Transport |
@@ -1728,7 +1728,7 @@ In the below section, we will evaluate the effectiveness of the above visualizat
 -   **Clarity**: How well the data is presented and understood
 
 | Pros | Cons | Suggested fixes |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Clear regional differentiation** - The color-coded regions (North America, Europe, Asia, Oceania) make it easier to distinguish areas. | **Color scheme inconsistency** - The colors used for regions in the world map do not match the second visualization, leading to confusion. | **Ensure consistent colors** across both graphics (e.g., North America should be red in both images). |
 | **Easy country identification -** The use of country flags provides quick recognition of major trading partners on the world map. | **Lack of legend for flags** - It is unclear whether the flags represent top import/export partners or something else. | **Include a small legend** explaining the significance of the flags. |
 | **Well-placed title** - The main title is clear and ensures users immediately understand the topic. | **World map does not indicate rankings -** It is difficult to determine the largest trading partners. | **Add ranking indicators -** e.g.: numbered markers, or a gradient effect on the map. |
@@ -1738,7 +1738,7 @@ In the below section, we will evaluate the effectiveness of the above visualizat
 -   **Visual appeal**: How visually engaging and effective the design is
 
 | Pros | Cons | Suggested fixes |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Engaging world map design** - The dotted world map with vibrant colors creates a modern and appealing look. | **Color inconsistency between the two visuals** - North America is red in the map but blue in the bar chart. | **Use a unified color scheme** so regions in both visuals match. |
 
 ### 5.2 Makeover of the original data visualization
@@ -1973,7 +1973,7 @@ str(combined_data)
 A new "category" column will be added to classify each trading partner as a **Country**, **Region**, or **Economic & Political Union**. This helps organize the data, making it easier to analyze trade patterns across different entity types.
 
 | types | data_series |
-|------------------------|------------------------------------------------|
+|----|----|
 | Country | Bangladesh, Brunei Darussalam, Cambodia, Hong Kong, India, Indonesia, Israel, Japan, Kuwait, Mainland China, Malaysia, Myanmar, Pakistan, Philippines, Qatar, Republic Of Korea, Saudi Arabia, Sri Lanka, Taiwan Thailand,Turkiye United Arab Emirates, Vietnam, Belgium, Cyprus Denmark, Finland France Germany, Greece Ireland Italy, Luxembourg, Netherlands, Norway, Portugal, Russian Federation, Spain, Sweden, Switzerland, United Kingdom, United States Of America, Canada, Australia, Marshall Islands, New Zealand, Papua New Guinea, Bermuda, Brazil, British Virgin Islands, Cayman Islands, Chile, Mexico Panama, Peru, Egypt, Liberia, Mauritius, Nigeria South Africa |
 | Region | Asia, Europe, North America, Oceania, South And Central America And The Caribbean, Africa |
 | Economic & Political Union | ASEAN, European Union (EU-27) |
