@@ -19,7 +19,13 @@ In this hands-on exercise, we will learn how to design treemaps using R. We will
 
 ### 5.2 Installing and Launching R Packages
 
-For this exercise, the below R packages will be used: - - [**treemap**](https://www.rdocumentation.org/packages/treemap/versions/2.4-4/topics/treemap): Creates hierarchical treemaps to visualize data distributions using nested rectangles. - [**treemapify**](https://www.rdocumentation.org/packages/treemapify/versions/0.2.1):Provides `ggplot2` support for creating treemaps, allowing seamless integration with other visualizations. - [**tidyverse**](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0): A collection of R packages designed for data science, including `ggplot2`, `dplyr`, and `tidyr` for data manipulation and visualization.
+For this exercise, the below R packages will be used: -
+
+-    [**treemap**](https://www.rdocumentation.org/packages/treemap/versions/2.4-4/topics/treemap): Creates hierarchical treemaps to visualize data distributions using nested rectangles.
+
+-    [**treemapify**](https://www.rdocumentation.org/packages/treemapify/versions/0.2.1):Provides `ggplot2` support for creating treemaps, allowing seamless integration with other visualizations.
+
+-    [**tidyverse**](https://www.rdocumentation.org/packages/tidyverse/versions/2.0.0): A collection of R packages designed for data science, including `ggplot2`, `dplyr`, and `tidyr` for data manipulation and visualization.
 
 ```{r}
 pacman::p_load(treemap, treemapify, tidyverse) 

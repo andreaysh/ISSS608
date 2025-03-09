@@ -1,0 +1,151 @@
+---
+title: "Hands-on Exercise 08b"
+author: "Andrea Yeo"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+[With the assistance of ChatGPT]{style="font-size: 14px;"}
+
+## 8 Visualising Geospatial Point Data
+
+### 8.1 Overview
+
+Proportional symbol maps (or graduated symbol maps) use symbol size to represent differences in magnitude for discrete data, such as counts of people.
+
+-   Classed maps (range-graded or graduated symbols) group data into categories.
+
+-   Unclassed maps (proportional symbols) scale symbols directly to attribute values.
+
+In this exercise, we will learn to create a proportional symbol map using **tmap** to visualize the number of wins by Singapore Pools' outlets.
+
+#### 8.1.1 Learning outcome
+By the end of this exercise, you will learn to:
+
+-   Import an aspatial data file into R.
+-   Convert it into a simple point feature data frame and assign a projection reference.
+-   Create interactive proportional symbol maps using tmap.
+
+### 8.2 Loading R packages and Data preparation
+
+Before we get started, we need to ensure that tmap package of R and other related R packages have been installed and loaded into R.
+
+```{r}
+pacman::p_load(sf, tmap, tidyverse)
+```
+
+#### 8.2.1 Data
+
+The dataset *SGPools_svy21.csv* contains seven columns, including XCOORD and YCOORD, which represent the SVY21 projected coordinates of Singapore Pools' outlets and branches.
+
+#### 8.2.2 Data import and preparation
+
+The code below uses `read_csv()` function of **readr** package to import *SGPools_svy21.csv* into R as a tibble data frame called sgpools.
+
+```{r}
+sgpools <- read_csv("data/data/aspatial/SGPools_svy21.csv")
+```
+Next, we examine if the data file has been imported correctly.
+
+```{r}
+list(sgpools)
+```
+
+#### 8.2.3 Creating a sf data frame from an aspatial data frame
+
+The code below converts *sgpools* data frame into a simple feature data frame by using `st_as_sf()` of **sf** packages
+
+```{r}
+sgpools_sf <- st_as_sf(sgpools, 
+                       coords = c("XCOORD", "YCOORD"),
+                       crs= 3414)
+```
+
+-   `coords argument`: Specify the x-coordinate column first, followed by the y-coordinate column.
+-   `crs` argument: Defines the coordinate reference system (CRS) using EPSG codes.
+  -   [EPSG: 3414](https://epsg.io/3414) is used for the Singapore SVY21 Projected Coordinate System.
+-   EPSG codes for other locations can be found at [epsg.io](https://epsg.io/).
+
+We can display the basic information of the newly created sgpools_sf below.
+
+```{r}
+list(sgpools_sf)
+```
+
+The output confirms that sgppols_sf is a point feature class with EPSG: 3414 (Singapore SVY21). The bbox (bounding box) indicates the spatial extent of the geospatial data.
+
+### 8.3 Drawing Proportional Symbol Map
+To create an interactive proportional symbol map in R, the view mode of tmap will be used.
+
+The code below will turn on the interactive mode of tmap.
+
+Interactive plot:
+```{r}
+tmap_mode("view")
+```
+#### 8.3.1 Starting with an interactive point symbol map
+The code below is used to create an interactive point symbol map.
+
+```{r}
+tm_shape(sgpools_sf)+
+tm_bubbles(col = "blue",
+           size = 1,
+           border.col = "green",
+           border.lwd = 1)
+```
+#### 8.3.2 Making it proportional
+
+To create a proportional symbol map, a numerical variable must be assigned to the size visual attribute. In the code, *Gp1Gp2Winnings* is used to define symbol size based on winnings.
+
+```{r}
+tm_shape(sgpools_sf)+
+tm_bubbles(col = "blue",
+           size = "Gp1Gp2 Winnings",
+           border.col = "green",
+           border.lwd = 1)
+```
+#### 8.3.3 Using a different color
+The proportional symbol map can be enhanced by adding color as a visual attribute. In the code, `OUTLET_TYPE` is assigned to the color attribute, distinguishing different outlet types.
+
+```{r}
+tm_shape(sgpools_sf)+
+tm_bubbles(col = "OUTLET TYPE", 
+          size = "Gp1Gp2 Winnings",
+          border.col = "black",
+          border.lwd = 1)
+```
+#### 8.3.4 Facetd plots using `tm_facets()` method
+The sync argument in `tm_facets()` allows multiple maps to be displayed with synchronized zoom and pan settings, ensuring a consistent view across all facets.
+
+```{r}
+tm_shape(sgpools_sf) +
+  tm_bubbles(col = "OUTLET TYPE", 
+          size = "Gp1Gp2 Winnings",
+          border.col = "black",
+          border.lwd = 1) +
+  tm_facets(by= "OUTLET TYPE",
+            nrow = 1,
+            sync = TRUE)
+```
+We will switch **tmap’s** Viewer back to plot mode by using the code below.
+
+Static plot:
+```{r}
+tmap_mode("plot")
+```
+### 8.4 References
+
+-   Kam, T.S(2024). [Visual Statistical Analysis.](https://r4va.netlify.app/chap22)
+
+### 8.5 Takeaway
+
+::: callout-tip
+## Key takeaways
+-   Proportional symbol maps effectively visualize magnitude differences.
+-   Color and facets enhance interpretation of categorical and quantitative data.
+-   Interactive maps in tmap improve user exploration and comparison.
+:::
