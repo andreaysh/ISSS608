@@ -68,6 +68,10 @@ website:
         href: https://andreayeosh.shinyapps.io/In-class_Ex06/
       - text: "In-class Exercise 07"
         href: In-class_Ex/In-class_Ex07.html
+      - text: "In-class Exercise 08a Tableau"
+        href: https://public.tableau.com/views/In-class_Ex08_17420192485190/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+      - text: "In-class Exercise 08b Tableau"
+        href: https://public.tableau.com/views/In-class_Ex08b/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
 
     - text: "Take-home Exercise"
       menu:

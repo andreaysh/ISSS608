@@ -1,0 +1,10 @@
+---
+title: "In-class_Ex08"
+author: "Andrea Yeo"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
