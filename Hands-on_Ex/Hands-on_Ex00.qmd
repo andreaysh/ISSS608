@@ -90,15 +90,15 @@ realis2019_end <- realis2019 %>%
 realis2019_end
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## Takeaway
-- `echo`: controls whether the code is displayed
-  - If `echo` = TRUE (default), the code is shown in the rendered document.
-  - If `echo` = FALSE, the code is hidden, but the output or results (if any) are still included.
-- `eval`: controls whether the code is executed
-  - If `eval` = TRUE (default), the code in the chunk is executed, and its results (e.g., output, plots) are included in the document.
-  - If `eval` = FALSE, the code is not executed, and no output or results are included, though the code may still be visible if echo = TRUE.
-- `%>%`: used to combine multiple functions together
-- Change environmental variables if needed
-:::
 
+-   `echo`: controls whether the code is displayed
+    -   If `echo` = TRUE (default), the code is shown in the rendered document.
+    -   If `echo` = FALSE, the code is hidden, but the output or results (if any) are still included.
+-   `eval`: controls whether the code is executed
+    -   If `eval` = TRUE (default), the code in the chunk is executed, and its results (e.g., output, plots) are included in the document.
+    -   If `eval` = FALSE, the code is not executed, and no output or results are included, though the code may still be visible if echo = TRUE.
+-   `%>%`: used to combine multiple functions together
+-   Change environmental variables if needed
+:::

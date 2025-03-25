@@ -1,0 +1,877 @@
+---
+title: "Take-home Exercise 03"
+author: "Andrea Yeo"
+date-modified: "last-modified"
+date: "March 22, 2025"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+# Prototyping Modules for Visual Analytics Shiny Application
+
+## 1. The task
+
+For this take-home exercise, each team member have to choose one module from our proposed Shiny application and complete the following tasks:
+
+1.  **Verify package support:** Identify and ensure all required R packages for the module are available on CRAN.
+2.  **Code testing**: Prepare and test the relevant R code to confirm it runs correctly and produces the expected output.
+3.  **Define inputs and outputs**: Specify the parameters (inputs) and outputs that will be featured in the Shiny application.
+4.  **Select UI components**: Choose suitable Shiny UI elements to present and control the identified parameters within the app interface.
+
+## 2. Getting started
+
+Our project utilizes open-source data from the [World Happiness Report – Data Sharing](https://worldhappiness.report/data-sharing/) covering the years **2015 to 2025**. Detailed information on the data cleaning and preparation process is available on our group's Netlify site, under the **"Data Preparation"** tab: [Group Visual Analytic Application](https://worldhappiness-vaa.netlify.app/).
+
+Specifically, our project focuses on the visualisation of global happiness trends. I will be exploring the modules related to **geospatial** and **aspatial analysis** to explore both spatial patterns and non-spatial factors influencing happiness scores across countries. For the prototyping of these modules, I will be using the **`cleaned_data`** dataset prepared after the data processing phase.
+
+### 2.1 Loading R packages
+
+The below R packages will be used in this exercise and for the Shiny application
+
+```{r}
+pacman::p_load(sf, tidyverse, tmap, dplyr,
+               spatstat, spdep,
+               lubridate, leaflet,
+               plotly, DT, viridis,
+               ggplot2, sfdep, janitor, shiny, rnaturalearth)
+```
+
+### 2.2 Reading the dataset
+
+```{r}
+happiness <- read.csv("data/world_happiness.csv")
+```
+
+### 2.3 Understanding the data structure
+
+-   `glimpse()`: provides a transposed overview of a dataset, showing variables and their types in a concise format.
+-   `head()`: displays the first few rows of a dataset (default is 6 rows) to give a quick preview of the data.
+-   `summary()`: generates a statistical summary of each variable, including measures like mean, median, and range for numeric data.
+-   `duplicated()`:returns a logical vector indicating which elements or rows in a vector or data frame are duplicates.
+-   `colSums(is.na())`: counts the number of missing values (NA) in each column of the data frame.
+-   `str()`: use `str()` to display the column names, data types, and a preview of the data.
+
+:::::: panel-tabset
+## glimpse()
+
+```{r}
+glimpse(happiness)
+```
+
+## head()
+
+```{r}
+head(happiness)
+```
+
+## summary()
+
+```{r}
+summary(happiness)
+```
+
+## duplicated()
+
+```{r}
+happiness[duplicated(happiness),]
+```
+
+::: callout-note
+-   Ensure that there are no duplicated columns, if not will have to investigate further.
+:::
+
+## colSum(is.na())
+
+```{r}
+colSums(is.na(happiness))
+```
+
+::: callout-note
+-   Ensure that there are no NA values, if not will have to investigate further.
+-   Possibility to use `drop_na()` function to drop rows where any specified column contains a missing value.
+:::
+
+## str())
+
+```{r}
+str(happiness)
+```
+
+::: callout-note
+-   Ensure that all variables are correctly classified by data type; recast variable types if needed.
+-   Variables are correctly classified - where categorical variables are classified as **character**, while continuous variables are classified as **double**.
+:::
+::::::
+
+The `happiness` tibble contains 12 attributes, as shown above.
+
+The following preprocessing checks were conducted as part of data preparation:
+
+::: callout-tip
+## Preprocessing Checks
+
+-   Verified that the correct data types were loaded in the `happiness` dataset using `glimpse()` and `str()`
+-   Ensured there were no duplicate variable names using `duplicated()` in the dataset
+-   Checked for missing values using `colSums(is.na())`
+:::
+
+## 3. Geospatial analysis (Choropleth Map)
+
+### 3.1 To load world country boundaries
+
+To support the geospatial visualisation of global happiness trends, the [`rnaturalearth`](https://cran.r-project.org/web/packages/rnaturalearth/vignettes/rnaturalearth.html) package was used to import spatial boundary data of countries. Specifically, the `ne_countries()` function was called with a medium scale and returned as a simple features (`sf`) object, stored in the `world` variable. This spatial dataset provides the geographic outlines of all countries and is essential for merging with the **World Happiness Report data** to enable choropleth mapping and spatial analysis at the country level.
+
+```{r}
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+```
+
+### 3.2 Join happiness data with geospatial features
+
+To prepare the dataset for mapping, the World Happiness data was filtered to include only records from the year 2024. This filtered data (`happiness_latest`) was then joined with the spatial dataset (`world`) using the country name as the common key. The resulting dataset, `world_happy`, combines both geographic boundaries and happiness scores, enabling geospatial visualisation of happiness levels across countries.
+
+```{r}
+# Join by country name 
+happiness_latest <- happiness %>% 
+  filter(year == 2024)  
+
+world_happy <- world %>%
+  left_join(happiness_latest, by = c("name" = "country"))
+```
+
+### 3.3 Choropleth map of global happiness (basic version)
+
+The code below plots a choropleth map to visualise the distribution of happiness scores across countries for the year 2024. Using the [`tmap`](https://cran.r-project.org/web/packages/tmap/index.html) package in plotting mode, the `tm_shape()` function defines the spatial data object (`world_happy`), which contains both geographic boundaries and the associated happiness data. The `tm_polygons()` function maps the `ladder_score` variable to a blue color gradient, with darker shades indicating higher happiness scores.
+
+Finally, `tm_layout()` adds a descriptive title and positions the legend outside the map area to improve clarity and presentation.
+
+```{r}
+tmap_mode("plot")
+tmap_style("white")
+
+tm_shape(world_happy) +
+  tm_polygons("ladder_score", palette = "Blues", title = "Happiness Score (2024)") +
+  tm_layout(title = "World Happiness Map", legend.outside = TRUE)
+```
+
+### 3.4 Choropleth map with styling and classification (enhanced version)
+
+The enhanced choropleth map uses the [`tmap`](https://cran.r-project.org/web/packages/tmap/index.html) package with improved styling and classification. It applies a quantile-based scheme with five classes and the `"YlOrRd"` palette to represent `ladder_score`, where darker shades indicate higher happiness. Additional cartographic elements such as a compass, scale bar, borders, and descriptive credits are included to improve readability and interpretability. The legend is placed on the right, and a classic map style is applied for a cleaner layout.
+
+```{r}
+tmap_style("classic")
+tmap_mode("plot")
+
+tm_shape(world_happy) +
+  tm_polygons(
+    col = "ladder_score",
+    palette = "YlOrRd",
+    style = "quantile",
+    n = 5,
+    title = "Happiness Score (2024)"
+  ) +
+  tm_layout(
+    main.title = "World Happiness Distribution (2024)",
+    main.title.position = "center",
+    main.title.size = 1.2,
+    legend.outside = TRUE,
+    legend.position = c("right", "center"),
+    frame = FALSE
+  ) +
+  tm_borders(alpha = 0.4, lwd = 0.3) +
+  tm_compass(type = "8star", size = 2, position = c("left", "top")) +
+  tm_scale_bar(position = c("left", "bottom")) +
+  tm_credits("Source: World Happiness Report 2024", position = c("left", "bottom")) +
+  tm_credits("Note: Darker shades indicate higher happiness; lighter shades indicate lower happiness.",
+             position = c("left", "bottom"), just = "right", size = 0.6)
+```
+
+### 3.5 Summary of differences between Basic version and Enhanced Version
+
+| Feature | Basic Version | Enhanced Version |
+|------------------------|------------------------|------------------------|
+| Classification method | Default("pretty") | Custom("quantile", 5 bins) |
+| Layout | Basic title, default layout | Custom title, centered, larger size |
+| Map Borders | None | Added with transparency and thin width |
+| Compass/ Scale Bar | Not included | Included |
+| Credits/ Source | Not included | Included |
+| Frame | Default | Removed |
+
+## 4. Drawing small multiple (faceted) map
+
+The code below creates a faceted choropleth map to visualise global happiness scores from 2014 to 2024. Using [tmap](https://cran.r-project.org/web/packages/tmap/index.html), each facet represents a different year, allowing for easy comparison of happiness trends across countries. Geospatial data is joined using [rnaturalearth](https://cran.r-project.org/web/packages/rnaturalearth/vignettes/rnaturalearth.html).
+
+```{r fig.width=16, fig.height=20}
+# Load required libraries
+library(tidyverse)
+library(tmap)
+library(sf)
+library(rnaturalearth)
+
+# Set style and plotting mode
+tmap_style("white")
+tmap_mode("plot")
+
+# Step 1: Filter for all years from 2014 to 2024
+years_to_plot <- 2014:2024
+
+happiness_subset <- happiness %>%
+  filter(year %in% years_to_plot)
+
+# Step 2: Load and join with world spatial data
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+world_happy_facet <- world %>%
+  left_join(happiness_subset, by = c("name" = "country"))
+
+# Step 3: Filter out rows with missing ladder_score
+world_happy_facet_clean <- world_happy_facet %>%
+  filter(!is.na(ladder_score))
+
+# Step 4: Plot small multiple choropleth maps
+tm_shape(world_happy_facet_clean) +
+  tm_polygons(
+    col = "ladder_score",
+    palette = "YlGnBu",
+    style = "quantile",
+    title = "Happiness Score"
+  ) +
+  tm_facets(by = "year", ncol = 2) +
+  tm_layout(
+    main.title = "Global Happiness Scores (2014–2024)",
+    main.title.position = "center",
+    panel.label.size = 2.0,
+    legend.outside = TRUE,
+    legend.position = c("center", "top"),   
+    legend.height = 1.5,
+    legend.width = 1.0,
+    legend.text.size = 1.5,
+    legend.title.size = 1.5,
+    asp = 0,
+    between.margin = 0,  
+    outer.margins = c(0, 0, 0, 0)  
+  )
+```
+
+## 5. Animating global happiness over time
+
+The code below produces an animated choropleth map using `ggplot2`, `gganimate`, and `sf` to illustrate the temporal evolution of global happiness scores from 2014 to 2024. Country-level geospatial data from `rnaturalearth` is merged with World Happiness Report data via a spatial join. `transition_time()` is used to animate by year, with countries shaded according to their ladder score.
+
+::: callout-note
+**Note:** Although the underlying world geometries are static, the animated map may appear to shift or jitter between frames. This occurs because some countries are missing data in certain years, leading to variations in the number of plotted geometries. As a result, `gganimate` recalculates the plot layout for each frame, even when `coord_sf(xlim, ylim, expand = FALSE)` is specified. The visual movement is not due to changes in the map itself, but rather to inconsistencies in data availability across years.
+:::
+
+```{r}
+library(tidyverse)
+library(sf)
+library(gganimate)
+library(rnaturalearth)
+
+# Load base world map
+world <- ne_countries(scale = "medium", returnclass = "sf") %>%
+  select(name, geometry)
+
+# Load and clean happiness data
+happiness <- read_csv("data/world_happiness.csv") %>%
+  mutate(year = as.numeric(year)) %>%
+  filter(year %in% 2014:2024)
+
+# Merge first — keep all geometries
+world_happy <- world %>%
+  left_join(happiness, by = c("name" = "country")) %>%
+  mutate(year = as.numeric(year))  
+
+# Plot
+ggplot(world_happy) +
+  geom_sf(aes(fill = ladder_score)) +
+  scale_fill_distiller(palette = "YlGnBu", direction = 1, na.value = "lightgray") +
+  labs(title = "Happiness Score: {frame_time}", fill = "Score") +
+  transition_time(year) +
+  ease_aes('linear') +
+  coord_sf(
+    xlim = c(-180, 180),
+    ylim = c(-60, 90),
+    expand = FALSE
+  )
+```
+
+## 6. Exploring global happiness with an interactive map - Choropleth Map
+
+This code creates an interactive world map using `tmap`, showing happiness scores by country for 2024. Each country is colored based on its ladder score, and tooltips display the country name when hovered. The map allows users to zoom and explore happiness data visually.
+
+```{r}
+happiness_latest <- happiness_subset %>%
+  filter(year == 2024)
+
+world_happy_latest <- world %>%
+  left_join(happiness_latest, by = c("name" = "country"))
+
+world_happy_latest_clean <- world_happy_latest %>%
+  filter(!is.na(ladder_score))
+
+tmap_mode("view")
+
+tm_shape(world_happy_latest_clean) +
+  tm_polygons(
+    col = "ladder_score",
+    palette = "YlGnBu",
+    id = "name",  # this is what shows in the tooltip
+    title = "Happiness Score (2024)"
+  )
+```
+
+## 7. User interface design - Part 1 - Choropleth Map
+
+In this module, I developed an interactive Shiny application to visualize the World Happiness Score by country and year. The key **input** is a dropdown menu `(selectInput)` that allows users to choose a specific year from 2014 to 2024. Based on the selected year, the **output** is a dynamic choropleth map `(tmapOutput)` showing each country's happiness score using a color gradient.
+
+::: panel-tabset
+## UI()
+
+![](/images/Pic18.jpg)
+
+## Code()
+
+```{r}
+# Load libraries
+library(shiny); library(tmap); library(tidyverse); library(sf); library(rnaturalearth)
+
+# Prepare data
+happiness <- read_csv("data/world_happiness.csv") %>%
+  mutate(year = as.numeric(year))
+
+years_to_plot <- 2014:2024
+happiness_subset <- happiness %>%
+  filter(year %in% years_to_plot)
+
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+world_happy <- world %>%
+  left_join(happiness_subset, by = c("name" = "country"))
+
+# UI
+ui <- fluidPage(
+  titlePanel("🌍 World Happiness Score by Year"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("selected_year", "Select Year:",
+                  choices = sort(unique(world_happy$year)), 
+                  selected = 2024)
+    ),
+    
+    mainPanel(
+      tmapOutput("happiness_map")
+    )
+  )
+)
+
+# Server
+server <- function(input, output, session) {
+  
+  filtered_data <- reactive({
+    world_happy %>%
+      filter(year == input$selected_year & !is.na(ladder_score))
+  })
+  
+  output$happiness_map <- renderTmap({
+    tmap_mode("view")
+    tm_shape(filtered_data()) +
+      tm_polygons(
+        col = "ladder_score",
+        palette = "YlGnBu",
+        id = "name",
+        popup.vars = c("Country" = "name", "Happiness" = "ladder_score"),
+        title = paste("Happiness Score:", input$selected_year)
+      )
+  })
+}
+
+# Run the app
+shinyApp(ui, server)
+```
+:::
+
+## 8. Mapping global happiness with proportional circles - Proportional Symbol Map
+
+This code below generates an interactive map using `leaflet` to visualize 2024 World Happiness Scores. Each country is displayed as a circle located at its geographic center, with the size representing its happiness score. I added tooltips which provide additional insights like economy, life expectancy, freedom, and region, and a legend which helps interpret the happiness scores visually.
+
+```{r}
+library(tidyverse); library(readr); library(leaflet)
+library(sf); library(rnaturalearth); library(rnaturalearthdata)
+
+# Load the world happiness data
+happiness <- read_csv("data/world_happiness.csv")
+
+# Filter for a specific year (e.g., 2024)
+happiness_latest <- happiness %>%
+  filter(year == 2024)
+
+# Load country polygons and calculate centroids
+world_sf <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf") %>%
+  select(name, geometry)
+
+# Join happiness data to spatial data
+world_happy_sf <- world_sf %>%
+  left_join(happiness_latest, by = c("name" = "country")) %>%
+  filter(!is.na(ladder_score))
+
+# Get centroids for each country
+world_happy_points <- st_centroid(world_happy_sf)
+
+# Extract coordinates for leaflet
+world_happy_points_coords <- world_happy_points %>%
+  mutate(
+    lon = st_coordinates(geometry)[, 1],
+    lat = st_coordinates(geometry)[, 2]
+  )
+
+leaflet(world_happy_points_coords) %>%
+  addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+  addCircleMarkers(
+    lng = ~lon,
+    lat = ~lat,
+    radius = ~ladder_score * 3,
+    color = "black",
+    fillColor = ~colorNumeric("YlGnBu", domain = world_happy_points_coords$ladder_score)(ladder_score),
+    fillOpacity = 0.6,  
+    stroke = TRUE,
+    weight = 0.5,
+    popup = ~paste0(
+      "<b>Country:</b> ", name, "<br/>",
+      "<b>Happiness Score:</b> ", round(ladder_score, 2), "<br/>",
+      "<b>Economy:</b> ", round(economy_score, 2), "<br/>",
+      "<b>Life Expectancy:</b> ", round(lifeexpectancy_score, 2), "<br/>",
+      "<b>Freedom:</b> ", round(freedom_score, 2), "<br/>",
+      "<b>Region:</b> ", region
+    )
+  ) %>%
+  addLegend(
+    "bottomright",
+    pal = colorNumeric("YlGnBu", domain = world_happy_points_coords$ladder_score),
+    values = ~ladder_score,
+    title = "Happiness Score",
+    opacity = 1
+  )
+
+```
+
+## 9. User interface design - Part 2 - Proportional Symbol Map
+
+In this module, I developed an interactive Shiny application that allows users to explore the World Happiness Score by country for the year 2024. The main **input** is a country selector using `selectInput`, which enables users to search and select a country from the dropdown list. Once selected, the **output** is an interactive `leaflet` map that **automatically zooms** to the selected country and displays a popup with additional details such as economy, life expectancy, freedom, and region.
+
+::: panel-tabset
+## UI()
+
+![](/images/Pic19.jpg)
+
+## Code()
+
+```{r}
+library(shiny)
+library(tidyverse); library(readr); library(leaflet)
+library(sf); library(rnaturalearth); library(rnaturalearthdata)
+
+# Load and prepare data
+happiness <- read_csv("data/world_happiness.csv") %>%
+  filter(year == 2024)
+
+world_sf <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf") %>%
+  select(name, geometry)
+
+world_happy_sf <- world_sf %>%
+  left_join(happiness, by = c("name" = "country")) %>%
+  filter(!is.na(ladder_score))
+
+world_happy_points <- st_centroid(world_happy_sf)
+
+world_happy_points_coords <- world_happy_points %>%
+  mutate(
+    lon = st_coordinates(geometry)[, 1],
+    lat = st_coordinates(geometry)[, 2]
+  )
+
+# UI
+ui <- fluidPage(
+  titlePanel("World Happiness (2024)"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("selected_country", "Search Country:", 
+                  choices = sort(world_happy_points_coords$name),
+                  selected = NULL)
+    ),
+    mainPanel(
+      leafletOutput("map", height = "400px")
+    )
+  )
+)
+
+# Server
+server <- function(input, output, session) {
+  
+  output$map <- renderLeaflet({
+    leaflet(world_happy_points_coords) %>%
+      addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+      addCircleMarkers(
+        lng = ~lon,
+        lat = ~lat,
+        radius = ~ladder_score * 3,
+        color = "black",
+        fillColor = ~colorNumeric("YlGnBu", domain = world_happy_points_coords$ladder_score)(ladder_score),
+        fillOpacity = 0.6,
+        stroke = TRUE,
+        weight = 0.5,
+        popup = ~paste0(
+          "<b>Country:</b> ", name, "<br/>",
+          "<b>Happiness Score:</b> ", round(ladder_score, 2), "<br/>",
+          "<b>Economy:</b> ", round(economy_score, 2), "<br/>",
+          "<b>Life Expectancy:</b> ", round(lifeexpectancy_score, 2), "<br/>",
+          "<b>Freedom:</b> ", round(freedom_score, 2), "<br/>",
+          "<b>Region:</b> ", region
+        )
+      ) %>%
+      addLegend(
+        "bottomright",
+        pal = colorNumeric("YlGnBu", domain = world_happy_points_coords$ladder_score),
+        values = ~ladder_score,
+        title = "Happiness Score",
+        opacity = 1
+      )
+  })
+  
+  observeEvent(input$selected_country, {
+    selected_data <- world_happy_points_coords %>%
+      filter(name == input$selected_country)
+    
+    leafletProxy("map") %>%
+      setView(lng = selected_data$lon, lat = selected_data$lat, zoom = 5) %>%
+      clearPopups() %>%
+      addPopups(
+        lng = selected_data$lon,
+        lat = selected_data$lat,
+        popup = paste0(
+          "<b>Country:</b> ", selected_data$name, "<br/>",
+          "<b>Happiness Score:</b> ", round(selected_data$ladder_score, 2), "<br/>",
+          "<b>Economy:</b> ", round(selected_data$economy_score, 2), "<br/>",
+          "<b>Life Expectancy:</b> ", round(selected_data$lifeexpectancy_score, 2), "<br/>",
+          "<b>Freedom:</b> ", round(selected_data$freedom_score, 2), "<br/>",
+          "<b>Region:</b> ", selected_data$region
+        )
+      )
+  })
+}
+
+# Run the app
+shinyApp(ui, server)
+
+```
+:::
+
+## 10. User interface design - Part 3 - Combining both Choropleth Map & Proportional Symbol Map
+
+This module presents an interactive Shiny application with two coordinated maps to explore World Happiness data. The **Choropleth Map** allows users to select a year and view global happiness patterns using a color gradient. In contrast, the **Proportional Symbol Map** lets users search for a country, zoom in automatically, and view detailed indicators such as economy, life expectancy, and freedom. Circle size and color reflect the happiness score.
+
+After considering various approaches, we chose to implement both map types as they serve different purposes:
+
+-   the choropleth reveals macro-level trends, while
+
+-   the proportional map provides micro-level insights.
+
+
+```{r}
+# Load libraries
+library(shiny)
+library(tidyverse)
+library(sf)
+library(tmap)
+library(leaflet)
+library(rnaturalearth)
+
+# Load and prepare data
+happiness <- read_csv("data/world_happiness.csv") %>%
+  mutate(year = as.numeric(year)) %>%
+  filter(year %in% 2014:2024)
+
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+world_happy <- world %>%
+  left_join(happiness, by = c("name" = "country"))
+
+ui <- fluidPage(
+  titlePanel("🌍 World Happiness Explorer"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("selected_year", "Select Year:", choices = sort(unique(world_happy$year)), selected = 2024),
+      selectInput("selected_country", "Search Country:", choices = NULL)
+    ),
+    
+    mainPanel(
+      fluidRow(
+        column(6,
+               h4("Choropleth Map"),
+               tmapOutput("choropleth_map", height = "500px")
+        ),
+        column(6,
+               h4("Proportional Symbol Map"),
+               leafletOutput("prop_map", height = "500px")
+        )
+      )
+    )
+  )
+)
+
+# Server
+server <- function(input, output, session) {
+  
+  # Reactive filtered data by year
+  filtered_data <- reactive({
+    world_happy %>%
+      filter(year == input$selected_year & !is.na(ladder_score))
+  })
+  
+  # Update country list based on filtered data
+  observe({
+    updateSelectInput(session, "selected_country",
+                      choices = sort(unique(filtered_data()$name)))
+  })
+  
+  # Choropleth Map
+  output$choropleth_map <- renderTmap({
+    tmap_mode("view")
+    tm_shape(filtered_data()) +
+      tm_polygons(
+        col = "ladder_score",
+        palette = "YlGnBu",
+        id = "name",
+        popup.vars = c("Country" = "name", "Happiness" = "ladder_score"),
+        title = paste("Happiness Score:", input$selected_year)
+      )
+  })
+  
+  # Proportional Symbol Map
+  output$prop_map <- renderLeaflet({
+    # Convert to centroids
+    centroids <- st_centroid(filtered_data())
+    coords <- centroids %>%
+      mutate(
+        lon = st_coordinates(geometry)[, 1],
+        lat = st_coordinates(geometry)[, 2]
+      )
+    
+    leaflet(coords) %>%
+      addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+      addCircleMarkers(
+        lng = ~lon,
+        lat = ~lat,
+        radius = ~ladder_score * 3,
+        color = "black",
+        fillColor = ~colorNumeric("YlGnBu", domain = coords$ladder_score)(ladder_score),
+        fillOpacity = 0.6,
+        stroke = TRUE,
+        weight = 0.5,
+        popup = ~paste0(
+          "<b>Country:</b> ", name, "<br/>",
+          "<b>Happiness Score:</b> ", round(ladder_score, 2), "<br/>",
+          "<b>Economy:</b> ", round(economy_score, 2), "<br/>",
+          "<b>Life Expectancy:</b> ", round(lifeexpectancy_score, 2), "<br/>",
+          "<b>Freedom:</b> ", round(freedom_score, 2), "<br/>",
+          "<b>Region:</b> ", region
+        )
+      ) %>%
+      addLegend(
+        "bottomright",
+        pal = colorNumeric("YlGnBu", domain = coords$ladder_score),
+        values = ~ladder_score,
+        title = "Happiness Score",
+        opacity = 1
+      )
+  })
+  
+  # Auto-zoom on country select
+  observeEvent(input$selected_country, {
+    centroids <- st_centroid(filtered_data())
+    coords <- centroids %>%
+      mutate(
+        lon = st_coordinates(geometry)[, 1],
+        lat = st_coordinates(geometry)[, 2]
+      )
+    
+    selected_data <- coords %>%
+      filter(name == input$selected_country)
+    
+    leafletProxy("prop_map") %>%
+      setView(lng = selected_data$lon, lat = selected_data$lat, zoom = 5) %>%
+      clearPopups() %>%
+      addPopups(
+        lng = selected_data$lon,
+        lat = selected_data$lat,
+        popup = paste0(
+          "<b>Country:</b> ", selected_data$name, "<br/>",
+          "<b>Happiness Score:</b> ", round(selected_data$ladder_score, 2), "<br/>",
+          "<b>Economy:</b> ", round(selected_data$economy_score, 2), "<br/>",
+          "<b>Life Expectancy:</b> ", round(selected_data$lifeexpectancy_score, 2), "<br/>",
+          "<b>Freedom:</b> ", round(selected_data$freedom_score, 2), "<br/>",
+          "<b>Region:</b> ", selected_data$region
+        )
+      )
+  })
+}
+
+# Run the app
+shinyApp(ui, server)
+
+```
+
+```{r}
+# Load libraries
+library(shiny)
+library(tidyverse)
+library(sf)
+library(tmap)
+library(leaflet)
+library(rnaturalearth)
+
+# Load and prepare data
+happiness <- read_csv("data/world_happiness.csv") %>%
+  mutate(year = as.numeric(year)) %>%
+  filter(year %in% 2014:2024)
+
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+world_happy <- world %>%
+  left_join(happiness, by = c("name" = "country"))
+
+ui <- fluidPage(
+  titlePanel("🌍 World Happiness Explorer"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("selected_year", "Select Year:", choices = sort(unique(world_happy$year)), selected = 2024),
+      selectInput("selected_country", "Search Country:", choices = NULL)
+    ),
+    mainPanel(
+      fluidRow(
+        column(6,
+               h4("Choropleth Map"),
+               tmapOutput("choropleth_map", height = "500px")
+        ),
+        column(6,
+               h4("Proportional Symbol Map"),
+               leafletOutput("prop_map", height = "500px")
+        )
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+
+  # Reactive filtered data by year
+  filtered_data <- reactive({
+    world_happy %>%
+      filter(year == input$selected_year & !is.na(ladder_score))
+  })
+
+  # Update dropdown
+  observe({
+    updateSelectInput(session, "selected_country",
+                      choices = sort(unique(filtered_data()$name)))
+  })
+
+  # Choropleth Map - Zoom to selected country
+  output$choropleth_map <- renderTmap({
+    tmap_mode("view")
+
+    # Try zooming if country is selected
+    selected_geom <- filtered_data() %>% filter(name == input$selected_country)
+    bbox_zoom <- if (nrow(selected_geom) > 0) st_bbox(selected_geom) else st_bbox(filtered_data())
+
+    tm_shape(filtered_data(), bbox = bbox_zoom) +
+      tm_polygons(
+        col = "ladder_score",
+        palette = "YlGnBu",
+        id = "name",
+        popup.vars = c("Country" = "name", "Happiness" = "ladder_score"),
+        title = paste("Happiness Score:", input$selected_year)
+      )
+  })
+
+  # Proportional Symbol Map
+  output$prop_map <- renderLeaflet({
+    centroids <- st_centroid(filtered_data())
+    coords <- centroids %>%
+      mutate(
+        lon = st_coordinates(geometry)[, 1],
+        lat = st_coordinates(geometry)[, 2]
+      )
+
+    leaflet(coords) %>%
+      addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+      addCircleMarkers(
+        lng = ~lon,
+        lat = ~lat,
+        radius = ~ladder_score * 3,
+        color = "black",
+        fillColor = ~colorNumeric("YlGnBu", domain = coords$ladder_score)(ladder_score),
+        fillOpacity = 0.6,
+        stroke = TRUE,
+        weight = 0.5,
+        popup = ~paste0(
+          "<b>Country:</b> ", name, "<br/>",
+          "<b>Happiness Score:</b> ", round(ladder_score, 2), "<br/>",
+          "<b>Economy:</b> ", round(economy_score, 2), "<br/>",
+          "<b>Life Expectancy:</b> ", round(lifeexpectancy_score, 2), "<br/>",
+          "<b>Freedom:</b> ", round(freedom_score, 2), "<br/>",
+          "<b>Region:</b> ", region
+        )
+      ) %>%
+      addLegend(
+        "bottomright",
+        pal = colorNumeric("YlGnBu", domain = coords$ladder_score),
+        values = ~ladder_score,
+        title = "Happiness Score",
+        opacity = 1
+      )
+  })
+
+  # Auto-zoom on dropdown change
+  observeEvent(input$selected_country, {
+    centroids <- st_centroid(filtered_data())
+    coords <- centroids %>%
+      mutate(
+        lon = st_coordinates(geometry)[, 1],
+        lat = st_coordinates(geometry)[, 2]
+      )
+
+    selected_data <- coords %>% filter(name == input$selected_country)
+
+    leafletProxy("prop_map") %>%
+      setView(lng = selected_data$lon, lat = selected_data$lat, zoom = 5) %>%
+      clearPopups() %>%
+      addPopups(
+        lng = selected_data$lon,
+        lat = selected_data$lat,
+        popup = paste0(
+          "<b>Country:</b> ", selected_data$name, "<br/>",
+          "<b>Happiness Score:</b> ", round(selected_data$ladder_score, 2), "<br/>",
+          "<b>Economy:</b> ", round(selected_data$economy_score, 2), "<br/>",
+          "<b>Life Expectancy:</b> ", round(selected_data$lifeexpectancy_score, 2), "<br/>",
+          "<b>Freedom:</b> ", round(selected_data$freedom_score, 2), "<br/>",
+          "<b>Region:</b> ", selected_data$region
+        )
+      )
+  })
+
+  # Auto-update dropdown when user clicks map
+  observeEvent(input$choropleth_map_shape_click, {
+    clicked_country <- input$choropleth_map_shape_click$id
+    updateSelectInput(session, "selected_country", selected = clicked_country)
+  })
+}
+
+shinyApp(ui, server)
+
+```
+
+
