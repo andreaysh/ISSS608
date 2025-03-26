@@ -229,6 +229,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex09.html">
  <span class="dropdown-text">Hands-on Exercise 09</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex10.html">
+ <span class="dropdown-text">Hands-on Exercise 10</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -2008,7 +2012,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-323"><a href="#cb25-323" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb25-324"><a href="#cb25-324" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-325"><a href="#cb25-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-326"><a href="#cb25-326" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6. Exploring global happiness with an interactive map</span></span>
+<span id="cb25-326"><a href="#cb25-326" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6. Exploring global happiness with an interactive map - Choropleth Map</span></span>
 <span id="cb25-327"><a href="#cb25-327" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-328"><a href="#cb25-328" aria-hidden="true" tabindex="-1"></a>This code creates an interactive world map using <span class="in">`tmap`</span>, showing happiness scores by country for 2024. Each country is colored based on its ladder score, and tooltips display the country name when hovered. The map allows users to zoom and explore happiness data visually.</span>
 <span id="cb25-329"><a href="#cb25-329" aria-hidden="true" tabindex="-1"></a></span>
@@ -2033,9 +2037,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-350"><a href="#cb25-350" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb25-351"><a href="#cb25-351" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-352"><a href="#cb25-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-353"><a href="#cb25-353" aria-hidden="true" tabindex="-1"></a><span class="fu">## 7. User interface design - Part 1</span></span>
+<span id="cb25-353"><a href="#cb25-353" aria-hidden="true" tabindex="-1"></a><span class="fu">## 7. User interface design - Part 1 - Choropleth Map</span></span>
 <span id="cb25-354"><a href="#cb25-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-355"><a href="#cb25-355" aria-hidden="true" tabindex="-1"></a>In this module, I developed an interactive Shiny application to visualize the World Happiness Score by country and year. The key **input** is a dropdown menu `(selectInput)` that allows users to choose a specific year from 2014 to 2024. Based on the selected year, the **output** is a dynamic choropleth map <span class="in">`(tmapOutput)`</span> showing each country's happiness score using a color gradient. </span>
+<span id="cb25-355"><a href="#cb25-355" aria-hidden="true" tabindex="-1"></a>In this module, I developed an interactive Shiny application to visualize the World Happiness Score by country and year. The key **input** is a dropdown menu `(selectInput)` that allows users to choose a specific year from 2014 to 2024. Based on the selected year, the **output** is a dynamic choropleth map <span class="in">`(tmapOutput)`</span> showing each country's happiness score using a color gradient.</span>
 <span id="cb25-356"><a href="#cb25-356" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-357"><a href="#cb25-357" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
 <span id="cb25-358"><a href="#cb25-358" aria-hidden="true" tabindex="-1"></a><span class="fu">## UI()</span></span>
@@ -2104,7 +2108,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-423"><a href="#cb25-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-424"><a href="#cb25-424" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb25-425"><a href="#cb25-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-426"><a href="#cb25-426" aria-hidden="true" tabindex="-1"></a><span class="fu">## 8. Mapping global happiness with proportional circles</span></span>
+<span id="cb25-426"><a href="#cb25-426" aria-hidden="true" tabindex="-1"></a><span class="fu">## 8. Mapping global happiness with proportional circles - Proportional Symbol Map</span></span>
 <span id="cb25-427"><a href="#cb25-427" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-428"><a href="#cb25-428" aria-hidden="true" tabindex="-1"></a>This code below generates an interactive map using <span class="in">`leaflet`</span> to visualize 2024 World Happiness Scores. Each country is displayed as a circle located at its geographic center, with the size representing its happiness score. I added tooltips which provide additional insights like economy, life expectancy, freedom, and region, and a legend which helps interpret the happiness scores visually.</span>
 <span id="cb25-429"><a href="#cb25-429" aria-hidden="true" tabindex="-1"></a></span>
@@ -2168,7 +2172,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-489"><a href="#cb25-489" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-490"><a href="#cb25-490" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-491"><a href="#cb25-491" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-492"><a href="#cb25-492" aria-hidden="true" tabindex="-1"></a><span class="fu">## 9. User interface design - Part 2</span></span>
+<span id="cb25-492"><a href="#cb25-492" aria-hidden="true" tabindex="-1"></a><span class="fu">## 9. User interface design - Part 2 - Proportional Symbol Map</span></span>
 <span id="cb25-493"><a href="#cb25-493" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-494"><a href="#cb25-494" aria-hidden="true" tabindex="-1"></a>In this module, I developed an interactive Shiny application that allows users to explore the World Happiness Score by country for the year 2024. The main **input** is a country selector using `selectInput`, which enables users to search and select a country from the dropdown list. Once selected, the **output** is an interactive `leaflet` map that **automatically zooms** to the selected country and displays a popup with additional details such as economy, life expectancy, freedom, and region.</span>
 <span id="cb25-495"><a href="#cb25-495" aria-hidden="true" tabindex="-1"></a></span>
@@ -2279,7 +2283,312 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-602"><a href="#cb25-602" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-603"><a href="#cb25-603" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb25-604"><a href="#cb25-604" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-605"><a href="#cb25-605" aria-hidden="true" tabindex="-1"></a><span class="fu">## 10. User interface design - Part 3 </span></span>
+<span id="cb25-605"><a href="#cb25-605" aria-hidden="true" tabindex="-1"></a><span class="fu">## 10. User interface design - Part 3 - Combining both Choropleth Map &amp; Proportional Symbol Map</span></span>
+<span id="cb25-606"><a href="#cb25-606" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-607"><a href="#cb25-607" aria-hidden="true" tabindex="-1"></a>This module presents an interactive Shiny application with two coordinated maps to explore World Happiness data. The **Choropleth Map** allows users to select a year and view global happiness patterns using a color gradient. In contrast, the **Proportional Symbol Map** lets users search for a country, zoom in automatically, and view detailed indicators such as economy, life expectancy, and freedom. Circle size and color reflect the happiness score.</span>
+<span id="cb25-608"><a href="#cb25-608" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-609"><a href="#cb25-609" aria-hidden="true" tabindex="-1"></a>After considering various approaches, we chose to implement both map types as they serve different purposes:</span>
+<span id="cb25-610"><a href="#cb25-610" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-611"><a href="#cb25-611" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the choropleth reveals macro-level trends, while</span>
+<span id="cb25-612"><a href="#cb25-612" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-613"><a href="#cb25-613" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the proportional map provides micro-level insights.</span>
+<span id="cb25-614"><a href="#cb25-614" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-615"><a href="#cb25-615" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-618"><a href="#cb25-618" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-619"><a href="#cb25-619" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb25-620"><a href="#cb25-620" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb25-621"><a href="#cb25-621" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb25-622"><a href="#cb25-622" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb25-623"><a href="#cb25-623" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb25-624"><a href="#cb25-624" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb25-625"><a href="#cb25-625" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb25-626"><a href="#cb25-626" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-627"><a href="#cb25-627" aria-hidden="true" tabindex="-1"></a><span class="co"># Load and prepare data</span></span>
+<span id="cb25-628"><a href="#cb25-628" aria-hidden="true" tabindex="-1"></a>happiness <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/world_happiness.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-629"><a href="#cb25-629" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.numeric</span>(year)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-630"><a href="#cb25-630" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="dv">2014</span><span class="sc">:</span><span class="dv">2024</span>)</span>
+<span id="cb25-631"><a href="#cb25-631" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-632"><a href="#cb25-632" aria-hidden="true" tabindex="-1"></a>world <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">"medium"</span>, <span class="at">returnclass =</span> <span class="st">"sf"</span>)</span>
+<span id="cb25-633"><a href="#cb25-633" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-634"><a href="#cb25-634" aria-hidden="true" tabindex="-1"></a>world_happy <span class="ot">&lt;-</span> world <span class="sc">%&gt;%</span></span>
+<span id="cb25-635"><a href="#cb25-635" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(happiness, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"name"</span> <span class="ot">=</span> <span class="st">"country"</span>))</span>
+<span id="cb25-636"><a href="#cb25-636" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-637"><a href="#cb25-637" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb25-638"><a href="#cb25-638" aria-hidden="true" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">"🌍 World Happiness Explorer"</span>),</span>
+<span id="cb25-639"><a href="#cb25-639" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-640"><a href="#cb25-640" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb25-641"><a href="#cb25-641" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
+<span id="cb25-642"><a href="#cb25-642" aria-hidden="true" tabindex="-1"></a>      <span class="fu">selectInput</span>(<span class="st">"selected_year"</span>, <span class="st">"Select Year:"</span>, <span class="at">choices =</span> <span class="fu">sort</span>(<span class="fu">unique</span>(world_happy<span class="sc">$</span>year)), <span class="at">selected =</span> <span class="dv">2024</span>),</span>
+<span id="cb25-643"><a href="#cb25-643" aria-hidden="true" tabindex="-1"></a>      <span class="fu">selectInput</span>(<span class="st">"selected_country"</span>, <span class="st">"Search Country:"</span>, <span class="at">choices =</span> <span class="cn">NULL</span>)</span>
+<span id="cb25-644"><a href="#cb25-644" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb25-645"><a href="#cb25-645" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-646"><a href="#cb25-646" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb25-647"><a href="#cb25-647" aria-hidden="true" tabindex="-1"></a>      <span class="fu">fluidRow</span>(</span>
+<span id="cb25-648"><a href="#cb25-648" aria-hidden="true" tabindex="-1"></a>        <span class="fu">column</span>(<span class="dv">6</span>,</span>
+<span id="cb25-649"><a href="#cb25-649" aria-hidden="true" tabindex="-1"></a>               <span class="fu">h4</span>(<span class="st">"Choropleth Map"</span>),</span>
+<span id="cb25-650"><a href="#cb25-650" aria-hidden="true" tabindex="-1"></a>               <span class="fu">tmapOutput</span>(<span class="st">"choropleth_map"</span>, <span class="at">height =</span> <span class="st">"500px"</span>)</span>
+<span id="cb25-651"><a href="#cb25-651" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb25-652"><a href="#cb25-652" aria-hidden="true" tabindex="-1"></a>        <span class="fu">column</span>(<span class="dv">6</span>,</span>
+<span id="cb25-653"><a href="#cb25-653" aria-hidden="true" tabindex="-1"></a>               <span class="fu">h4</span>(<span class="st">"Proportional Symbol Map"</span>),</span>
+<span id="cb25-654"><a href="#cb25-654" aria-hidden="true" tabindex="-1"></a>               <span class="fu">leafletOutput</span>(<span class="st">"prop_map"</span>, <span class="at">height =</span> <span class="st">"500px"</span>)</span>
+<span id="cb25-655"><a href="#cb25-655" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb25-656"><a href="#cb25-656" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-657"><a href="#cb25-657" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-658"><a href="#cb25-658" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-659"><a href="#cb25-659" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-660"><a href="#cb25-660" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-661"><a href="#cb25-661" aria-hidden="true" tabindex="-1"></a><span class="co"># Server</span></span>
+<span id="cb25-662"><a href="#cb25-662" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb25-663"><a href="#cb25-663" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-664"><a href="#cb25-664" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Reactive filtered data by year</span></span>
+<span id="cb25-665"><a href="#cb25-665" aria-hidden="true" tabindex="-1"></a>  filtered_data <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb25-666"><a href="#cb25-666" aria-hidden="true" tabindex="-1"></a>    world_happy <span class="sc">%&gt;%</span></span>
+<span id="cb25-667"><a href="#cb25-667" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(year <span class="sc">==</span> input<span class="sc">$</span>selected_year <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(ladder_score))</span>
+<span id="cb25-668"><a href="#cb25-668" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-669"><a href="#cb25-669" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-670"><a href="#cb25-670" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Update country list based on filtered data</span></span>
+<span id="cb25-671"><a href="#cb25-671" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observe</span>({</span>
+<span id="cb25-672"><a href="#cb25-672" aria-hidden="true" tabindex="-1"></a>    <span class="fu">updateSelectInput</span>(session, <span class="st">"selected_country"</span>,</span>
+<span id="cb25-673"><a href="#cb25-673" aria-hidden="true" tabindex="-1"></a>                      <span class="at">choices =</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">filtered_data</span>()<span class="sc">$</span>name)))</span>
+<span id="cb25-674"><a href="#cb25-674" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-675"><a href="#cb25-675" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-676"><a href="#cb25-676" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Choropleth Map</span></span>
+<span id="cb25-677"><a href="#cb25-677" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>choropleth_map <span class="ot">&lt;-</span> <span class="fu">renderTmap</span>({</span>
+<span id="cb25-678"><a href="#cb25-678" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tmap_mode</span>(<span class="st">"view"</span>)</span>
+<span id="cb25-679"><a href="#cb25-679" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_shape</span>(<span class="fu">filtered_data</span>()) <span class="sc">+</span></span>
+<span id="cb25-680"><a href="#cb25-680" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_polygons</span>(</span>
+<span id="cb25-681"><a href="#cb25-681" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"ladder_score"</span>,</span>
+<span id="cb25-682"><a href="#cb25-682" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette =</span> <span class="st">"YlGnBu"</span>,</span>
+<span id="cb25-683"><a href="#cb25-683" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="st">"name"</span>,</span>
+<span id="cb25-684"><a href="#cb25-684" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup.vars =</span> <span class="fu">c</span>(<span class="st">"Country"</span> <span class="ot">=</span> <span class="st">"name"</span>, <span class="st">"Happiness"</span> <span class="ot">=</span> <span class="st">"ladder_score"</span>),</span>
+<span id="cb25-685"><a href="#cb25-685" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Happiness Score:"</span>, input<span class="sc">$</span>selected_year)</span>
+<span id="cb25-686"><a href="#cb25-686" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-687"><a href="#cb25-687" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-688"><a href="#cb25-688" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-689"><a href="#cb25-689" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Proportional Symbol Map</span></span>
+<span id="cb25-690"><a href="#cb25-690" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>prop_map <span class="ot">&lt;-</span> <span class="fu">renderLeaflet</span>({</span>
+<span id="cb25-691"><a href="#cb25-691" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert to centroids</span></span>
+<span id="cb25-692"><a href="#cb25-692" aria-hidden="true" tabindex="-1"></a>    centroids <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(<span class="fu">filtered_data</span>())</span>
+<span id="cb25-693"><a href="#cb25-693" aria-hidden="true" tabindex="-1"></a>    coords <span class="ot">&lt;-</span> centroids <span class="sc">%&gt;%</span></span>
+<span id="cb25-694"><a href="#cb25-694" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb25-695"><a href="#cb25-695" aria-hidden="true" tabindex="-1"></a>        <span class="at">lon =</span> <span class="fu">st_coordinates</span>(geometry)[, <span class="dv">1</span>],</span>
+<span id="cb25-696"><a href="#cb25-696" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> <span class="fu">st_coordinates</span>(geometry)[, <span class="dv">2</span>]</span>
+<span id="cb25-697"><a href="#cb25-697" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-698"><a href="#cb25-698" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-699"><a href="#cb25-699" aria-hidden="true" tabindex="-1"></a>    <span class="fu">leaflet</span>(coords) <span class="sc">%&gt;%</span></span>
+<span id="cb25-700"><a href="#cb25-700" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Esri.WorldGrayCanvas) <span class="sc">%&gt;%</span></span>
+<span id="cb25-701"><a href="#cb25-701" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addCircleMarkers</span>(</span>
+<span id="cb25-702"><a href="#cb25-702" aria-hidden="true" tabindex="-1"></a>        <span class="at">lng =</span> <span class="sc">~</span>lon,</span>
+<span id="cb25-703"><a href="#cb25-703" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> <span class="sc">~</span>lat,</span>
+<span id="cb25-704"><a href="#cb25-704" aria-hidden="true" tabindex="-1"></a>        <span class="at">radius =</span> <span class="sc">~</span>ladder_score <span class="sc">*</span> <span class="dv">3</span>,</span>
+<span id="cb25-705"><a href="#cb25-705" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb25-706"><a href="#cb25-706" aria-hidden="true" tabindex="-1"></a>        <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">colorNumeric</span>(<span class="st">"YlGnBu"</span>, <span class="at">domain =</span> coords<span class="sc">$</span>ladder_score)(ladder_score),</span>
+<span id="cb25-707"><a href="#cb25-707" aria-hidden="true" tabindex="-1"></a>        <span class="at">fillOpacity =</span> <span class="fl">0.6</span>,</span>
+<span id="cb25-708"><a href="#cb25-708" aria-hidden="true" tabindex="-1"></a>        <span class="at">stroke =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-709"><a href="#cb25-709" aria-hidden="true" tabindex="-1"></a>        <span class="at">weight =</span> <span class="fl">0.5</span>,</span>
+<span id="cb25-710"><a href="#cb25-710" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup =</span> <span class="sc">~</span><span class="fu">paste0</span>(</span>
+<span id="cb25-711"><a href="#cb25-711" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Country:&lt;/b&gt; "</span>, name, <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-712"><a href="#cb25-712" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Happiness Score:&lt;/b&gt; "</span>, <span class="fu">round</span>(ladder_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-713"><a href="#cb25-713" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Economy:&lt;/b&gt; "</span>, <span class="fu">round</span>(economy_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-714"><a href="#cb25-714" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Life Expectancy:&lt;/b&gt; "</span>, <span class="fu">round</span>(lifeexpectancy_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-715"><a href="#cb25-715" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Freedom:&lt;/b&gt; "</span>, <span class="fu">round</span>(freedom_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-716"><a href="#cb25-716" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Region:&lt;/b&gt; "</span>, region</span>
+<span id="cb25-717"><a href="#cb25-717" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb25-718"><a href="#cb25-718" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-719"><a href="#cb25-719" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addLegend</span>(</span>
+<span id="cb25-720"><a href="#cb25-720" aria-hidden="true" tabindex="-1"></a>        <span class="st">"bottomright"</span>,</span>
+<span id="cb25-721"><a href="#cb25-721" aria-hidden="true" tabindex="-1"></a>        <span class="at">pal =</span> <span class="fu">colorNumeric</span>(<span class="st">"YlGnBu"</span>, <span class="at">domain =</span> coords<span class="sc">$</span>ladder_score),</span>
+<span id="cb25-722"><a href="#cb25-722" aria-hidden="true" tabindex="-1"></a>        <span class="at">values =</span> <span class="sc">~</span>ladder_score,</span>
+<span id="cb25-723"><a href="#cb25-723" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Happiness Score"</span>,</span>
+<span id="cb25-724"><a href="#cb25-724" aria-hidden="true" tabindex="-1"></a>        <span class="at">opacity =</span> <span class="dv">1</span></span>
+<span id="cb25-725"><a href="#cb25-725" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-726"><a href="#cb25-726" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-727"><a href="#cb25-727" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-728"><a href="#cb25-728" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Auto-zoom on country select</span></span>
+<span id="cb25-729"><a href="#cb25-729" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>selected_country, {</span>
+<span id="cb25-730"><a href="#cb25-730" aria-hidden="true" tabindex="-1"></a>    centroids <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(<span class="fu">filtered_data</span>())</span>
+<span id="cb25-731"><a href="#cb25-731" aria-hidden="true" tabindex="-1"></a>    coords <span class="ot">&lt;-</span> centroids <span class="sc">%&gt;%</span></span>
+<span id="cb25-732"><a href="#cb25-732" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb25-733"><a href="#cb25-733" aria-hidden="true" tabindex="-1"></a>        <span class="at">lon =</span> <span class="fu">st_coordinates</span>(geometry)[, <span class="dv">1</span>],</span>
+<span id="cb25-734"><a href="#cb25-734" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> <span class="fu">st_coordinates</span>(geometry)[, <span class="dv">2</span>]</span>
+<span id="cb25-735"><a href="#cb25-735" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-736"><a href="#cb25-736" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-737"><a href="#cb25-737" aria-hidden="true" tabindex="-1"></a>    selected_data <span class="ot">&lt;-</span> coords <span class="sc">%&gt;%</span></span>
+<span id="cb25-738"><a href="#cb25-738" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(name <span class="sc">==</span> input<span class="sc">$</span>selected_country)</span>
+<span id="cb25-739"><a href="#cb25-739" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-740"><a href="#cb25-740" aria-hidden="true" tabindex="-1"></a>    <span class="fu">leafletProxy</span>(<span class="st">"prop_map"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-741"><a href="#cb25-741" aria-hidden="true" tabindex="-1"></a>      <span class="fu">setView</span>(<span class="at">lng =</span> selected_data<span class="sc">$</span>lon, <span class="at">lat =</span> selected_data<span class="sc">$</span>lat, <span class="at">zoom =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-742"><a href="#cb25-742" aria-hidden="true" tabindex="-1"></a>      <span class="fu">clearPopups</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-743"><a href="#cb25-743" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addPopups</span>(</span>
+<span id="cb25-744"><a href="#cb25-744" aria-hidden="true" tabindex="-1"></a>        <span class="at">lng =</span> selected_data<span class="sc">$</span>lon,</span>
+<span id="cb25-745"><a href="#cb25-745" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> selected_data<span class="sc">$</span>lat,</span>
+<span id="cb25-746"><a href="#cb25-746" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup =</span> <span class="fu">paste0</span>(</span>
+<span id="cb25-747"><a href="#cb25-747" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Country:&lt;/b&gt; "</span>, selected_data<span class="sc">$</span>name, <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-748"><a href="#cb25-748" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Happiness Score:&lt;/b&gt; "</span>, <span class="fu">round</span>(selected_data<span class="sc">$</span>ladder_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-749"><a href="#cb25-749" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Economy:&lt;/b&gt; "</span>, <span class="fu">round</span>(selected_data<span class="sc">$</span>economy_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-750"><a href="#cb25-750" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Life Expectancy:&lt;/b&gt; "</span>, <span class="fu">round</span>(selected_data<span class="sc">$</span>lifeexpectancy_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-751"><a href="#cb25-751" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Freedom:&lt;/b&gt; "</span>, <span class="fu">round</span>(selected_data<span class="sc">$</span>freedom_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-752"><a href="#cb25-752" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Region:&lt;/b&gt; "</span>, selected_data<span class="sc">$</span>region</span>
+<span id="cb25-753"><a href="#cb25-753" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb25-754"><a href="#cb25-754" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-755"><a href="#cb25-755" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-756"><a href="#cb25-756" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-757"><a href="#cb25-757" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-758"><a href="#cb25-758" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the app</span></span>
+<span id="cb25-759"><a href="#cb25-759" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span>
+<span id="cb25-760"><a href="#cb25-760" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-761"><a href="#cb25-761" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-762"><a href="#cb25-762" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-765"><a href="#cb25-765" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-766"><a href="#cb25-766" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb25-767"><a href="#cb25-767" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb25-768"><a href="#cb25-768" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb25-769"><a href="#cb25-769" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb25-770"><a href="#cb25-770" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb25-771"><a href="#cb25-771" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb25-772"><a href="#cb25-772" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb25-773"><a href="#cb25-773" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-774"><a href="#cb25-774" aria-hidden="true" tabindex="-1"></a><span class="co"># Load and prepare data</span></span>
+<span id="cb25-775"><a href="#cb25-775" aria-hidden="true" tabindex="-1"></a>happiness <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/world_happiness.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-776"><a href="#cb25-776" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.numeric</span>(year)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-777"><a href="#cb25-777" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="dv">2014</span><span class="sc">:</span><span class="dv">2024</span>)</span>
+<span id="cb25-778"><a href="#cb25-778" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-779"><a href="#cb25-779" aria-hidden="true" tabindex="-1"></a>world <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">"medium"</span>, <span class="at">returnclass =</span> <span class="st">"sf"</span>)</span>
+<span id="cb25-780"><a href="#cb25-780" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-781"><a href="#cb25-781" aria-hidden="true" tabindex="-1"></a>world_happy <span class="ot">&lt;-</span> world <span class="sc">%&gt;%</span></span>
+<span id="cb25-782"><a href="#cb25-782" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(happiness, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"name"</span> <span class="ot">=</span> <span class="st">"country"</span>))</span>
+<span id="cb25-783"><a href="#cb25-783" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-784"><a href="#cb25-784" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb25-785"><a href="#cb25-785" aria-hidden="true" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">"🌍 World Happiness Explorer"</span>),</span>
+<span id="cb25-786"><a href="#cb25-786" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb25-787"><a href="#cb25-787" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
+<span id="cb25-788"><a href="#cb25-788" aria-hidden="true" tabindex="-1"></a>      <span class="fu">selectInput</span>(<span class="st">"selected_year"</span>, <span class="st">"Select Year:"</span>, <span class="at">choices =</span> <span class="fu">sort</span>(<span class="fu">unique</span>(world_happy<span class="sc">$</span>year)), <span class="at">selected =</span> <span class="dv">2024</span>),</span>
+<span id="cb25-789"><a href="#cb25-789" aria-hidden="true" tabindex="-1"></a>      <span class="fu">selectInput</span>(<span class="st">"selected_country"</span>, <span class="st">"Search Country:"</span>, <span class="at">choices =</span> <span class="cn">NULL</span>)</span>
+<span id="cb25-790"><a href="#cb25-790" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb25-791"><a href="#cb25-791" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb25-792"><a href="#cb25-792" aria-hidden="true" tabindex="-1"></a>      <span class="fu">fluidRow</span>(</span>
+<span id="cb25-793"><a href="#cb25-793" aria-hidden="true" tabindex="-1"></a>        <span class="fu">column</span>(<span class="dv">6</span>,</span>
+<span id="cb25-794"><a href="#cb25-794" aria-hidden="true" tabindex="-1"></a>               <span class="fu">h4</span>(<span class="st">"Choropleth Map"</span>),</span>
+<span id="cb25-795"><a href="#cb25-795" aria-hidden="true" tabindex="-1"></a>               <span class="fu">tmapOutput</span>(<span class="st">"choropleth_map"</span>, <span class="at">height =</span> <span class="st">"500px"</span>)</span>
+<span id="cb25-796"><a href="#cb25-796" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb25-797"><a href="#cb25-797" aria-hidden="true" tabindex="-1"></a>        <span class="fu">column</span>(<span class="dv">6</span>,</span>
+<span id="cb25-798"><a href="#cb25-798" aria-hidden="true" tabindex="-1"></a>               <span class="fu">h4</span>(<span class="st">"Proportional Symbol Map"</span>),</span>
+<span id="cb25-799"><a href="#cb25-799" aria-hidden="true" tabindex="-1"></a>               <span class="fu">leafletOutput</span>(<span class="st">"prop_map"</span>, <span class="at">height =</span> <span class="st">"500px"</span>)</span>
+<span id="cb25-800"><a href="#cb25-800" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb25-801"><a href="#cb25-801" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-802"><a href="#cb25-802" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-803"><a href="#cb25-803" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-804"><a href="#cb25-804" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-805"><a href="#cb25-805" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-806"><a href="#cb25-806" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb25-807"><a href="#cb25-807" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-808"><a href="#cb25-808" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Reactive filtered data by year</span></span>
+<span id="cb25-809"><a href="#cb25-809" aria-hidden="true" tabindex="-1"></a>  filtered_data <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb25-810"><a href="#cb25-810" aria-hidden="true" tabindex="-1"></a>    world_happy <span class="sc">%&gt;%</span></span>
+<span id="cb25-811"><a href="#cb25-811" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(year <span class="sc">==</span> input<span class="sc">$</span>selected_year <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(ladder_score))</span>
+<span id="cb25-812"><a href="#cb25-812" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-813"><a href="#cb25-813" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-814"><a href="#cb25-814" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Update dropdown</span></span>
+<span id="cb25-815"><a href="#cb25-815" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observe</span>({</span>
+<span id="cb25-816"><a href="#cb25-816" aria-hidden="true" tabindex="-1"></a>    <span class="fu">updateSelectInput</span>(session, <span class="st">"selected_country"</span>,</span>
+<span id="cb25-817"><a href="#cb25-817" aria-hidden="true" tabindex="-1"></a>                      <span class="at">choices =</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">filtered_data</span>()<span class="sc">$</span>name)))</span>
+<span id="cb25-818"><a href="#cb25-818" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-819"><a href="#cb25-819" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-820"><a href="#cb25-820" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Choropleth Map - Zoom to selected country</span></span>
+<span id="cb25-821"><a href="#cb25-821" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>choropleth_map <span class="ot">&lt;-</span> <span class="fu">renderTmap</span>({</span>
+<span id="cb25-822"><a href="#cb25-822" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tmap_mode</span>(<span class="st">"view"</span>)</span>
+<span id="cb25-823"><a href="#cb25-823" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-824"><a href="#cb25-824" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Try zooming if country is selected</span></span>
+<span id="cb25-825"><a href="#cb25-825" aria-hidden="true" tabindex="-1"></a>    selected_geom <span class="ot">&lt;-</span> <span class="fu">filtered_data</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(name <span class="sc">==</span> input<span class="sc">$</span>selected_country)</span>
+<span id="cb25-826"><a href="#cb25-826" aria-hidden="true" tabindex="-1"></a>    bbox_zoom <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">nrow</span>(selected_geom) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">st_bbox</span>(selected_geom) <span class="cf">else</span> <span class="fu">st_bbox</span>(<span class="fu">filtered_data</span>())</span>
+<span id="cb25-827"><a href="#cb25-827" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-828"><a href="#cb25-828" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_shape</span>(<span class="fu">filtered_data</span>(), <span class="at">bbox =</span> bbox_zoom) <span class="sc">+</span></span>
+<span id="cb25-829"><a href="#cb25-829" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_polygons</span>(</span>
+<span id="cb25-830"><a href="#cb25-830" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"ladder_score"</span>,</span>
+<span id="cb25-831"><a href="#cb25-831" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette =</span> <span class="st">"YlGnBu"</span>,</span>
+<span id="cb25-832"><a href="#cb25-832" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="st">"name"</span>,</span>
+<span id="cb25-833"><a href="#cb25-833" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup.vars =</span> <span class="fu">c</span>(<span class="st">"Country"</span> <span class="ot">=</span> <span class="st">"name"</span>, <span class="st">"Happiness"</span> <span class="ot">=</span> <span class="st">"ladder_score"</span>),</span>
+<span id="cb25-834"><a href="#cb25-834" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Happiness Score:"</span>, input<span class="sc">$</span>selected_year)</span>
+<span id="cb25-835"><a href="#cb25-835" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-836"><a href="#cb25-836" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-837"><a href="#cb25-837" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-838"><a href="#cb25-838" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Proportional Symbol Map</span></span>
+<span id="cb25-839"><a href="#cb25-839" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>prop_map <span class="ot">&lt;-</span> <span class="fu">renderLeaflet</span>({</span>
+<span id="cb25-840"><a href="#cb25-840" aria-hidden="true" tabindex="-1"></a>    centroids <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(<span class="fu">filtered_data</span>())</span>
+<span id="cb25-841"><a href="#cb25-841" aria-hidden="true" tabindex="-1"></a>    coords <span class="ot">&lt;-</span> centroids <span class="sc">%&gt;%</span></span>
+<span id="cb25-842"><a href="#cb25-842" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb25-843"><a href="#cb25-843" aria-hidden="true" tabindex="-1"></a>        <span class="at">lon =</span> <span class="fu">st_coordinates</span>(geometry)[, <span class="dv">1</span>],</span>
+<span id="cb25-844"><a href="#cb25-844" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> <span class="fu">st_coordinates</span>(geometry)[, <span class="dv">2</span>]</span>
+<span id="cb25-845"><a href="#cb25-845" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-846"><a href="#cb25-846" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-847"><a href="#cb25-847" aria-hidden="true" tabindex="-1"></a>    <span class="fu">leaflet</span>(coords) <span class="sc">%&gt;%</span></span>
+<span id="cb25-848"><a href="#cb25-848" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Esri.WorldGrayCanvas) <span class="sc">%&gt;%</span></span>
+<span id="cb25-849"><a href="#cb25-849" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addCircleMarkers</span>(</span>
+<span id="cb25-850"><a href="#cb25-850" aria-hidden="true" tabindex="-1"></a>        <span class="at">lng =</span> <span class="sc">~</span>lon,</span>
+<span id="cb25-851"><a href="#cb25-851" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> <span class="sc">~</span>lat,</span>
+<span id="cb25-852"><a href="#cb25-852" aria-hidden="true" tabindex="-1"></a>        <span class="at">radius =</span> <span class="sc">~</span>ladder_score <span class="sc">*</span> <span class="dv">3</span>,</span>
+<span id="cb25-853"><a href="#cb25-853" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb25-854"><a href="#cb25-854" aria-hidden="true" tabindex="-1"></a>        <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">colorNumeric</span>(<span class="st">"YlGnBu"</span>, <span class="at">domain =</span> coords<span class="sc">$</span>ladder_score)(ladder_score),</span>
+<span id="cb25-855"><a href="#cb25-855" aria-hidden="true" tabindex="-1"></a>        <span class="at">fillOpacity =</span> <span class="fl">0.6</span>,</span>
+<span id="cb25-856"><a href="#cb25-856" aria-hidden="true" tabindex="-1"></a>        <span class="at">stroke =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-857"><a href="#cb25-857" aria-hidden="true" tabindex="-1"></a>        <span class="at">weight =</span> <span class="fl">0.5</span>,</span>
+<span id="cb25-858"><a href="#cb25-858" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup =</span> <span class="sc">~</span><span class="fu">paste0</span>(</span>
+<span id="cb25-859"><a href="#cb25-859" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Country:&lt;/b&gt; "</span>, name, <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-860"><a href="#cb25-860" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Happiness Score:&lt;/b&gt; "</span>, <span class="fu">round</span>(ladder_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-861"><a href="#cb25-861" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Economy:&lt;/b&gt; "</span>, <span class="fu">round</span>(economy_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-862"><a href="#cb25-862" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Life Expectancy:&lt;/b&gt; "</span>, <span class="fu">round</span>(lifeexpectancy_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-863"><a href="#cb25-863" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Freedom:&lt;/b&gt; "</span>, <span class="fu">round</span>(freedom_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-864"><a href="#cb25-864" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Region:&lt;/b&gt; "</span>, region</span>
+<span id="cb25-865"><a href="#cb25-865" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb25-866"><a href="#cb25-866" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-867"><a href="#cb25-867" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addLegend</span>(</span>
+<span id="cb25-868"><a href="#cb25-868" aria-hidden="true" tabindex="-1"></a>        <span class="st">"bottomright"</span>,</span>
+<span id="cb25-869"><a href="#cb25-869" aria-hidden="true" tabindex="-1"></a>        <span class="at">pal =</span> <span class="fu">colorNumeric</span>(<span class="st">"YlGnBu"</span>, <span class="at">domain =</span> coords<span class="sc">$</span>ladder_score),</span>
+<span id="cb25-870"><a href="#cb25-870" aria-hidden="true" tabindex="-1"></a>        <span class="at">values =</span> <span class="sc">~</span>ladder_score,</span>
+<span id="cb25-871"><a href="#cb25-871" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Happiness Score"</span>,</span>
+<span id="cb25-872"><a href="#cb25-872" aria-hidden="true" tabindex="-1"></a>        <span class="at">opacity =</span> <span class="dv">1</span></span>
+<span id="cb25-873"><a href="#cb25-873" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-874"><a href="#cb25-874" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-875"><a href="#cb25-875" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-876"><a href="#cb25-876" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Auto-zoom on dropdown change</span></span>
+<span id="cb25-877"><a href="#cb25-877" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>selected_country, {</span>
+<span id="cb25-878"><a href="#cb25-878" aria-hidden="true" tabindex="-1"></a>    centroids <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(<span class="fu">filtered_data</span>())</span>
+<span id="cb25-879"><a href="#cb25-879" aria-hidden="true" tabindex="-1"></a>    coords <span class="ot">&lt;-</span> centroids <span class="sc">%&gt;%</span></span>
+<span id="cb25-880"><a href="#cb25-880" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb25-881"><a href="#cb25-881" aria-hidden="true" tabindex="-1"></a>        <span class="at">lon =</span> <span class="fu">st_coordinates</span>(geometry)[, <span class="dv">1</span>],</span>
+<span id="cb25-882"><a href="#cb25-882" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> <span class="fu">st_coordinates</span>(geometry)[, <span class="dv">2</span>]</span>
+<span id="cb25-883"><a href="#cb25-883" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-884"><a href="#cb25-884" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-885"><a href="#cb25-885" aria-hidden="true" tabindex="-1"></a>    selected_data <span class="ot">&lt;-</span> coords <span class="sc">%&gt;%</span> <span class="fu">filter</span>(name <span class="sc">==</span> input<span class="sc">$</span>selected_country)</span>
+<span id="cb25-886"><a href="#cb25-886" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-887"><a href="#cb25-887" aria-hidden="true" tabindex="-1"></a>    <span class="fu">leafletProxy</span>(<span class="st">"prop_map"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-888"><a href="#cb25-888" aria-hidden="true" tabindex="-1"></a>      <span class="fu">setView</span>(<span class="at">lng =</span> selected_data<span class="sc">$</span>lon, <span class="at">lat =</span> selected_data<span class="sc">$</span>lat, <span class="at">zoom =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-889"><a href="#cb25-889" aria-hidden="true" tabindex="-1"></a>      <span class="fu">clearPopups</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-890"><a href="#cb25-890" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addPopups</span>(</span>
+<span id="cb25-891"><a href="#cb25-891" aria-hidden="true" tabindex="-1"></a>        <span class="at">lng =</span> selected_data<span class="sc">$</span>lon,</span>
+<span id="cb25-892"><a href="#cb25-892" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> selected_data<span class="sc">$</span>lat,</span>
+<span id="cb25-893"><a href="#cb25-893" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup =</span> <span class="fu">paste0</span>(</span>
+<span id="cb25-894"><a href="#cb25-894" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Country:&lt;/b&gt; "</span>, selected_data<span class="sc">$</span>name, <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-895"><a href="#cb25-895" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Happiness Score:&lt;/b&gt; "</span>, <span class="fu">round</span>(selected_data<span class="sc">$</span>ladder_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-896"><a href="#cb25-896" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Economy:&lt;/b&gt; "</span>, <span class="fu">round</span>(selected_data<span class="sc">$</span>economy_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-897"><a href="#cb25-897" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Life Expectancy:&lt;/b&gt; "</span>, <span class="fu">round</span>(selected_data<span class="sc">$</span>lifeexpectancy_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-898"><a href="#cb25-898" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Freedom:&lt;/b&gt; "</span>, <span class="fu">round</span>(selected_data<span class="sc">$</span>freedom_score, <span class="dv">2</span>), <span class="st">"&lt;br/&gt;"</span>,</span>
+<span id="cb25-899"><a href="#cb25-899" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&lt;b&gt;Region:&lt;/b&gt; "</span>, selected_data<span class="sc">$</span>region</span>
+<span id="cb25-900"><a href="#cb25-900" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb25-901"><a href="#cb25-901" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb25-902"><a href="#cb25-902" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-903"><a href="#cb25-903" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-904"><a href="#cb25-904" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Auto-update dropdown when user clicks map</span></span>
+<span id="cb25-905"><a href="#cb25-905" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>choropleth_map_shape_click, {</span>
+<span id="cb25-906"><a href="#cb25-906" aria-hidden="true" tabindex="-1"></a>    clicked_country <span class="ot">&lt;-</span> input<span class="sc">$</span>choropleth_map_shape_click<span class="sc">$</span>id</span>
+<span id="cb25-907"><a href="#cb25-907" aria-hidden="true" tabindex="-1"></a>    <span class="fu">updateSelectInput</span>(session, <span class="st">"selected_country"</span>, <span class="at">selected =</span> clicked_country)</span>
+<span id="cb25-908"><a href="#cb25-908" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb25-909"><a href="#cb25-909" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-910"><a href="#cb25-910" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-911"><a href="#cb25-911" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span>
+<span id="cb25-912"><a href="#cb25-912" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-913"><a href="#cb25-913" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-914"><a href="#cb25-914" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
