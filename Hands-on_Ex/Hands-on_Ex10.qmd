@@ -481,7 +481,10 @@ reactable(
 ::: callout-tip
 ## Key takeaways
 
--   XXXX
+-   Learned how to create bullet charts and sparklines with `ggplot2`
+-   Build static dashboards with `gt` and `gtExtras`
+-   Build interactive dashboards with `reactable` + `reactablefmtr`
+-   Use data preparation techniques including list-columns, `group_by()` and `joins`.
 :::
 
 ### 10.10 Further exploration
