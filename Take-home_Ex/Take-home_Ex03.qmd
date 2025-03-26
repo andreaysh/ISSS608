@@ -118,6 +118,13 @@ The following preprocessing checks were conducted as part of data preparation:
 -   Checked for missing values using `colSums(is.na())`
 :::
 
+::: callout-tip
+## Data scale review
+
+-   The column values are already **normalized**, ranging consistently between **1 and 10** across countries.
+-   No further standardization/ transformation is required, as the scale is uniform and interpretable for spatial analysis.
+:::
+
 ## 3. Geospatial analysis (Choropleth Map)
 
 ### 3.1 To load world country boundaries
@@ -990,13 +997,9 @@ The plot is split into **four quadrants**, each representing a different spatial
 
 -   **Low-Low (LL) -** **Bottom-left quadrant:** countries with low happiness surrounded by similarly unhappy neighbors.
 
-<!-- -->
+-   **High-Low (HL) - Bottom-right quadrant:** — countries with high happiness surrounded by low-scoring neighbors (potential outliers).
 
--    **High-Low (HL) - Bottom-right quadrant:** — countries with high happiness surrounded by low-scoring neighbors (potential outliers).
-
-<!-- -->
-
--    **Low-High (LH) - Top-left:** countries with low happiness surrounded by happy neighbors (also outliers).
+-   **Low-High (LH) - Top-left:** countries with low happiness surrounded by happy neighbors (also outliers).
 
 ::: callout-tip
 Note: Scatter plot provides an intuitive way to detect potential spatial clusters/ anomalies.
@@ -1019,3 +1022,269 @@ moran.plot(world_2024$ladder_score, lw,
            zero.policy = TRUE)
 
 ```
+
+### 12.2 Preparing LISA cluster class for Word Happiness (2024)
+
+Before generating the LISA cluster map, it is important to center both the spatially lagged variable and the local Moran’s I values. This step allows us to identify meaningful spatial patterns by determining whether a country’s happiness score — and the scores of its neighbors — are above or below the global mean.
+
+By doing so, we can categorize each country into one of the four LISA cluster types **(High-High, Low-Low, High-Low, Low-High)**. These classifications are only meaningful when assessed relative to the dataset’s overall distribution, making centering a crucial step for accurate spatial interpretation.
+
+```{r}
+# Load required library
+library(spdep)
+
+# Step 1: Filter 2024 data
+world_2024 <- world_happy %>% 
+  filter(year == 2024 & !is.na(ladder_score))
+
+# Step 2: Create spatial weights
+coords <- st_coordinates(st_centroid(world_2024))
+nb <- poly2nb(world_2024, queen = TRUE)
+lw <- nb2listw(nb, style = "W", zero.policy = TRUE)
+
+# Step 3: Calculate local Moran's I
+localMI <- localmoran(world_2024$ladder_score, lw, zero.policy = TRUE)
+
+# Step 4: Spatial lag of the variable
+world_2024$lag_score <- lag.listw(lw, world_2024$ladder_score)
+
+# Step 5: Center spatial lag & local Moran's I
+DV <- world_2024$lag_score - mean(world_2024$lag_score, na.rm = TRUE)
+LM_I <- localMI[, 1] - mean(localMI[, 1], na.rm = TRUE)
+
+# Step 6: Set significance threshold
+signif <- 0.05
+
+# Step 7: Create quadrant classification
+quadrant <- vector(mode = "numeric", length = nrow(localMI))
+quadrant[DV < 0 & LM_I > 0] <- 1   # Low-Low
+quadrant[DV > 0 & LM_I < 0] <- 2   # High-Low
+quadrant[DV < 0 & LM_I < 0] <- 3   # Low-High
+quadrant[DV > 0 & LM_I > 0] <- 4   # High-High
+quadrant[localMI[, 5] > signif] <- 0  # Not significant
+
+# Step 8: Assign quadrant to data
+world_2024$quadrant <- quadrant
+
+```
+
+### 12.3 Plotting the LISA Cluster Map
+
+The LISA Cluster Map provides a powerful visualization of localized spatial autocorrelation in happiness scores for 2024. By computing the *local Moran’s I* for each country, we can identify areas where similar values cluster together (e.g., high-scoring countries surrounded by other high scorers), or where outliers emerge (e.g., a low-scoring country surrounded by high scorers).
+
+Each country is classified into one of five categories based on the direction and significance of the spatial relationship:
+
+| Category | Description | Statistically significant? | Interpretation |
+|-------------|-----------------------|--------------|-----------------------|
+| HH | High with high neighbours | Yes | Cluster (hot spot) |
+| LL | Low with low neighbours | Yes | Cluster (cold spot) |
+| HL | High with low neighbours | Yes | Spatial outlier |
+| LH | Low with high neighbours | Yes | Spatial outlier |
+| Insignificant | No strong autocorrelation | No | Insignifcant |
+
+```{r}
+# Load libraries
+library(tidyverse); library(sf); library(spdep); library(tmap); library(readr); library(rnaturalearth)
+
+# Load and prepare data
+happiness <- read_csv("data/world_happiness.csv") %>%
+  mutate(year = as.numeric(year)) %>%
+  filter(year == 2024 & !is.na(ladder_score))
+
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+# Join spatial and happiness data
+world_2024 <- world %>%
+  left_join(happiness, by = c("name" = "country")) %>%
+  filter(!is.na(ladder_score))
+
+# Construct spatial weights
+nb <- poly2nb(world_2024, queen = TRUE)
+lw <- nb2listw(nb, style = "W", zero.policy = TRUE)
+
+# Compute local Moran's I
+localMI <- localmoran(world_2024$ladder_score, lw, zero.policy = TRUE)
+
+# Prepare LISA categories
+quadrant <- vector(mode = "numeric", length = nrow(localMI))
+lagged_score <- lag.listw(lw, world_2024$ladder_score)
+centered_lag <- lagged_score - mean(lagged_score)
+centered_localMI <- localMI[, 1] - mean(localMI[, 1])
+significance_level <- 0.05
+
+# Define cluster categories
+quadrant[centered_lag < 0 & centered_localMI > 0] <- 1  # Low-Low
+quadrant[centered_lag > 0 & centered_localMI < 0] <- 2  # Low-High
+quadrant[centered_lag < 0 & centered_localMI < 0] <- 3  # High-Low
+quadrant[centered_lag > 0 & centered_localMI > 0] <- 4  # High-High
+quadrant[localMI[, 5] > significance_level] <- 0        # Not significant
+
+# Add to spatial data
+world_2024$quadrant <- quadrant
+world_2024$cluster_label <- factor(
+  quadrant,
+  levels = 0:4,
+  labels = c("Insignificant", "Low-Low", "Low-High", "High-Low", "High-High")
+)
+
+# Plot the interactive LISA cluster map using tmap
+tmap_mode("view")
+
+tm_shape(world_2024) +
+  tm_fill(
+    col = "cluster_label",
+    palette = c(
+      "Insignificant" = "#ffffcc",
+      "Low-Low" = "blue",
+      "Low-High" = "#78c679",
+      "High-Low" = "#c2e699",
+      "High-High" = "red"
+    ),
+    title = "LISA Cluster (2024)",
+    style = "cat",
+    id = "admin",  # <<-- This makes popups/hover show country names
+    popup.vars = c(
+      "Country" = "admin",
+      "Cluster Type" = "cluster_label",
+      "Happiness Score" = "ladder_score"
+    )
+  ) +
+  tm_borders(alpha = 0.4) +
+  tm_layout(
+    frame = FALSE,
+    legend.outside = TRUE
+  )
+
+```
+
+### 12.4 User interface design - Combining Moran Scattterplot with LISA map
+
+
+```{r}
+# Load libraries
+library(shiny); library(tidyverse); library(sf); library(spdep); library(tmap); library(readr); library(rnaturalearth)
+
+# Load and prepare data
+happiness <- read_csv("data/world_happiness.csv") %>%
+  mutate(year = as.numeric(year)) %>%
+  filter(!is.na(ladder_score))
+
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+# UI
+ui <- navbarPage("World Happiness Explorer",
+
+  tabPanel("Spatial Clustering",
+    fluidPage(
+      titlePanel("🌐 Spatial Clustering Analysis"),
+
+      sidebarLayout(
+        sidebarPanel(
+          selectInput("selected_year", "Select Year:",
+                      choices = sort(unique(happiness$year)),
+                      selected = 2024),
+          hr(),
+          h4("Chart Interpretation"),
+          helpText("The Moran scatterplot shows how each country's happiness score correlates with its neighbors'."),
+          helpText("The LISA Cluster map highlights statistically significant spatial clusters:",
+                   "\n- High-High: Happy countries near other happy countries",
+                   "\n- Low-Low: Unhappy countries near unhappy neighbors",
+                   "\n- High-Low / Low-High: Potential outliers",
+                   "\n- Insignificant: No strong spatial pattern")
+        ),
+
+        mainPanel(
+          fluidRow(
+            column(6, plotOutput("moran_plot", height = "500px")),
+            column(6, tmapOutput("lisa_map", height = "500px"))
+          )
+        )
+      )
+    )
+  )
+)
+
+# Server
+server <- function(input, output, session) {
+
+  world_data <- reactive({
+    data <- happiness %>%
+      filter(year == input$selected_year)
+
+    world %>%
+      left_join(data, by = c("name" = "country")) %>%
+      filter(!is.na(ladder_score))
+  })
+
+  # Spatial weights and local moran
+  local_moran <- reactive({
+    data <- world_data()
+    nb <- poly2nb(data, queen = TRUE)
+    lw <- nb2listw(nb, style = "W", zero.policy = TRUE)
+    localMI <- localmoran(data$ladder_score, lw, zero.policy = TRUE)
+
+    lagged_score <- lag.listw(lw, data$ladder_score)
+    centered_lag <- lagged_score - mean(lagged_score)
+    centered_localMI <- localMI[, 1] - mean(localMI[, 1])
+
+    quadrant <- vector(mode = "numeric", length = nrow(data))
+    quadrant[centered_lag < 0 & centered_localMI > 0] <- 1  # Low-Low
+    quadrant[centered_lag > 0 & centered_localMI < 0] <- 2  # Low-High
+    quadrant[centered_lag < 0 & centered_localMI < 0] <- 3  # High-Low
+    quadrant[centered_lag > 0 & centered_localMI > 0] <- 4  # High-High
+    quadrant[localMI[, 5] > 0.05] <- 0                      # Not significant
+
+    data$quadrant <- quadrant
+    data$cluster_label <- factor(
+      quadrant,
+      levels = 0:4,
+      labels = c("Insignificant", "Low-Low", "Low-High", "High-Low", "High-High")
+    )
+
+    list(data = data, lw = lw)
+  })
+
+  # Moran plot
+  output$moran_plot <- renderPlot({
+    dat <- local_moran()
+    moran.plot(dat$data$ladder_score, dat$lw,
+               labels = dat$data$name,
+               xlab = paste("Happiness Score (", input$selected_year, ")", sep = ""),
+               ylab = "Spatially Lagged Happiness Score",
+               zero.policy = TRUE)
+  })
+
+  # LISA map
+  output$lisa_map <- renderTmap({
+    tmap_mode("view")
+
+    tm_shape(local_moran()$data) +
+      tm_fill(
+        col = "cluster_label",
+        palette = c(
+          "Insignificant" = "#ffffcc",
+          "Low-Low" = "blue",
+          "Low-High" = "#78c679",
+          "High-Low" = "#c2e699",
+          "High-High" = "red"
+        ),
+        title = paste("LISA Cluster (", input$selected_year, ")", sep = ""),
+        style = "cat",
+        id = "admin",
+        popup.vars = c(
+          "Country" = "admin",
+          "Cluster Type" = "cluster_label",
+          "Happiness Score" = "ladder_score"
+        )
+      ) +
+      tm_borders(alpha = 0.4) +
+      tm_layout(frame = FALSE, legend.outside = TRUE)
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+
+```
+
+
