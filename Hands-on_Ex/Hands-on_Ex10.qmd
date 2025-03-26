@@ -513,7 +513,9 @@ sales_summary <- report %>%
 # Step 2: Add performance KPI based on average
 avg_threshold <- mean(sales_summary$Average)
 sales_summary$Status <- ifelse(
-  sales_summary$Average >= avg_threshold, "Good", "Low"
+  sales_summary$Average >= avg_threshold,
+  "<span style='color:green; font-weight:bold;'>Good</span>",
+  "<span style='color:red; font-weight:bold;'>Low</span>"
 )
 
 # Step 3: Build the enhanced reactable dashboard
@@ -532,7 +534,7 @@ reactable(
     
     `Monthly Sales` = colDef(
       name = "Monthly Trend",
-      maxWidth = 150,
+      maxWidth = 5550,
       align = "center",
       cell = react_sparkbar(
         data = sales_summary,
@@ -582,7 +584,7 @@ reactable(
       name = "Performance",
       maxWidth = 150,
       align = "center",
-      style = list(fontWeight = "bold", fontSize = "12px"),
+      html = TRUE,
       sortable = FALSE
     )
   ),
@@ -616,7 +618,9 @@ sales_summary <- report %>%
 # Step 2: Add performance KPI based on average
 avg_threshold <- mean(sales_summary$Average)
 sales_summary$Status <- ifelse(
-  sales_summary$Average >= avg_threshold, "Good", "Low"
+  sales_summary$Average >= avg_threshold,
+  "<span style='color:green; font-weight:bold;'>Good</span>",
+  "<span style='color:red; font-weight:bold;'>Low</span>"
 )
 
 # Step 3: Build the enhanced reactable dashboard
@@ -635,7 +639,7 @@ reactable(
     
     `Monthly Sales` = colDef(
       name = "Monthly Trend",
-      maxWidth = 150,
+      maxWidth = 5550,
       align = "center",
       cell = react_sparkbar(
         data = sales_summary,
@@ -685,7 +689,7 @@ reactable(
       name = "Performance",
       maxWidth = 150,
       align = "center",
-      style = list(fontWeight = "bold", fontSize = "12px"),
+      html = TRUE,
       sortable = FALSE
     )
   ),
