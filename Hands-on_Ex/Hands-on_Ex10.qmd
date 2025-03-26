@@ -487,7 +487,7 @@ reactable(
 -   Use data preparation techniques including list-columns, `group_by()` and `joins`.
 :::
 
-### 10.10 Further exploration
+### 10.10 Further exploration 1
 Using the **Coffee Chain** dataset, I explored how sales performance varies across different products by month. The goal was to create an **interactive dashboard** using the `reactable` and `reactablefmtr` packages that not only visualizes monthly sales trends (via sparkbars) but also highlights key performance metrics such as **minimum, maximum, average, and total sales**.
 
 Additionally, I introduced a simple **KPI-style performance indicator** to classify products as "Good" or "Low" performers based on their average sales.
@@ -703,7 +703,7 @@ reactable(
 
 ::: 
 
-### 10.11 Further exploration
+### 10.11 Further exploration 2
 
 To enhance interpretability of the static dashboard, I calculated the percentage difference between actual and target sales, using conditional formatting to clearly distinguish over- and under-performance (green for positive, red for negative). 
 
