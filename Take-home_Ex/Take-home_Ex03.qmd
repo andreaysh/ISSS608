@@ -205,10 +205,7 @@ The code below creates a faceted choropleth map to visualise global happiness sc
 
 ```{r fig.width=16, fig.height=20}
 # Load required libraries
-library(tidyverse)
-library(tmap)
-library(sf)
-library(rnaturalearth)
+library(tidyverse); library(tmap); library(sf); library(rnaturalearth)
 
 # Set style and plotting mode
 tmap_style("white")
@@ -264,10 +261,7 @@ The code below produces an animated choropleth map using `ggplot2`, `gganimate`,
 :::
 
 ```{r}
-library(tidyverse)
-library(sf)
-library(gganimate)
-library(rnaturalearth)
+library(tidyverse); library(sf); library(gganimate); library(rnaturalearth)
 
 # Load base world map
 world <- ne_countries(scale = "medium", returnclass = "sf") %>%
@@ -469,8 +463,7 @@ In this module, I developed an interactive Shiny application that allows users t
 ## Code()
 
 ```{r}
-library(shiny)
-library(tidyverse); library(readr); library(leaflet)
+library(shiny); library(tidyverse); library(readr); library(leaflet)
 library(sf); library(rnaturalearth); library(rnaturalearthdata)
 
 # Load and prepare data
@@ -572,166 +565,26 @@ shinyApp(ui, server)
 
 This module presents an interactive Shiny application with two coordinated maps to explore World Happiness data. The **Choropleth Map** allows users to select a year and view global happiness patterns using a color gradient. In contrast, the **Proportional Symbol Map** lets users search for a country, zoom in automatically, and view detailed indicators such as economy, life expectancy, and freedom. Circle size and color reflect the happiness score.
 
-After considering various approaches, we chose to implement both map types as they serve different purposes:
+After considering various approaches, I chose to implement both map types as they serve different purposes:
 
 -   the choropleth reveals macro-level trends, while
 
 -   the proportional map provides micro-level insights.
 
+::: callout-tip
+Note: This application includes smart interactivity features. Selecting a country from the dropdown automatically **zooms both maps** to the selected country for focused viewing. Conversely, **clicking a country** on the choropleth map will **update the dropdown menu** —ensuring two-way interaction. These features improve usability by making geographic exploration more intuitive and dynamic.
+:::
+
+::: panel-tabset
+## UI()
+
+![](/images/Pic20.jpg)
+
+## Code()
 
 ```{r}
 # Load libraries
-library(shiny)
-library(tidyverse)
-library(sf)
-library(tmap)
-library(leaflet)
-library(rnaturalearth)
-
-# Load and prepare data
-happiness <- read_csv("data/world_happiness.csv") %>%
-  mutate(year = as.numeric(year)) %>%
-  filter(year %in% 2014:2024)
-
-world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
-
-world_happy <- world %>%
-  left_join(happiness, by = c("name" = "country"))
-
-ui <- fluidPage(
-  titlePanel("🌍 World Happiness Explorer"),
-  
-  sidebarLayout(
-    sidebarPanel(
-      selectInput("selected_year", "Select Year:", choices = sort(unique(world_happy$year)), selected = 2024),
-      selectInput("selected_country", "Search Country:", choices = NULL)
-    ),
-    
-    mainPanel(
-      fluidRow(
-        column(6,
-               h4("Choropleth Map"),
-               tmapOutput("choropleth_map", height = "500px")
-        ),
-        column(6,
-               h4("Proportional Symbol Map"),
-               leafletOutput("prop_map", height = "500px")
-        )
-      )
-    )
-  )
-)
-
-# Server
-server <- function(input, output, session) {
-  
-  # Reactive filtered data by year
-  filtered_data <- reactive({
-    world_happy %>%
-      filter(year == input$selected_year & !is.na(ladder_score))
-  })
-  
-  # Update country list based on filtered data
-  observe({
-    updateSelectInput(session, "selected_country",
-                      choices = sort(unique(filtered_data()$name)))
-  })
-  
-  # Choropleth Map
-  output$choropleth_map <- renderTmap({
-    tmap_mode("view")
-    tm_shape(filtered_data()) +
-      tm_polygons(
-        col = "ladder_score",
-        palette = "YlGnBu",
-        id = "name",
-        popup.vars = c("Country" = "name", "Happiness" = "ladder_score"),
-        title = paste("Happiness Score:", input$selected_year)
-      )
-  })
-  
-  # Proportional Symbol Map
-  output$prop_map <- renderLeaflet({
-    # Convert to centroids
-    centroids <- st_centroid(filtered_data())
-    coords <- centroids %>%
-      mutate(
-        lon = st_coordinates(geometry)[, 1],
-        lat = st_coordinates(geometry)[, 2]
-      )
-    
-    leaflet(coords) %>%
-      addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
-      addCircleMarkers(
-        lng = ~lon,
-        lat = ~lat,
-        radius = ~ladder_score * 3,
-        color = "black",
-        fillColor = ~colorNumeric("YlGnBu", domain = coords$ladder_score)(ladder_score),
-        fillOpacity = 0.6,
-        stroke = TRUE,
-        weight = 0.5,
-        popup = ~paste0(
-          "<b>Country:</b> ", name, "<br/>",
-          "<b>Happiness Score:</b> ", round(ladder_score, 2), "<br/>",
-          "<b>Economy:</b> ", round(economy_score, 2), "<br/>",
-          "<b>Life Expectancy:</b> ", round(lifeexpectancy_score, 2), "<br/>",
-          "<b>Freedom:</b> ", round(freedom_score, 2), "<br/>",
-          "<b>Region:</b> ", region
-        )
-      ) %>%
-      addLegend(
-        "bottomright",
-        pal = colorNumeric("YlGnBu", domain = coords$ladder_score),
-        values = ~ladder_score,
-        title = "Happiness Score",
-        opacity = 1
-      )
-  })
-  
-  # Auto-zoom on country select
-  observeEvent(input$selected_country, {
-    centroids <- st_centroid(filtered_data())
-    coords <- centroids %>%
-      mutate(
-        lon = st_coordinates(geometry)[, 1],
-        lat = st_coordinates(geometry)[, 2]
-      )
-    
-    selected_data <- coords %>%
-      filter(name == input$selected_country)
-    
-    leafletProxy("prop_map") %>%
-      setView(lng = selected_data$lon, lat = selected_data$lat, zoom = 5) %>%
-      clearPopups() %>%
-      addPopups(
-        lng = selected_data$lon,
-        lat = selected_data$lat,
-        popup = paste0(
-          "<b>Country:</b> ", selected_data$name, "<br/>",
-          "<b>Happiness Score:</b> ", round(selected_data$ladder_score, 2), "<br/>",
-          "<b>Economy:</b> ", round(selected_data$economy_score, 2), "<br/>",
-          "<b>Life Expectancy:</b> ", round(selected_data$lifeexpectancy_score, 2), "<br/>",
-          "<b>Freedom:</b> ", round(selected_data$freedom_score, 2), "<br/>",
-          "<b>Region:</b> ", selected_data$region
-        )
-      )
-  })
-}
-
-# Run the app
-shinyApp(ui, server)
-
-```
-
-```{r}
-# Load libraries
-library(shiny)
-library(tidyverse)
-library(sf)
-library(tmap)
-library(leaflet)
-library(rnaturalearth)
+library(shiny); library(tidyverse); library(sf); library(tmap); library(leaflet); library(rnaturalearth)
 
 # Load and prepare data
 happiness <- read_csv("data/world_happiness.csv") %>%
@@ -783,7 +636,7 @@ server <- function(input, output, session) {
   output$choropleth_map <- renderTmap({
     tmap_mode("view")
 
-    # Try zooming if country is selected
+    # Zooming to selected country
     selected_geom <- filtered_data() %>% filter(name == input$selected_country)
     bbox_zoom <- if (nrow(selected_geom) > 0) st_bbox(selected_geom) else st_bbox(filtered_data())
 
@@ -873,5 +726,4 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 
 ```
-
-
+:::
