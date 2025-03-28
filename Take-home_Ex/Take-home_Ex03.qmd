@@ -36,7 +36,7 @@ pacman::p_load(sf, tidyverse, tmap, dplyr,
                spatstat, spdep,
                lubridate, leaflet,
                plotly, DT, viridis,
-               ggplot2, sfdep, janitor, shiny, rnaturalearth)
+               ggplot2, sfdep, janitor, shiny, rnaturalearth, shinyWidgets)
 ```
 
 ### 2.2 Reading the dataset
@@ -981,7 +981,7 @@ shinyApp(ui, server)
 
 In the next tab of our *Cluster and Outlier Analysis* module, I will apply spatial autocorrelation techniques to the World Happiness dataset by generating a Moran Scatter Plot and a Local Indicators of Spatial Association (LISA) Cluster Map.
 
-The Moran Scatter Plot will quantify global spatial autocorrelation, indicating the overall degree of spatial clustering of happiness scores. The LISA Cluster Map will identify statistically significant local clusters—such as High-High (hot spots), Low-Low (cold spots), and spatial outliers (High-Low, Low-High)—allowing for granular analysis of localized spatial dependencies. T
+The Moran Scatter Plot will quantify global spatial autocorrelation, indicating the overall degree of spatial clustering of happiness scores. The LISA Cluster Map will identify **statistically significant local clusters—such as High-High (hot spots), Low-Low (cold spots), and spatial outliers (High-Low, Low-High)** —allowing for granular analysis of localized spatial dependencies.
 
 ### 12.1 Plotting the Moran Scatter Plot
 
@@ -993,7 +993,7 @@ In the example below, we use `moran.plot()` from the [**spdep**](https://cran.r-
 
 The plot is split into **four quadrants**, each representing a different spatial relationship:
 
--   **High-High (HH) - Top right quadrant:** countries with high
+-   **High-High (HH) - Top right quadrant:** countries with high happiness surrounded by similarly happy neighbors.
 
 -   **Low-Low (LL) -** **Bottom-left quadrant:** countries with low happiness surrounded by similarly unhappy neighbors.
 
@@ -1075,7 +1075,7 @@ The LISA Cluster Map provides a powerful visualization of localized spatial auto
 Each country is classified into one of five categories based on the direction and significance of the spatial relationship:
 
 | Category | Description | Statistically significant? | Interpretation |
-|-------------|-----------------------|--------------|-----------------------|
+|------------------|-------------------|------------------|-------------------|
 | HH | High with high neighbours | Yes | Cluster (hot spot) |
 | LL | Low with low neighbours | Yes | Cluster (cold spot) |
 | HL | High with low neighbours | Yes | Spatial outlier |
@@ -1142,7 +1142,7 @@ tm_shape(world_2024) +
     ),
     title = "LISA Cluster (2024)",
     style = "cat",
-    id = "admin",  # <<-- This makes popups/hover show country names
+    id = "admin",  
     popup.vars = c(
       "Country" = "admin",
       "Cluster Type" = "cluster_label",
@@ -1159,6 +1159,26 @@ tm_shape(world_2024) +
 
 ### 12.4 User interface design - Combining Moran Scattterplot with LISA map
 
+This module introduces a new spatial analysis feature that combines a Moran Scatterplot with a LISA Cluster Map. The Moran Scatterplot provides a global view of spatial autocorrelation, illustrating how each country's happiness score relates to the average score of its neighbors. In parallel, the LISA map highlights local spatial clusters—such as High-High, Low-Low, and spatial outliers — offering a geographically contextualized view of well-being.
+
+::: callout-note
+-   **Input:** A `selectedInput()` let users choose the year (2014-2024) to filter the happiness dataset.
+
+-   **Output:** A *coordinated view* using two spatial visualizations:
+
+    -   A **Moran Scatterplot** displaying global spatial autocorrelation by plotting each country's happiness score against the average of its neighbors, highlighting overall clustering trends.
+
+    -   A **LISA Cluster Map** rendered via `tmap`, showing local spatial clusters (e.g., HH, LL) and outliers (e.g., HL, LH)
+
+-   **UI Components Used:** `selectInput()` for year input, `sidebarPanel()` for layout, `plotOutput()` and `tmapOutput()` for visualizations, `fluidRow()` and `column()` for alignment,
+:::
+
+::: panel-tabset
+## UI()
+
+![](/images/Pic22.jpg)
+
+## Code()
 
 ```{r}
 # Load libraries
@@ -1180,18 +1200,21 @@ ui <- navbarPage("World Happiness Explorer",
 
       sidebarLayout(
         sidebarPanel(
-          selectInput("selected_year", "Select Year:",
-                      choices = sort(unique(happiness$year)),
-                      selected = 2024),
-          hr(),
-          h4("Chart Interpretation"),
-          helpText("The Moran scatterplot shows how each country's happiness score correlates with its neighbors'."),
-          helpText("The LISA Cluster map highlights statistically significant spatial clusters:",
-                   "\n- High-High: Happy countries near other happy countries",
-                   "\n- Low-Low: Unhappy countries near unhappy neighbors",
-                   "\n- High-Low / Low-High: Potential outliers",
-                   "\n- Insignificant: No strong spatial pattern")
-        ),
+  selectInput("selected_year", "Select Year:",
+              choices = sort(unique(happiness$year)),
+              selected = 2024),
+  hr(),
+  h4("Chart Interpretation"),
+  HTML(
+    "The Moran scatterplot shows how each country's happiness score correlates with its neighbors'.<br><br>
+    The LISA Cluster map highlights statistically significant spatial clusters:<br>
+    - <b style='color:red;'>High-High</b>: Top right quadrant - Happy countries near other happy countries<br>
+    - <b style='color:blue;'>Low-Low</b>: Bottom left quadrant - Unhappy countries near unhappy neighbors<br>
+    - <b style='color:#78c679;'>Low-High</b>: Top left quadrant - Potential outliers<br>
+    - <b style='color:#c2e699;'>High-Low</b>: Bottom right quandrant - Potential outliers<br>
+    - <b style='color:#ffffcc;'>Insignificant</b>: No strong spatial pattern"
+  )
+),
 
         mainPanel(
           fluidRow(
@@ -1283,8 +1306,244 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
+```
+:::
 
+## 13. Aspatial analysis
 
+### 13.1 Aspatial analysis - Region ridgeplot
+
+This module presents an aspatial analysis using a ridge plot to explore the distribution of happiness scores across different world regions. By removing the spatial dimension, this visualization emphasizes the overall spread and concentration of scores within each region. The density ridges highlight patterns such as regional skewness, central tendencies, and outliers—enabling direct comparison between continents like Europe, Asia, and Africa.
+
+```{r}
+library(ggplot2); library(ggridges)
+
+ggplot(happiness, aes(x = ladder_score, y = region, fill = region)) +
+  geom_density_ridges(alpha = 0.7, scale = 1.2) +
+  theme_minimal() +
+  labs(title = "Distribution of Happiness Scores by Region (2024)",
+       x = "Happiness Score (Ladder Score)",
+       y = "Region")
 ```
 
+### 13.2 Aspatial analysis - Countries level score summary table
 
+This section presents an aspatial summary of happiness scores at the country level from 2014 to 2024. By computing the minimum, maximum, and average ladder scores for each country across the 11-year period, this table provides a historical perspective of well-being. The most recent score from 2024 is displayed alongside a bullet chart, which visually compares the 2024 score to the country’s average—highlighting whether a country’s current happiness level is above or below its long-term trend.
+
+::: callout-note
+**Summary table column names representation:**
+
+-   **Min Score** (2014–24): The lowest happiness score recorded for the country during the period.
+-   **Max Score** (2014–24): The highest recorded score in the same period.
+-   **Avg Score** (2014–24): The mean score across all available years.
+-   **2024 Score** The most recent score for the selected year.
+-   **2024 vs Avg**: A bullet chart that shows how the 2024 score compares with the country’s historical average (black line = average, blue bar = actual score).
+:::
+
+```{r, fig.width=10, fig.height=25}
+library(tidyverse); library(gt); library(gtExtras)
+
+# Step 1: Compute summary stats per country
+summary_df <- happiness %>%
+  group_by(country) %>%
+  summarise(
+    MIN = min(ladder_score, na.rm = TRUE),
+    MAX = max(ladder_score, na.rm = TRUE),
+    AVERAGE = mean(ladder_score, na.rm = TRUE)
+  )
+
+# Step 2: Get latest year ladder_score
+latest_scores <- happiness %>%
+  filter(year == max(year)) %>%
+  select(country, ACTUAL = ladder_score)
+
+# Step 3: Combine both
+combined_df <- summary_df %>%
+  left_join(latest_scores, by = "country") %>%
+  arrange(country) %>%
+  mutate(bullet_chart = ACTUAL) %>%
+  select(country, MIN, MAX, AVERAGE, ACTUAL, bullet_chart)
+
+
+# Step 4: Generate the final table
+combined_df %>%
+  gt() %>%
+  cols_label(
+    country = "COUNTRY",
+    MIN = "Min Score\n(2014–24)",
+    MAX = "Max Score\n(2014–24)",
+    AVERAGE = "Avg Score\n(2014–24)",
+    ACTUAL = "2024\nScore",
+    bullet_chart = "2024 vs Avg"
+  ) %>%
+  gt_plt_bullet(column = bullet_chart, target = AVERAGE, palette = c("lightblue", "black")) %>%
+  tab_header(title = "Happiness Score Dashboard: 2014–2024")
+```
+
+### 13.3 User interface design - Coordinated aspatial visualizations - Combining Choropleth Map, Region Ridge Plots and Country-level Score Summary Table
+
+This module introduces an integrated user interface for exploring happiness data through aspatial visualizations. It enables users to examine both regional and country-level patterns in happiness scores using ridge plots and summary tables.
+
+::: callout-note
+-   **Input:** A `selectedInput()` for year selection (2014-2024) and `pickerInput()` for choosing one or more regions.
+
+-   **Output:** Three *coordinated aspatial view* including:
+
+    -   **Region Ridge Plot:** Shows score distributions across continents.
+
+    -   **Country Ridge Plot:** Compares national-level score distributions.
+
+    -   **Summary Table:** Displays each country’s min, max, average, and 2024 score with a bullet chart comparing 2024 to historical average.
+
+-   **UI Components Used:**
+
+    -   `selectInput()` for year selection, and `pickerInput()` for region filtering,`sidebarPanel()` for input controls and `mainPanel()` for visual outputs,`tmapOutput()`, `plotOutput()`, and `gt_output()` to render the visualizations,`fluidRow()` and `column()` ensure a responsive, side-by-side layout for clear comparison and user interaction.
+:::
+
+::: panel-tabset
+## UI (1)
+
+![](/images/Pic23.jpg) 
+
+## UI (2)
+
+![](/images/Pic24.jpg)
+
+## Code()
+
+```{r}
+library(shiny); library(tmap); library(tmaptools); library(sf); library(dplyr); library(ggplot2); library(ggridges); library(gt); library(gtExtras); library(shinyWidgets)
+
+# Load data
+happiness <- read.csv("data/world_happiness.csv")
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+ui <- fluidPage(
+  titlePanel("🌍 World Happiness Explorer"),
+  sidebarLayout(
+    sidebarPanel(
+      width = 3,
+      selectInput("year", "Select Year:", choices = sort(unique(happiness$year)), selected = 2024),
+      pickerInput(
+        inputId = "region",
+        label = "Search and Select Region(s):",
+        choices = unique(happiness$region),
+        selected = unique(happiness$region),
+        options = list(`actions-box` = TRUE, `live-search` = TRUE),
+        multiple = TRUE
+      )
+    ),
+
+    mainPanel(
+      width = 9,
+      fluidRow(
+        column(6, tmapOutput("map", height = "400px")),
+        column(6, plotOutput("regionPlot", height = "400px"))
+      ),
+      fluidRow(
+        column(12,
+               div(style = "overflow-x: auto;",
+                   plotOutput("countryPlot", height = "1000px", width = "1500px", inline = TRUE)
+               )
+        )
+      ),
+      fluidRow(
+        column(12,
+               gt_output("summaryTable")
+        )
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+
+  filtered_data <- reactiveVal()
+
+  observeEvent({input$year; input$region}, {
+    new_data <- happiness %>%
+      filter(year == input$year, region %in% input$region)
+    filtered_data(new_data)
+  }, ignoreInit = TRUE)
+
+  output$map <- renderTmap({
+    tmap_mode("view")
+    happiness_latest <- filtered_data()
+    world_happy_latest <- left_join(world, happiness_latest, by = c("name" = "country")) %>%
+      filter(!is.na(ladder_score))
+
+    tm_shape(world_happy_latest) +
+      tm_polygons(
+        col = "ladder_score",
+        palette = "YlGnBu",
+        id = "name",
+        title = paste("Happiness Score (", input$year, ")", sep = "")
+      )
+  })
+
+  output$regionPlot <- renderPlot({
+    df <- filtered_data()
+    req(nrow(df) > 0)
+    ggplot(df, aes(x = ladder_score, y = region, fill = region)) +
+      geom_density_ridges(alpha = 0.7, scale = 1.2) +
+      theme_minimal() +
+      labs(title = paste("Distribution by Region (", input$year, ")", sep = ""),
+           x = "Happiness Score (Ladder Score)",
+           y = "Region")
+  })
+
+  output$countryPlot <- renderPlot({
+    df <- filtered_data()
+    req(nrow(df) > 0)
+    df$country <- factor(df$country, levels = sort(unique(df$country)))
+
+    ggplot(df, aes(x = ladder_score, y = country, fill = country)) +
+      geom_density_ridges(alpha = 0.7, scale = 1.2, stat = "binline", bins = 30) +
+      theme_minimal(base_size = 14) +
+      labs(title = paste("Distribution of Happiness Scores by Country (", input$year, ")", sep = ""),
+           x = "Happiness Score (Ladder Score)",
+           y = "Country") +
+      theme(legend.position = "none",
+            plot.margin = unit(c(10, 20, 10, 20), "pt"),
+            plot.title = element_text(size = 16, face = "bold"))
+  })
+
+  output$summaryTable <- render_gt({
+    df <- happiness %>% filter(region %in% input$region)
+
+    summary_df <- df %>%
+      group_by(country) %>%
+      summarise(
+        MIN = min(ladder_score, na.rm = TRUE),
+        MAX = max(ladder_score, na.rm = TRUE),
+        AVERAGE = mean(ladder_score, na.rm = TRUE)
+      )
+
+    latest_scores <- df %>%
+      filter(year == max(year)) %>%
+      select(country, ACTUAL = ladder_score)
+
+    combined_df <- summary_df %>%
+      left_join(latest_scores, by = "country") %>%
+      arrange(country) %>%
+      mutate(bullet_chart = ACTUAL) %>%
+      select(country, MIN, MAX, AVERAGE, ACTUAL, bullet_chart)
+
+    combined_df %>%
+      gt() %>%
+      cols_label(
+        country = "COUNTRY",
+        MIN = "Min Score\n(2014–24)",
+        MAX = "Max Score\n(2014–24)",
+        AVERAGE = "Avg Score\n(2014–24)",
+        ACTUAL = "2024\nScore",
+        bullet_chart = "2024 vs Avg"
+      ) %>%
+      gt_plt_bullet(column = bullet_chart, target = AVERAGE, palette = c("lightblue", "black")) %>%
+      tab_header(title = "Happiness Score Dashboard: 2014–2024")
+  })
+}
+
+shinyApp(ui, server)
+```
+:::
