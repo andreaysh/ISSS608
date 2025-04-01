@@ -76,6 +76,8 @@ website:
         href: https://public.tableau.com/views/In-class_Ex08_17420192485190/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
       - text: "In-class Exercise 08b Tableau"
         href: https://public.tableau.com/views/In-class_Ex08b/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+      - text: "In-class Exercise 10 Tableau"
+        href: https://public.tableau.com/views/In-class_Ex10_17432292482950/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
 
     - text: "Take-home Exercise"
       menu:
